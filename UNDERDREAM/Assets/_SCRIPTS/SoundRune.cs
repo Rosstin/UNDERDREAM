@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SoundRune : MonoBehaviour {
 
-    [SerializeField] private Sprite runeSprite;
+    [SerializeField] public Sprite RuneSprite;
     //[SerializeField] private Audio sound;
 
 	void Update () {
