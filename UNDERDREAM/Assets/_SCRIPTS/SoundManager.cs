@@ -16,20 +16,17 @@ public class SoundManager : MonoBehaviour {
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.PageDown))
+		if (Input.GetKeyDown(KeyCode.PageDown) || Input.GetKeyDown(KeyCode.RightArrow) )
         {
-            Debug.Log("inc");
             IncrementIndex();
-            Debug.Log("index " + index);
         }
-        else if (Input.GetKeyDown(KeyCode.PageUp))
+		else if (Input.GetKeyDown(KeyCode.PageUp) || Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            Debug.Log("dec");
             DecrementIndex();
-            Debug.Log("index " + index);
         }
-        else if (Input.GetKeyDown(KeyCode.B))
+		else if (Input.GetKeyDown(KeyCode.B) || Input.GetKeyDown(KeyCode.Space))
         {
+			PlayRune();
             Debug.Log("B");
         }
         else if (Input.GetKeyDown(KeyCode.F5) || Input.GetKeyDown(KeyCode.Escape))
@@ -59,5 +56,12 @@ public class SoundManager : MonoBehaviour {
 
         spriteRenderer.sprite = soundRunes[index].RuneSprite;
     }
+
+	private void PlayRune(){
+        int randomIndex = Random.Range(0, soundRunes[index].Sounds.Count - 1);
+
+        soundRunes[index].Sounds[randomIndex].Play();
+		//soundRunes[index].Sounds.Count
+	}
 
 }
