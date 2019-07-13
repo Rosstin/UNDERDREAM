@@ -6,6 +6,7 @@ public class SoundManager : MonoBehaviour {
 
     [SerializeField] private List<SoundRune> soundRunes;
     [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private SoundRune thunder;
 
     private int index = 0;
 
@@ -32,6 +33,7 @@ public class SoundManager : MonoBehaviour {
         else if (Input.GetKeyDown(KeyCode.F5) || Input.GetKeyDown(KeyCode.Escape))
         {
             Debug.Log("Escape or F5");
+            PlayThunder();
         }
     }
 
@@ -59,9 +61,17 @@ public class SoundManager : MonoBehaviour {
 
 	private void PlayRune(){
         int randomIndex = Random.Range(0, soundRunes[index].Sounds.Count - 1);
-
+        
         soundRunes[index].Sounds[randomIndex].Play();
 		//soundRunes[index].Sounds.Count
 	}
+
+    private void PlayThunder()
+    {
+        int randomIndex = Random.Range(0, thunder.Sounds.Count - 1);
+
+        thunder.Sounds[randomIndex].Play();
+
+    }
 
 }
