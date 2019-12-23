@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Lids : MonoBehaviour
 {
@@ -41,6 +42,11 @@ public class Lids : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Application.Quit();
+        }
+
+        if(closedness < 0f)
+        {
+            SceneManager.LoadScene("m02");
         }
 
         topLid.transform.position= 

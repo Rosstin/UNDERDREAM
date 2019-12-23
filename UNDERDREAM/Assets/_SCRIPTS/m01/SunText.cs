@@ -21,6 +21,7 @@ public class SunText : MonoBehaviour
     void Start()
     {
         startingPosition = this.gameObject.transform.localPosition;
+        textOut.text = sunShouts[currentShout];
     }
 
     // Update is called once per frame
