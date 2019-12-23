@@ -29,9 +29,18 @@ public class Lids : MonoBehaviour
             closedness = maxClosedness;
         }
 
-        if (Input.anyKeyDown)
+        if (Input.GetKeyDown(KeyCode.Space)
+            || Input.GetMouseButtonDown(0)
+            || Input.GetKeyDown(KeyCode.DownArrow)
+            || Input.GetKeyDown(KeyCode.UpArrow)
+            )
         {
             closedness -= 1f;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
         }
 
         topLid.transform.position= 
