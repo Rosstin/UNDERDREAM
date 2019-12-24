@@ -1009,7 +1009,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -1715,6 +1715,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8960e303bd8ec1643bb608a352c24978, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SpeedMetersPerSecond: 0
+  Container: {fileID: 0}
+  LeftScreenBound: {fileID: 0}
+  RightScreenBound: {fileID: 0}
+  LowerScreenBound: {fileID: 0}
   lidCurve:
     serializedVersion: 2
     m_Curve:

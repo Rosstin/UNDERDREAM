@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Lids : MonoBehaviour
+public class Lids : GameController
 {
     [SerializeField] private AnimationCurve lidCurve;
     [SerializeField] private Lid topLid;
@@ -23,6 +23,8 @@ public class Lids : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        base.Update();
+
         closedness += Time.deltaTime;
 
         if(closedness > maxClosedness)
@@ -39,14 +41,9 @@ public class Lids : MonoBehaviour
             closedness -= 1f;
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            Application.Quit();
-        }
-
         if(closedness < 0f)
         {
-            SceneManager.LoadScene("m02");
+            SceneManager.LoadScene("m03");
         }
 
         topLid.transform.position= 
