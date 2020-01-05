@@ -8,6 +8,16 @@ public class GameController : MonoBehaviour
     public float SpeedMetersPerSecond;
     public GameObject Container;
 
+    public enum MaoxunAnimStateM03
+    {
+        Idle,
+        Walk,
+        LookDown
+    }
+
+    public GameObject IdleAnimation;
+    public GameObject WalkAnimation;
+
     public Transform LeftScreenBound;
     public Transform RightScreenBound;
     public Transform LowerScreenBound;
@@ -20,9 +30,28 @@ public class GameController : MonoBehaviour
         Right
     }
 
+    private MaoxunAnimStateM03 currentState;
+
     private void Start()
     {
 
+    }
+
+    public void ActivateAnimation(MaoxunAnimStateM03 anim)
+    {
+        IdleAnimation.SetActive(false);
+        WalkAnimation.SetActive(false);
+        switch (anim)
+        {
+            case MaoxunAnimStateM03.Idle:
+                IdleAnimation.SetActive(true);
+                break;
+            case MaoxunAnimStateM03.Walk:
+                WalkAnimation.SetActive(true);
+                break;
+            case MaoxunAnimStateM03.LookDown:
+                break;
+        }
     }
 
     // Update is called once per frame
@@ -37,22 +66,32 @@ public class GameController : MonoBehaviour
         {
             UpdateMove(MoveDirection.Up);
         }
-
-        if (Input.GetKey(KeyCode.DownArrow))
+        else if (Input.GetKey(KeyCode.DownArrow))
         {
             UpdateMove(MoveDirection.Down);
         }
-
-        if (Input.GetKey(KeyCode.LeftArrow))
+        else if (Input.GetKey(KeyCode.LeftArrow))
         {
             UpdateMove(MoveDirection.Left);
         }
-
-        if (Input.GetKey(KeyCode.RightArrow))
+        else if (Input.GetKey(KeyCode.RightArrow))
         {
             UpdateMove(MoveDirection.Right);
         }
+        else
+        {
+            UpdateIdle();
+        }
 
+    }
+
+    private void UpdateIdle()
+    {
+        if(currentState != MaoxunAnimStateM03.Idle)
+        {
+            ActivateAnimation(MaoxunAnimStateM03.Idle);
+            currentState = MaoxunAnimStateM03.Idle;
+        }
     }
 
     private void UpdateMove(MoveDirection direction)
@@ -91,6 +130,12 @@ public class GameController : MonoBehaviour
 
     private void UpdateMoveLeftRight(MoveDirection direction)
     {
+        if(currentState != MaoxunAnimStateM03.Walk)
+        {
+            ActivateAnimation(MaoxunAnimStateM03.Walk);
+            currentState = MaoxunAnimStateM03.Walk;
+        }
+
         int sign = -1;
         if (direction == MoveDirection.Right)
         {
