@@ -7,6 +7,8 @@ public class SunText : MonoBehaviour
     [SerializeField] private List<string> sunShouts;
     [SerializeField] private float shoutDuration;
     [SerializeField] private TMPro.TextMeshPro textOut;
+    [SerializeField] private GameObject textLine;
+
 
     public Vector3 Jitter;
     public float JitterPeriod;
@@ -51,6 +53,8 @@ public class SunText : MonoBehaviour
             }
 
             textOut.text = sunShouts[currentShout];
+
+            textLine.SetActive(textOut.text != "");
         }
     }
 }

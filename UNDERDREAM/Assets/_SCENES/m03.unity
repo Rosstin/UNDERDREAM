@@ -120,6 +120,105 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &53553356
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 53553359}
+  - component: {fileID: 53553358}
+  - component: {fileID: 53553357}
+  m_Layer: 0
+  m_Name: hungerbar_0013_Frame-3
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!95 &53553357
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 53553356}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6cd2e99343fcfdb4a875bf5e5850ecbf, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!212 &53553358
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 53553356}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: 7ffeaed050eb59343be71f3341f7e343, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 8, y: 2.79}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
+--- !u!4 &53553359
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 53553356}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.88, y: 2.08, z: 0}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &92951936
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -711,6 +810,12 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!1 &535593151 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3473917091250943581, guid: 1871af833db6f73459b1efc983f81a76,
+    type: 3}
+  m_PrefabInstance: {fileID: 1412164084}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &596281978
 GameObject:
   m_ObjectHideFlags: 0
@@ -735,7 +840,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 596281978}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -7.28, y: 2.9, z: 0.5}
+  m_LocalPosition: {x: -7.28, y: 2, z: 0.5}
   m_LocalScale: {x: 4, y: 4, z: 4}
   m_Children:
   - {fileID: 423293041}
@@ -1156,7 +1261,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 809926442}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4, y: 0, z: 0}
+  m_LocalPosition: {x: 3, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 10, z: 50}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2108,7 +2213,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1218449206}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4, y: 0, z: 0}
+  m_LocalPosition: {x: -3, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 10, z: 50}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2284,7 +2389,7 @@ PrefabInstance:
     - target: {fileID: 3473917090214250920, guid: 1871af833db6f73459b1efc983f81a76,
         type: 3}
       propertyPath: sunShouts.Array.size
-      value: 10
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 3473917090214250920, guid: 1871af833db6f73459b1efc983f81a76,
         type: 3}
@@ -2294,22 +2399,22 @@ PrefabInstance:
     - target: {fileID: 3473917090214250920, guid: 1871af833db6f73459b1efc983f81a76,
         type: 3}
       propertyPath: sunShouts.Array.data[2]
-      value: sigh
-      objectReference: {fileID: 0}
-    - target: {fileID: 3473917090214250920, guid: 1871af833db6f73459b1efc983f81a76,
-        type: 3}
-      propertyPath: sunShouts.Array.data[3]
-      value: rough day?
-      objectReference: {fileID: 0}
-    - target: {fileID: 3473917090214250920, guid: 1871af833db6f73459b1efc983f81a76,
-        type: 3}
-      propertyPath: sunShouts.Array.data[4]
       value: use the arrows
       objectReference: {fileID: 0}
     - target: {fileID: 3473917090214250920, guid: 1871af833db6f73459b1efc983f81a76,
         type: 3}
-      propertyPath: sunShouts.Array.data[5]
+      propertyPath: sunShouts.Array.data[3]
       value: they move you
+      objectReference: {fileID: 0}
+    - target: {fileID: 3473917090214250920, guid: 1871af833db6f73459b1efc983f81a76,
+        type: 3}
+      propertyPath: sunShouts.Array.data[4]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3473917090214250920, guid: 1871af833db6f73459b1efc983f81a76,
+        type: 3}
+      propertyPath: sunShouts.Array.data[5]
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 3473917090214250920, guid: 1871af833db6f73459b1efc983f81a76,
         type: 3}
@@ -2319,17 +2424,17 @@ PrefabInstance:
     - target: {fileID: 3473917090214250920, guid: 1871af833db6f73459b1efc983f81a76,
         type: 3}
       propertyPath: sunShouts.Array.data[6]
-      value: cough
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 3473917090214250920, guid: 1871af833db6f73459b1efc983f81a76,
         type: 3}
       propertyPath: sunShouts.Array.data[7]
-      value: sorry it's so hot
+      value: sigh
       objectReference: {fileID: 0}
     - target: {fileID: 3473917090214250920, guid: 1871af833db6f73459b1efc983f81a76,
         type: 3}
       propertyPath: sunShouts.Array.data[8]
-      value: im gassy today
+      value: sigh
       objectReference: {fileID: 0}
     - target: {fileID: 3473917090214250920, guid: 1871af833db6f73459b1efc983f81a76,
         type: 3}
@@ -2344,8 +2449,13 @@ PrefabInstance:
     - target: {fileID: 3473917090214250920, guid: 1871af833db6f73459b1efc983f81a76,
         type: 3}
       propertyPath: shoutDuration
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 3473917090214250920, guid: 1871af833db6f73459b1efc983f81a76,
+        type: 3}
+      propertyPath: textLine
+      value: 
+      objectReference: {fileID: 535593151}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1871af833db6f73459b1efc983f81a76, type: 3}
 --- !u!1 &1506213629
@@ -2926,7 +3036,17 @@ PrefabInstance:
     - target: {fileID: 8737703626385368907, guid: f6b54742aab25d647b78303e197238e9,
         type: 3}
       propertyPath: hangryDuration
-      value: 3
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8737703626385368907, guid: f6b54742aab25d647b78303e197238e9,
+        type: 3}
+      propertyPath: hungerBarAnimation
+      value: 
+      objectReference: {fileID: 53553356}
+    - target: {fileID: 8737703626385368907, guid: f6b54742aab25d647b78303e197238e9,
+        type: 3}
+      propertyPath: hungerBarAppearAfterXSeconds
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9135633604051342309, guid: f6b54742aab25d647b78303e197238e9,
         type: 3}

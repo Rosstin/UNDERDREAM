@@ -10,7 +10,8 @@ public class GameController : MonoBehaviour
     [SerializeField] [Range(0f, 1f)] private float StartingHunger;
     [SerializeField] [Range(0.001f, 0.009f)] private float HungerLossPerSecond;
     [SerializeField] [Range(0.05f, 0.5f)] private float HangerThreshhold;
-    [SerializeField] [Range(1f, 5f)] private float hangryDuration;
+    [SerializeField] [Range(0f, 9f)] private float hangryDuration;
+    [SerializeField] [Range(0f, 2f)] private float hungerBarAppearAfterXSeconds;
 
     [Header("Movement")]
     [SerializeField] [Range(0.0001f, 0.0009f)] private float speedMetersPerSecond;
@@ -20,10 +21,13 @@ public class GameController : MonoBehaviour
     [Header("Outlets: Container")]
     [SerializeField] private GameObject Container;
 
-    [Header("Outlets: Animations")]
+    [Header("Outlets: Maoxun Animations")]
     [SerializeField] private GameObject IdleAnimation;
     [SerializeField] private GameObject WalkAnimation;
     [SerializeField] private GameObject LookDownAnimation;
+
+    [Header("Outlets: Other Animations")]
+    [SerializeField] private GameObject hungerBarAnimation;
 
     [Header("Outlets: Bounds")]
     [SerializeField] private Transform Feet;
@@ -157,9 +161,14 @@ public class GameController : MonoBehaviour
     {
         hangryTime += Time.deltaTime;
 
-        if(hangryTime > hangryDuration)
+        if(hangryTime > hungerBarAppearAfterXSeconds)
         {
-            Debug.LogWarning("go to next scene!");
+            hungerBarAnimation.SetActive(true);
+        }
+
+        if (hangryTime > hangryDuration)
+        {
+            SceneManager.LoadScene("m04");
         }
     }
 

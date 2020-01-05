@@ -1330,12 +1330,13 @@ MonoBehaviour:
   - What, you gonna sleep forever?
   - '...'
   - You're asking for a pretty big sunburn.
-  - Hit any key to open your eyes.
+  - Hit space to open your eyes.
   - '...'
   - Put some energy into it.
   - Tap quickly.
   shoutDuration: 5
   textOut: {fileID: 982563693}
+  textLine: {fileID: 997285205}
   Jitter: {x: 0.04, y: 0.04, z: 0.04}
   JitterPeriod: 0.1
 --- !u!1 &997285205
@@ -1677,7 +1678,7 @@ GameObject:
   - component: {fileID: 1161787203}
   - component: {fileID: 1161787204}
   m_Layer: 0
-  m_Name: maoxun-lid-god
+  m_Name: LIDGOD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1715,11 +1716,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8960e303bd8ec1643bb608a352c24978, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpeedMetersPerSecond: 0
-  Container: {fileID: 0}
-  LeftScreenBound: {fileID: 0}
-  RightScreenBound: {fileID: 0}
-  LowerScreenBound: {fileID: 0}
   lidCurve:
     serializedVersion: 2
     m_Curve:
@@ -1749,6 +1745,7 @@ MonoBehaviour:
   sky: {fileID: 1707524038}
   maxClosedness: 30
   startingClosedness: 30
+  eyeOpeningPowerPerKeystroke: 2
 --- !u!4 &1217803092 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1486671113333441994, guid: 83b996a959433f143ab0ff4991b7e7c2,

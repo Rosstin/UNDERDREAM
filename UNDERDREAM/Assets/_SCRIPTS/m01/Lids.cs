@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Lids : GameController
+public class Lids : MonoBehaviour
 {
     [SerializeField] private AnimationCurve lidCurve;
     [SerializeField] private Lid topLid;
@@ -12,6 +12,8 @@ public class Lids : GameController
 
     [SerializeField] private float maxClosedness;
     [SerializeField] private float startingClosedness;
+
+    [SerializeField] [Range(0f, 3f)] private float eyeOpeningPowerPerKeystroke;
 
     private float closedness;
 
@@ -23,8 +25,6 @@ public class Lids : GameController
     // Update is called once per frame
     void Update()
     {
-        base.Update();
-
         closedness += Time.deltaTime;
 
         if(closedness > maxClosedness)
@@ -33,12 +33,11 @@ public class Lids : GameController
         }
 
         if (Input.GetKeyDown(KeyCode.Space)
-            || Input.GetMouseButtonDown(0)
             || Input.GetKeyDown(KeyCode.DownArrow)
             || Input.GetKeyDown(KeyCode.UpArrow)
             )
         {
-            closedness -= 1f;
+            closedness -= eyeOpeningPowerPerKeystroke;
         }
 
         if(closedness < 0f)
