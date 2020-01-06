@@ -1743,9 +1743,11 @@ MonoBehaviour:
   topLid: {fileID: 2034855811}
   botLid: {fileID: 345880713}
   sky: {fileID: 1707524038}
+  nextScene: m03
   maxClosedness: 30
   startingClosedness: 30
   eyeOpeningPowerPerKeystroke: 2
+  closingPower: 1
 --- !u!4 &1217803092 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1486671113333441994, guid: 83b996a959433f143ab0ff4991b7e7c2,

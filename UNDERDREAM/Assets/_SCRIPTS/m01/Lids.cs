@@ -10,10 +10,13 @@ public class Lids : MonoBehaviour
     [SerializeField] private Lid botLid;
     [SerializeField] private GameObject sky;
 
+    [SerializeField] private string nextScene;
+
     [SerializeField] private float maxClosedness;
     [SerializeField] private float startingClosedness;
 
     [SerializeField] [Range(0f, 3f)] private float eyeOpeningPowerPerKeystroke;
+    [SerializeField] [Range(0f, 3f)] private float closingPower;
 
     private float closedness;
 
@@ -25,7 +28,7 @@ public class Lids : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        closedness += Time.deltaTime;
+        closedness += Time.deltaTime * closingPower;
 
         if(closedness > maxClosedness)
         {
@@ -42,7 +45,7 @@ public class Lids : MonoBehaviour
 
         if(closedness < 0f)
         {
-            SceneManager.LoadScene("m03");
+            SceneManager.LoadScene(nextScene);
         }
 
         topLid.transform.position= 
