@@ -14,7 +14,7 @@
         private const string EDITOR_PREF_CODE_ORIGINAL_SCENE = "OriginalScene";
         private const string EDITOR_PREF_CODE_STOPPING_WITH_HOTKEY = "StoppingWithHotkey";
         private const string PLAY_FROM_FIRST_SCENE_MENU_ITEM = "Play From First Scene %F12";
-        private static string initPath = "Assets/_SCENES/m01.unity";
+        private static string initPath = "Assets/_SCENES/m00.unity";
         private static readonly string PLAY_MENU_OPTION = "Edit/Play";
 
         [MenuItem("Edit/Play From First Scene %F12", false, 100)]

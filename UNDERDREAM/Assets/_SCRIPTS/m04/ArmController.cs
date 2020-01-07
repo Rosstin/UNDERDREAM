@@ -1,19 +1,33 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ArmController : MonoBehaviour
 {
+    [Header("Arm")]
     [SerializeField] [Range(0f, 1f)] private float armSpeed;
     [SerializeField] private float maxHeight;
 
+    [Header("Arm Outlets")]
     [SerializeField] private GameObject arm;
     [SerializeField] private GameObject clenchedArm;
 
+    [Header("Jitter")]
     [SerializeField] private float jitterPeriod;
     [SerializeField] private Vector3 jitter;
+    [SerializeField] [Range(1, 10)] private int jitterIntensityIncreaseAfterClench;
 
-    private float jitterElapsed = 0;
+    [Header("SFX")]
+    [SerializeField] private AudioSource clickSound;
+
+    [Header("Clench")]
+    [SerializeField] [Range(1f, 15f)] private float clenchDuration;
+
+    private float clenchedElapsed = 0f;
+    private float jitterElapsed = 0f;
+    private bool clenched = false;
+
 
     // Update is called once per frame
     void Update()
@@ -28,6 +42,29 @@ public class ArmController : MonoBehaviour
                     Random.Range(-jitter.y, jitter.y),
                     Random.Range(-jitter.z, jitter.z));
         }
+
+        if (!clenched)
+        {
+            UpdatePreClench();
+        }
+        else
+        {
+            UpdatePostClench();
+        }
+
+    }
+    void UpdatePostClench()
+    {
+        clenchedElapsed += Time.deltaTime;
+
+        if(clenchedElapsed > clenchDuration)
+        {
+            SceneManager.LoadScene("m05");
+        }
+    }
+
+    void UpdatePreClench()
+    {
 
         if (Input.GetKey(KeyCode.UpArrow))
         {
@@ -69,8 +106,10 @@ public class ArmController : MonoBehaviour
                     );
         }
 
-        if(arm.transform.position.y > maxHeight)
+        if (arm.transform.position.y > maxHeight)
         {
+            clickSound.Play();
+
             arm.SetActive(false);
             clenchedArm.SetActive(true);
 
@@ -79,7 +118,14 @@ public class ArmController : MonoBehaviour
                 maxHeight,
                 arm.transform.position.z
                 );
-        } 
 
+            clenched = true;
+
+            jitter *= jitterIntensityIncreaseAfterClench;
+            jitterPeriod /= jitterIntensityIncreaseAfterClench;
+        }
     }
+
+
+
 }
