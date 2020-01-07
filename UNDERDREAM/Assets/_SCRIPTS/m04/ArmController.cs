@@ -8,6 +8,7 @@ public class ArmController : MonoBehaviour
     [SerializeField] private float maxHeight;
 
     [SerializeField] private GameObject arm;
+    [SerializeField] private GameObject clenchedArm;
 
     [SerializeField] private float jitterPeriod;
     [SerializeField] private Vector3 jitter;
@@ -70,7 +71,10 @@ public class ArmController : MonoBehaviour
 
         if(arm.transform.position.y > maxHeight)
         {
-            arm.transform.position = new Vector3(
+            arm.SetActive(false);
+            clenchedArm.SetActive(true);
+
+            clenchedArm.transform.position = new Vector3(
                 arm.transform.position.x,
                 maxHeight,
                 arm.transform.position.z

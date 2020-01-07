@@ -2037,6 +2037,7 @@ MonoBehaviour:
   armSpeed: 0.5
   maxHeight: -2
   arm: {fileID: 359914302}
+  clenchedArm: {fileID: 2017490294}
   jitterPeriod: 0.2
   jitter: {x: 0.01, y: 0.01, z: 0}
 --- !u!1 &644898313
