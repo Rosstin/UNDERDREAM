@@ -14,8 +14,8 @@ TagManager:
   - 
   - 
   - PostProcessing
-  - 
-  - 
+  - Maoxun
+  - Grounds
   - 
   - 
   - 
@@ -40,6 +40,15 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: DistantBG
+    uniqueID: 3552879709
+    locked: 0
+  - name: BG
+    uniqueID: 3316468167
+    locked: 0
+  - name: NearBG
+    uniqueID: 2506738249
     locked: 0
   - name: Maoxun-Scarf
     uniqueID: 4127634303

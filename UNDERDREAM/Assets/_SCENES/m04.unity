@@ -2044,6 +2044,7 @@ MonoBehaviour:
   jitterIntensityIncreaseAfterClench: 3
   clickSound: {fileID: 1247375308}
   clenchDuration: 5
+  nextScene: m06
 --- !u!1 &644898313
 GameObject:
   m_ObjectHideFlags: 0
@@ -3738,7 +3739,7 @@ MonoBehaviour:
   topLid: {fileID: 1067125645}
   botLid: {fileID: 115591618}
   sky: {fileID: 1504693285}
-  nextScene: m05
+  nextScene: m06
   maxClosedness: 30
   startingClosedness: 5
   eyeOpeningPowerPerKeystroke: 0

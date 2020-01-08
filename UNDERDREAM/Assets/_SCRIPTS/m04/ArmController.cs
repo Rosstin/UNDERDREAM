@@ -6,23 +6,34 @@ using UnityEngine.SceneManagement;
 public class ArmController : MonoBehaviour
 {
     [Header("Arm")]
-    [SerializeField] [Range(0f, 1f)] private float armSpeed;
+    [SerializeField]
+    [Range(0f, 1f)]
+    private float armSpeed;
     [SerializeField] private float maxHeight;
 
     [Header("Arm Outlets")]
-    [SerializeField] private GameObject arm;
+    [SerializeField]
+    private GameObject arm;
     [SerializeField] private GameObject clenchedArm;
 
     [Header("Jitter")]
-    [SerializeField] private float jitterPeriod;
+    [SerializeField]
+    private float jitterPeriod;
     [SerializeField] private Vector3 jitter;
     [SerializeField] [Range(1, 10)] private int jitterIntensityIncreaseAfterClench;
 
     [Header("SFX")]
-    [SerializeField] private AudioSource clickSound;
+    [SerializeField]
+    private AudioSource clickSound;
 
     [Header("Clench")]
-    [SerializeField] [Range(1f, 15f)] private float clenchDuration;
+    [SerializeField]
+    [Range(1f, 15f)]
+    private float clenchDuration;
+
+    [Header("Next Scene")]
+    [SerializeField]
+    private string nextScene;
 
     private float clenchedElapsed = 0f;
     private float jitterElapsed = 0f;
@@ -57,9 +68,9 @@ public class ArmController : MonoBehaviour
     {
         clenchedElapsed += Time.deltaTime;
 
-        if(clenchedElapsed > clenchDuration)
+        if (clenchedElapsed > clenchDuration)
         {
-            SceneManager.LoadScene("m05");
+            SceneManager.LoadScene(nextScene);
         }
     }
 
