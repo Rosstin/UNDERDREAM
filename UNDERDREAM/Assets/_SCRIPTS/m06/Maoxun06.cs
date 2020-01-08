@@ -5,6 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class Maoxun06 : MonoBehaviour
 {
+    [Header("Goal")]
+    [SerializeField]
+    private float lemonDistance;
+    [SerializeField] private string nextScene;
+    [SerializeField] private AudioSource snatchSFX;
+
     [Header("Movement")]
     [SerializeField] [Range(0.0001f, 0.0009f)] private float speedMetersPerSecond;
     [SerializeField] private float jumpForceUp;
@@ -20,6 +26,7 @@ public class Maoxun06 : MonoBehaviour
     [Header("Outlets: Bounds")]
     [SerializeField] private Transform Feet;
     [SerializeField] private Collider[] Ground;
+    [SerializeField] private Collider Target;
 
     [Header("Outlets: Components")]
     [SerializeField] private Rigidbody myRigidbody;
@@ -66,8 +73,21 @@ public class Maoxun06 : MonoBehaviour
 
     public void Update()
     {
+        float distanceToTarget = Vector3.Distance(this.transform.position, Target.transform.position);
+
+        if(distanceToTarget < 1f)
+        {
+            Debug.Log("dist: " + distanceToTarget);
+        }
+
+        if (distanceToTarget < lemonDistance)
+        {
+            snatchSFX.Play();
+            SceneManager.LoadScene(nextScene);
+        }
+
         // pass thru platforms when jumping 
-        if(myRigidbody.velocity.y > 0)
+        if (myRigidbody.velocity.y > 0)
         {
             myCollider.enabled = false;
         }
