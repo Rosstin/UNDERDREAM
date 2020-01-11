@@ -75,11 +75,6 @@ public class Maoxun06 : MonoBehaviour
     {
         float distanceToTarget = Vector3.Distance(this.transform.position, Target.transform.position);
 
-        if(distanceToTarget < 1f)
-        {
-            Debug.Log("dist: " + distanceToTarget);
-        }
-
         if (distanceToTarget < lemonDistance)
         {
             snatchSFX.Play();
