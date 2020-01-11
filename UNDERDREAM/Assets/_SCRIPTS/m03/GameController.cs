@@ -128,11 +128,6 @@ public class GameController : MonoBehaviour
             UpdateHangry();
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            Application.Quit();
-        }
-
     }
 
     private void UpdateHunger()
