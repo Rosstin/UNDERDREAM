@@ -4,11 +4,18 @@ using UnityEngine;
 
 public class BaseController : MonoBehaviour
 {
-    public void Update()
+    public AudioSource Eee;
+
+    public void BaseUpdate()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Application.Quit();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Eee.Play();
         }
     }
 }

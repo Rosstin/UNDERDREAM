@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Lids : MonoBehaviour
+public class Lids : BaseController
 {
     [SerializeField] private AnimationCurve lidCurve;
     [SerializeField] private Lid topLid;
@@ -28,6 +28,8 @@ public class Lids : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        BaseUpdate();
+
         closedness += Time.deltaTime * closingPower;
 
         if(closedness > maxClosedness)

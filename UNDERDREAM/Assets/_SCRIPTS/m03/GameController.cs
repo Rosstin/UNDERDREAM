@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameController : MonoBehaviour
+public class GameController : BaseController
 {
     [Header("Hunger")]
     [SerializeField] [Range(0f, 1f)] private float MaxHunger;
@@ -93,6 +93,8 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     public void Update()
     {
+        BaseUpdate();
+
         UpdateGravity();
 
         UpdateHunger();

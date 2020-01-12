@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Maoxun06 : MonoBehaviour
+public class Maoxun06 : BaseController
 {
     [Header("Goal")]
     [SerializeField]
@@ -73,6 +73,8 @@ public class Maoxun06 : MonoBehaviour
 
     public void Update()
     {
+        BaseUpdate();
+
         float distanceToTarget = Vector3.Distance(this.transform.position, Target.transform.position);
 
         if (distanceToTarget < lemonDistance)

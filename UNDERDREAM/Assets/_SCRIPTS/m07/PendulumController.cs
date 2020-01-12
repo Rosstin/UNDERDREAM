@@ -27,9 +27,9 @@ public class PendulumController : BaseController
         maxAngle = StartingMaxAngle;
     }
 
-    new public void Update()
+    public void Update()
     {
-
+        BaseUpdate();
         if (sign == 1)
         {
             if (currentTime < Period)
