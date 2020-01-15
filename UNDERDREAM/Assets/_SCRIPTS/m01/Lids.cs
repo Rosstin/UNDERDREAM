@@ -10,8 +10,6 @@ public class Lids : BaseController
     [SerializeField] private Lid botLid;
     [SerializeField] private GameObject sky;
 
-    [SerializeField] private string nextScene;
-
     [SerializeField] private float maxClosedness;
     [SerializeField] private float startingClosedness;
 
@@ -47,7 +45,7 @@ public class Lids : BaseController
 
         if(closedness < 0f)
         {
-            SceneManager.LoadScene(nextScene);
+            LoadNextScene();
         }
 
         topLid.transform.position= 

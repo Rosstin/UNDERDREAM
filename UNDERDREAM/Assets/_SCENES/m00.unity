@@ -1716,6 +1716,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8960e303bd8ec1643bb608a352c24978, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Data: {fileID: 5725647601169334616, guid: 386b4a63823d7dd46b1303124420a2e5, type: 3}
   Eee: {fileID: 2040880650}
   lidCurve:
     serializedVersion: 2
@@ -1744,7 +1745,6 @@ MonoBehaviour:
   topLid: {fileID: 2034855811}
   botLid: {fileID: 345880713}
   sky: {fileID: 1707524038}
-  nextScene: m03
   maxClosedness: 30
   startingClosedness: 30
   eyeOpeningPowerPerKeystroke: 2
