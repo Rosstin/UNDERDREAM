@@ -9,13 +9,9 @@ public class BaseController : MonoBehaviour
     public UniversalDataSO Data;
     public AudioSource Eee;
 
-    private int CurrentScene = 0;
-    private float timeSinceLoadedLastScene = 0;
-    private float loadingCooldown = 0.1f; // if a scene attempts loading multiple times, ignore it until at least this much time has passed
-
     public void BaseUpdate()
     {
-        timeSinceLoadedLastScene += Time.deltaTime;
+        Data.TimeSinceLoadedLastScene += Time.deltaTime;
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -30,19 +26,19 @@ public class BaseController : MonoBehaviour
 
     public void LoadNextScene()
     {
-        if(timeSinceLoadedLastScene > loadingCooldown)
+        if (Data.TimeSinceLoadedLastScene > Data.LoadingCooldown)
         {
-            if(CurrentScene< Data.Scenes.Count)
+            if(Data.CurrentScene< Data.Scenes.Count)
             {
-                CurrentScene++;
+                Data.CurrentScene++;
             }
             else
             {
                 Debug.LogWarning("end of game, looping");
-                CurrentScene = 0;
+                Data.CurrentScene = 0;
             }
-            SceneManager.LoadScene(Data.Scenes[CurrentScene]);
-            timeSinceLoadedLastScene = 0f;
+            SceneManager.LoadScene(Data.Scenes[Data.CurrentScene]);
+            Data.TimeSinceLoadedLastScene = 0f;
         }
         else
         {
