@@ -1716,7 +1716,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8960e303bd8ec1643bb608a352c24978, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Data: {fileID: 5725647601169334616, guid: 386b4a63823d7dd46b1303124420a2e5, type: 3}
+  Data: {fileID: 11400000, guid: 030ba6bd61089974fb3f8046db4984fb, type: 2}
   Eee: {fileID: 2040880650}
   lidCurve:
     serializedVersion: 2
