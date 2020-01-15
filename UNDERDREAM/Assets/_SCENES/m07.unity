@@ -860,6 +860,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Data: {fileID: 11400000, guid: 030ba6bd61089974fb3f8046db4984fb, type: 2}
   Eee: {fileID: 713530875}
+  SlipAngle: 0.45
+  SlipSound: {fileID: 5684259170240459932}
   Container: {fileID: 512039801}
   Head: {fileID: 473349226}
   Curve:
@@ -3059,3 +3061,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0bc2e91b7b0343e44a51bcd9ec5fabce, type: 3}
+--- !u!82 &5684259170240459932 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 1697373485652456927, guid: 0bc2e91b7b0343e44a51bcd9ec5fabce,
+    type: 3}
+  m_PrefabInstance: {fileID: 5684259170240459931}
+  m_PrefabAsset: {fileID: 0}

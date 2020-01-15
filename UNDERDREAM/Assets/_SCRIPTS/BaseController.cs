@@ -18,9 +18,8 @@ public class BaseController : MonoBehaviour
             Application.Quit();
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Eee.Play();
+        if (Input.GetKeyDown(KeyCode.F9)){
+            LoadNextScene();
         }
     }
 

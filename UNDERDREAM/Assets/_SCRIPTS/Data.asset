@@ -18,10 +18,14 @@ MonoBehaviour:
   - m04
   - m06
   - m07
+  - m08
   Passwords:
   - why
   - do
   - birds
   - suddenly
   - appear
-  prefabName: 
+  - every
+  CurrentScene: 4
+  TimeSinceLoadedLastScene: 3.4613802
+  LoadingCooldown: 0.1
