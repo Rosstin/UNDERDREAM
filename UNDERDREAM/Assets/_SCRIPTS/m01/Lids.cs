@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class Lids : BaseController
 {
-    [SerializeField] private AnimationCurve lidCurve;
     [SerializeField] private Lid topLid;
     [SerializeField] private Lid botLid;
     [SerializeField] private GameObject sky;
@@ -18,7 +17,7 @@ public class Lids : BaseController
 
     private float closedness;
 
-    private void Start()
+    public void Start()
     {
         closedness = startingClosedness;
     }

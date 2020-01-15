@@ -28,7 +28,7 @@ public class BaseController : MonoBehaviour
     {
         if (Data.TimeSinceLoadedLastScene > Data.LoadingCooldown)
         {
-            if(Data.CurrentScene< Data.Scenes.Count)
+            if (Data.CurrentScene < Data.Scenes.Count - 1)
             {
                 Data.CurrentScene++;
             }
