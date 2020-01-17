@@ -165,7 +165,7 @@ public class GameController : BaseController
 
         if (hangryTime > hangryDuration)
         {
-            SceneManager.LoadScene("m04");
+            LoadNextScene();
         }
     }
 

@@ -5,12 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class Lids : BaseController
 {
-    [SerializeField] private AnimationCurve lidCurve;
     [SerializeField] private Lid topLid;
     [SerializeField] private Lid botLid;
     [SerializeField] private GameObject sky;
-
-    [SerializeField] private string nextScene;
 
     [SerializeField] private float maxClosedness;
     [SerializeField] private float startingClosedness;
@@ -20,7 +17,7 @@ public class Lids : BaseController
 
     private float closedness;
 
-    private void Start()
+    public void Start()
     {
         closedness = startingClosedness;
     }
@@ -47,7 +44,7 @@ public class Lids : BaseController
 
         if(closedness < 0f)
         {
-            SceneManager.LoadScene(nextScene);
+            LoadNextScene();
         }
 
         topLid.transform.position= 

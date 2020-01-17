@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class PendulumController : BaseController
 {
+    [Header("Scene End Conditions")]
+    public float SlipAngle;
+    public AudioSource SlipSound;
+
     [Header("Outlets")]
     public GameObject Container;
     public GameObject Head;
@@ -16,6 +20,7 @@ public class PendulumController : BaseController
     public float PeriodDecreasePerSecond;
     public float HeadOffset;
 
+    private bool slipped = false;
     private float maxAngle;
     private float currentTime;
     private int sign = 1;
@@ -30,6 +35,32 @@ public class PendulumController : BaseController
     public void Update()
     {
         BaseUpdate();
+
+        if (!slipped)
+        {
+            if (maxAngle > SlipAngle 
+                &&
+                Container.transform.localRotation.z > SlipAngle
+                )
+            {
+                slipped = true;
+                SlipSound.Play();
+                LoadNextScene();
+            }
+            else
+            {
+                UpdateSwingMotion();
+            }
+        }
+        else
+        {
+        }
+
+    }
+
+
+    private void UpdateSwingMotion()
+    {
         if (sign == 1)
         {
             if (currentTime < Period)
@@ -38,7 +69,7 @@ public class PendulumController : BaseController
 
                 Container.transform.localRotation = new Quaternion(Container.transform.localRotation.x, Container.transform.localRotation.y,
                     maxAngle * Curve.Evaluate(Mathf.Abs(currentTime) / Period),
-                    sign*Container.transform.localRotation.w
+                    sign * Container.transform.localRotation.w
                     );
             }
             else
@@ -63,12 +94,9 @@ public class PendulumController : BaseController
             }
         }
 
-
-
-
         if (Input.GetKey(KeyCode.LeftArrow))
         {
-            Head.transform.localPosition = new Vector3(headStartPosition.x-HeadOffset, headStartPosition.y, headStartPosition.z);
+            Head.transform.localPosition = new Vector3(headStartPosition.x - HeadOffset, headStartPosition.y, headStartPosition.z);
             maxAngle += MaxAngleIncreasePerSecond * Time.deltaTime;
             Period -= PeriodDecreasePerSecond * Time.deltaTime;
         }
@@ -78,8 +106,6 @@ public class PendulumController : BaseController
             maxAngle += MaxAngleIncreasePerSecond * Time.deltaTime;
             Period -= PeriodDecreasePerSecond * Time.deltaTime;
         }
-
-
-
     }
+
 }

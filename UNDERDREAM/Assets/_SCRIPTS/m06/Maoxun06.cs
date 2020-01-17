@@ -8,7 +8,6 @@ public class Maoxun06 : BaseController
     [Header("Goal")]
     [SerializeField]
     private float lemonDistance;
-    [SerializeField] private string nextScene;
     [SerializeField] private AudioSource snatchSFX;
 
     [Header("Movement")]
@@ -80,7 +79,7 @@ public class Maoxun06 : BaseController
         if (distanceToTarget < lemonDistance)
         {
             snatchSFX.Play();
-            SceneManager.LoadScene(nextScene);
+            LoadNextScene();
         }
 
         // pass thru platforms when jumping 

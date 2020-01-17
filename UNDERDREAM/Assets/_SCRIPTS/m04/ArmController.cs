@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class ArmController : MonoBehaviour
+public class ArmController : BaseController
 {
     [Header("Arm")]
     [SerializeField]
@@ -30,10 +30,6 @@ public class ArmController : MonoBehaviour
     [SerializeField]
     [Range(1f, 15f)]
     private float clenchDuration;
-
-    [Header("Next Scene")]
-    [SerializeField]
-    private string nextScene;
 
     private float clenchedElapsed = 0f;
     private float jitterElapsed = 0f;
@@ -70,7 +66,7 @@ public class ArmController : MonoBehaviour
 
         if (clenchedElapsed > clenchDuration)
         {
-            SceneManager.LoadScene(nextScene);
+            LoadNextScene();
         }
     }
 
