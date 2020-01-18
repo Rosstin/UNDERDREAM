@@ -192,12 +192,12 @@ public class UjelliController : MonoBehaviour
 
             float xSway = curPos.x - lastPos.x;
 
-            if (xSway > SwayThreshold)
+            if (xSway < SwayThreshold)
             {
                 currentSway = SwayDirection.Left;
                 SwayLeft.gameObject.SetActive(true);
             }
-            else if (xSway < -SwayThreshold)
+            else if (xSway > -SwayThreshold)
             {
                 currentSway = SwayDirection.Right;
                 SwayRight.gameObject.SetActive(true);

@@ -5114,6 +5114,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: UJELLI
       objectReference: {fileID: 0}
+    - target: {fileID: 54044547828181891, guid: 9d47fd3101b7bf74cb13ea34f47c4794,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2892482796999374795, guid: 9d47fd3101b7bf74cb13ea34f47c4794,
         type: 3}
       propertyPath: m_LocalPosition.x
