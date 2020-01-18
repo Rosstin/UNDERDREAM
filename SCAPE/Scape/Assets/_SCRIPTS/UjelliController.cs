@@ -24,6 +24,10 @@ public class UjelliController : MonoBehaviour
     public float LemonClosenessThreshhold;
     public float LemonScaledownPerFrame;
     public float EatingSuckDelay;
+    public float LemonScaleThreshhold;
+
+    [Header("Gulp Configurations")]
+    public float GulpDuration;
 
     [Header("Animation Outlets")]
     public Animator Awakening;
@@ -34,6 +38,7 @@ public class UjelliController : MonoBehaviour
     public GameObject Normal;
     public GameObject Eating;
     public GameObject Suck;
+    public Animator Gulp;
 
     [Header("AR Camera")]
     public Camera ArCamera;
@@ -44,7 +49,8 @@ public class UjelliController : MonoBehaviour
         Surprising,
         Swaying,
         Normal,
-        Eating
+        Eating,
+        Gulp
     }
 
     private UjelliState myState;
@@ -85,6 +91,9 @@ public class UjelliController : MonoBehaviour
         SwayMiddle.gameObject.SetActive(false);
         Normal.gameObject.SetActive(false);
         Eating.gameObject.SetActive(false);
+        Suck.gameObject.SetActive(false);
+        Gulp.gameObject.SetActive(false);
+
         switch (state)
         {
             case UjelliState.Awakening:
@@ -112,6 +121,12 @@ public class UjelliController : MonoBehaviour
                 myState = UjelliState.Eating;
                 Eating.gameObject.SetActive(true);
                 Lemon.transform.SetParent(this.transform);
+                break;
+            case UjelliState.Gulp:
+                Debug.LogWarning("GULP");
+                myState = UjelliState.Gulp;
+                Lemon.gameObject.SetActive(false);
+                Gulp.gameObject.SetActive(true);
                 break;
         }
 
@@ -157,6 +172,13 @@ public class UjelliController : MonoBehaviour
             {
                 Lemon.transform.localScale *= LemonScaledownPerFrame;
             }
+
+            if(Lemon.transform.localScale.x < LemonScaleThreshhold)
+            {
+                SetState(UjelliState.Gulp);
+            }
+
+
         }
     }
 
@@ -197,7 +219,14 @@ public class UjelliController : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
+    private void UpdateGulp()
+    {
+        if(secondsElapsed > GulpDuration)
+        {
+            //TODO - GO TO SLEEPY STATE
+        }
+    }
+
     void Update()
     {
         framesElapsed++;
