@@ -14,6 +14,10 @@ public class UjelliController : MonoBehaviour
     [Header("Swaying Configurations")]
     public float SwayThreshold;
     public float SwayCooldown;
+    public float SwayDuration;
+
+    [Header("Normal Configurations")]
+    public GameObject Lemon;
 
     [Header("Animation Outlets")]
     public Animator Awakening;
@@ -21,6 +25,8 @@ public class UjelliController : MonoBehaviour
     public GameObject SwayLeft;
     public GameObject SwayRight;
     public GameObject SwayMiddle;
+    public GameObject Normal;
+    public GameObject Eating;
 
     [Header("AR Camera")]
     public Camera ArCamera;
@@ -29,7 +35,9 @@ public class UjelliController : MonoBehaviour
     {
         Awakening,
         Surprising,
-        Swaying
+        Swaying,
+        Normal,
+        Eating
     }
 
     private UjelliState myState;
@@ -49,7 +57,7 @@ public class UjelliController : MonoBehaviour
         Right,
         Middle
     }
-
+    private float timeInSwayState=0f;
     #endregion
 
     void Start()
@@ -68,6 +76,8 @@ public class UjelliController : MonoBehaviour
         SwayLeft.gameObject.SetActive(false);
         SwayRight.gameObject.SetActive(false);
         SwayMiddle.gameObject.SetActive(false);
+        Normal.gameObject.SetActive(false);
+        Eating.gameObject.SetActive(false);
         switch (state)
         {
             case UjelliState.Awakening:
@@ -85,6 +95,16 @@ public class UjelliController : MonoBehaviour
                 myState = UjelliState.Swaying;
                 SwayMiddle.gameObject.SetActive(true);
                 break;
+            case UjelliState.Normal:
+                Debug.LogWarning("NORMAL");
+                myState = UjelliState.Normal;
+                Normal.gameObject.SetActive(true);
+                break;
+            case UjelliState.Eating:
+                Debug.LogWarning("EATING");
+                myState = UjelliState.Eating;
+                Eating.gameObject.SetActive(true);
+                break;
         }
 
     }
@@ -101,11 +121,23 @@ public class UjelliController : MonoBehaviour
 
     private void UpdateSurprising()
     {
-        Debug.Log("seconds elapsed: "+secondsElapsed);
         if(secondsElapsed > SurpriseDuration)
         {
             SetState(UjelliState.Swaying);
         }
+    }
+
+    private void UpdateNormal()
+    {
+        if (Lemon.activeSelf)
+        {
+            SetState(UjelliState.Eating);
+        }
+    }
+
+    private void UpdateEating()
+    {
+        // play the eating animation 
     }
 
     private void UpdateSwaying(Vector3 curPos, Vector3 lastPos)
@@ -135,7 +167,13 @@ public class UjelliController : MonoBehaviour
             }
 
             lastSway = currentSway;
+            timeInSwayState += secondsElapsed;
             secondsElapsed = 0f;
+        }
+
+        if (timeInSwayState > SwayDuration)
+        {
+            SetState(UjelliState.Normal);
         }
     }
 
@@ -158,6 +196,12 @@ public class UjelliController : MonoBehaviour
                 break;
             case UjelliState.Swaying:
                 UpdateSwaying(currentCameraPosition, lastCameraPosition);
+                break;
+            case UjelliState.Normal:
+                UpdateNormal();
+                break;
+            case UjelliState.Eating:
+                UpdateEating();
                 break;
         }
 
