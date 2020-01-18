@@ -5,7 +5,7 @@ using UnityEngine;
 public class MonsterAwakeEventHandler : DefaultTrackableEventHandler
 {
     [Header("Outlets")]
-    public Animator MonsterAnimator;
+    public GameObject Monster;
 
     #region PROTECTED_METHODS
 
@@ -13,7 +13,7 @@ public class MonsterAwakeEventHandler : DefaultTrackableEventHandler
     {
         Debug.Log("ONTRACKINGFOUND");
 
-        MonsterAnimator.gameObject.SetActive(true);
+        Monster.gameObject.SetActive(true);
 
         base.OnTrackingFound();
     }
