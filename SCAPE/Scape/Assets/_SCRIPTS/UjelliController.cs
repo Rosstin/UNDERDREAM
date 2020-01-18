@@ -19,6 +19,12 @@ public class UjelliController : MonoBehaviour
     [Header("Normal Configurations")]
     public GameObject Lemon;
 
+    [Header("Eating Configurations")]
+    public float LemonMoveSpeed;
+    public float LemonClosenessThreshhold;
+    public float LemonScaledownPerFrame;
+    public float EatingSuckDelay;
+
     [Header("Animation Outlets")]
     public Animator Awakening;
     public Animator Moving;
@@ -27,6 +33,7 @@ public class UjelliController : MonoBehaviour
     public GameObject SwayMiddle;
     public GameObject Normal;
     public GameObject Eating;
+    public GameObject Suck;
 
     [Header("AR Camera")]
     public Camera ArCamera;
@@ -104,6 +111,7 @@ public class UjelliController : MonoBehaviour
                 Debug.LogWarning("EATING");
                 myState = UjelliState.Eating;
                 Eating.gameObject.SetActive(true);
+                Lemon.transform.SetParent(this.transform);
                 break;
         }
 
@@ -137,7 +145,19 @@ public class UjelliController : MonoBehaviour
 
     private void UpdateEating()
     {
-        // play the eating animation 
+        if(secondsElapsed > EatingSuckDelay)
+        {
+            Suck.SetActive(true);
+            Eating.SetActive(false);
+            // suck in the lemon
+            float step = LemonMoveSpeed * Time.deltaTime;
+            Lemon.transform.position = Vector3.MoveTowards(Lemon.transform.position, this.transform.position, step);
+
+            if (Vector3.Distance(Lemon.transform.position, this.transform.position) < LemonClosenessThreshhold)
+            {
+                Lemon.transform.localScale *= LemonScaledownPerFrame;
+            }
+        }
     }
 
     private void UpdateSwaying(Vector3 curPos, Vector3 lastPos)
