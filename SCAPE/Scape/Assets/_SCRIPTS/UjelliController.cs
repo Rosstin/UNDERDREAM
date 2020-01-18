@@ -7,6 +7,7 @@ public class UjelliController : MonoBehaviour
     [Header("Awakening Configurations")]
     public float SpeedThreshold;
     public int FramesCooldown;
+    public float AwakeningDuration;
 
     [Header("Moving Configurations")]
     public float SurpriseDuration;
@@ -29,6 +30,9 @@ public class UjelliController : MonoBehaviour
     [Header("Gulp Configurations")]
     public float GulpDuration;
 
+    [Header("Sleep Configurations")]
+    public float SleepStartDuration;
+
     [Header("Animation Outlets")]
     public Animator Awakening;
     public Animator Moving;
@@ -39,6 +43,8 @@ public class UjelliController : MonoBehaviour
     public GameObject Eating;
     public GameObject Suck;
     public Animator Gulp;
+    public Animator SleepStarting;
+    public Animator SleepLoop;
 
     [Header("AR Camera")]
     public Camera ArCamera;
@@ -46,6 +52,7 @@ public class UjelliController : MonoBehaviour
     public enum UjelliState
     {
         Awakening,
+        Sleeping,
         Surprising,
         Swaying,
         Normal,
@@ -73,6 +80,10 @@ public class UjelliController : MonoBehaviour
     private float timeInSwayState=0f;
     #endregion
 
+    #region EatingState
+    private GameObject eatingLemon;
+    #endregion
+
     void Start()
     {
         Debug.Log("UJELLI CONTROLLER START");
@@ -93,6 +104,8 @@ public class UjelliController : MonoBehaviour
         Eating.gameObject.SetActive(false);
         Suck.gameObject.SetActive(false);
         Gulp.gameObject.SetActive(false);
+        SleepStarting.gameObject.SetActive(false);
+        SleepLoop.gameObject.SetActive(false);
 
         switch (state)
         {
@@ -100,6 +113,12 @@ public class UjelliController : MonoBehaviour
                 Debug.LogWarning("AWAKENING");
                 myState = UjelliState.Awakening;
                 Awakening.gameObject.SetActive(true);
+                break;
+            case UjelliState.Sleeping:
+                Debug.LogWarning("SLEEPING");
+                myState = UjelliState.Sleeping;
+                SleepStarting.gameObject.SetActive(true);
+                GameObject.Destroy(eatingLemon);
                 break;
             case UjelliState.Surprising:
                 Debug.LogWarning("SURPRISING");
@@ -120,7 +139,15 @@ public class UjelliController : MonoBehaviour
                 Debug.LogWarning("EATING");
                 myState = UjelliState.Eating;
                 Eating.gameObject.SetActive(true);
+                Lemon.SetActive(false);
+                eatingLemon= Instantiate(Lemon);
+                eatingLemon.SetActive(true);
+                eatingLemon.transform.position = Lemon.transform.position;
+                eatingLemon.transform.rotation = Lemon.transform.rotation;
                 Lemon.transform.SetParent(this.transform);
+                eatingLemon.transform.SetParent(this.transform);
+                eatingLemon.transform.localScale = Lemon.transform.localScale;
+                Lemon.transform.SetParent(Lemon.GetComponent<LemonController>().Parent);
                 break;
             case UjelliState.Gulp:
                 Debug.LogWarning("GULP");
@@ -132,8 +159,22 @@ public class UjelliController : MonoBehaviour
 
     }
 
-    private void UpdateAwakening(float cameraMoveSpeed)
+    private void UpdateAwakening()
     {
+        if(secondsElapsed > AwakeningDuration)
+        {
+            SetState(UjelliState.Sleeping);
+        }
+    }
+
+    private void UpdateSleeping(float cameraMoveSpeed)
+    {
+        if(secondsElapsed > SleepStartDuration)
+        {
+            SleepStarting.gameObject.SetActive(false);
+            SleepLoop.gameObject.SetActive(true);
+        }
+
         if (cameraMoveSpeed > SpeedThreshold && framesElapsed > FramesCooldown)
         {
             Debug.Log("broke speed threshhold: " + cameraMoveSpeed);
@@ -166,14 +207,14 @@ public class UjelliController : MonoBehaviour
             Eating.SetActive(false);
             // suck in the lemon
             float step = LemonMoveSpeed * Time.deltaTime;
-            Lemon.transform.position = Vector3.MoveTowards(Lemon.transform.position, this.transform.position, step);
+            eatingLemon.transform.position = Vector3.MoveTowards(eatingLemon.transform.position, this.transform.position, step);
 
-            if (Vector3.Distance(Lemon.transform.position, this.transform.position) < LemonClosenessThreshhold)
+            if (Vector3.Distance(eatingLemon.transform.position, this.transform.position) < LemonClosenessThreshhold)
             {
-                Lemon.transform.localScale *= LemonScaledownPerFrame;
+                eatingLemon.transform.localScale *= LemonScaledownPerFrame;
             }
 
-            if(Lemon.transform.localScale.x < LemonScaleThreshhold)
+            if(eatingLemon.transform.localScale.x < LemonScaleThreshhold)
             {
                 SetState(UjelliState.Gulp);
             }
@@ -223,7 +264,7 @@ public class UjelliController : MonoBehaviour
     {
         if(secondsElapsed > GulpDuration)
         {
-            //TODO - GO TO SLEEPY STATE
+            SetState(UjelliState.Sleeping);
         }
     }
 
@@ -238,7 +279,7 @@ public class UjelliController : MonoBehaviour
         switch (myState)
         {
             case UjelliState.Awakening:
-                UpdateAwakening(cameraMoveSpeed);
+                UpdateAwakening();
                 break;
             case UjelliState.Surprising:
                 UpdateSurprising();
@@ -251,6 +292,12 @@ public class UjelliController : MonoBehaviour
                 break;
             case UjelliState.Eating:
                 UpdateEating();
+                break;
+            case UjelliState.Sleeping:
+                UpdateSleeping(cameraMoveSpeed);
+                break;
+            case UjelliState.Gulp:
+                UpdateGulp();
                 break;
         }
 
