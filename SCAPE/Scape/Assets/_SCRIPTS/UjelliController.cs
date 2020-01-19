@@ -152,6 +152,7 @@ public class UjelliController : MonoBehaviour
             case UjelliState.Gulp:
                 Debug.LogWarning("GULP");
                 myState = UjelliState.Gulp;
+                eatingLemon.SetActive(false);
                 Lemon.gameObject.SetActive(false);
                 Gulp.gameObject.SetActive(true);
                 break;
