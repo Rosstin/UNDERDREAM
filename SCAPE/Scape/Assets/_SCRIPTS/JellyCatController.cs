@@ -7,9 +7,6 @@ public class JellyCatController : MonoBehaviour
     [Header("Outlets")]
     public Camera ArCamera;
 
-    [Header("Outlets - Myself")]
-    public Collider MyCollider;
-
     [Header("Outlets - Items")]
     public CucumberController Cucumber;
 
@@ -67,14 +64,12 @@ public class JellyCatController : MonoBehaviour
         this.transform.position += -this.transform.forward * BackupAmountMeters;
     }
 
-    // Update is called once per frame
     void Update()
     {
         curTime += Time.deltaTime;
 
         switch ( currentJellyCatState ) {
 
-        
             default:
                 if (curTime > curDirectionChangePeriod)
                 {
@@ -85,6 +80,7 @@ public class JellyCatController : MonoBehaviour
 
                 this.transform.Rotate(0.0f, leftOrRight * RotationSpeed * Time.deltaTime, 0.0f, Space.Self);
 
+                // jelly wiggle
                 Vector3 vec = new Vector3( ( Mathf.Sin(Time.time) / 2 ) + 1.5f , 1, ( Mathf.Sin(6*Time.time) / 2 ) + 1.5f );
         
                 transform.localScale = vec;
@@ -112,12 +108,13 @@ public class JellyCatController : MonoBehaviour
                     BackupAndFlip();
                 }
 
-                Vector2 screenPointOfCucumber = ArCamera.WorldToScreenPoint(Cucumber.transform.position);
-
-
-                if (Mathf.Abs(Vector2.Distance(screenPointOfCat, screenPointOfCucumber)) < CucumberClosenessThreshholdPixels)
+                if (Cucumber.gameObject.activeSelf)
                 {
-                    BackupAndFlip();
+                    Vector2 screenPointOfCucumber = ArCamera.WorldToScreenPoint(Cucumber.transform.position);
+                    if (Mathf.Abs(Vector2.Distance(screenPointOfCat, screenPointOfCucumber)) < CucumberClosenessThreshholdPixels)
+                    {
+                        BackupAndFlip();
+                    }
                 }
             break;
         }

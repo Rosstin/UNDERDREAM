@@ -13,7 +13,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - Tape
   - 
   - 
   - 
@@ -38,6 +38,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Platform
+    uniqueID: 526708551
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
