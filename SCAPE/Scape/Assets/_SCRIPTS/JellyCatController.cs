@@ -31,6 +31,11 @@ public class JellyCatController : MonoBehaviour
         curDirectionChangePeriod = AverageDirectionChangePeriod + Random.Range(-VariationInPeriod, +VariationInPeriod);
     }
 
+    private void FlipCat()
+    {
+        this.transform.Rotate(0.0f, 180f, 0.0f, Space.Self);
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -52,19 +57,23 @@ public class JellyCatController : MonoBehaviour
         if (screenPointOfCat.x < 0f)
         {
             Debug.Log("cat off screen to left");
+            FlipCat();
         }
         else if (screenPointOfCat.x > ArCamera.pixelWidth)
         {
             Debug.Log("cat off screen to right");
+            FlipCat();
         }
 
         if (screenPointOfCat.y < 0f)
         {
             Debug.Log("cat off screen to bot");
+            FlipCat();
         }
         else if (screenPointOfCat.y > ArCamera.pixelHeight)
         {
             Debug.Log("cat off screen to top");
+            FlipCat();
         }
 
 

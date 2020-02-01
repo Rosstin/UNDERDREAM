@@ -3008,8 +3008,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ArCamera: {fileID: 1227899149}
-  StartSpeed: 0.005
+  StartSpeed: 0.04
   RotationSpeed: 10
+  AverageDirectionChangePeriod: 5
+  VariationInPeriod: 2
 --- !u!1 &956068049
 GameObject:
   m_ObjectHideFlags: 0
