@@ -7,9 +7,6 @@ public class JellyCatController : MonoBehaviour
     [Header("Outlets")]
     public Camera ArCamera;
 
-    [Header("Outlets - Myself")]
-    public Collider MyCollider;
-
     [Header("Outlets - Items")]
     public CucumberController Cucumber;
 
@@ -58,7 +55,6 @@ public class JellyCatController : MonoBehaviour
         this.transform.position += -this.transform.forward * BackupAmountMeters;
     }
 
-    // Update is called once per frame
     void Update()
     {
         curTime += Time.deltaTime;
@@ -95,9 +91,6 @@ public class JellyCatController : MonoBehaviour
         }
 
         Vector2 screenPointOfCucumber = ArCamera.WorldToScreenPoint(Cucumber.transform.position);
-
-
-
 
         if (Mathf.Abs(Vector2.Distance(screenPointOfCat, screenPointOfCucumber)) < CucumberClosenessThreshholdPixels)
         {
