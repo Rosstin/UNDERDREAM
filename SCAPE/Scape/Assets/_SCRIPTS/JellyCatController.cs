@@ -90,7 +90,6 @@ public class JellyCatController : MonoBehaviour
             BackupAndFlip();
         }
 
-
         if (Cucumber.gameObject.activeSelf)
         {
             Vector2 screenPointOfCucumber = ArCamera.WorldToScreenPoint(Cucumber.transform.position);
