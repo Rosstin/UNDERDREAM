@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <QCARConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="qcar_config.xsd">
   <Tracking>
+    <ImageTarget name="catwheel" size="0.087000 0.048259" />
+    <ImageTarget name="fish" size="0.087000 0.048259" />
+    <ImageTarget name="cucumber" size="0.087000 0.048259" />
+    <ImageTarget name="catnip" size="0.087000 0.048259" />
     <ImageTarget name="launchpadb" size="0.087460 0.048649" />
     <ImageTarget name="launchpada" size="0.087460 0.048514" />
     <ImageTarget name="engine" size="0.087000 0.048125" />
