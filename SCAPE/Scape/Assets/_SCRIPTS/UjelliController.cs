@@ -89,6 +89,8 @@ public class UjelliController : MonoBehaviour
         Debug.Log("UJELLI CONTROLLER START");
         SetState(UjelliState.Awakening);
         lastCameraPosition = ArCamera.transform.position;
+
+        World.Instance.state = WorldState.PLAY_WITH_CAT;
     }
 
     public void SetState(UjelliState state)

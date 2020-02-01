@@ -7,10 +7,7 @@ public class Spawner : MonoBehaviour
     public WorldState EnableOnPhase;
 
     public void OnWorldStateChange(WorldState oldState, WorldState newState) {
-        if (this.gameObject.activeInHierarchy) {
-            return;
-        }
-
+        Debug.Log("state changed to " + newState);
         if (this.EnableOnPhase == newState) {
             this.gameObject.SetActive(true);
         }

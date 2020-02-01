@@ -7,7 +7,8 @@ public class SpawnManager : Singleton<SpawnManager>
     protected SpawnManager() {}
 
     public void OnWorldStateChange(WorldState oldState, WorldState newState) {
-        foreach (Spawner child in this.GetComponentsInChildren<Spawner>()) {
+        Debug.Log(this.GetComponentsInChildren<Spawner>());
+        foreach (Spawner child in Resources.FindObjectsOfTypeAll<Spawner>()) {
             child.OnWorldStateChange(oldState, newState);
         }
     }
@@ -15,8 +16,11 @@ public class SpawnManager : Singleton<SpawnManager>
     private void Start()
     {
         // Iterate through children and disable 'em to start
+        WorldState initialState = World.Instance.state;
         foreach (Spawner child in this.GetComponentsInChildren<Spawner>()) {
-            child.gameObject.SetActive(false);
+            child.gameObject.SetActive(
+                child.EnableOnPhase == initialState
+            );
         }
     }
 }
