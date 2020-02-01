@@ -7,18 +7,24 @@ public class JellyCatController : MonoBehaviour
     [Header("Outlets")]
     public Camera ArCamera;
 
+    [Header("Outlets - Items")]
+    public CucumberController Cucumber;
+
     [Header("Configurables")]
     public float StartSpeed;
     public float RotationSpeed;
-    public float AverageDirectionChangePeriod = 5f;
-    public float VariationInPeriod = 2f;
+    public float AverageDirectionChangePeriod;
+    public float VariationInPeriod;
+    public float CucumberClosenessThreshhold;
+    public float CucumberCooldown;
 
-    private Vector3 forward = new Vector3(0, 1, 0);
+    private Vector3 FORWARD = new Vector3(0, 1, 0);
+
     private Vector3 curDirection;
     private float curSpeed;
     private int leftOrRight = 1;
     private float curDirectionChangePeriod;
-
+    private float curCucumberTime = 0f;
     private float curTime = 0f;
 
     void Start()
@@ -76,6 +82,11 @@ public class JellyCatController : MonoBehaviour
             FlipCat();
         }
 
+        if(Mathf.Abs( Vector3.Distance(Cucumber.transform.position, this.transform.position)) < CucumberClosenessThreshhold)
+        {
+            Debug.Log("HISS! TOO close to CUCUMBER!");
+            FlipCat();
+        }
 
         // determine where the cat is in screen space
         // find the distance of the cat to the top, the bottom, the left, and the right, do things with it
