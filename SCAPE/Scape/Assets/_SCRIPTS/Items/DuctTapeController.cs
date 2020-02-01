@@ -22,6 +22,7 @@ public class DuctTapeController : MonoBehaviour
             Vector2 screenPointOfLaunchpad = ArCamera.WorldToScreenPoint(LaunchpadB.transform.position);
             if (Mathf.Abs(Vector2.Distance(screenPointOfLaunchpad, screenPointOfSelf)) < ClosenessThreshholdPixels)
             {
+                Tape.gameObject.SetActive(true);
                 stickToLaunchpad = true;
             }
         }
