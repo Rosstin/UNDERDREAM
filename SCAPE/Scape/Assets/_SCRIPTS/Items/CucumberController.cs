@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class CucumberController : MonoBehaviour
 {
+    public Collider MyCollider;
+
     // Start is called before the first frame update
     void Start()
     {
