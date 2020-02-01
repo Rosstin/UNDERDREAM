@@ -26,8 +26,6 @@ public class StretchyTape : MonoBehaviour
 
     public void DrawTapeBetween(Vector3 a, Vector3 b)
     {
-
-
         // deform it
         float length = Mathf.Abs(Vector3.Distance(a, b));
         Body.transform.localScale = new Vector3(initialLocalScale.x, initialLocalScale.y, length);
