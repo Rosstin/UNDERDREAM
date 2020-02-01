@@ -90,11 +90,13 @@ public class JellyCatController : MonoBehaviour
             BackupAndFlip();
         }
 
-        Vector2 screenPointOfCucumber = ArCamera.WorldToScreenPoint(Cucumber.transform.position);
-
-        if (Mathf.Abs(Vector2.Distance(screenPointOfCat, screenPointOfCucumber)) < CucumberClosenessThreshholdPixels)
+        if (Cucumber.gameObject.activeSelf)
         {
-            BackupAndFlip();
+            Vector2 screenPointOfCucumber = ArCamera.WorldToScreenPoint(Cucumber.transform.position);
+            if (Mathf.Abs(Vector2.Distance(screenPointOfCat, screenPointOfCucumber)) < CucumberClosenessThreshholdPixels)
+            {
+                BackupAndFlip();
+            }
         }
 
     }
