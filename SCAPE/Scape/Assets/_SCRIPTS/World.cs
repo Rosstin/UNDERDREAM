@@ -16,8 +16,8 @@ public class World : Singleton<World>
     }
     set{
         WorldState oldState = _state;
-        _state = state;
-        SpawnManager.Instance.OnWorldStateChange(oldState, state);
+        _state = value;
+        SpawnManager.Instance.OnWorldStateChange(oldState, _state);
     }
     }
     private WorldState _state;
