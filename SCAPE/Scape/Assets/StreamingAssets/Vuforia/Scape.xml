@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <QCARConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="qcar_config.xsd">
   <Tracking>
+    <ImageTarget name="launchpadb" size="0.087460 0.048649" />
+    <ImageTarget name="launchpada" size="0.087460 0.048514" />
+    <ImageTarget name="engine" size="0.087000 0.048125" />
+    <ImageTarget name="powerdrill-512x288" size="0.069850 0.039291" />
+    <ImageTarget name="longbroom-512x144" size="0.069850 0.019645" />
+    <ImageTarget name="ducttape-512x885" size="0.069850 0.120737" />
+    <ImageTarget name="broom-512x512" size="0.069850 0.069850" />
+    <ImageTarget name="screw-288x288" size="0.039300 0.039300" />
     <ImageTarget name="lemon-512x885" size="0.069850 0.120737" />
     <ImageTarget name="jelly-512x885" size="0.069850 0.120737" />
     <ImageTarget name="ujelli-512x885-emily" size="0.069850 0.120737" />
