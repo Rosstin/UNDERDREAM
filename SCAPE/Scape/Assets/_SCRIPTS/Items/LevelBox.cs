@@ -22,6 +22,7 @@ public class LevelBox : MonoBehaviour
     public Camera ArCamera;
     
     public Sprite openBoxSprite;
+    public SpriteRenderer shakingSprite;
 
     public float SHAKE_MAGNITUDE_THRESHOLD = 1f;
     public float SHAKE_TIME_THRESHOLD = 1.5f;
@@ -30,6 +31,7 @@ public class LevelBox : MonoBehaviour
 
     public void Start()
     {
+        shakingSprite.gameObject.SetActive(false);
         foreach (Boxable child in SpawnableChildren) {
             child.gameObject.SetActive(false);
         }
@@ -53,6 +55,7 @@ public class LevelBox : MonoBehaviour
             case BoxState.STILL: {
                 if (magnitude > this.SHAKE_MAGNITUDE_THRESHOLD) {
                     this.state = BoxState.SHAKING;
+                    shakingSprite.gameObject.SetActive(true);
                     this.timeSpentShaking = 0;
                 }
                 break;
@@ -71,6 +74,7 @@ public class LevelBox : MonoBehaviour
             OnBroken();
         } else if (this.timeSpentShaking < 0) {
             this.state = BoxState.STILL;
+            shakingSprite.gameObject.SetActive(false);
         }
 
         lastBoxPosition = screenPointOfBox;
