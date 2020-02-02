@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class LevelBox : MonoBehaviour
 {
+    public Transform[] SpawnableChildren;
+
     public enum BoxState {
         STILL,
         SHAKING,
@@ -29,7 +31,7 @@ public class LevelBox : MonoBehaviour
 
     public void Start()
     {
-        foreach (Transform child in this.GetComponentsInChildren<Transform>(true)) {
+        foreach (Transform child in SpawnableChildren) {
             child.gameObject.SetActive(false);
         }
     }
@@ -41,9 +43,9 @@ public class LevelBox : MonoBehaviour
         }
 
         Vector3 currentCameraPosition = ArCamera.transform.position;
-        Vector3 cameraVelcocity = (currentCameraPosition - lastCameraPosition) / Time.deltaTime;
+        Vector3 cameraVelocity = (currentCameraPosition - lastCameraPosition) / Time.deltaTime;
 
-        Vector3 cameraAcceleration = cameraVelcocity - this.lastCameraVelocity;
+        Vector3 cameraAcceleration = cameraVelocity - this.lastCameraVelocity;
         float magnitude = cameraAcceleration.magnitude;
 
         Debug.Log("Magnitude: " + magnitude);
@@ -75,13 +77,12 @@ public class LevelBox : MonoBehaviour
     }
 
     void OnBroken() {
-        Transform[] children = this.GetComponentsInChildren<Transform>(true);
-        List<Vector2> spawnPoints = CreateSpawnPoints(children);
+        List<Vector2> spawnPoints = CreateSpawnPoints(SpawnableChildren);
 
         float groundPlaneY = this.gameObject.transform.position.y;
 
         for (int i = 0; i < spawnPoints.Count; ++i) {
-            Transform child = children[i];
+            Transform child = SpawnableChildren[i];
             Vector2 spawnPoint = spawnPoints[i];
 
             Ray spawnRay = ArCamera.ViewportPointToRay(spawnPoint);
