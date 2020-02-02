@@ -122,8 +122,9 @@ public class LevelBox : MonoBehaviour
         }
 
         this.GetComponent<SpriteRenderer>().sprite = openBoxSprite;
-        GameObject tracker = (this.transform.parent.gameObject);
-        Destroy(tracker);
+        // Works for kellie, breaks for everyone else
+        //GameObject tracker = (this.transform.parent.gameObject);
+        //Destroy(tracker);
         this.gameObject.AddComponent<TimeToDie>();
     }
 
