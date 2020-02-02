@@ -145,11 +145,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ArCamera: {fileID: 0}
   Cucumber: {fileID: 0}
+  Broom: {fileID: 0}
+  Fish: {fileID: 0}
+  Launchpad: {fileID: 0}
   StartSpeed: 0.04
-  RotationSpeed: 10
+  IdleRotationSpeed: 0
+  GoalRotationSpeed: 0
   AverageDirectionChangePeriod: 5
   VariationInPeriod: 2
   CucumberClosenessThreshholdPixels: 50
+  GoalClosenessThreshholdPixels: 0
   BackupAmountMeters: 0.01
   RotationsOnDeath: 0
   DeathTimePeriod: 0
