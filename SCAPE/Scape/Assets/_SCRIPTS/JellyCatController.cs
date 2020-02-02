@@ -9,6 +9,7 @@ public class JellyCatController : Boxable
 
     [Header("Outlets - Items")]
     public CucumberController Cucumber;
+    public BroomController Broom;
 
     public LaunchpadBController Launchpad;
 
@@ -24,6 +25,7 @@ public class JellyCatController : Boxable
     public float RotationsOnDeath;
     public float DeathTimePeriod;
     public float RespawnTimePeriod;
+    public float CatnipDurationPeriod;
 
     public float PitDeathClosenessThreshholdPixels;    
     private Vector3 FORWARD = new Vector3(0, 1, 0);
@@ -51,7 +53,8 @@ public class JellyCatController : Boxable
         GOAL_MOVE,
         GOAL_IDLE,
         DYING,
-        REBORN
+        REBORN,
+        CATNIP
     }
 
     // default not moving
@@ -187,8 +190,22 @@ public class JellyCatController : Boxable
                 // FORWARD MOVE
                 this.transform.position += this.transform.forward * StartSpeed * Time.deltaTime;
                 goto default;
+            case JellyCatState.CATNIP:
+                isGoalSeeking = false;
+                if (curTime > curDirectionChangePeriod)
+                {
+                    leftOrRight *= -1;
+                    curTime = 0f;
+                    NewDirectionChangePeriod();
+                }
+                JellyCatAnimator.SetInteger("SleepCondition", 0);
+                // BACK AND FORTH TURN
+                this.transform.Rotate(0.0f, leftOrRight * IdleRotationSpeed * Time.deltaTime, 0.0f, Space.Self);
+
+                // FORWARD MOVE
+                this.transform.position += this.transform.forward * StartSpeed * Time.deltaTime;
+                goto default;
             default:
-                
                 // JELLY WIGGLE
                 Vector3 vec = new Vector3( ( Mathf.Sin(Time.time) / 2 ) + 1.5f , 1, ( Mathf.Sin(12*Time.time) / 2 ) + 1.5f );
         
@@ -222,6 +239,16 @@ public class JellyCatController : Boxable
                     if (Mathf.Abs(Vector2.Distance(screenPointOfCat, screenPointOfCucumber)) < CucumberClosenessThreshholdPixels)
                     {
                         BackupAndFlip();
+                    }
+                }
+
+                // CATNIP TRIGGER
+                if (Catnip.gameObject.activeSelf)
+                {
+                    Vector2 screenPointOfCucumber = ArCamera.WorldToScreenPoint(Catnip.transform.position);
+                    if (Mathf.Abs(Vector2.Distance(screenPointOfCat, screenPointOfCucumber)) < CatnipClosenessThreshholdPixels)
+                    {
+                        currentJellyCatState = JellyCatState.CATNIP;
                     }
                 }
             break;
