@@ -94,7 +94,6 @@ public class LevelBox : MonoBehaviour
         }
 
         Transform[] transforms = GetTransformsFromBoxables(SpawnableChildren);
-
         List<Vector2> spawnPoints = CreateSpawnPoints(transforms);
 
         float groundPlaneY = this.gameObject.transform.position.y;
