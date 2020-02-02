@@ -131,7 +131,8 @@ public class JellyCatController : Boxable
                 break;
             case JellyCatState.REBORN:
                 if (curTime > DeathTimePeriod) {
-                    currentJellyCatState = JellyCatState.IDLE_MOVE;
+                    if ( isGoalSeeking ) currentJellyCatState = JellyCatState.GOAL_MOVE;
+                    else currentJellyCatState = JellyCatState.IDLE_MOVE;
                     curTime = 0f;
                 }
                 else {

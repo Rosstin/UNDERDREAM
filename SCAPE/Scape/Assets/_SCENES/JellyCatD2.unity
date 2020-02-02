@@ -6799,7 +6799,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 944966012, guid: 30fc1555170faef4894c21205cd96519, type: 3}
       propertyPath: GoalClosenessThreshholdPixels
-      value: 25
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 944966012, guid: 30fc1555170faef4894c21205cd96519, type: 3}
       propertyPath: Launchpad
@@ -7888,7 +7888,7 @@ MonoBehaviour:
   openBoxSprite: {fileID: 2802366587176213097, guid: a814564a1a752b04d9c7059da4a5a12e,
     type: 3}
   SHAKE_MAGNITUDE_THRESHOLD: 20
-  SHAKE_TIME_THRESHOLD: 4
+  SHAKE_TIME_THRESHOLD: 2
   MINIMUM_SPAWN_SEPARATION: 10
 --- !u!212 &2079493908
 SpriteRenderer:
