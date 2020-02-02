@@ -42,6 +42,16 @@ public class DuctTapeController : MonoBehaviour
         midPoint = Vector3.Lerp(launchpadInitialPos, scaffoldingInitialPos, 0.5f);
     }
 
+    void OnEnable()
+    {
+        Tape.SetVisibility(true);
+    }
+
+    void OnDisable()
+    {
+        Tape.SetVisibility(false);
+    }
+
     void Update()
     {
         CheckStickables();
@@ -50,9 +60,6 @@ public class DuctTapeController : MonoBehaviour
 
     private void CheckStickables()
     {
-        Debug.Log("LaunchpadB.InBox(): " + LaunchpadB.InBox() + " .. Scaffolding.InBox():" + Scaffolding.InBox());
-
-
         Vector2 screenPointOfSelf = ArCamera.WorldToScreenPoint(this.transform.position);
         Vector2 screenPointOfLaunchpadB = ArCamera.WorldToScreenPoint(LaunchpadB.transform.position);
         Vector2 screenPointOfCat = ArCamera.WorldToScreenPoint(Cat.transform.position);

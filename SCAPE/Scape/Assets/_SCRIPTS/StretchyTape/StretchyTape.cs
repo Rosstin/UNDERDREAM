@@ -8,6 +8,15 @@ public class StretchyTape : MonoBehaviour
     private float initialLength;
     private Vector3 initialLocalScale;
 
+    public bool visible;
+
+    public void SetVisibility(bool vis)
+    {
+        this.visible = vis;
+
+        Body.gameObject.SetActive(this.visible);
+    }
+
     void Start()
     {
         initialLength = Body.transform.localScale.x;
@@ -25,6 +34,8 @@ public class StretchyTape : MonoBehaviour
 
         // rotate it // its forward transform should point to one endpoint
         Body.transform.LookAt(a);
+
+        Body.gameObject.SetActive(visible);
     }
 
 }

@@ -2,19 +2,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MonsterAwakeEventHandler : DefaultTrackableEventHandler
+public class TapeAwakeEventHandler : DefaultTrackableEventHandler
 {
     [Header("Outlets")]
-    public GameObject Monster;
+    public GameObject Tape;
 
     #region PROTECTED_METHODS
 
     protected override void OnTrackingFound()
     {
-        Monster.gameObject.SetActive(true);
+        Tape.gameObject.SetActive(true);
 
         base.OnTrackingFound();
     }
+
+    protected override void OnTrackingLost()
+    {
+        Tape.gameObject.SetActive(false);
+
+        base.OnTrackingLost();
+    }
+
 
     #endregion // PROTECTED_METHODS
 }
