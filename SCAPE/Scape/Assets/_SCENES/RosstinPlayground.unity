@@ -346,7 +346,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 49698b8fd6644a29ba62358a080bf217, type: 3}
+        m_Texture: {fileID: 2800000, guid: 8d7ce85c9acb4bdd888e15e8299198af, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats: []
@@ -374,7 +374,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 1ada44bf00ba48d39e8a7a4ced35ea2c, type: 3}
+        m_Texture: {fileID: 2800000, guid: 510ae53fa3684c0da23be1ca92b4bb20, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats: []
@@ -1625,14 +1625,14 @@ MonoBehaviour:
   m_Script: {fileID: -1631628248, guid: 1e108ae5f2133934f948edded555f03e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mTrackableName: ducttape-512x885
+  mTrackableName: ducttape
   mPreserveChildSize: 0
   mInitializedInEditor: 1
   mDataSetPath: Vuforia/Scape.xml
-  mAspectRatio: 1.7285184
+  mAspectRatio: 0.55469435
   mImageTargetType: 0
-  mWidth: 0.06985
-  mHeight: 0.120737
+  mWidth: 0.0867
+  mHeight: 0.048092
 --- !u!4 &461265765
 Transform:
   m_ObjectHideFlags: 0
@@ -1642,7 +1642,7 @@ Transform:
   m_GameObject: {fileID: 461265757}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.120737, y: 0.120737, z: 0.120737}
+  m_LocalScale: {x: 0.0867, y: 0.0867, z: 0.0867}
   m_Children:
   - {fileID: 1614213387}
   m_Father: {fileID: 0}
@@ -2605,7 +2605,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: fb0d2794dc484d6a8a0172452fc0a187, type: 3}
+        m_Texture: {fileID: 2800000, guid: 19e745e95c2d4958b6902b90deeeea99, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats: []
@@ -4410,7 +4410,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 2b33c82dacf4400d9759c618a2c1ef0a, type: 3}
+        m_Texture: {fileID: 2800000, guid: 5cdf2c7dacf5471e907d021d45d969ea, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats: []
@@ -4683,7 +4683,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 3b34757bff44403489883b2915dc2b85, type: 3}
+        m_Texture: {fileID: 2800000, guid: 9801e5d9803645048b8761c30b38496a, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats: []
@@ -4937,7 +4937,7 @@ Mesh:
     vertexCount: 4
     localAABB:
       m_Center: {x: 0, y: 0, z: 0}
-      m_Extent: {x: 0.28926507, y: 0, z: 0.5}
+      m_Extent: {x: 0.5, y: 0, z: 0.27734718}
   m_Shapes:
     vertices: []
     shapes: []
@@ -5016,7 +5016,7 @@ Mesh:
       format: 0
       dimension: 0
     m_DataSize: 128
-    _typelessdata: 8d1a94be00000000000000bf000000000000803f0000000000000000000000008d1a94be000000000000003f000000000000803f00000000000000000000803f8d1a943e00000000000000bf000000000000803f000000000000803f000000008d1a943e000000000000003f000000000000803f000000000000803f0000803f
+    _typelessdata: 000000bf0000000073008ebe000000000000803f000000000000000000000000000000bf0000000073008e3e000000000000803f00000000000000000000803f0000003f0000000073008ebe000000000000803f000000000000803f000000000000003f0000000073008e3e000000000000803f000000000000803f0000803f
   m_CompressedMesh:
     m_Vertices:
       m_NumItems: 0
@@ -6023,6 +6023,31 @@ MonoBehaviour:
   LaunchpadB: {fileID: 786376931}
   Cat: {fileID: 1077303492}
   ClosenessThreshholdPixels: 50
+  CombineCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  WinAnimationDuration: 5
 --- !u!212 &1614213386
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -6990,7 +7015,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 'ducttape-512x885Material
+  m_Name: 'ducttapeMaterial
 
     -2346'
   m_Shader: {fileID: 10752, guid: 0000000000000000f000000000000000, type: 0}
@@ -7005,7 +7030,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: ae27db4b81dc4ac896bb28f74a4431f8, type: 3}
+        m_Texture: {fileID: 2800000, guid: b6b8e88be81e4afc8ab61b9d4b07269b, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats: []

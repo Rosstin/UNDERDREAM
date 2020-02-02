@@ -15,6 +15,8 @@ public class DuctTapeController : MonoBehaviour
 
     [Header("Configurables")]
     public float ClosenessThreshholdPixels;
+    public AnimationCurve CombineCurve;
+    public float WinAnimationDuration;
 
     public enum StickTo
     {
@@ -25,8 +27,19 @@ public class DuctTapeController : MonoBehaviour
     }
 
     private bool win = false;
-
     private StickTo curSticking = StickTo.None;
+    private float winTime = 0f;
+
+    private Vector3 launchpadInitialPos;
+    private Vector3 scaffoldingInitialPos;
+    private Vector3 midPoint;
+
+    void Start()
+    {
+        launchpadInitialPos = LaunchpadB.transform.localPosition;
+        scaffoldingInitialPos = Scaffolding.transform.localPosition;
+        midPoint = Vector3.Lerp(launchpadInitialPos, scaffoldingInitialPos, 0.5f);
+    }
 
     void Update()
     {
@@ -93,6 +106,16 @@ public class DuctTapeController : MonoBehaviour
         }
         else
         {
+            winTime += Time.deltaTime;
+
+            LaunchpadB.transform.localPosition = Vector3.Lerp(LaunchpadB.transform.localPosition, midPoint, CombineCurve.Evaluate(winTime/WinAnimationDuration));
+            Scaffolding.transform.localPosition = Vector3.Lerp(Scaffolding.transform.localPosition, midPoint, CombineCurve.Evaluate(winTime / WinAnimationDuration));
+
+            if(Mathf.Abs(Vector3.Distance(LaunchpadB.transform.position, Scaffolding.transform.position)) < ClosenessThreshholdPixels)
+            {
+                // make the rocket object animation
+            }
+
             Tape.DrawTapeBetween(LaunchpadB.transform.position, Scaffolding.transform.position);
         }
     }
