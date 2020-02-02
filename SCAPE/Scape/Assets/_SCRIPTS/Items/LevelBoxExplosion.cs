@@ -16,8 +16,10 @@ public class LevelBoxExplosion : MonoBehaviour {
     ) {
         objectToExplode.gameObject.SetActive(true);
         objectToExplode.SetParent(this.transform);
-        this.startPosition = this.transform.position;
-        this.destinationPosition = destinationPosition;
+    
+        Transform referenceTransform = this.transform.parent;
+        this.startPosition = this.transform.localPosition;
+        this.destinationPosition = referenceTransform.InverseTransformVector(destinationPosition);
 
         this.transform.SetParent(World.Instance.transform);
         this.objectToExplode = objectToExplode;
@@ -26,7 +28,7 @@ public class LevelBoxExplosion : MonoBehaviour {
 
     void Update() {
         float progress = deltaTime / totalTime;
-        this.transform.position = Vector3.Lerp(startPosition, destinationPosition, progress);
+        this.transform.localPosition = Vector3.Lerp(startPosition, destinationPosition, progress);
         this.transform.localScale = Vector3.Lerp(Vector3.zero, Vector3.one, progress);
 
         if (deltaTime >= totalTime) {
