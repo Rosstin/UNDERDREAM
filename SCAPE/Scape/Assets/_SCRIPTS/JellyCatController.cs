@@ -265,11 +265,13 @@ public class JellyCatController : Boxable
                 {
                     setGoal( Fish.gameObject, Fish.transform );
                     Vector2 screenPointOfFish = ArCamera.WorldToScreenPoint(Fish.transform.position);
-                    if (Mathf.Abs(Vector2.Distance(screenPointOfCat, screenPointOfFish)) < CucumberClosenessThreshholdPixels)
+                    if (Mathf.Abs(Vector2.Distance(screenPointOfCat, screenPointOfFish)) < GoalClosenessThreshholdPixels)
                     {
                         currentJellyCatState = JellyCatState.GOAL_IDLE;
+                        isGoalSeeking = false;
                     } else {
                         currentJellyCatState = JellyCatState.GOAL_MOVE;
+                        isGoalSeeking = true;
                     }
                 } else {
                     setGoal(Launchpad.gameObject, Launchpad.transform);
