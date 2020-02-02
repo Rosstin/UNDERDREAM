@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class JellyCatController : MonoBehaviour
+public class JellyCatController : Boxable
 {
     [Header("Outlets")]
     public Camera ArCamera;
