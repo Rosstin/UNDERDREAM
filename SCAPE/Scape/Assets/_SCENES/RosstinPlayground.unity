@@ -5045,6 +5045,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4948876521852778980, guid: 30fc1555170faef4894c21205cd96519,
+        type: 3}
+      propertyPath: m_SortingLayerID
+      value: -572490361
+      objectReference: {fileID: 0}
+    - target: {fileID: 4948876521852778980, guid: 30fc1555170faef4894c21205cd96519,
+        type: 3}
+      propertyPath: m_SortingLayer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 944966012, guid: 30fc1555170faef4894c21205cd96519, type: 3}
       propertyPath: ArCamera
       value: 
@@ -5055,17 +5065,23 @@ PrefabInstance:
       objectReference: {fileID: 280852265}
     - target: {fileID: 944966012, guid: 30fc1555170faef4894c21205cd96519, type: 3}
       propertyPath: StartSpeed
-      value: 0.08
+      value: 0.02
       objectReference: {fileID: 0}
-    - target: {fileID: 4948876521852778980, guid: 30fc1555170faef4894c21205cd96519,
-        type: 3}
-      propertyPath: m_SortingLayerID
-      value: -572490361
+    - target: {fileID: 944966012, guid: 30fc1555170faef4894c21205cd96519, type: 3}
+      propertyPath: RotationsOnDeath
+      value: 5
       objectReference: {fileID: 0}
-    - target: {fileID: 4948876521852778980, guid: 30fc1555170faef4894c21205cd96519,
-        type: 3}
-      propertyPath: m_SortingLayer
-      value: 2
+    - target: {fileID: 944966012, guid: 30fc1555170faef4894c21205cd96519, type: 3}
+      propertyPath: DeathTimePeriod
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 944966012, guid: 30fc1555170faef4894c21205cd96519, type: 3}
+      propertyPath: RespawnTimePeriod
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 944966012, guid: 30fc1555170faef4894c21205cd96519, type: 3}
+      propertyPath: PitDeathClosenessThreshholdPixels
+      value: 25
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 30fc1555170faef4894c21205cd96519, type: 3}
