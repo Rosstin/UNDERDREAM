@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class LevelBoxExplosion : MonoBehaviour {
     public Transform objectToExplode;
-
     public Vector3 destinationPosition;
     private Vector3 startPosition;
 
@@ -19,6 +18,10 @@ public class LevelBoxExplosion : MonoBehaviour {
         objectToExplode.SetParent(this.transform);
         this.startPosition = this.transform.position;
         this.destinationPosition = destinationPosition;
+
+        this.transform.SetParent(World.Instance.transform);
+        this.objectToExplode = objectToExplode;
+
     }
 
     void Update() {
@@ -27,11 +30,9 @@ public class LevelBoxExplosion : MonoBehaviour {
         this.transform.localScale = Vector3.Lerp(Vector3.zero, Vector3.one, progress);
 
         if (deltaTime >= totalTime) {
-            // unparent all children
-            foreach (Transform child in this.gameObject.GetComponentsInChildren<Transform>(true)) {
-                child.SetParent(World.Instance.transform);
-                child.position = this.transform.position;
-            }
+            objectToExplode.SetParent(World.Instance.transform);
+            objectToExplode.position = this.transform.position;
+            objectToExplode.SendMessage("doneExploding");
             Destroy(this.gameObject);
         } else {
             deltaTime += Time.deltaTime;

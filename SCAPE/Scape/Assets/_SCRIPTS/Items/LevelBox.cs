@@ -26,8 +26,7 @@ public class LevelBox : MonoBehaviour
     public float SHAKE_MAGNITUDE_THRESHOLD = 1f;
     public float SHAKE_TIME_THRESHOLD = 1.5f;
 
-    public float MINIMUM_SPAWN_SEPARATION = 10;
-
+    public float MINIMUM_SPAWN_SEPARATION = 20;
 
     public void Start()
     {
