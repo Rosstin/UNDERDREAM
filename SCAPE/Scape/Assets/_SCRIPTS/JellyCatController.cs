@@ -50,6 +50,8 @@ public class JellyCatController : Boxable
         IDLE_MOVE,
         GOAL_MOVE,
         GOAL_IDLE,
+        PISSED,
+        GOAL_WANT,
         DYING,
         REBORN
     }
@@ -94,6 +96,14 @@ public class JellyCatController : Boxable
     private void MoveCatToOrigin()
     {
         this.transform.localPosition = initialLocalPosition;
+    }
+
+    private void SetAnimState(string stateName)
+    {
+        //JellyCatAnimator.SetInteger("SleepCondition", 0);
+        //set each condition to 0, set correct condition to 1
+        // SleepCondition, AvoidCondition, AttractCondition
+
     }
 
     // calc angle direction between forward and goal
@@ -187,6 +197,17 @@ public class JellyCatController : Boxable
                 // FORWARD MOVE
                 this.transform.position += this.transform.forward * StartSpeed * Time.deltaTime;
                 goto default;
+
+            case JellyCatState.PISSED:
+                JellyCatAnimator.SetInteger("SleepCondition", 0);
+                //move avoid cucumber code here
+                goto default;
+
+            case JellyCatState.GOAL_WANT:
+                JellyCatAnimator.SetInteger("SleepCondition", 0);
+                //add fish
+                goto default;
+
             default:
                 
                 // JELLY WIGGLE
