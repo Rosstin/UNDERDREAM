@@ -5001,7 +5001,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 808f6a09a526bdc47aa5c102ecdc92ae, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 708ccb2036655f347b57ac62a786c1f4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -6602,8 +6602,8 @@ GameObject:
   - component: {fileID: 1503392444}
   - component: {fileID: 1503392443}
   - component: {fileID: 1503392442}
-  - component: {fileID: 1503392441}
   - component: {fileID: 1503392440}
+  - component: {fileID: 1503392441}
   m_Layer: 0
   m_Name: imagetarget-fish
   m_TagString: Untagged
@@ -6648,10 +6648,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1503392438}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c1a5c537bd411274086b0f98e57f4d00, type: 3}
+  m_Script: {fileID: 11500000, guid: 73d8cea78e017ad40a5fcae43ea578aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Monster: {fileID: 1087689832}
+  Tape: {fileID: 1087689832}
 --- !u!33 &1503392442
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -7305,6 +7305,14 @@ PrefabInstance:
       propertyPath: Broom
       value: 
       objectReference: {fileID: 1132484151}
+    - target: {fileID: 944966012, guid: 30fc1555170faef4894c21205cd96519, type: 3}
+      propertyPath: CucumberClosenessThreshholdPixels
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 944966012, guid: 30fc1555170faef4894c21205cd96519, type: 3}
+      propertyPath: BackupAmountMeters
+      value: 0.02
+      objectReference: {fileID: 0}
     - target: {fileID: 6708904151543408690, guid: 30fc1555170faef4894c21205cd96519,
         type: 3}
       propertyPath: m_LocalPosition.x
