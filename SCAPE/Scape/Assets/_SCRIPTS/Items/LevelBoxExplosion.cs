@@ -32,7 +32,6 @@ public class LevelBoxExplosion : MonoBehaviour {
             foreach (Transform child in this.gameObject.GetComponentsInChildren<Transform>(true)) {
                 child.SetParent(World.Instance.transform);
                 child.position = this.transform.position;
-                //child.gameObject.SetActive(true);
             }
             Destroy(this.gameObject);
         } else {

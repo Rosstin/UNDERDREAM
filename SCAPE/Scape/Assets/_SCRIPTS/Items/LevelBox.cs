@@ -48,7 +48,6 @@ public class LevelBox : MonoBehaviour
         Vector3 cameraAcceleration = cameraVelocity - this.lastCameraVelocity;
         float magnitude = cameraAcceleration.magnitude;
 
-        Debug.Log("Magnitude: " + magnitude);
         switch (this.state) {
             case BoxState.STILL: {
                 if (magnitude > this.SHAKE_MAGNITUDE_THRESHOLD) {
