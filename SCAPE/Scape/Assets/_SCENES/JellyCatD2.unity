@@ -6747,6 +6747,16 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 57.471294
       objectReference: {fileID: 0}
+    - target: {fileID: 4948876521852778980, guid: 30fc1555170faef4894c21205cd96519,
+        type: 3}
+      propertyPath: m_SortingLayerID
+      value: -572490361
+      objectReference: {fileID: 0}
+    - target: {fileID: 4948876521852778980, guid: 30fc1555170faef4894c21205cd96519,
+        type: 3}
+      propertyPath: m_SortingLayer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 944966012, guid: 30fc1555170faef4894c21205cd96519, type: 3}
       propertyPath: ArCamera
       value: 
@@ -6785,7 +6795,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 944966012, guid: 30fc1555170faef4894c21205cd96519, type: 3}
       propertyPath: GoalRotationSpeed
-      value: 20
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 944966012, guid: 30fc1555170faef4894c21205cd96519, type: 3}
       propertyPath: GoalClosenessThreshholdPixels
@@ -6795,16 +6805,6 @@ PrefabInstance:
       propertyPath: Launchpad
       value: 
       objectReference: {fileID: 1162132164}
-    - target: {fileID: 4948876521852778980, guid: 30fc1555170faef4894c21205cd96519,
-        type: 3}
-      propertyPath: m_SortingLayerID
-      value: -572490361
-      objectReference: {fileID: 0}
-    - target: {fileID: 4948876521852778980, guid: 30fc1555170faef4894c21205cd96519,
-        type: 3}
-      propertyPath: m_SortingLayer
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 2882263774469821289, guid: 30fc1555170faef4894c21205cd96519,
         type: 3}
       propertyPath: m_Controller
