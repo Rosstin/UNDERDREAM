@@ -2,6 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LaunchpadBController : MonoBehaviour
+public class LaunchpadBController : Boxable
 {
 }

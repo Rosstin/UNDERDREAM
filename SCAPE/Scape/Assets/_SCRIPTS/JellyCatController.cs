@@ -147,7 +147,7 @@ public class JellyCatController : MonoBehaviour
                 transform.localScale = vec;
 
                 // FALLOFF == DEATH
-                // bottom left is 0,0, bottom right is 0,1, top left is 1,0, top right is 1,1
+                // bottom left is 0,0, bottom right is 0,pixelHeight, top left is pixelHeight,0, top right is pixelWidth,pixelHeight
                 Vector2 screenPointOfCat = ArCamera.WorldToScreenPoint(this.transform.position);
                 if (screenPointOfCat.x < PitDeathClosenessThreshholdPixels)
                 {

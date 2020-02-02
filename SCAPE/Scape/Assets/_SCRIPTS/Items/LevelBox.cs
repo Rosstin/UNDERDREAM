@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LevelBox : MonoBehaviour
 {
-    public Transform[] SpawnableChildren;
+    public Boxable[] SpawnableChildren;
 
     public enum BoxState {
         STILL,
@@ -13,11 +13,11 @@ public class LevelBox : MonoBehaviour
     }
 
     // Keep track of the positions every .1 sec over the last 2 seconds.
-    private Vector3 lastCameraVelocity = Vector3.zero;
-    private Vector3 lastCameraPosition = Vector3.zero;
+    private Vector2 lastBoxVelocity = Vector3.zero;
+    private Vector2 lastBoxPosition = Vector3.zero;
 
-    public BoxState state = BoxState.STILL;
-    public float timeSpentShaking = 0;
+    private BoxState state = BoxState.STILL;
+    private float timeSpentShaking = 0;
 
     public Camera ArCamera;
     
@@ -31,7 +31,7 @@ public class LevelBox : MonoBehaviour
 
     public void Start()
     {
-        foreach (Transform child in SpawnableChildren) {
+        foreach (Boxable child in SpawnableChildren) {
             child.gameObject.SetActive(false);
         }
     }
@@ -42,11 +42,13 @@ public class LevelBox : MonoBehaviour
             return;
         }
 
-        Vector3 currentCameraPosition = ArCamera.transform.position;
-        Vector3 cameraVelocity = (currentCameraPosition - lastCameraPosition) / Time.deltaTime;
+        Vector2 screenPointOfBox = ArCamera.WorldToScreenPoint(this.transform.position);
 
-        Vector3 cameraAcceleration = cameraVelocity - this.lastCameraVelocity;
-        float magnitude = cameraAcceleration.magnitude;
+        Vector2 boxVelocity = (screenPointOfBox - lastBoxPosition) / Time.deltaTime;
+
+        Vector2 boxAcceleration = boxVelocity - this.lastBoxVelocity;
+
+        float magnitude = boxAcceleration.magnitude;
 
         switch (this.state) {
             case BoxState.STILL: {
@@ -72,16 +74,34 @@ public class LevelBox : MonoBehaviour
             this.state = BoxState.STILL;
         }
 
-        lastCameraPosition = currentCameraPosition;
+        lastBoxPosition = screenPointOfBox;
+    }
+
+    private Transform[] GetTransformsFromBoxables(Boxable[] boxables)
+    {
+        Transform[] transforms = new Transform[boxables.Length];
+        for(int i = 0; i < boxables.Length; i++)
+        {
+            transforms[i] = boxables[i].transform;
+        }
+        return transforms;
     }
 
     void OnBroken() {
-        List<Vector2> spawnPoints = CreateSpawnPoints(SpawnableChildren);
+
+        foreach(Boxable boxed in SpawnableChildren)
+        {
+            boxed.UnBox();
+        }
+
+        Transform[] transforms = GetTransformsFromBoxables(SpawnableChildren);
+
+        List<Vector2> spawnPoints = CreateSpawnPoints(transforms);
 
         float groundPlaneY = this.gameObject.transform.position.y;
 
         for (int i = 0; i < spawnPoints.Count; ++i) {
-            Transform child = SpawnableChildren[i];
+            Transform child = transforms[i];
             Vector2 spawnPoint = spawnPoints[i];
 
             Ray spawnRay = ArCamera.ViewportPointToRay(spawnPoint);
