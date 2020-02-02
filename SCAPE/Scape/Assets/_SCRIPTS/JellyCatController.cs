@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class JellyCatController : MonoBehaviour
+public class JellyCatController : Boxable
 {
     [Header("Outlets")]
     public Camera ArCamera;
@@ -10,12 +10,16 @@ public class JellyCatController : MonoBehaviour
     [Header("Outlets - Items")]
     public CucumberController Cucumber;
 
+    public LaunchpadBController Launchpad;
+
     [Header("Configurables")]
     public float StartSpeed;
-    public float RotationSpeed;
+    public float IdleRotationSpeed;
+    public float GoalRotationSpeed;
     public float AverageDirectionChangePeriod;
     public float VariationInPeriod;
     public float CucumberClosenessThreshholdPixels;
+    public float GoalClosenessThreshholdPixels;
     public float BackupAmountMeters;
     public float RotationsOnDeath;
     public float DeathTimePeriod;
@@ -25,7 +29,7 @@ public class JellyCatController : MonoBehaviour
     private Vector3 FORWARD = new Vector3(0, 1, 0);
     private Vector3 curDirection;
     private float curSpeed;
-    private int leftOrRight = 1;
+    private float leftOrRight = 1f;
     private float curDirectionChangePeriod;
     private float curCucumberTime = 0f;
     // time of cat in current state/action
@@ -39,6 +43,7 @@ public class JellyCatController : MonoBehaviour
 
     //animation vars
     public Animator JellyCatAnimator;
+    private bool isGoalSeeking = true;
 
     public enum JellyCatState {
         IDLE,
@@ -49,7 +54,12 @@ public class JellyCatController : MonoBehaviour
         REBORN
     }
 
-    public JellyCatState currentJellyCatState = JellyCatState.IDLE_MOVE;
+    // default not moving
+    public JellyCatState currentJellyCatState = JellyCatState.GOAL_IDLE;
+
+    public void doneExploding() {
+        currentJellyCatState = JellyCatState.GOAL_MOVE;
+    }
 
     void Start()
     {
@@ -86,9 +96,25 @@ public class JellyCatController : MonoBehaviour
         this.transform.localPosition = initialLocalPosition;
     }
 
+    // calc angle direction between forward and goal
+    float AngleDir(Vector3 fwd, Vector3 targetDir, Vector3 up) {
+		Vector3 perp = Vector3.Cross(fwd, targetDir);
+		float dir = Vector3.Dot(perp, up);
+		
+		if (dir > 0f) {
+			return 1f;
+		} else if (dir < 0f) {
+			return -1f;
+		} else {
+			return 0f;
+		}
+	}
+
     void Update()
     {
         curTime += Time.deltaTime;
+
+        Vector2 screenPointOfCat = ArCamera.WorldToScreenPoint(this.transform.position);
 
         switch ( currentJellyCatState ) {
 
@@ -108,7 +134,8 @@ public class JellyCatController : MonoBehaviour
                 break;
             case JellyCatState.REBORN:
                 if (curTime > DeathTimePeriod) {
-                    currentJellyCatState = JellyCatState.IDLE_MOVE;
+                    if ( isGoalSeeking ) currentJellyCatState = JellyCatState.GOAL_MOVE;
+                    else currentJellyCatState = JellyCatState.IDLE_MOVE;
                     curTime = 0f;
                 }
                 else {
@@ -120,18 +147,33 @@ public class JellyCatController : MonoBehaviour
                 JellyCatAnimator.SetInteger("SleepCondition", 0);
                 break;
             case JellyCatState.GOAL_MOVE:
-                if (curTime > curDirectionChangePeriod)
+                // get goal position
+                if (Launchpad.gameObject.activeSelf)
                 {
-                    leftOrRight *= -1;
-                    curTime = 0f;
-                    NewDirectionChangePeriod();
+                    isGoalSeeking = true;
+                    
+                    Vector3 heading = Launchpad.transform.position - this.transform.position;
+		            leftOrRight = AngleDir(this.transform.forward, heading, this.transform.up);
+                    Vector2 screenPointOfLaunchpad = ArCamera.WorldToScreenPoint(Launchpad.transform.position);
+
+                    // TURN ANGLE
+                    this.transform.Rotate(0.0f, leftOrRight * GoalRotationSpeed * Time.deltaTime, 0.0f, Space.Self);
+                    // FORWARD MOVE
+                    this.transform.position += this.transform.forward * StartSpeed * Time.deltaTime;
+                    
+                    if ( Mathf.Abs(Vector2.Distance(screenPointOfCat, screenPointOfLaunchpad)) < GoalClosenessThreshholdPixels)
+                    {
+                        currentJellyCatState = JellyCatState.GOAL_IDLE;
+                    }
                 }
                 JellyCatAnimator.SetInteger("SleepCondition", 0);
+
                 goto default;
             case JellyCatState.GOAL_IDLE:
                 JellyCatAnimator.SetInteger("SleepCondition", 1);
                 break;
             case JellyCatState.IDLE_MOVE:
+                isGoalSeeking = false;
                 if (curTime > curDirectionChangePeriod)
                 {
                     leftOrRight *= -1;
@@ -140,7 +182,7 @@ public class JellyCatController : MonoBehaviour
                 }
                 JellyCatAnimator.SetInteger("SleepCondition", 0);
                 // BACK AND FORTH TURN
-                this.transform.Rotate(0.0f, leftOrRight * RotationSpeed * Time.deltaTime, 0.0f, Space.Self);
+                this.transform.Rotate(0.0f, leftOrRight * IdleRotationSpeed * Time.deltaTime, 0.0f, Space.Self);
 
                 // FORWARD MOVE
                 this.transform.position += this.transform.forward * StartSpeed * Time.deltaTime;
@@ -154,7 +196,7 @@ public class JellyCatController : MonoBehaviour
 
                 // FALLOFF == DEATH
                 // bottom left is 0,0, bottom right is 0,1, top left is 1,0, top right is 1,1
-                Vector2 screenPointOfCat = ArCamera.WorldToScreenPoint(this.transform.position);
+                
                 if (screenPointOfCat.x < PitDeathClosenessThreshholdPixels)
                 {
                     currentJellyCatState = JellyCatState.DYING;

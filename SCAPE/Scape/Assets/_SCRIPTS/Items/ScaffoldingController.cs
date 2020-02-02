@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
 
-public class ScaffoldingController : MonoBehaviour
+public class ScaffoldingController : Boxable
 {
 }

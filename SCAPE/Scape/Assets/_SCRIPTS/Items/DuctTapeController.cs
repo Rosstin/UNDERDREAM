@@ -50,15 +50,26 @@ public class DuctTapeController : MonoBehaviour
 
     private void CheckStickables()
     {
+        Debug.Log("LaunchpadB.InBox(): " + LaunchpadB.InBox() + " .. Scaffolding.InBox():" + Scaffolding.InBox());
+
+
         Vector2 screenPointOfSelf = ArCamera.WorldToScreenPoint(this.transform.position);
         Vector2 screenPointOfLaunchpadB = ArCamera.WorldToScreenPoint(LaunchpadB.transform.position);
         Vector2 screenPointOfCat = ArCamera.WorldToScreenPoint(Cat.transform.position);
         Vector2 screenPointOfScaffolding = ArCamera.WorldToScreenPoint(Scaffolding.transform.position);
 
-        bool closeToLaunchpadB = Mathf.Abs(Vector2.Distance(screenPointOfLaunchpadB, screenPointOfSelf)) < ClosenessThreshholdPixels;
-        bool closeToScaffolding = Mathf.Abs(Vector2.Distance(screenPointOfScaffolding, screenPointOfSelf)) < ClosenessThreshholdPixels;
-        bool closeToCat = Mathf.Abs(Vector2.Distance(screenPointOfCat, screenPointOfSelf)) < ClosenessThreshholdPixels; ;
-
+        bool closeToLaunchpadB = false;
+        bool closeToScaffolding = false;
+        bool closeToCat = false;
+        if (!LaunchpadB.InBox())
+        {
+            closeToLaunchpadB = Mathf.Abs(Vector2.Distance(screenPointOfLaunchpadB, screenPointOfSelf)) < ClosenessThreshholdPixels;
+        }
+        if (!Scaffolding.InBox())
+        {
+            closeToScaffolding = Mathf.Abs(Vector2.Distance(screenPointOfScaffolding, screenPointOfSelf)) < ClosenessThreshholdPixels;
+        }
+        closeToCat = Mathf.Abs(Vector2.Distance(screenPointOfCat, screenPointOfSelf)) < ClosenessThreshholdPixels; ;
 
         if (closeToCat)
         {

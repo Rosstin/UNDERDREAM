@@ -84,6 +84,7 @@ AnimatorController:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: catAnimator
+<<<<<<< HEAD
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: SleepCondition
@@ -107,6 +108,8 @@ AnimatorController:
     m_Controller: {fileID: 9100000}
 --- !u!1102 &6325903633272105158
 AnimatorState:
+=======
+>>>>>>> 7cf2e3ac11e82eaab8000e87c1c6ed90ef4509da
   serializedVersion: 5
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
