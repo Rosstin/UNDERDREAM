@@ -41,9 +41,12 @@ public class JellyCatController : Boxable
     private Vector3 initialLocalScale;
     private Vector3 initialLocalPosition;
 
+<<<<<<< HEAD
     //animation vars
     public Animator JellyCatAnimator;
+=======
     private bool isGoalSeeking = true;
+>>>>>>> 7cf2e3ac11e82eaab8000e87c1c6ed90ef4509da
 
     public enum JellyCatState {
         IDLE,
@@ -166,8 +169,11 @@ public class JellyCatController : Boxable
                         currentJellyCatState = JellyCatState.GOAL_IDLE;
                     }
                 }
+<<<<<<< HEAD
                 JellyCatAnimator.SetInteger("SleepCondition", 0);
+=======
 
+>>>>>>> 7cf2e3ac11e82eaab8000e87c1c6ed90ef4509da
                 goto default;
             case JellyCatState.GOAL_IDLE:
                 JellyCatAnimator.SetInteger("SleepCondition", 1);
