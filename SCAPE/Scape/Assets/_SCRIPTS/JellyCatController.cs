@@ -100,12 +100,14 @@ public class JellyCatController : Boxable
         this.transform.localPosition = initialLocalPosition;
     }
 
-    private void SetAnimState(string stateName)
+    private void SetAnimationState(string stateName)
     {
-        //JellyCatAnimator.SetInteger("SleepCondition", 0);
-        //set each condition to 0, set correct condition to 1
-        // SleepCondition, AvoidCondition, AttractCondition
-
+        // dumb reset 
+        JellyCatAnimator.SetInteger("SleepCondition", 0);
+        JellyCatAnimator.SetInteger("AvoidCondition", 0);
+        JellyCatAnimator.SetInteger("AttractCondition", 0);
+        // set current
+        if ( stateName != "") JellyCatAnimator.SetInteger(stateName, 1);
     }
 
     // calc angle direction between forward and goal
@@ -131,6 +133,7 @@ public class JellyCatController : Boxable
         switch ( currentJellyCatState ) {
 
             case JellyCatState.DYING:
+                SetAnimationState("AvoidCondition");
                 if (curTime > DeathTimePeriod) {
                     MoveCatToOrigin();
                     currentJellyCatState = JellyCatState.REBORN;
@@ -142,9 +145,9 @@ public class JellyCatController : Boxable
                     this.transform.Rotate(0.0f, Time.deltaTime * 360f * RotationsOnDeath / DeathTimePeriod , 0f, Space.Self); // spin
                     this.transform.localScale = new Vector3(  1 - curTimeOverPeriodRatio, 1, 1 - curTimeOverPeriodRatio); // shrink
                 }
-                JellyCatAnimator.SetInteger("SleepCondition", 0);
                 break;
             case JellyCatState.REBORN:
+                SetAnimationState("AttractCondition");
                 if (curTime > DeathTimePeriod) {
                     if ( isGoalSeeking ) currentJellyCatState = JellyCatState.GOAL_MOVE;
                     else currentJellyCatState = JellyCatState.IDLE_MOVE;
@@ -156,9 +159,9 @@ public class JellyCatController : Boxable
                     this.transform.Rotate(0, - Time.deltaTime * 360f * RotationsOnDeath / DeathTimePeriod , 0, Space.Self); // opposite spin
                     this.transform.localScale = new Vector3( curTimeOverPeriodRatio, 1, curTimeOverPeriodRatio); // grow
                 }
-                JellyCatAnimator.SetInteger("SleepCondition", 0);
                 break;
             case JellyCatState.GOAL_MOVE:
+                SetAnimationState("AttractCondition");
                 // get goal position
                 if (Launchpad.gameObject.activeSelf)
                 {
@@ -178,13 +181,13 @@ public class JellyCatController : Boxable
                         currentJellyCatState = JellyCatState.GOAL_IDLE;
                     }
                 }
-                JellyCatAnimator.SetInteger("SleepCondition", 0);
 
                 goto default;
             case JellyCatState.GOAL_IDLE:
-                JellyCatAnimator.SetInteger("SleepCondition", 1);
+                SetAnimationState("SleepCondition");
                 break;
             case JellyCatState.IDLE_MOVE:
+                SetAnimationState("");
                 isGoalSeeking = false;
                 if (curTime > curDirectionChangePeriod)
                 {
@@ -192,22 +195,6 @@ public class JellyCatController : Boxable
                     curTime = 0f;
                     NewDirectionChangePeriod();
                 }
-                JellyCatAnimator.SetInteger("SleepCondition", 0);
-                // BACK AND FORTH TURN
-                this.transform.Rotate(0.0f, leftOrRight * IdleRotationSpeed * Time.deltaTime, 0.0f, Space.Self);
-
-                // FORWARD MOVE
-                this.transform.position += this.transform.forward * StartSpeed * Time.deltaTime;
-                goto default;
-            case JellyCatState.CATNIP:
-                isGoalSeeking = false;
-                if (curTime > curDirectionChangePeriod)
-                {
-                    leftOrRight *= -1;
-                    curTime = 0f;
-                    NewDirectionChangePeriod();
-                }
-                JellyCatAnimator.SetInteger("SleepCondition", 0);
                 // BACK AND FORTH TURN
                 this.transform.Rotate(0.0f, leftOrRight * IdleRotationSpeed * Time.deltaTime, 0.0f, Space.Self);
 
