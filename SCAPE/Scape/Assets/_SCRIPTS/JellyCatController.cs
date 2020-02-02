@@ -99,6 +99,14 @@ public class JellyCatController : Boxable
         this.transform.localPosition = initialLocalPosition;
     }
 
+    private void SetAnimState(string stateName)
+    {
+        //JellyCatAnimator.SetInteger("SleepCondition", 0);
+        //set each condition to 0, set correct condition to 1
+        // SleepCondition, AvoidCondition, AttractCondition
+
+    }
+
     // calc angle direction between forward and goal
     float AngleDir(Vector3 fwd, Vector3 targetDir, Vector3 up) {
 		Vector3 perp = Vector3.Cross(fwd, targetDir);
@@ -253,6 +261,5 @@ public class JellyCatController : Boxable
                 }
             break;
         }
-
     }
 }
