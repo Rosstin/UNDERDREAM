@@ -7,6 +7,7 @@ public class DuctTapeController : MonoBehaviour
     [Header("Outlets")]
     public Camera ArCamera;
     public StretchyTape Tape;
+    public WinRocket Rocket;
 
     [Header("Outlets - Stick Targets")]
     public ScaffoldingController Scaffolding;
@@ -111,9 +112,17 @@ public class DuctTapeController : MonoBehaviour
             LaunchpadB.transform.localPosition = Vector3.Lerp(LaunchpadB.transform.localPosition, midPoint, CombineCurve.Evaluate(winTime/WinAnimationDuration));
             Scaffolding.transform.localPosition = Vector3.Lerp(Scaffolding.transform.localPosition, midPoint, CombineCurve.Evaluate(winTime / WinAnimationDuration));
 
-            if(Mathf.Abs(Vector3.Distance(LaunchpadB.transform.position, Scaffolding.transform.position)) < ClosenessThreshholdPixels)
+            Vector2 screenPointOfLaunchpadB = ArCamera.WorldToScreenPoint(LaunchpadB.transform.position);
+            Vector2 screenPointOfScaffolding = ArCamera.WorldToScreenPoint(Scaffolding.transform.position);
+
+            if (Mathf.Abs(Vector2.Distance(screenPointOfLaunchpadB, screenPointOfScaffolding)) < ClosenessThreshholdPixels)
             {
-                // make the rocket object animation
+                Rocket.gameObject.SetActive(true);
+                Scaffolding.gameObject.SetActive(false);
+                LaunchpadB.gameObject.SetActive(false);
+                this.gameObject.SetActive(false);
+                Tape.gameObject.SetActive(false);
+                Cat.gameObject.SetActive(false);
             }
 
             Tape.DrawTapeBetween(LaunchpadB.transform.position, Scaffolding.transform.position);
