@@ -10,6 +10,7 @@ public class JellyCatController : Boxable
     [Header("Outlets - Items")]
     public CucumberController Cucumber;
     public BroomController Broom;
+    public FishController Fish;
 
     public LaunchpadBController Launchpad;
 
@@ -250,11 +251,21 @@ public class JellyCatController : Boxable
                     }
                 }
 
-                // CATNIP TRIGGER
-                if (Catnip.gameObject.activeSelf)
+                // AVOID BROOM
+                if (Broom.gameObject.activeSelf)
                 {
-                    Vector2 screenPointOfCucumber = ArCamera.WorldToScreenPoint(Catnip.transform.position);
-                    if (Mathf.Abs(Vector2.Distance(screenPointOfCat, screenPointOfCucumber)) < CatnipClosenessThreshholdPixels)
+                    Vector2 screenPointOfCucumber = ArCamera.WorldToScreenPoint(Cucumber.transform.position);
+                    if (Mathf.Abs(Vector2.Distance(screenPointOfCat, screenPointOfCucumber)) < CucumberClosenessThreshholdPixels)
+                    {
+                        BackupAndFlip();
+                    }
+                }
+
+                // Fish TRIGGER
+                if (Fish.gameObject.activeSelf)
+                {
+                    Vector2 screenPointOfCucumber = ArCamera.WorldToScreenPoint(Fish.transform.position);
+                    if (Mathf.Abs(Vector2.Distance(screenPointOfCat, screenPointOfCucumber)) < CucumberClosenessThreshholdPixels)
                     {
                         currentJellyCatState = JellyCatState.CATNIP;
                     }
