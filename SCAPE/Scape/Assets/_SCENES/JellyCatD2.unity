@@ -6957,7 +6957,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 944966012, guid: 30fc1555170faef4894c21205cd96519, type: 3}
       propertyPath: GoalRotationSpeed
-      value: 60
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 944966012, guid: 30fc1555170faef4894c21205cd96519, type: 3}
       propertyPath: GoalClosenessThreshholdPixels
