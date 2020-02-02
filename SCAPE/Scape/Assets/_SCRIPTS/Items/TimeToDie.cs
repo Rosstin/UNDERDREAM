@@ -16,7 +16,7 @@ public class TimeToDie : MonoBehaviour {
         this.transform.localScale = Vector3.Lerp(this.startingScale, Vector3.zero, progress);
 
         if (deltaTime >= totalTime) {
-            Destroy(this.gameObject);
+            this.gameObject.SetActive(false);
         } else {
             deltaTime += Time.deltaTime;
         }
