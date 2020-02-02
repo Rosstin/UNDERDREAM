@@ -56,7 +56,8 @@ public class JellyCatController : Boxable
         GOAL_MOVE,
         GOAL_IDLE,
         DYING,
-        REBORN
+        REBORN,
+        COMMON_MOVE
     }
 
     // default not moving
@@ -189,10 +190,10 @@ public class JellyCatController : Boxable
                         currentJellyCatState = JellyCatState.GOAL_IDLE;
                     }
                 }
-                goto default;
+                goto case JellyCatState.COMMON_MOVE;;
             case JellyCatState.GOAL_IDLE:
                 SetAnimationState("SleepCondition");
-                break;
+                goto default;
             case JellyCatState.IDLE_MOVE:
                 SetAnimationState("");
                 isGoalSeeking = false;
@@ -207,13 +208,15 @@ public class JellyCatController : Boxable
 
                 // FORWARD MOVE
                 this.transform.position += this.transform.forward * StartSpeed * Time.deltaTime;
-                goto default;
-            default:
+                goto case JellyCatState.COMMON_MOVE;
+            case JellyCatState.COMMON_MOVE:
                 // JELLY WIGGLE
                 Vector3 vec = new Vector3( ( Mathf.Sin(Time.time) / 2 ) + 1.5f , 1, ( Mathf.Sin(12*Time.time) / 2 ) + 1.5f );
         
                 transform.localScale = vec;
-
+                goto default;
+            default: // default behavior rules below:
+                
                 // FALLOFF == DEATH
                 // bottom left is 0,0, bottom right is 0,1, top left is 1,0, top right is 1,1
                 
@@ -257,7 +260,7 @@ public class JellyCatController : Boxable
                     }
                 }
 
-                // Fish TRIGGER
+                // FISH TRIGGER
                 if (Fish.gameObject.activeSelf)
                 {
                     setGoal( Fish.gameObject, Fish.transform );
