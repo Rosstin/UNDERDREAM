@@ -4182,6 +4182,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Monster: {fileID: 5378015005532287723}
+--- !u!114 &1077303492 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 944966012, guid: 30fc1555170faef4894c21205cd96519,
+    type: 3}
+  m_PrefabInstance: {fileID: 1275369724}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57ca1686cb8038744a8e9cf08bcc6685, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1128398316
 GameObject:
   m_ObjectHideFlags: 0
@@ -6115,7 +6127,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1609763205
 Transform:
   m_ObjectHideFlags: 0
@@ -6276,8 +6288,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ArCamera: {fileID: 1227899149}
-  LaunchpadB: {fileID: 786376931}
   Tape: {fileID: 1609763206}
+  LaunchpadB: {fileID: 786376931}
+  Cat: {fileID: 1077303492}
   ClosenessThreshholdPixels: 50
 --- !u!212 &1614213386
 SpriteRenderer:

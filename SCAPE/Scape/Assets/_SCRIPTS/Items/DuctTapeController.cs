@@ -6,30 +6,65 @@ public class DuctTapeController : MonoBehaviour
 {
     [Header("Outlets")]
     public Camera ArCamera;
-    public LaunchpadBController LaunchpadB;
     public StretchyTape Tape;
+
+    [Header("Outlets - Stick Targets")]
+    public LaunchpadBController LaunchpadB;
+    public JellyCatController Cat;
 
     [Header("Configurables")]
     public float ClosenessThreshholdPixels;
 
-    private bool stickToLaunchpad = false;
+    public enum StickTo
+    {
+        None,
+        LaunchpadA,
+        LaunchpadB,
+        Cat,
+    }
+
+    private StickTo curSticking = StickTo.None;
 
     void Update()
     {
-        if (!stickToLaunchpad)
+        CheckStickables();
+        UpdateSticking();
+    }
+
+    private void CheckStickables()
+    {
+        Vector2 screenPointOfSelf = ArCamera.WorldToScreenPoint(this.transform.position);
+
+        // stick to launchpadB if close enough
+        Vector2 screenPointOfLaunchpadB = ArCamera.WorldToScreenPoint(LaunchpadB.transform.position);
+        float launchpadBDistance = Mathf.Abs(Vector2.Distance(screenPointOfLaunchpadB, screenPointOfSelf));
+
+        if (launchpadBDistance < ClosenessThreshholdPixels)
         {
-            Vector2 screenPointOfSelf = ArCamera.WorldToScreenPoint(this.transform.position);
-            Vector2 screenPointOfLaunchpad = ArCamera.WorldToScreenPoint(LaunchpadB.transform.position);
-            if (Mathf.Abs(Vector2.Distance(screenPointOfLaunchpad, screenPointOfSelf)) < ClosenessThreshholdPixels)
-            {
-                Tape.gameObject.SetActive(true);
-                stickToLaunchpad = true;
-            }
-        }
-        else 
-        {
-            Tape.DrawTapeBetween(this.transform.position, LaunchpadB.transform.position);
+            Tape.gameObject.SetActive(true);
+            curSticking = StickTo.LaunchpadB;
         }
 
+        // however, the cat has priority, so stick to the cat instead if it's close enough
+        Vector2 screenPointOfCat = ArCamera.WorldToScreenPoint(Cat.transform.position);
+        if (Mathf.Abs(Vector2.Distance(screenPointOfCat, screenPointOfSelf)) < ClosenessThreshholdPixels)
+        {
+            Tape.gameObject.SetActive(true);
+            curSticking = StickTo.Cat;
+        }
+
+    }
+
+    private void UpdateSticking()
+    {
+        switch (curSticking)
+        {
+            case StickTo.LaunchpadB:
+                Tape.DrawTapeBetween(this.transform.position, LaunchpadB.transform.position);
+                break;
+            case StickTo.Cat:
+                Tape.DrawTapeBetween(this.transform.position, Cat.transform.position);
+                break;
+        }
     }
 }
