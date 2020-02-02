@@ -19,6 +19,8 @@ public class LevelBox : MonoBehaviour
 
     public Camera ArCamera;
     
+    public Sprite openBoxSprite;
+
     public float SHAKE_MAGNITUDE_THRESHOLD = 1f;
     public float SHAKE_TIME_THRESHOLD = 1.5f;
 
@@ -77,7 +79,6 @@ public class LevelBox : MonoBehaviour
         List<Vector2> spawnPoints = CreateSpawnPoints(children);
 
         float groundPlaneY = this.gameObject.transform.position.y;
-        Debug.Log("Ground floor Y " + groundPlaneY);
 
         for (int i = 0; i < spawnPoints.Count; ++i) {
             Transform child = children[i];
@@ -97,6 +98,7 @@ public class LevelBox : MonoBehaviour
             );
         }
 
+        this.GetComponent<SpriteRenderer>().sprite = openBoxSprite;
         this.transform.SetParent(World.Instance.gameObject.transform);  
     }
 

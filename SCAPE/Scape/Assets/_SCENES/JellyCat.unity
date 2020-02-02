@@ -6326,6 +6326,7 @@ GameObject:
   - component: {fileID: 2079493906}
   - component: {fileID: 2079493908}
   - component: {fileID: 2079493907}
+  - component: {fileID: 2079493909}
   m_Layer: 0
   m_Name: box
   m_TagString: Untagged
@@ -6366,7 +6367,7 @@ MonoBehaviour:
   timeSpentShaking: 0
   ArCamera: {fileID: 1227899149}
   SHAKE_MAGNITUDE_THRESHOLD: 0.3
-  SHAKE_TIME_THRESHOLD: 0.5
+  SHAKE_TIME_THRESHOLD: 0.1
   MINIMUM_SPAWN_SEPARATION: 10
 --- !u!212 &2079493908
 SpriteRenderer:
@@ -6417,6 +6418,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &2079493909
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2079493905}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 14aca1e9f718ee54085fba4d3b4ef381, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &2121739696
 GameObject:
   m_ObjectHideFlags: 0
