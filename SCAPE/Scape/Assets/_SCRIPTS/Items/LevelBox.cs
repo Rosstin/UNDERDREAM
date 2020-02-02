@@ -120,7 +120,6 @@ public class LevelBox : MonoBehaviour
 
         this.GetComponent<SpriteRenderer>().sprite = openBoxSprite;
         GameObject tracker = (this.transform.parent.gameObject);
-        this.transform.SetParent(World.Instance.gameObject.transform);
         Destroy(tracker);
         this.gameObject.AddComponent<TimeToDie>();
     }
