@@ -9,6 +9,7 @@ public class DuctTapeController : MonoBehaviour
     public StretchyTape Tape;
 
     [Header("Outlets - Stick Targets")]
+    public ScaffoldingController Scaffolding;
     public LaunchpadBController LaunchpadB;
     public JellyCatController Cat;
 
@@ -18,10 +19,12 @@ public class DuctTapeController : MonoBehaviour
     public enum StickTo
     {
         None,
-        LaunchpadA,
+        Scaffolding,
         LaunchpadB,
         Cat,
     }
+
+    private bool win = false;
 
     private StickTo curSticking = StickTo.None;
 
@@ -34,37 +37,63 @@ public class DuctTapeController : MonoBehaviour
     private void CheckStickables()
     {
         Vector2 screenPointOfSelf = ArCamera.WorldToScreenPoint(this.transform.position);
-
-        // stick to launchpadB if close enough
         Vector2 screenPointOfLaunchpadB = ArCamera.WorldToScreenPoint(LaunchpadB.transform.position);
-        float launchpadBDistance = Mathf.Abs(Vector2.Distance(screenPointOfLaunchpadB, screenPointOfSelf));
-
-        if (launchpadBDistance < ClosenessThreshholdPixels)
-        {
-            Tape.gameObject.SetActive(true);
-            curSticking = StickTo.LaunchpadB;
-        }
-
-        // however, the cat has priority, so stick to the cat instead if it's close enough
         Vector2 screenPointOfCat = ArCamera.WorldToScreenPoint(Cat.transform.position);
-        if (Mathf.Abs(Vector2.Distance(screenPointOfCat, screenPointOfSelf)) < ClosenessThreshholdPixels)
+        Vector2 screenPointOfScaffolding = ArCamera.WorldToScreenPoint(Scaffolding.transform.position);
+
+        bool closeToLaunchpadB = Mathf.Abs(Vector2.Distance(screenPointOfLaunchpadB, screenPointOfSelf)) < ClosenessThreshholdPixels;
+        bool closeToScaffolding = Mathf.Abs(Vector2.Distance(screenPointOfScaffolding, screenPointOfSelf)) < ClosenessThreshholdPixels;
+        bool closeToCat = Mathf.Abs(Vector2.Distance(screenPointOfCat, screenPointOfSelf)) < ClosenessThreshholdPixels; ;
+
+
+        if (closeToCat)
         {
-            Tape.gameObject.SetActive(true);
             curSticking = StickTo.Cat;
         }
-
+        else if (closeToLaunchpadB)
+        {
+            if (curSticking == StickTo.Scaffolding)
+            {
+                win = true;
+            }
+            else
+            {
+                curSticking = StickTo.LaunchpadB;
+            }
+        }
+        else if (closeToScaffolding)
+        {
+            if (curSticking == StickTo.LaunchpadB)
+            {
+                win = true;
+            }
+            else
+            {
+                curSticking = StickTo.Scaffolding;
+            }
+        }
     }
 
     private void UpdateSticking()
     {
-        switch (curSticking)
+        if (!win)
         {
-            case StickTo.LaunchpadB:
-                Tape.DrawTapeBetween(this.transform.position, LaunchpadB.transform.position);
-                break;
-            case StickTo.Cat:
-                Tape.DrawTapeBetween(this.transform.position, Cat.transform.position);
-                break;
+            switch (curSticking)
+            {
+                case StickTo.LaunchpadB:
+                    Tape.DrawTapeBetween(this.transform.position, LaunchpadB.transform.position);
+                    break;
+                case StickTo.Cat:
+                    Tape.DrawTapeBetween(this.transform.position, Cat.transform.position);
+                    break;
+                case StickTo.Scaffolding:
+                    Tape.DrawTapeBetween(this.transform.position, Scaffolding.transform.position);
+                    break;
+            }
+        }
+        else
+        {
+            Tape.DrawTapeBetween(LaunchpadB.transform.position, Scaffolding.transform.position);
         }
     }
 }
