@@ -27,6 +27,15 @@ public class JellyCatController : MonoBehaviour
     private float curCucumberTime = 0f;
     private float curTime = 0f;
 
+    public enum JellyCatState {
+        IDLE,
+        IDLE_MOVE,
+        GOAL_MOVE,
+        GOAL_IDLE
+    }
+
+    public JellyCatState currentJellyCatState = JellyCatState.IDLE_MOVE;
+
     void Start()
     {
         NewDirectionChangePeriod();
@@ -59,44 +68,55 @@ public class JellyCatController : MonoBehaviour
     {
         curTime += Time.deltaTime;
 
-        if (curTime > curDirectionChangePeriod)
-        {
-            leftOrRight *= -1;
-            curTime = 0f;
-            NewDirectionChangePeriod();
-        }
+        switch ( currentJellyCatState ) {
 
-        this.transform.Rotate(0.0f, leftOrRight * RotationSpeed * Time.deltaTime, 0.0f, Space.Self);
+            default:
+                if (curTime > curDirectionChangePeriod)
+                {
+                    leftOrRight *= -1;
+                    curTime = 0f;
+                    NewDirectionChangePeriod();
+                }
 
-        this.transform.position += this.transform.forward * StartSpeed * Time.deltaTime;
+                this.transform.Rotate(0.0f, leftOrRight * RotationSpeed * Time.deltaTime, 0.0f, Space.Self);
 
-        // bottom left is 0,0, bottom right is 0,1, top left is 1,0, top right is 1,1
-        Vector2 screenPointOfCat = ArCamera.WorldToScreenPoint(this.transform.position);
-        if (screenPointOfCat.x < 0f)
-        {
-            BackupAndFlip();
-        }
-        else if (screenPointOfCat.x > ArCamera.pixelWidth)
-        {
-            BackupAndFlip();
-        }
+                // jelly wiggle
+                Vector3 vec = new Vector3( ( Mathf.Sin(Time.time) / 2 ) + 1.5f , 1, ( Mathf.Sin(6*Time.time) / 2 ) + 1.5f );
+        
+                transform.localScale = vec;
 
-        if (screenPointOfCat.y < 0f)
-        {
-            BackupAndFlip();
-        }
-        else if (screenPointOfCat.y > ArCamera.pixelHeight)
-        {
-            BackupAndFlip();
-        }
+                // position delta fxn
+                this.transform.position += this.transform.forward * StartSpeed * Time.deltaTime;
 
-        if (Cucumber.gameObject.activeSelf)
-        {
-            Vector2 screenPointOfCucumber = ArCamera.WorldToScreenPoint(Cucumber.transform.position);
-            if (Mathf.Abs(Vector2.Distance(screenPointOfCat, screenPointOfCucumber)) < CucumberClosenessThreshholdPixels)
-            {
-                BackupAndFlip();
-            }
+                // bottom left is 0,0, bottom right is 0,1, top left is 1,0, top right is 1,1
+                Vector2 screenPointOfCat = ArCamera.WorldToScreenPoint(this.transform.position);
+                if (screenPointOfCat.x < 0f)
+                {
+                    BackupAndFlip();
+                }
+                else if (screenPointOfCat.x > ArCamera.pixelWidth)
+                {
+                    BackupAndFlip();
+                }
+
+                if (screenPointOfCat.y < 0f)
+                {
+                    BackupAndFlip();
+                }
+                else if (screenPointOfCat.y > ArCamera.pixelHeight)
+                {
+                    BackupAndFlip();
+                }
+
+                if (Cucumber.gameObject.activeSelf)
+                {
+                    Vector2 screenPointOfCucumber = ArCamera.WorldToScreenPoint(Cucumber.transform.position);
+                    if (Mathf.Abs(Vector2.Distance(screenPointOfCat, screenPointOfCucumber)) < CucumberClosenessThreshholdPixels)
+                    {
+                        BackupAndFlip();
+                    }
+                }
+            break;
         }
 
     }
