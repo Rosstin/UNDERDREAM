@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LevelBox : MonoBehaviour
 {
-    enum State {
+    public enum BoxState {
         STILL,
         SHAKING,
         BROKEN,
@@ -14,8 +14,8 @@ public class LevelBox : MonoBehaviour
     private Vector3 lastCameraVelocity = Vector3.zero;
     private Vector3 lastCameraPosition = Vector3.zero;
 
-    private State state = State.STILL;
-    private float timeSpentShaking = 0;
+    public BoxState state = BoxState.STILL;
+    public float timeSpentShaking = 0;
 
     public Camera ArCamera;
     
@@ -34,7 +34,7 @@ public class LevelBox : MonoBehaviour
     
     void Update()
     {
-        if (this.state == State.BROKEN) {
+        if (this.state == BoxState.BROKEN) {
             return;
         }
 
@@ -44,48 +44,65 @@ public class LevelBox : MonoBehaviour
         Vector3 cameraAcceleration = cameraVelcocity - this.lastCameraVelocity;
         float magnitude = cameraAcceleration.magnitude;
 
-        if (magnitude > this.SHAKE_MAGNITUDE_THRESHOLD) {
-            switch (this.state) {
-                case State.STILL:
-                    this.state = State.SHAKING;
-                    break;
-                case State.SHAKING:
-                    this.timeSpentShaking += Time.deltaTime;
-                    break;
+        Debug.Log("Magnitude: " + magnitude);
+        switch (this.state) {
+            case BoxState.STILL: {
+                if (magnitude > this.SHAKE_MAGNITUDE_THRESHOLD) {
+                    this.state = BoxState.SHAKING;
+                    this.timeSpentShaking = 0;
+                }
+                break;
             }
-        } else if (magnitude < 0.1f) {
-            this.state = State.STILL;
-            this.timeSpentShaking = 0;
+            case BoxState.SHAKING: {
+                this.timeSpentShaking += 
+                    (magnitude > this.SHAKE_MAGNITUDE_THRESHOLD ? 1 : -0.3f) * Time.deltaTime;
+                break;
+            }
+            case BoxState.BROKEN:
+                return;
         }
 
         if (this.timeSpentShaking > this.SHAKE_TIME_THRESHOLD) {
-
-            // When this breaks, first
-            this.state = State.BROKEN;
+            this.state = BoxState.BROKEN;
             OnBroken();
+        } else if (this.timeSpentShaking < 0) {
+            this.state = BoxState.STILL;
         }
 
         lastCameraPosition = currentCameraPosition;
     }
 
     void OnBroken() {
-        CreateSpawnPoints();
-        this.gameObject.transform.SetParent(World.Instance.gameObject.transform);
-        // establish the objects we want to spawn up
-        // I guess we can make 'em children on the box?
-
-        // we also need spawn points.
-        // let's find the world's boundaries and use that as our spawn arena
-
-        // once we have the dimensions of the world, spawn 'em        
-    }
-
-    void CreateSpawnPoints()
-    {
-        List<Vector2> spawnPoints = new List<Vector2>();
         Transform[] children = this.GetComponentsInChildren<Transform>(true);
+        List<Vector2> spawnPoints = CreateSpawnPoints(children);
+
         float groundPlaneY = this.gameObject.transform.position.y;
         Debug.Log("Ground floor Y " + groundPlaneY);
+
+        for (int i = 0; i < spawnPoints.Count; ++i) {
+            Transform child = children[i];
+            Vector2 spawnPoint = spawnPoints[i];
+
+            Ray spawnRay = ArCamera.ViewportPointToRay(spawnPoint);
+            Vector3 direction = spawnRay.direction;
+            Vector3 origin = spawnRay.origin;
+            float distance = (groundPlaneY - spawnRay.origin.y) / direction.y; 
+            Vector3 actualSpawnPoint = spawnRay.GetPoint(distance);
+
+            GameObject explosion = new GameObject();
+            explosion.transform.position = this.transform.position;
+            explosion.AddComponent<LevelBoxExplosion>().Initialize(
+                child.transform,
+                actualSpawnPoint
+            );
+        }
+
+        this.transform.SetParent(World.Instance.gameObject.transform);  
+    }
+
+    List<Vector2> CreateSpawnPoints(Transform[] children)
+    {
+        List<Vector2> spawnPoints = new List<Vector2>();
 
         // in theory this is super dangerous :D :D :D
         while (spawnPoints.Count < children.Length) {
@@ -107,24 +124,6 @@ public class LevelBox : MonoBehaviour
             }
         }
 
-        Debug.Log(spawnPoints);
-
-        for (int i = 0; i < spawnPoints.Count; ++i) {
-            Transform child = children[i];
-            Vector2 spawnPoint = spawnPoints[i];
-            Debug.Log("Found point: " + spawnPoint);
-
-            Ray spawnRay = ArCamera.ViewportPointToRay(spawnPoint);
-            Vector3 direction = spawnRay.direction;
-            Vector3 origin = spawnRay.origin;
-            float distance = (groundPlaneY - spawnRay.origin.y) / direction.y; 
-            Vector3 actualSpawnPoint = spawnRay.GetPoint(distance);
-
-            Debug.Log("Spawn ray: " + spawnRay + "\nDistance: " + distance + "\n spawnPoint" + actualSpawnPoint);
-
-            child.gameObject.SetActive(true);
-            child.gameObject.transform.SetPositionAndRotation(actualSpawnPoint, Quaternion.identity);
-            child.gameObject.transform.SetParent(World.Instance.transform);
-        }
+        return spawnPoints;
     }
 }
