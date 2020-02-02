@@ -48,6 +48,8 @@ public class JellyCatController : Boxable
     public Animator JellyCatAnimator;
     private bool isGoalSeeking = true;
 
+    private GameObject currentGoal;
+    private Transform currentGoalTransform;
     public enum JellyCatState {
         IDLE,
         IDLE_MOVE,
@@ -70,6 +72,8 @@ public class JellyCatController : Boxable
         NewDirectionChangePeriod();
         initialLocalScale = this.transform.localScale;
         initialLocalPosition = this.transform.localPosition;
+
+        setGoal(Launchpad.gameObject, Launchpad.transform);
     }
 
     private void NewDirectionChangePeriod()
@@ -108,6 +112,11 @@ public class JellyCatController : Boxable
         JellyCatAnimator.SetInteger("AttractCondition", 0);
         // set current
         if ( stateName != "") JellyCatAnimator.SetInteger(stateName, 1);
+    }
+
+    public void setGoal(GameObject obj, Transform transform){
+        currentGoal = obj;
+        currentGoalTransform = transform;
     }
 
     // calc angle direction between forward and goal
@@ -163,25 +172,24 @@ public class JellyCatController : Boxable
             case JellyCatState.GOAL_MOVE:
                 SetAnimationState("AttractCondition");
                 // get goal position
-                if (Launchpad.gameObject.activeSelf)
+                if (currentGoal.activeSelf)
                 {
                     isGoalSeeking = true;
                     
-                    Vector3 heading = Launchpad.transform.position - this.transform.position;
+                    Vector3 heading = currentGoalTransform.position - this.transform.position;
 		            leftOrRight = AngleDir(this.transform.forward, heading, this.transform.up);
-                    Vector2 screenPointOfLaunchpad = ArCamera.WorldToScreenPoint(Launchpad.transform.position);
+                    Vector2 screenPointOfGoal = ArCamera.WorldToScreenPoint(currentGoalTransform.position);
 
                     // TURN ANGLE
                     this.transform.Rotate(0.0f, leftOrRight * GoalRotationSpeed * Time.deltaTime, 0.0f, Space.Self);
                     // FORWARD MOVE
                     this.transform.position += this.transform.forward * StartSpeed * Time.deltaTime;
                     
-                    if ( Mathf.Abs(Vector2.Distance(screenPointOfCat, screenPointOfLaunchpad)) < GoalClosenessThreshholdPixels)
+                    if ( Mathf.Abs(Vector2.Distance(screenPointOfCat, screenPointOfGoal)) < GoalClosenessThreshholdPixels)
                     {
                         currentJellyCatState = JellyCatState.GOAL_IDLE;
                     }
                 }
-
                 goto default;
             case JellyCatState.GOAL_IDLE:
                 SetAnimationState("SleepCondition");
@@ -251,10 +259,13 @@ public class JellyCatController : Boxable
                 // Fish TRIGGER
                 if (Fish.gameObject.activeSelf)
                 {
-                    Vector2 screenPointOfCucumber = ArCamera.WorldToScreenPoint(Fish.transform.position);
+                    setGoal( Fish.gameObject, Fish.transform );
+                    Vector2 screenPointOfCucumber = ArCamera.WorldToScreenPoint(Cucumber.transform.position);
                     if (Mathf.Abs(Vector2.Distance(screenPointOfCat, screenPointOfCucumber)) < CucumberClosenessThreshholdPixels)
                     {
-                        currentJellyCatState = JellyCatState.CATNIP;
+                        currentJellyCatState = JellyCatState.GOAL_IDLE;
+                    } else {
+                        currentJellyCatState = JellyCatState.GOAL_MOVE;
                     }
                 }
             break;
