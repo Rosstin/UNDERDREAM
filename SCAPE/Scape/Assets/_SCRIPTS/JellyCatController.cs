@@ -21,9 +21,8 @@ public class JellyCatController : MonoBehaviour
     public float DeathTimePeriod;
     public float RespawnTimePeriod;
 
-    
+    public float PitDeathClosenessThreshholdPixels;    
     private Vector3 FORWARD = new Vector3(0, 1, 0);
-
     private Vector3 curDirection;
     private float curSpeed;
     private int leftOrRight = 1;
@@ -33,6 +32,10 @@ public class JellyCatController : MonoBehaviour
     private float curTime = 0f;
     // time ratio of current action over current state/action period
     private float curTimeOverPeriodRatio;
+
+    private float initialLength;
+    private Vector3 initialLocalScale;
+    private Vector3 initialLocalPosition;
 
     public enum JellyCatState {
         IDLE,
@@ -48,6 +51,8 @@ public class JellyCatController : MonoBehaviour
     void Start()
     {
         NewDirectionChangePeriod();
+        initialLocalScale = this.transform.localScale;
+        initialLocalPosition = this.transform.localPosition;
     }
 
     private void NewDirectionChangePeriod()
@@ -75,7 +80,7 @@ public class JellyCatController : MonoBehaviour
 
     private void MoveCatToOrigin()
     {
-        this.transform.SetPositionAndRotation();
+        this.transform.localPosition = initialLocalPosition;
     }
 
     void Update()
@@ -93,7 +98,7 @@ public class JellyCatController : MonoBehaviour
                 else {
                     curTime += Time.deltaTime;
                     curTimeOverPeriodRatio = curTime / DeathTimePeriod; 
-                    this.transform.Rotate(0, RotationsOnDeath * curTimeOverPeriodRatio, 0); // spin
+                    this.transform.Rotate(0.0f, Time.deltaTime * 360f * RotationsOnDeath / DeathTimePeriod , 0f, Space.Self); // spin
                     this.transform.localScale = new Vector3(  1 - curTimeOverPeriodRatio, 1, 1 - curTimeOverPeriodRatio); // shrink
                 }
                 break;
@@ -105,17 +110,10 @@ public class JellyCatController : MonoBehaviour
                 else {
                     curTime += Time.deltaTime;
                     curTimeOverPeriodRatio = curTime / RespawnTimePeriod; 
+                    this.transform.Rotate(0, - Time.deltaTime * 360f * RotationsOnDeath / DeathTimePeriod , 0, Space.Self); // opposite spin
                     this.transform.localScale = new Vector3( curTimeOverPeriodRatio, 1, curTimeOverPeriodRatio); // grow
                 }
                 break;
-            case JellyCatState.IDLE_MOVE:
-                if (curTime > curDirectionChangePeriod)
-                {
-                    leftOrRight *= -1;
-                    curTime = 0f;
-                    NewDirectionChangePeriod();
-                }
-                goto default;
             case JellyCatState.GOAL_MOVE:
                 if (curTime > curDirectionChangePeriod)
                 {
@@ -127,36 +125,44 @@ public class JellyCatController : MonoBehaviour
             case JellyCatState.GOAL_IDLE:
                 // idle animation here?
                 break;
-            default:
-                
+            case JellyCatState.IDLE_MOVE:
+                if (curTime > curDirectionChangePeriod)
+                {
+                    leftOrRight *= -1;
+                    curTime = 0f;
+                    NewDirectionChangePeriod();
+                }
+
                 // BACK AND FORTH TURN
                 this.transform.Rotate(0.0f, leftOrRight * RotationSpeed * Time.deltaTime, 0.0f, Space.Self);
 
-                // JELLY WIGGLE
-                Vector3 vec = new Vector3( ( Mathf.Sin(Time.time) / 2 ) + 1.5f , 1, ( Mathf.Sin(6*Time.time) / 2 ) + 1.5f );
-        
-                transform.localScale = vec;
-
                 // FORWARD MOVE
                 this.transform.position += this.transform.forward * StartSpeed * Time.deltaTime;
+                goto default;
+            default:
+                
+                // JELLY WIGGLE
+                Vector3 vec = new Vector3( ( Mathf.Sin(Time.time) / 2 ) + 1.5f , 1, ( Mathf.Sin(12*Time.time) / 2 ) + 1.5f );
+        
+                transform.localScale = vec;
 
                 // FALLOFF == DEATH
                 // bottom left is 0,0, bottom right is 0,1, top left is 1,0, top right is 1,1
                 Vector2 screenPointOfCat = ArCamera.WorldToScreenPoint(this.transform.position);
-                if (screenPointOfCat.x < 0f)
+                if (screenPointOfCat.x < PitDeathClosenessThreshholdPixels)
                 {
                     currentJellyCatState = JellyCatState.DYING;
                 }
-                else if (screenPointOfCat.x > ArCamera.pixelWidth)
+                else if (screenPointOfCat.x > ArCamera.pixelWidth - PitDeathClosenessThreshholdPixels)
                 {
                     currentJellyCatState = JellyCatState.DYING;
                 }
 
-                if (screenPointOfCat.y < 0f)
+                if (screenPointOfCat.y < PitDeathClosenessThreshholdPixels)
                 {
                     currentJellyCatState = JellyCatState.DYING;
                 }
-                else if (screenPointOfCat.y > ArCamera.pixelHeight)
+                else if (screenPointOfCat.y > ArCamera.pixelHeight - PitDeathClosenessThreshholdPixels)
                 {
                     currentJellyCatState = JellyCatState.DYING;
                 }
