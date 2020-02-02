@@ -6,29 +6,117 @@ public class DuctTapeController : MonoBehaviour
 {
     [Header("Outlets")]
     public Camera ArCamera;
-    public LaunchpadBController LaunchpadB;
     public StretchyTape Tape;
+
+    [Header("Outlets - Stick Targets")]
+    public ScaffoldingController Scaffolding;
+    public LaunchpadBController LaunchpadB;
+    public JellyCatController Cat;
 
     [Header("Configurables")]
     public float ClosenessThreshholdPixels;
+    public AnimationCurve CombineCurve;
+    public float WinAnimationDuration;
 
-    private bool stickToLaunchpad = false;
+    public enum StickTo
+    {
+        None,
+        Scaffolding,
+        LaunchpadB,
+        Cat,
+    }
+
+    private bool win = false;
+    private StickTo curSticking = StickTo.None;
+    private float winTime = 0f;
+
+    private Vector3 launchpadInitialPos;
+    private Vector3 scaffoldingInitialPos;
+    private Vector3 midPoint;
+
+    void Start()
+    {
+        launchpadInitialPos = LaunchpadB.transform.localPosition;
+        scaffoldingInitialPos = Scaffolding.transform.localPosition;
+        midPoint = Vector3.Lerp(launchpadInitialPos, scaffoldingInitialPos, 0.5f);
+    }
 
     void Update()
     {
-        if (!stickToLaunchpad)
+        CheckStickables();
+        UpdateSticking();
+    }
+
+    private void CheckStickables()
+    {
+        Vector2 screenPointOfSelf = ArCamera.WorldToScreenPoint(this.transform.position);
+        Vector2 screenPointOfLaunchpadB = ArCamera.WorldToScreenPoint(LaunchpadB.transform.position);
+        Vector2 screenPointOfCat = ArCamera.WorldToScreenPoint(Cat.transform.position);
+        Vector2 screenPointOfScaffolding = ArCamera.WorldToScreenPoint(Scaffolding.transform.position);
+
+        bool closeToLaunchpadB = Mathf.Abs(Vector2.Distance(screenPointOfLaunchpadB, screenPointOfSelf)) < ClosenessThreshholdPixels;
+        bool closeToScaffolding = Mathf.Abs(Vector2.Distance(screenPointOfScaffolding, screenPointOfSelf)) < ClosenessThreshholdPixels;
+        bool closeToCat = Mathf.Abs(Vector2.Distance(screenPointOfCat, screenPointOfSelf)) < ClosenessThreshholdPixels; ;
+
+
+        if (closeToCat)
         {
-            Vector2 screenPointOfSelf = ArCamera.WorldToScreenPoint(this.transform.position);
-            Vector2 screenPointOfLaunchpad = ArCamera.WorldToScreenPoint(LaunchpadB.transform.position);
-            if (Mathf.Abs(Vector2.Distance(screenPointOfLaunchpad, screenPointOfSelf)) < ClosenessThreshholdPixels)
+            curSticking = StickTo.Cat;
+        }
+        else if (closeToLaunchpadB)
+        {
+            if (curSticking == StickTo.Scaffolding)
             {
-                stickToLaunchpad = true;
+                win = true;
+            }
+            else
+            {
+                curSticking = StickTo.LaunchpadB;
             }
         }
-        else 
+        else if (closeToScaffolding)
         {
-            Tape.DrawTapeBetween(this.transform.position, LaunchpadB.transform.position);
+            if (curSticking == StickTo.LaunchpadB)
+            {
+                win = true;
+            }
+            else
+            {
+                curSticking = StickTo.Scaffolding;
+            }
         }
+    }
 
+    private void UpdateSticking()
+    {
+        if (!win)
+        {
+            switch (curSticking)
+            {
+                case StickTo.LaunchpadB:
+                    Tape.DrawTapeBetween(this.transform.position, LaunchpadB.transform.position);
+                    break;
+                case StickTo.Cat:
+                    Tape.DrawTapeBetween(this.transform.position, Cat.transform.position);
+                    break;
+                case StickTo.Scaffolding:
+                    Tape.DrawTapeBetween(this.transform.position, Scaffolding.transform.position);
+                    break;
+            }
+        }
+        else
+        {
+            winTime += Time.deltaTime;
+
+            LaunchpadB.transform.localPosition = Vector3.Lerp(LaunchpadB.transform.localPosition, midPoint, CombineCurve.Evaluate(winTime/WinAnimationDuration));
+            Scaffolding.transform.localPosition = Vector3.Lerp(Scaffolding.transform.localPosition, midPoint, CombineCurve.Evaluate(winTime / WinAnimationDuration));
+
+            if(Mathf.Abs(Vector3.Distance(LaunchpadB.transform.position, Scaffolding.transform.position)) < ClosenessThreshholdPixels)
+            {
+                // make the rocket object animation
+            }
+
+            Tape.DrawTapeBetween(LaunchpadB.transform.position, Scaffolding.transform.position);
+        }
     }
 }
