@@ -36,8 +36,8 @@ public class WinRocket : MonoBehaviour
 
         if(curTime > RocketMoveDuration)
         {
-            SceneManager.LoadScene("RosstinPlayground");
+            // go to the end!
+            SceneManager.LoadScene("End");
         }
-
     }
 }
