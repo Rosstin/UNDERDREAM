@@ -26,7 +26,7 @@ public class JellyCatController : Boxable
     public float RotationsOnDeath;
     public float DeathTimePeriod;
     public float RespawnTimePeriod;
-    public float CatnipDurationPeriod;
+    public float AvoidDurationPeriod;
 
     public float PitDeathClosenessThreshholdPixels;    
     private Vector3 FORWARD = new Vector3(0, 1, 0);
@@ -57,7 +57,8 @@ public class JellyCatController : Boxable
         GOAL_IDLE,
         DYING,
         REBORN,
-        COMMON_MOVE
+        COMMON_MOVE,
+        AVOID
     }
 
     // default not moving
@@ -190,7 +191,7 @@ public class JellyCatController : Boxable
                         currentJellyCatState = JellyCatState.GOAL_IDLE;
                     }
                 }
-                goto case JellyCatState.COMMON_MOVE;;
+                goto case JellyCatState.COMMON_MOVE;
             case JellyCatState.GOAL_IDLE:
                 SetAnimationState("SleepCondition");
                 goto default;
@@ -209,6 +210,19 @@ public class JellyCatController : Boxable
                 // FORWARD MOVE
                 this.transform.position += this.transform.forward * StartSpeed * Time.deltaTime;
                 goto case JellyCatState.COMMON_MOVE;
+            case JellyCatState.AVOID:
+                SetAnimationState("AvoidCondition");
+                if (curTime > AvoidDurationPeriod) {
+                    if ( isGoalSeeking ) currentJellyCatState = JellyCatState.GOAL_MOVE;
+                    else currentJellyCatState = JellyCatState.IDLE_MOVE;
+                    curTime = 0f;
+                }
+                else {
+                    curTime += Time.deltaTime;
+                    // FORWARD MOVE
+                    this.transform.position += this.transform.forward * StartSpeed * Time.deltaTime;
+                }
+                goto default;
             case JellyCatState.COMMON_MOVE:
                 // JELLY WIGGLE
                 Vector3 vec = new Vector3( ( Mathf.Sin(Time.time) / 2 ) + 1.5f , 1, ( Mathf.Sin(12*Time.time) / 2 ) + 1.5f );
@@ -245,7 +259,8 @@ public class JellyCatController : Boxable
                     if (Mathf.Abs(Vector2.Distance(screenPointOfCat, screenPointOfCucumber)) < CucumberClosenessThreshholdPixels)
                     {
                         BackupAndFlip();
-                        currentJellyCatState = JellyCatState.GOAL_MOVE;
+                        currentJellyCatState = JellyCatState.AVOID;
+                        curTime = 0f;
                     }
                 }
 
@@ -256,7 +271,8 @@ public class JellyCatController : Boxable
                     if (Mathf.Abs(Vector2.Distance(screenPointOfCat, screenPointOfCucumber)) < CucumberClosenessThreshholdPixels)
                     {
                         BackupAndFlip();
-                        currentJellyCatState = JellyCatState.GOAL_MOVE;
+                        currentJellyCatState = JellyCatState.AVOID;
+                        curTime = 0f;
                     }
                 }
 

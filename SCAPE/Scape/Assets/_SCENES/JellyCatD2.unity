@@ -7249,62 +7249,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: JellyCat
       objectReference: {fileID: 0}
-    - target: {fileID: 944966012, guid: 30fc1555170faef4894c21205cd96519, type: 3}
-      propertyPath: ArCamera
-      value: 
-      objectReference: {fileID: 1227899149}
-    - target: {fileID: 944966012, guid: 30fc1555170faef4894c21205cd96519, type: 3}
-      propertyPath: Cucumber
-      value: 
-      objectReference: {fileID: 752477828}
-    - target: {fileID: 944966012, guid: 30fc1555170faef4894c21205cd96519, type: 3}
-      propertyPath: StartSpeed
-      value: 0.02
-      objectReference: {fileID: 0}
-    - target: {fileID: 944966012, guid: 30fc1555170faef4894c21205cd96519, type: 3}
-      propertyPath: RotationsOnDeath
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 944966012, guid: 30fc1555170faef4894c21205cd96519, type: 3}
-      propertyPath: DeathTimePeriod
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 944966012, guid: 30fc1555170faef4894c21205cd96519, type: 3}
-      propertyPath: RespawnTimePeriod
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 944966012, guid: 30fc1555170faef4894c21205cd96519, type: 3}
-      propertyPath: PitDeathClosenessThreshholdPixels
-      value: 25
-      objectReference: {fileID: 0}
-    - target: {fileID: 944966012, guid: 30fc1555170faef4894c21205cd96519, type: 3}
-      propertyPath: currentJellyCatState
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 944966012, guid: 30fc1555170faef4894c21205cd96519, type: 3}
-      propertyPath: IdleRotationSpeed
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 944966012, guid: 30fc1555170faef4894c21205cd96519, type: 3}
-      propertyPath: GoalRotationSpeed
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 944966012, guid: 30fc1555170faef4894c21205cd96519, type: 3}
-      propertyPath: GoalClosenessThreshholdPixels
-      value: 40
-      objectReference: {fileID: 0}
-    - target: {fileID: 944966012, guid: 30fc1555170faef4894c21205cd96519, type: 3}
-      propertyPath: Launchpad
-      value: 
-      objectReference: {fileID: 1162132164}
-    - target: {fileID: 944966012, guid: 30fc1555170faef4894c21205cd96519, type: 3}
-      propertyPath: Fish
-      value: 
-      objectReference: {fileID: 1087689834}
-    - target: {fileID: 944966012, guid: 30fc1555170faef4894c21205cd96519, type: 3}
-      propertyPath: Broom
-      value: 
-      objectReference: {fileID: 1132484151}
     - target: {fileID: 6708904151543408690, guid: 30fc1555170faef4894c21205cd96519,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -7384,6 +7328,66 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SortingLayer
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 944966012, guid: 30fc1555170faef4894c21205cd96519, type: 3}
+      propertyPath: ArCamera
+      value: 
+      objectReference: {fileID: 1227899149}
+    - target: {fileID: 944966012, guid: 30fc1555170faef4894c21205cd96519, type: 3}
+      propertyPath: Cucumber
+      value: 
+      objectReference: {fileID: 752477828}
+    - target: {fileID: 944966012, guid: 30fc1555170faef4894c21205cd96519, type: 3}
+      propertyPath: StartSpeed
+      value: 0.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 944966012, guid: 30fc1555170faef4894c21205cd96519, type: 3}
+      propertyPath: RotationsOnDeath
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 944966012, guid: 30fc1555170faef4894c21205cd96519, type: 3}
+      propertyPath: DeathTimePeriod
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 944966012, guid: 30fc1555170faef4894c21205cd96519, type: 3}
+      propertyPath: RespawnTimePeriod
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 944966012, guid: 30fc1555170faef4894c21205cd96519, type: 3}
+      propertyPath: PitDeathClosenessThreshholdPixels
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 944966012, guid: 30fc1555170faef4894c21205cd96519, type: 3}
+      propertyPath: currentJellyCatState
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 944966012, guid: 30fc1555170faef4894c21205cd96519, type: 3}
+      propertyPath: IdleRotationSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 944966012, guid: 30fc1555170faef4894c21205cd96519, type: 3}
+      propertyPath: GoalRotationSpeed
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 944966012, guid: 30fc1555170faef4894c21205cd96519, type: 3}
+      propertyPath: GoalClosenessThreshholdPixels
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 944966012, guid: 30fc1555170faef4894c21205cd96519, type: 3}
+      propertyPath: Launchpad
+      value: 
+      objectReference: {fileID: 1162132164}
+    - target: {fileID: 944966012, guid: 30fc1555170faef4894c21205cd96519, type: 3}
+      propertyPath: Fish
+      value: 
+      objectReference: {fileID: 1087689834}
+    - target: {fileID: 944966012, guid: 30fc1555170faef4894c21205cd96519, type: 3}
+      propertyPath: Broom
+      value: 
+      objectReference: {fileID: 1132484151}
+    - target: {fileID: 944966012, guid: 30fc1555170faef4894c21205cd96519, type: 3}
+      propertyPath: AvoidDurationPeriod
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2882263774469821289, guid: 30fc1555170faef4894c21205cd96519,
         type: 3}
