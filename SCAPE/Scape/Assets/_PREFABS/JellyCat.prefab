@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3816150149824579120}
   - component: {fileID: 4948876521852778980}
+  - component: {fileID: 2882263774469821289}
   m_Layer: 0
   m_Name: catSprite
   m_TagString: Untagged
@@ -79,6 +80,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &2882263774469821289
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2362624026241754252}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 3704dec9dc518094990d475d85b23b1e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &3632054056577628957
 GameObject:
   m_ObjectHideFlags: 0
@@ -131,3 +151,8 @@ MonoBehaviour:
   VariationInPeriod: 2
   CucumberClosenessThreshholdPixels: 50
   BackupAmountMeters: 0.01
+  RotationsOnDeath: 0
+  DeathTimePeriod: 0
+  RespawnTimePeriod: 0
+  PitDeathClosenessThreshholdPixels: 0
+  currentJellyCatState: 1
