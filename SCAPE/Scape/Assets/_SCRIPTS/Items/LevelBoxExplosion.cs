@@ -18,8 +18,10 @@ public class LevelBoxExplosion : MonoBehaviour {
         objectToExplode.SetParent(this.transform);
         this.startPosition = this.transform.position;
         this.destinationPosition = destinationPosition;
+
         this.transform.SetParent(World.Instance.transform);
         this.objectToExplode = objectToExplode;
+
     }
 
     void Update() {

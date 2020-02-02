@@ -109,7 +109,8 @@ public class LevelBox : MonoBehaviour
             float distance = (groundPlaneY - spawnRay.origin.y) / direction.y; 
             Vector3 actualSpawnPoint = spawnRay.GetPoint(distance);
 
-            GameObject explosion = new GameObject();
+            GameObject explosion = new GameObject("EXPLOSION");
+            explosion.transform.SetParent(World.Instance.gameObject.transform);
             explosion.transform.position = this.transform.position;
             explosion.AddComponent<LevelBoxExplosion>().Initialize(
                 child.transform,
@@ -118,7 +119,10 @@ public class LevelBox : MonoBehaviour
         }
 
         this.GetComponent<SpriteRenderer>().sprite = openBoxSprite;
-        this.transform.SetParent(World.Instance.gameObject.transform);  
+        GameObject tracker = (this.transform.parent.gameObject);
+        this.transform.SetParent(World.Instance.gameObject.transform);
+        Destroy(tracker);
+        this.gameObject.AddComponent<TimeToDie>();
     }
 
     List<Vector2> CreateSpawnPoints(Transform[] children)
