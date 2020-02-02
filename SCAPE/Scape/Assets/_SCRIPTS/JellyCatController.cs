@@ -37,6 +37,9 @@ public class JellyCatController : MonoBehaviour
     private Vector3 initialLocalScale;
     private Vector3 initialLocalPosition;
 
+    //animation vars
+    public Animator JellyCatAnimator;
+
     public enum JellyCatState {
         IDLE,
         IDLE_MOVE,
@@ -101,6 +104,7 @@ public class JellyCatController : MonoBehaviour
                     this.transform.Rotate(0.0f, Time.deltaTime * 360f * RotationsOnDeath / DeathTimePeriod , 0f, Space.Self); // spin
                     this.transform.localScale = new Vector3(  1 - curTimeOverPeriodRatio, 1, 1 - curTimeOverPeriodRatio); // shrink
                 }
+                JellyCatAnimator.SetInteger("SleepCondition", 0);
                 break;
             case JellyCatState.REBORN:
                 if (curTime > DeathTimePeriod) {
@@ -113,6 +117,7 @@ public class JellyCatController : MonoBehaviour
                     this.transform.Rotate(0, - Time.deltaTime * 360f * RotationsOnDeath / DeathTimePeriod , 0, Space.Self); // opposite spin
                     this.transform.localScale = new Vector3( curTimeOverPeriodRatio, 1, curTimeOverPeriodRatio); // grow
                 }
+                JellyCatAnimator.SetInteger("SleepCondition", 0);
                 break;
             case JellyCatState.GOAL_MOVE:
                 if (curTime > curDirectionChangePeriod)
@@ -121,9 +126,10 @@ public class JellyCatController : MonoBehaviour
                     curTime = 0f;
                     NewDirectionChangePeriod();
                 }
+                JellyCatAnimator.SetInteger("SleepCondition", 0);
                 goto default;
             case JellyCatState.GOAL_IDLE:
-                // idle animation here?
+                JellyCatAnimator.SetInteger("SleepCondition", 1);
                 break;
             case JellyCatState.IDLE_MOVE:
                 if (curTime > curDirectionChangePeriod)
@@ -132,7 +138,7 @@ public class JellyCatController : MonoBehaviour
                     curTime = 0f;
                     NewDirectionChangePeriod();
                 }
-
+                JellyCatAnimator.SetInteger("SleepCondition", 0);
                 // BACK AND FORTH TURN
                 this.transform.Rotate(0.0f, leftOrRight * RotationSpeed * Time.deltaTime, 0.0f, Space.Self);
 

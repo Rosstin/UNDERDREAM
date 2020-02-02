@@ -155,4 +155,5 @@ MonoBehaviour:
   DeathTimePeriod: 0
   RespawnTimePeriod: 0
   PitDeathClosenessThreshholdPixels: 0
+  JellyCatAnimator: {fileID: 2882263774469821289}
   currentJellyCatState: 1
