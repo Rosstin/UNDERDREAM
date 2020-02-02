@@ -36,7 +36,7 @@ public class WinRocket : MonoBehaviour
 
         if(curTime > RocketMoveDuration)
         {
-            SceneManager.LoadScene("RosstinPlayground");
+            SceneManager.LoadScene("JellyCatD2");
         }
 
     }

@@ -5,10 +5,13 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/_SCENES/Unijelly.unity
     guid: 2529da94455f92c46818f8ba319f90b4
-  - enabled: 1
+  - enabled: 0
     path: Assets/_SCENES/RosstinPlayground.unity
     guid: 4a084ed0eef9744489b7dcc8e66aa685
+  - enabled: 1
+    path: Assets/_SCENES/JellyCatD2.unity
+    guid: 1e9100c8b1615a94c9ccf34a0a8bc249
   m_configObjects: {}
