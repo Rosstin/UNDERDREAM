@@ -6747,16 +6747,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 57.471294
       objectReference: {fileID: 0}
-    - target: {fileID: 4948876521852778980, guid: 30fc1555170faef4894c21205cd96519,
-        type: 3}
-      propertyPath: m_SortingLayerID
-      value: -572490361
-      objectReference: {fileID: 0}
-    - target: {fileID: 4948876521852778980, guid: 30fc1555170faef4894c21205cd96519,
-        type: 3}
-      propertyPath: m_SortingLayer
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 944966012, guid: 30fc1555170faef4894c21205cd96519, type: 3}
       propertyPath: ArCamera
       value: 
@@ -6805,6 +6795,21 @@ PrefabInstance:
       propertyPath: Launchpad
       value: 
       objectReference: {fileID: 1162132164}
+    - target: {fileID: 4948876521852778980, guid: 30fc1555170faef4894c21205cd96519,
+        type: 3}
+      propertyPath: m_SortingLayerID
+      value: -572490361
+      objectReference: {fileID: 0}
+    - target: {fileID: 4948876521852778980, guid: 30fc1555170faef4894c21205cd96519,
+        type: 3}
+      propertyPath: m_SortingLayer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2882263774469821289, guid: 30fc1555170faef4894c21205cd96519,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 3704dec9dc518094990d475d85b23b1e, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 30fc1555170faef4894c21205cd96519, type: 3}
 --- !u!114 &1624196024 stripped
@@ -7881,8 +7886,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SpawnableChildren:
-  - {fileID: 1162132164}
   - {fileID: 1423673242}
+  - {fileID: 1162132164}
   - {fileID: 1624196024}
   ArCamera: {fileID: 1227899149}
   openBoxSprite: {fileID: 2802366587176213097, guid: a814564a1a752b04d9c7059da4a5a12e,
