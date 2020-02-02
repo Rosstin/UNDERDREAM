@@ -56,8 +56,7 @@ public class JellyCatController : Boxable
         GOAL_MOVE,
         GOAL_IDLE,
         DYING,
-        REBORN,
-        CATNIP
+        REBORN
     }
 
     // default not moving
@@ -243,6 +242,7 @@ public class JellyCatController : Boxable
                     if (Mathf.Abs(Vector2.Distance(screenPointOfCat, screenPointOfCucumber)) < CucumberClosenessThreshholdPixels)
                     {
                         BackupAndFlip();
+                        currentJellyCatState = JellyCatState.GOAL_MOVE;
                     }
                 }
 
@@ -253,6 +253,7 @@ public class JellyCatController : Boxable
                     if (Mathf.Abs(Vector2.Distance(screenPointOfCat, screenPointOfCucumber)) < CucumberClosenessThreshholdPixels)
                     {
                         BackupAndFlip();
+                        currentJellyCatState = JellyCatState.GOAL_MOVE;
                     }
                 }
 
@@ -267,7 +268,10 @@ public class JellyCatController : Boxable
                     } else {
                         currentJellyCatState = JellyCatState.GOAL_MOVE;
                     }
+                } else {
+                    setGoal(Launchpad.gameObject, Launchpad.transform);
                 }
+
             break;
         }
     }
