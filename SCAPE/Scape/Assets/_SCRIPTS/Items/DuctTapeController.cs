@@ -76,7 +76,10 @@ public class DuctTapeController : MonoBehaviour
         {
             closeToScaffolding = Mathf.Abs(Vector2.Distance(screenPointOfScaffolding, screenPointOfSelf)) < ClosenessThreshholdPixels;
         }
-        closeToCat = Mathf.Abs(Vector2.Distance(screenPointOfCat, screenPointOfSelf)) < ClosenessThreshholdPixels; ;
+        if (!Cat.InBox())
+        {
+            closeToCat = Mathf.Abs(Vector2.Distance(screenPointOfCat, screenPointOfSelf)) < ClosenessThreshholdPixels;
+        }
 
         if (closeToCat)
         {
