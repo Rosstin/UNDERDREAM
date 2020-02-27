@@ -56,10 +56,6 @@ public class PendulumController : BaseController
                 UpdateSwingMotion();
             }
         }
-        else
-        {
-        }
-
     }
 
 
