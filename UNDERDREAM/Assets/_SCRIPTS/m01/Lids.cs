@@ -17,8 +17,9 @@ public class Lids : BaseController
 
     private float closedness;
 
-    public void Start()
+    new public void Start()
     {
+        base.Start();
         closedness = startingClosedness;
     }
 

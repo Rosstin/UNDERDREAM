@@ -16,18 +16,22 @@ public class PendulumController : BaseController
     public AnimationCurve Curve;
     public float Period;
     public float StartingMaxAngle;
+    public float MaxAngleMinimum;
     public float MaxAngleIncreasePerSecond;
     public float PeriodDecreasePerSecond;
     public float HeadOffset;
 
+    [Header("Debug Out")]
+    public TMPro.TextMeshProUGUI DebugText;
+
     private bool slipped = false;
     private float maxAngle;
     private float currentTime;
-    private int sign = 1;
     private Vector3 headStartPosition;
 
-    void Start()
+    new private void Start()
     {
+        base.Start();
         headStartPosition = Head.transform.localPosition;
         maxAngle = StartingMaxAngle;
     }
@@ -61,51 +65,70 @@ public class PendulumController : BaseController
 
     private void UpdateSwingMotion()
     {
-        if (sign == 1)
+        if (currentTime < Period)
         {
-            if (currentTime < Period)
-            {
-                currentTime += sign * Time.deltaTime;
+            currentTime += 1 * Time.deltaTime;
 
-                Container.transform.localRotation = new Quaternion(Container.transform.localRotation.x, Container.transform.localRotation.y,
-                    maxAngle * Curve.Evaluate(Mathf.Abs(currentTime) / Period),
-                    sign * Container.transform.localRotation.w
-                    );
-            }
-            else
-            {
-                sign *= -1;
-            }
-
+            Container.transform.localRotation = new Quaternion(Container.transform.localRotation.x, Container.transform.localRotation.y,
+                maxAngle - 2f*(maxAngle * Curve.Evaluate(Mathf.Abs(currentTime) / Period)),
+                1 * Container.transform.localRotation.w
+                );
         }
-        else if (sign == -1)
+        else
         {
-            if (currentTime > -Period)
-            {
-                currentTime += sign * Time.deltaTime;
-                Container.transform.localRotation = new Quaternion(Container.transform.localRotation.x, Container.transform.localRotation.y,
-                    maxAngle * Curve.Evaluate(Mathf.Abs(currentTime) / Period),
-                    Container.transform.localRotation.w
-                    );
-            }
-            else
-            {
-                sign *= -1;
-            }
+            currentTime = -Period;
         }
 
+        bool helpingSwing = false;
+        bool hurtingSwing = false;
         if (Input.GetKey(KeyCode.LeftArrow))
         {
             Head.transform.localPosition = new Vector3(headStartPosition.x - HeadOffset, headStartPosition.y, headStartPosition.z);
-            maxAngle += MaxAngleIncreasePerSecond * Time.deltaTime;
-            Period -= PeriodDecreasePerSecond * Time.deltaTime;
+            if (currentTime > 0)
+            {
+                helpingSwing = true;
+            }
+            else
+            {
+                hurtingSwing = true;
+            }
         }
         else if (Input.GetKey(KeyCode.RightArrow))
         {
             Head.transform.localPosition = new Vector3(headStartPosition.x + HeadOffset, headStartPosition.y, headStartPosition.z);
+            if(currentTime < 0)
+            {
+                helpingSwing = true;
+            }
+            else
+            {
+                hurtingSwing = true;
+            }
+        }
+        else
+        {
+            Head.transform.localPosition = new Vector3(headStartPosition.x + 0f, headStartPosition.y, headStartPosition.z);
+        }
+
+        if (helpingSwing)
+        {
+            DebugText.text = "helping";
             maxAngle += MaxAngleIncreasePerSecond * Time.deltaTime;
             Period -= PeriodDecreasePerSecond * Time.deltaTime;
         }
+
+        if (hurtingSwing)
+        {
+            DebugText.text = "hurting";
+            maxAngle -= MaxAngleIncreasePerSecond * Time.deltaTime;
+            Period += PeriodDecreasePerSecond * Time.deltaTime;
+        }
+
+        if(maxAngle < MaxAngleMinimum)
+        {
+            maxAngle = MaxAngleMinimum;
+        }
+
     }
 
 }

@@ -9,6 +9,20 @@ public class BaseController : MonoBehaviour
     public UniversalDataSO Data;
     public AudioSource Eee;
 
+    public void Start()
+    {
+        // set the current scene based on where this scene is in the build order
+        for(int i = 0; i < Data.Scenes.Count; i++)
+        {
+            if(Data.Scenes[i] == SceneManager.GetActiveScene().name)
+            {
+                Data.CurrentScene = i;
+            }
+        }
+
+        Debug.Log("currentScene: " + Data.CurrentScene);
+    }
+
     public void BaseUpdate()
     {
         Data.TimeSinceLoadedLastScene += Time.deltaTime;

@@ -64,8 +64,10 @@ public class GameController : BaseController
         Right
     }
 
-    private void Start()
+    new private void Start()
     {
+        base.Start();
+
         ActivateAnimation(MaoxunAnimStateM03.Idle);
 
         currentHunger = StartingHunger;
