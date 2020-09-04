@@ -13,6 +13,8 @@ public class MoxieAndLemonSpinning : MonoBehaviour
     public AudioSource ExplosionSound;
     public GameObject SkiddingMoxie;
     public GameObject Lemon;
+    public GameObject Controller;
+    public GameObject[] Contained;
 
     [Header("Starting Motion")]
     public float StartingTorque;
@@ -20,6 +22,9 @@ public class MoxieAndLemonSpinning : MonoBehaviour
 
     [Header("Lemon Offset")]
     public Vector3 LemonOffset;
+
+    [Header("Controllable After")]
+    [SerializeField] [Range(1,9)] private float ControllableAfterSeconds;
 
     // Start is called before the first frame update
     void Start()
@@ -33,8 +38,13 @@ public class MoxieAndLemonSpinning : MonoBehaviour
     {
         if (Ground.IsTouching(MyCollider))
         {
+            StartCoroutine(ActivateControls());
+
             // generate the explosion and deactivate yourself
-            this.gameObject.SetActive(false);
+            foreach(GameObject g in Contained)
+            {
+                g.SetActive(false);
+            }
             Cloud.transform.position = this.gameObject.transform.position;
             Cloud.SetActive(true);
             ThudSound.Play();
@@ -44,7 +54,12 @@ public class MoxieAndLemonSpinning : MonoBehaviour
 
             Lemon.gameObject.transform.position = this.transform.position + LemonOffset;
             Lemon.gameObject.SetActive(true);
-
         }
+    }
+
+    private IEnumerator ActivateControls()
+    {
+        yield return new WaitForSeconds(ControllableAfterSeconds);
+        Controller.SetActive(true);
     }
 }
