@@ -2258,9 +2258,9 @@ MonoBehaviour:
   maxHeight: 1.5
   arm: {fileID: 625655282}
   clenchedArm: {fileID: 1405487558}
-  jitterPeriod: 0.2
-  jitter: {x: 0.01, y: 0.01, z: 0}
-  jitterIntensityIncreaseAfterClench: 3
+  jitterPeriod: 0.1
+  jitter: {x: 0.08, y: 0.08, z: 0}
+  jitterIntensityIncreaseAfterClench: 1
   clickSound: {fileID: 1368847379}
   whoopsSound: {fileID: 225264248}
   clenchDuration: 5
