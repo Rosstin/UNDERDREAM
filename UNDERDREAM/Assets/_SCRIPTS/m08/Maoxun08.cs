@@ -5,17 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class Maoxun08 : BaseController
 {
-    [Header("Start Time")]
-    [SerializeField] private float awakeTime; // time when M is controllable
-
-    //[Header("Goal")]
-    //[SerializeField] private float lemonDistance;
-    //[SerializeField] private AudioSource snatchSFX;
+    [Header("Goal")]
+    [SerializeField] [Range(0.1f, 2f)] private float lemonDistance;
+    [SerializeField] private AudioSource snatchSFX;
 
     [Header("Movement")]
-    [SerializeField]
-    [Range(0.0001f, 0.0009f)]
-    private float speedMetersPerSecond;
+    [SerializeField] [Range(0.0001f, 0.0009f)] private float speedMetersPerSecond;
     [SerializeField] private float jumpForceUp;
     [SerializeField] [Range(0f, 0.0009f)] private float jumpForceForward;
     [SerializeField] private float jumpCooldown;
@@ -28,7 +23,7 @@ public class Maoxun08 : BaseController
     [SerializeField] private GameObject WalkAnimation;
 
     [Header("Outlets: Bounds")]
-    [SerializeField] private Collider Target;
+    [SerializeField] private BoxCollider2D Target;
 
     [Header("Outlets: Components")]
     [SerializeField] private Rigidbody2D myRigidbody;
@@ -56,8 +51,6 @@ public class Maoxun08 : BaseController
     new private void Start()
     {
         base.Start();
-
-        //SetVisible(false);
     }
 
     public void SetVisible(bool visible)
@@ -90,25 +83,16 @@ public class Maoxun08 : BaseController
 
     public void Update()
     {
-        elapsed += Time.deltaTime;
-        if(elapsed > awakeTime)
-        {
-            this.SetVisible(true);
-        }
-
         timeSinceLastJump += Time.deltaTime;
 
         BaseUpdate();
 
-        //float distanceToTarget = Vector3.Distance(this.transform.position, Target.transform.position);
-
-        /*
-        if (distanceToTarget < lemonDistance)
+        float distanceToTarget = Vector3.Distance(this.transform.position, Target.transform.position);
+        if (distanceToTarget < lemonDistance || Target.IsTouching(this.myCollider))
         {
             snatchSFX.Play();
             LoadNextScene();
         }
-        */
 
         bool didSomething = false;
         if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.Space))

@@ -6,8 +6,7 @@ using UnityEngine.SceneManagement;
 public class Maoxun06 : BaseController
 {
     [Header("Goal")]
-    [SerializeField]
-    private float lemonDistance;
+    [SerializeField] [Range(0.3f, 0.7f)] private float lemonDistance;
     [SerializeField] private AudioSource snatchSFX;
 
     [Header("Movement")]

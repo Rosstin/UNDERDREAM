@@ -26,9 +26,12 @@ public class MoxieAndLemonSpinning : MonoBehaviour
     [Header("Controllable After")]
     [SerializeField] [Range(1,9)] private float ControllableAfterSeconds;
 
+    private bool explosionTriggered = false;
+
     // Start is called before the first frame update
     void Start()
     {
+        Controller.SetActive(false);
         Body.AddForce(StartingForce);
         Body.AddTorque(StartingTorque);
     }
@@ -36,8 +39,9 @@ public class MoxieAndLemonSpinning : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Ground.IsTouching(MyCollider))
+        if (Ground.IsTouching(MyCollider) && !explosionTriggered)
         {
+            explosionTriggered = true;
             StartCoroutine(ActivateControls());
 
             // generate the explosion and deactivate yourself
@@ -60,6 +64,17 @@ public class MoxieAndLemonSpinning : MonoBehaviour
     private IEnumerator ActivateControls()
     {
         yield return new WaitForSeconds(ControllableAfterSeconds);
-        Controller.SetActive(true);
+
+        bool activated = false;
+        while (!activated)
+        {
+            if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.Space))
+            {
+                SkiddingMoxie.gameObject.SetActive(false);
+                Controller.SetActive(true);
+                activated = true;
+            }
+            yield return null;
+        }
     }
 }
