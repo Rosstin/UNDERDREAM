@@ -5,6 +5,14 @@ using UnityEngine.SceneManagement;
 
 public class ArmControllerM09 : BaseController
 {
+    [Header("Face Outlets")]
+    [SerializeField] private GameObject face;
+    [SerializeField] private GameObject surprisedFace;
+
+    [Header("Lemon")]
+    [SerializeField] private FlyingLemon lemon;
+    [SerializeField] private Rigidbody2D lemonRb;
+
     [Header("Arm")]
     [SerializeField] [Range(0f, 1f)] private float armSpeed;
     [SerializeField] private float maxHeight;
@@ -65,6 +73,11 @@ public class ArmControllerM09 : BaseController
         camJitter.enabled = true;
         whoopsSound.Play();
         startedClenched = true;
+        face.gameObject.SetActive(false);
+        surprisedFace.gameObject.SetActive(true);
+        lemon.gameObject.transform.parent = this.transform;
+        lemon.enabled = true;
+        lemonRb.gravityScale = 1;
     }
 
     void UpdatePostClench()
@@ -75,11 +88,6 @@ public class ArmControllerM09 : BaseController
         }
 
         //LoadNextScene();
-        //clenchedElapsed += Time.deltaTime;
-
-        //if (clenchedElapsed > clenchDuration)
-        //{
-        //}
     }
 
     void UpdatePreClench()
