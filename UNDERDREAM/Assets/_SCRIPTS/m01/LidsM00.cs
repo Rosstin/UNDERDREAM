@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LidsM00 : Lids
 {
-    new private void Start()
+    private new void Start()
     {
         base.Start();
     }

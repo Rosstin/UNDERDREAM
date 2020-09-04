@@ -17,14 +17,14 @@ public class Lids : BaseController
 
     private float closedness;
 
-    new public void Start()
+    public new void Start()
     {
         base.Start();
         closedness = startingClosedness;
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         BaseUpdate();
 

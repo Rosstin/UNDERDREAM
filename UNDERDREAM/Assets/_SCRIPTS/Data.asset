@@ -20,6 +20,7 @@ MonoBehaviour:
   - m07
   - m08
   - m09
+  - m10
   Passwords:
   - why
   - do
@@ -28,6 +29,7 @@ MonoBehaviour:
   - appear
   - every
   - time
+  - you
   CurrentScene: 0
   TimeSinceLoadedLastScene: 2.1074574
   LoadingCooldown: 0.1
