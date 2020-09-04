@@ -56,9 +56,18 @@ TagManager:
   - name: Maoxun
     uniqueID: 4191818403
     locked: 0
+  - name: Forward
+    uniqueID: 3752881191
+    locked: 0
+  - name: ForwardPlus
+    uniqueID: 1377502611
+    locked: 0
   - name: AlmostTop
     uniqueID: 1175885057
     locked: 0
   - name: Top
     uniqueID: 728374803
+    locked: 0
+  - name: BlackBorder
+    uniqueID: 3324099951
     locked: 0
