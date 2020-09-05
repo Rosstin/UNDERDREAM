@@ -36,11 +36,15 @@ public class ArmControllerM09 : BaseController
     [Header("Camera Jitter")]
     [SerializeField] private Jitter camJitter;
 
-    private float clenchedElapsed = 0f;
+    [Header("Post Clench Next Scene Time")]
+    [SerializeField] [Range(1f,9f)] private float nextSceneTime;
+
     private float jitterElapsed = 0f;
     private bool clenched = false;
 
     private bool startedClenched = false;
+
+    private float postClenchElapsed;
 
     // Update is called once per frame
     void Update()
@@ -82,12 +86,17 @@ public class ArmControllerM09 : BaseController
 
     void UpdatePostClench()
     {
+        postClenchElapsed += Time.deltaTime;
+
         if (!startedClenched)
         {
             StartPostClench();
         }
 
-        //LoadNextScene();
+        if (postClenchElapsed > nextSceneTime)
+        {
+            LoadNextScene();
+        }
     }
 
     void UpdatePreClench()
