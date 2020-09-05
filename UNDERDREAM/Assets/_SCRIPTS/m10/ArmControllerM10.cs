@@ -6,7 +6,7 @@ using UnityEngine.Assertions.Must;
 public class ArmControllerM10 : BaseController
 {
     [Header("Small Margin Of Closeness To Cut Scene")]
-    [SerializeField] [Range(0f, 0.01f)] private float sceneBreakMargin;
+    [SerializeField] [Range(0f, 0.1f)] private float sceneBreakMargin;
 
     [Header("Camera")]
     [SerializeField] private Camera camera;
@@ -40,9 +40,18 @@ public class ArmControllerM10 : BaseController
 
     private float jitterElapsed = 0f;
     private float postClenchElapsed;
+
+    private bool nextScene = false;
     
     void Update()
     {
+        BaseUpdate();
+
+        if (nextScene)
+        {
+            return;
+        }
+
         var armProgress = arm.transform.position.y / minPosition.y;
 
         banjoSound.pitch = minMaxPitch.x + minMaxPitch.y * curve.Evaluate(armProgress);
@@ -92,11 +101,13 @@ public class ArmControllerM10 : BaseController
         {
             arm.transform.position = new Vector3(minPosition.x, arm.transform.position.y, arm.transform.position.z);
         }
+
         if (arm.transform.position.y < minPosition.y + sceneBreakMargin)
         {
             arm.transform.position = new Vector3(arm.transform.position.x, minPosition.y, arm.transform.position.z);
             stringBreak.Play();
             LoadNextScene();
+            nextScene = true;
         }
     }
 }

@@ -39,6 +39,8 @@ public class ArmController : BaseController
     // Update is called once per frame
     void Update()
     {
+        BaseUpdate();
+
         jitterElapsed += Time.deltaTime;
 
         if (jitterElapsed > jitterPeriod)

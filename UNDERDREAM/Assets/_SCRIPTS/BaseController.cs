@@ -39,6 +39,7 @@ public class BaseController : MonoBehaviour
 
     public void LoadNextScene()
     {
+        Debug.Log("LoadNextScene");
         if (Data.TimeSinceLoadedLastScene > Data.LoadingCooldown)
         {
             if (Data.CurrentScene < Data.Scenes.Count - 1)
