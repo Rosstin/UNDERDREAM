@@ -24,6 +24,8 @@ MonoBehaviour:
   - m11
   - m12
   - m13
+  - m14
+  - m16
   Passwords:
   - why
   - do
@@ -36,6 +38,31 @@ MonoBehaviour:
   - are
   - near
   - just
+  - like
+  - me
+  - they
+  - long
+  - to
+  - be
+  - close
+  - gao
+  - su
+  - wo
+  - chen
+  - gi
+  - zhen
+  - kan
+  - mo
+  - de
+  - dian
+  - hua
+  - ta
+  - shen
+  - me
+  - dou
+  - bu
+  - shuo
+  - shi
   CurrentScene: 9
   TimeSinceLoadedLastScene: 56.728077
   LoadingCooldown: 0.1
