@@ -11,6 +11,7 @@ public class ControllerM11 : BaseController
     // Update is called once per frame
     void Update()
     {
+        BaseUpdate();
         elapsed += Time.deltaTime;
         if (elapsed > SceneTime)
         {
