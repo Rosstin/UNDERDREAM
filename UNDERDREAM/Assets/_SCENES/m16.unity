@@ -1185,6 +1185,8 @@ MonoBehaviour:
   Data: {fileID: 11400000, guid: 030ba6bd61089974fb3f8046db4984fb, type: 2}
   CymbalTime: 1.89
   CymbalSFX: {fileID: 108459606}
+  Cam: {fileID: 1834884503}
+  CamPosition2: {x: 0, y: 0, z: -6}
 --- !u!4 &872457793
 Transform:
   m_ObjectHideFlags: 0
