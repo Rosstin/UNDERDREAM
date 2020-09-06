@@ -350,6 +350,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f86aa4df8f93f15439deec357490681c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Data: {fileID: 11400000, guid: 030ba6bd61089974fb3f8046db4984fb, type: 2}
+  SceneTime: 2
 --- !u!4 &281221791
 Transform:
   m_ObjectHideFlags: 0
@@ -1498,7 +1500,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Data: {fileID: 11400000, guid: 030ba6bd61089974fb3f8046db4984fb, type: 2}
-  Eee: {fileID: 2040880650}
   topLid: {fileID: 2034855811}
   botLid: {fileID: 345880713}
   sky: {fileID: 1707524038}
@@ -2823,12 +2824,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0bc2e91b7b0343e44a51bcd9ec5fabce, type: 3}
---- !u!82 &2040880650 stripped
-AudioSource:
-  m_CorrespondingSourceObject: {fileID: 7756682112854122365, guid: 0bc2e91b7b0343e44a51bcd9ec5fabce,
-    type: 3}
-  m_PrefabInstance: {fileID: 2040880649}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2081605760
 GameObject:
   m_ObjectHideFlags: 0

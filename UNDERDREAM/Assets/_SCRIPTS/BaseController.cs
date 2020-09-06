@@ -7,7 +7,6 @@ using UnityEngine.SceneManagement;
 public class BaseController : MonoBehaviour
 {
     public UniversalDataSO Data;
-    public AudioSource Eee;
 
     public void Start()
     {

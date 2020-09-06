@@ -2,17 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ControllerM11 : MonoBehaviour
+public class ControllerM11 : BaseController
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public float SceneTime;
+
+    private float elapsed;
 
     // Update is called once per frame
     void Update()
     {
-        
+        elapsed += Time.deltaTime;
+        if (elapsed > SceneTime)
+        {
+            elapsed = -100000f;
+            LoadNextScene();
+        }
     }
 }

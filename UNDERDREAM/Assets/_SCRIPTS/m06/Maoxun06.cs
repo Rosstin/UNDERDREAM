@@ -16,6 +16,10 @@ public class Maoxun06 : BaseController
     [SerializeField] private float jumpForceUp;
     [SerializeField] [Range(0f, 0.0009f)] private float jumpForceForward;
     [SerializeField] private float jumpCooldown;
+    [SerializeField] private float jumpSpeedMargin;
+
+    [Header("Boing SFX")]
+    [SerializeField] private AudioSource boingSfx;
 
     [Header("Outlets: Container")]
     [SerializeField] private GameObject Container;
@@ -123,7 +127,9 @@ public class Maoxun06 : BaseController
 
     private void UpdateJump()
     {
-        if ( timeSinceLastJump > jumpCooldown)
+        if ( timeSinceLastJump > jumpCooldown
+        && Mathf.Abs(this.myRigidbody.velocity.y) < jumpSpeedMargin 
+        )
         {
             timeSinceLastJump = 0f;
             ImpartJumpForce();
@@ -132,6 +138,7 @@ public class Maoxun06 : BaseController
 
     private void ImpartJumpForce()
     {
+        boingSfx.Play();
         this.myRigidbody.AddForce(new Vector2(-jumpForceForward, jumpForceUp));
     }
 
