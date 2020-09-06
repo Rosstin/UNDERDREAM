@@ -2149,7 +2149,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Data: {fileID: 11400000, guid: 030ba6bd61089974fb3f8046db4984fb, type: 2}
-  SceneTime: 3
+  SceneTime: 2
 --- !u!4 &1636684141
 Transform:
   m_ObjectHideFlags: 0
