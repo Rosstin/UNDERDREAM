@@ -2,17 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ControllerM16 : MonoBehaviour
+public class ControllerM16 : BaseController
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [Header("Cymbals")]
+    public float CymbalTime;
+    public AudioSource CymbalSFX;
+
+    private float elapsed;
+    private bool playedCymbal = false;
 
     // Update is called once per frame
     void Update()
     {
-        
+        BaseUpdate();
+
+        elapsed += Time.deltaTime;
+
+        if (!playedCymbal && elapsed > CymbalTime)
+        {
+            playedCymbal = true;
+            CymbalSFX.Play();
+        }
     }
 }
