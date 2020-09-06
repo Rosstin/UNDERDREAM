@@ -26,6 +26,7 @@ MonoBehaviour:
   - m13
   - m14
   - m16
+  - m17
   Passwords:
   - why
   - do
@@ -45,24 +46,17 @@ MonoBehaviour:
   - to
   - be
   - close
-  - gao
-  - su
+  - gaosu
   - wo
-  - chen
-  - gi
-  - zhen
+  - chenqizhen
   - kan
-  - mo
+  - chenmo
   - de
-  - dian
-  - hua
+  - dianhua
   - ta
-  - shen
-  - me
+  - shenme
   - dou
-  - bu
-  - shuo
-  - shi
-  CurrentScene: 9
-  TimeSinceLoadedLastScene: 56.728077
+  - bushuo
+  CurrentScene: 0
+  TimeSinceLoadedLastScene: 3.4252942
   LoadingCooldown: 0.1

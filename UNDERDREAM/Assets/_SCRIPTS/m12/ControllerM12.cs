@@ -15,6 +15,8 @@ public class ControllerM12 : BaseController
     [Header("Sfx")]
     public AudioSource CannonSound;
 
+    [Header("Camera Jitter")] public Jitter CamJitter;
+
     private float elapsed;
     private bool[] flags = new []{false,false,false};
 
@@ -30,11 +32,13 @@ public class ControllerM12 : BaseController
             flags[0] = true;
             NewHole.SetActive(true);
             CannonSound.Play();
+            CamJitter.enabled = true;
         }
         else if (elapsed > Times[1] && !flags[1])
         {
             flags[1] = true;
             NewSmoke.SetActive(true);
+            CamJitter.enabled = false;
         }
         else if (elapsed > Times[2] && !flags[2])
         {

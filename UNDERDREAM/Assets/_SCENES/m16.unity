@@ -1187,6 +1187,7 @@ MonoBehaviour:
   CymbalSFX: {fileID: 108459606}
   Cam: {fileID: 1834884503}
   CamPosition2: {x: 0, y: 0, z: -6}
+  nextSceneTime: 5
 --- !u!4 &872457793
 Transform:
   m_ObjectHideFlags: 0

@@ -4439,7 +4439,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Data: {fileID: 11400000, guid: 030ba6bd61089974fb3f8046db4984fb, type: 2}
-  Eee: {fileID: 1011190708}
   sceneBreakMargin: 0.02
   camera: {fileID: 1217363760}
   cameraCurve:
