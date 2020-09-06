@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// dont forget to call baseupdate in classes that inherit from this 
+/// </summary>
 public class BaseController : MonoBehaviour
 {
     public UniversalDataSO Data;
