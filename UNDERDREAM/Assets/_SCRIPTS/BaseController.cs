@@ -19,10 +19,11 @@ public class BaseController : MonoBehaviour
             if(Data.Scenes[i] == SceneManager.GetActiveScene().name)
             {
                 Data.CurrentScene = i;
+                break;
             }
         }
 
-        Debug.Log("currentScene: " + Data.CurrentScene);
+        Debug.Log("currentScene: " + Data.Scenes[Data.CurrentScene] + ".. password: " + Data.Passwords[Data.CurrentScene]);
     }
 
     public void BaseUpdate()

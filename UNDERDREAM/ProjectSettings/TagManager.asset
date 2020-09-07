@@ -50,6 +50,9 @@ TagManager:
   - name: NearBG
     uniqueID: 2506738249
     locked: 0
+  - name: SmallBoat
+    uniqueID: 4265013295
+    locked: 0
   - name: Maoxun-Scarf
     uniqueID: 4127634303
     locked: 0

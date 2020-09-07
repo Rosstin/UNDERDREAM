@@ -52,7 +52,7 @@ public class Maoxun06 : BaseController
         Right
     }
 
-    new private void Start()
+    private new void Start()
     {
         base.Start();
         ActivateAnimation(MaoxunAnimState06.Idle);
