@@ -15,10 +15,10 @@ public class BoatController : BaseController
     [SerializeField] private AudioSource boingSfx;
 
     [Header("Outlets: Container")]
-    [SerializeField] private GameObject Container;
+    [SerializeField] private GameObject container;
 
     [Header("Outlets: Bounds")]
-    [SerializeField]  private Collider Target;
+    [SerializeField]  private Collider target;
 
     [Header("Outlets: Components")]
     [SerializeField] private Rigidbody2D myRigidbody;
@@ -86,8 +86,6 @@ public class BoatController : BaseController
         {
             sign = 1;
         }
-
-        this.transform.localScale = new Vector3(sign * Mathf.Abs(this.transform.localScale.x), this.transform.localScale.y, this.transform.localScale.z);
 
         this.transform.localPosition
             = new Vector3(
