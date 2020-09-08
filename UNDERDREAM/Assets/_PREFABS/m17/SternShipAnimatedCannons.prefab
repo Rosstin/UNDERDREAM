@@ -656,6 +656,7 @@ MonoBehaviour:
   CamJitter: {fileID: 0}
   MyRigidbody: {fileID: 4275019216780343090}
   CannonFireEffectOnStern: {x: 25, y: 50}
+  BoatVelocity: {x: -0.15, y: 0}
   FrontCannon: {fileID: 1066032711491438963}
   BackCannon: {fileID: 3352702059780143026}
   CymbalSfx: {fileID: 3745973378757607593}

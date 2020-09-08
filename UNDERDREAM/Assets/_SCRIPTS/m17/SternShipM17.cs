@@ -10,7 +10,11 @@ public class SternShipM17 : MonoBehaviour
     [Header("My Rigidbody")]
     public Rigidbody2D MyRigidbody;
 
-    [Header("Cannon Effect On Stern")] public Vector2 CannonFireEffectOnStern;
+    [Header("Cannon Effect On Stern")]
+    public Vector2 CannonFireEffectOnStern;
+
+    [Header("Stern Forward Movement")]
+    public Vector2 BoatVelocity;
 
     [Header("Cannon Outlets")]
     public SternCannon FrontCannon;
@@ -31,20 +35,31 @@ public class SternShipM17 : MonoBehaviour
     public float BCanPeriod;
     public float BCanInitialDelay;
 
-    private float fElapsed;
-    private float bElapsed;
+    private bool updateVelocity = true;
+
+    private float elapsed; 
+    private float fElapsed; // elapsed for front can
+    private float bElapsed; // elapsed for back can
 
     private void Start()
     {
         // syncopate the cannon shots
         fElapsed = -FCanInitialDelay;
         bElapsed = -BCanInitialDelay;
+
+        MyRigidbody.velocity = BoatVelocity;
     }
 
     private void Update()
     {
+        elapsed += Time.deltaTime;
         fElapsed += Time.deltaTime;
         bElapsed += Time.deltaTime;
+
+        if (updateVelocity)
+        {
+            MyRigidbody.velocity = BoatVelocity;
+        }
 
         if (fElapsed > FCanPeriod)
         {
@@ -61,6 +76,7 @@ public class SternShipM17 : MonoBehaviour
 
     private IEnumerator FireCannon(SternCannon cannon)
     {
+        updateVelocity = false;
         cannon.MyAnimator.SetTrigger("fire");
         yield return new WaitForSeconds(CymbalDelay);
         CymbalSfx.Play();
@@ -73,5 +89,6 @@ public class SternShipM17 : MonoBehaviour
         yield return new WaitForSeconds(ScreenShakeDuration);
         cannon.Smoke.gameObject.SetActive(false);
         CamJitter.enabled = false;
+        updateVelocity = true;
     }
 }
