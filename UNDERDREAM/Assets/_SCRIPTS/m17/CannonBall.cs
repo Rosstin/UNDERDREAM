@@ -15,6 +15,7 @@ public class CannonBall : MonoBehaviour
 
     [Header("SFX")]
     public AudioSource CrashSfx;
+    public AudioSource Splash;
 
     private void Update()
     {
@@ -23,6 +24,7 @@ public class CannonBall : MonoBehaviour
             // play splash sfx
             // play splash anim
             // become invis
+            Splash.Play();
             this.SetVisible(false);
             this.transform.localPosition = Vector3.zero;
         }
@@ -34,7 +36,6 @@ public class CannonBall : MonoBehaviour
 
     private IEnumerator HitPlayer()
     {
-        Debug.Log("hit player");
         Player.TakeDamage();
         CrashSfx.Play();
         this.SetVisible(false);
