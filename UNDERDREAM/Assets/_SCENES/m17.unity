@@ -3427,12 +3427,12 @@ PrefabInstance:
     - target: {fileID: 4090669892318278168, guid: 928c10ae9727e3a46a85bfa8538d4c5b,
         type: 3}
       propertyPath: CymbalDelay
-      value: 1
+      value: 1.05
       objectReference: {fileID: 0}
     - target: {fileID: 4090669892318278168, guid: 928c10ae9727e3a46a85bfa8538d4c5b,
         type: 3}
       propertyPath: CannonDelay
-      value: 0.05
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 4090669892318278168, guid: 928c10ae9727e3a46a85bfa8538d4c5b,
         type: 3}

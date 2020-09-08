@@ -7,6 +7,11 @@ public class SternShipM17 : MonoBehaviour
     [Header("Main Camera Jitter Outlet")]
     public Jitter CamJitter;
 
+    [Header("My Rigidbody")]
+    public Rigidbody2D MyRigidbody;
+
+    [Header("Cannon Effect On Stern")] public Vector2 CannonFireEffectOnStern;
+
     [Header("Cannon Outlets")]
     public SternCannon FrontCannon;
     public SternCannon BackCannon;
@@ -61,8 +66,12 @@ public class SternShipM17 : MonoBehaviour
         CymbalSfx.Play();
         yield return new WaitForSeconds(CannonDelay);
         CannonSfx.Play();
+        cannon.Smoke.gameObject.SetActive(true);
+        cannon.Smoke.SetTrigger("fire");
         CamJitter.enabled = true;
+        MyRigidbody.AddForce(CannonFireEffectOnStern);
         yield return new WaitForSeconds(ScreenShakeDuration);
+        cannon.Smoke.gameObject.SetActive(false);
         CamJitter.enabled = false;
     }
 }

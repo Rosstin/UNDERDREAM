@@ -2,17 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Cannonball : MonoBehaviour
+public class CannonBall : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    [Header("Outlets")]
+    public CircleCollider2D MyCollider;
+    public Rigidbody2D MyRigidBody;
 }

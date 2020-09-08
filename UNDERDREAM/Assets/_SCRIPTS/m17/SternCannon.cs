@@ -8,4 +8,10 @@ public class SternCannon : MonoBehaviour
     public Animator MyAnimator;
     public CannonBall Ball;
     public Animator Smoke;
+
+    private void Awake()
+    {
+        Smoke.gameObject.SetActive(false);
+        Ball.gameObject.SetActive(false);
+    }
 }
