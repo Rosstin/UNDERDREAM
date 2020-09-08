@@ -758,11 +758,17 @@ MonoBehaviour:
   MyAnimator: {fileID: 4090669892351656408}
   Ball: {fileID: 9108472617553722810}
   Smoke: {fileID: 6932856256186909016}
+  FireOrigin: {fileID: 6965235262639867679}
   FireRotations:
   - {fileID: 7030864082251306270}
   - {fileID: 565085583534038343}
   - {fileID: 3930300294648425073}
   - {fileID: 2152177955559176437}
+  FireForces:
+  - 222
+  - 444
+  - 555
+  - 666
 --- !u!212 &4090669892351656409
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -881,11 +887,17 @@ MonoBehaviour:
   MyAnimator: {fileID: 4090669894142225834}
   Ball: {fileID: 298137355701196615}
   Smoke: {fileID: 4835681152931931505}
+  FireOrigin: {fileID: 4523548493564805574}
   FireRotations:
   - {fileID: 7030864082251306270}
   - {fileID: 565085583534038343}
   - {fileID: 3930300294648425073}
   - {fileID: 2152177955559176437}
+  FireForces:
+  - 333
+  - 455
+  - 588
+  - 777
 --- !u!212 &4090669894142225835
 SpriteRenderer:
   m_ObjectHideFlags: 0
