@@ -172,6 +172,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f88964382b219e64b8aa3e94be1999e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MyAnimator: {fileID: 4090669892351656408}
 --- !u!212 &4090669892351656409
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -284,6 +285,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f88964382b219e64b8aa3e94be1999e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MyAnimator: {fileID: 4090669894142225834}
 --- !u!212 &4090669894142225835
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -644,16 +646,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CamJitter: {fileID: 0}
-  FrontCannon: {fileID: 4090669892351656408}
-  BackCannon: {fileID: 4090669894142225834}
+  FrontCannon: {fileID: 1066032711491438963}
+  BackCannon: {fileID: 3352702059780143026}
   CymbalSfx: {fileID: 3745973378757607593}
   CannonSfx: {fileID: 9135250802851520868}
-  CymbalDelay: 0
-  CannonDelay: 0
-  FCanPeriod: 1
-  FCanInitialDelay: 0.25
-  BCanPeriod: 1
-  BCanInitialDelay: 0.75
+  CymbalDelay: 1
+  CannonDelay: 1.05
+  ScreenShakeDuration: 0.2
+  FCanPeriod: 8
+  FCanInitialDelay: -4
+  BCanPeriod: 16
+  BCanInitialDelay: 6
 --- !u!212 &6549052568751901714
 SpriteRenderer:
   m_ObjectHideFlags: 0

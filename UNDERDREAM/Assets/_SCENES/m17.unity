@@ -2194,6 +2194,7 @@ GameObject:
   - component: {fileID: 1834884504}
   - component: {fileID: 1834884503}
   - component: {fileID: 1834884502}
+  - component: {fileID: 1834884505}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -2266,6 +2267,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1834884505
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1834884501}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3305603a7df637d439b27fad6d33369c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jitterPeriod: 0.05
+  jitter: {x: 0.04, y: 0.04, z: 0}
 --- !u!1001 &1874307026
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3004,8 +3019,13 @@ PrefabInstance:
     - target: {fileID: 4090669892318278168, guid: 928c10ae9727e3a46a85bfa8538d4c5b,
         type: 3}
       propertyPath: CannonDelay
-      value: 1.05
+      value: 0.05
       objectReference: {fileID: 0}
+    - target: {fileID: 4090669892318278168, guid: 928c10ae9727e3a46a85bfa8538d4c5b,
+        type: 3}
+      propertyPath: CamJitter
+      value: 
+      objectReference: {fileID: 1834884505}
     - target: {fileID: 4090669892351656409, guid: 928c10ae9727e3a46a85bfa8538d4c5b,
         type: 3}
       propertyPath: m_Sprite

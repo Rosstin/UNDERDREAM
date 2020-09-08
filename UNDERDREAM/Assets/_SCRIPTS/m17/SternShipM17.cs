@@ -8,16 +8,15 @@ public class SternShipM17 : MonoBehaviour
     public Jitter CamJitter;
 
     [Header("Cannon Outlets")]
-    public Animator FrontCannon;
-    public Animator BackCannon;
-    //public SternCannon FrontSternCannon;
-    //public SternCannon BackSternCannon;
+    public SternCannon FrontCannon;
+    public SternCannon BackCannon;
 
     [Header("SFX")]
     public AudioSource CymbalSfx;
     public AudioSource CannonSfx;
     public float CymbalDelay;
     public float CannonDelay;
+    public float ScreenShakeDuration;
 
     [Header("Front Cannon")]
     public float FCanPeriod;
@@ -45,23 +44,25 @@ public class SternShipM17 : MonoBehaviour
         if (fElapsed > FCanPeriod)
         {
             fElapsed = 0f;
-            //FireCannon(FrontCannon);
+            StartCoroutine(FireCannon(FrontCannon));
         }
 
         if (bElapsed > BCanPeriod)
         {
             bElapsed = 0f;
-            //FireCannon(BackCannon);
+            StartCoroutine(FireCannon(BackCannon));
         }
     }
 
-    private IEnumerator FireFrontCannon()
+    private IEnumerator FireCannon(SternCannon cannon)
     {
-        FrontCannon.SetTrigger("fire");
+        cannon.MyAnimator.SetTrigger("fire");
         yield return new WaitForSeconds(CymbalDelay);
         CymbalSfx.Play();
         yield return new WaitForSeconds(CannonDelay);
         CannonSfx.Play();
-
+        CamJitter.enabled = true;
+        yield return new WaitForSeconds(ScreenShakeDuration);
+        CamJitter.enabled = false;
     }
 }
