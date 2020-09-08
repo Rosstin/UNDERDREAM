@@ -3152,7 +3152,7 @@ MonoBehaviour:
   container: {fileID: 2135971658}
   target: {fileID: 0}
   myRigidbody: {fileID: 2135971662}
-  myCollider: {fileID: 2135971661}
+  MyCollider: {fileID: 2135971661}
 --- !u!61 &2135971661
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3517,11 +3517,21 @@ PrefabInstance:
       propertyPath: Ground
       value: 
       objectReference: {fileID: 1815543507}
+    - target: {fileID: 9108472617553722810, guid: 928c10ae9727e3a46a85bfa8538d4c5b,
+        type: 3}
+      propertyPath: Player
+      value: 
+      objectReference: {fileID: 2135971660}
     - target: {fileID: 298137355701196615, guid: 928c10ae9727e3a46a85bfa8538d4c5b,
         type: 3}
       propertyPath: Ground
       value: 
       objectReference: {fileID: 1815543507}
+    - target: {fileID: 298137355701196615, guid: 928c10ae9727e3a46a85bfa8538d4c5b,
+        type: 3}
+      propertyPath: Player
+      value: 
+      objectReference: {fileID: 2135971660}
     m_RemovedComponents:
     - {fileID: 6549052568751901715, guid: 928c10ae9727e3a46a85bfa8538d4c5b, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 928c10ae9727e3a46a85bfa8538d4c5b, type: 3}

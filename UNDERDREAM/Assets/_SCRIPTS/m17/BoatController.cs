@@ -22,7 +22,7 @@ public class BoatController : BaseController
 
     [Header("Outlets: Components")]
     [SerializeField] private Rigidbody2D myRigidbody;
-    [SerializeField] private BoxCollider2D myCollider;
+    public BoxCollider2D MyCollider;
 
     private float timeSinceLastJump = 0f;
 
@@ -32,6 +32,14 @@ public class BoatController : BaseController
         Down,
         Left,
         Right
+    }
+
+    /// <summary>
+    /// take damage and get more beat up
+    /// </summary>
+    public void TakeDamage()
+    {
+        Debug.LogWarning("player take damage");
     }
 
     private void Update()

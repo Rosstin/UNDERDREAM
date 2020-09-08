@@ -48,6 +48,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MyCollider: {fileID: 8997751299816708556}
   MyRigidBody: {fileID: 9138234100870233966}
+  MySpriteRenderer: {fileID: 8997751299816708557}
+  CrashSfx: {fileID: 0}
+  Ground: {fileID: 0}
+  Player: {fileID: 0}
 --- !u!58 &8997751299816708556
 CircleCollider2D:
   m_ObjectHideFlags: 0

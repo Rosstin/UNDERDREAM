@@ -23,7 +23,7 @@ public class SternCannon : MonoBehaviour
     private void Awake()
     {
         Smoke.gameObject.SetActive(false);
-        Ball.gameObject.SetActive(false);
+        Ball.SetVisible(false);
         initialLocalRotation = this.transform.localRotation;
     }
 
@@ -36,7 +36,7 @@ public class SternCannon : MonoBehaviour
 
     public void FireBall()
     {
-        Ball.gameObject.SetActive(true);
+        Ball.SetVisible(true);
         Ball.gameObject.transform.localPosition = FireOrigin.transform.localPosition;
         Ball.MyRigidBody.AddForce(FireOrigin.transform.forward * FireForces[currentFireRotation]);
     }
