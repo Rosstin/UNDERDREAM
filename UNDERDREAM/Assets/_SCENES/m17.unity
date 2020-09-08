@@ -3155,8 +3155,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Data: {fileID: 11400000, guid: 030ba6bd61089974fb3f8046db4984fb, type: 2}
-  speedMetersPerSecond: 0.00024
-  jumpForceUp: 555
+  speedMetersPerSecond: 0.00045
+  jumpForceUp: 888
   jumpForceForward: 0
   jumpCooldown: 0.2
   jumpSpeedMargin: 0.02
