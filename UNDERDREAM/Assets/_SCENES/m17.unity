@@ -2994,7 +2994,39 @@ PrefabInstance:
     - target: {fileID: 4090669892318278168, guid: 928c10ae9727e3a46a85bfa8538d4c5b,
         type: 3}
       propertyPath: BCanInitialDelay
-      value: 4
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4090669892318278168, guid: 928c10ae9727e3a46a85bfa8538d4c5b,
+        type: 3}
+      propertyPath: CymbalDelay
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4090669892318278168, guid: 928c10ae9727e3a46a85bfa8538d4c5b,
+        type: 3}
+      propertyPath: CannonDelay
+      value: 1.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 4090669892351656409, guid: 928c10ae9727e3a46a85bfa8538d4c5b,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 144784ba846a5bc46bdc91fedaa85adc,
+        type: 3}
+    - target: {fileID: 4090669892351656408, guid: 928c10ae9727e3a46a85bfa8538d4c5b,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4090669894142225835, guid: 928c10ae9727e3a46a85bfa8538d4c5b,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 144784ba846a5bc46bdc91fedaa85adc,
+        type: 3}
+    - target: {fileID: 4090669894142225834, guid: 928c10ae9727e3a46a85bfa8538d4c5b,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3745973378757607593, guid: 928c10ae9727e3a46a85bfa8538d4c5b,
         type: 3}

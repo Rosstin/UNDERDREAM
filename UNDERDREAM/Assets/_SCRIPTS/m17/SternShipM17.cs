@@ -4,11 +4,20 @@ using UnityEngine;
 
 public class SternShipM17 : MonoBehaviour
 {
+    [Header("Main Camera Jitter Outlet")]
+    public Jitter CamJitter;
+
     [Header("Cannon Outlets")]
     public Animator FrontCannon;
     public Animator BackCannon;
-    public AudioSource CannonSfx;
+    //public SternCannon FrontSternCannon;
+    //public SternCannon BackSternCannon;
+
+    [Header("SFX")]
     public AudioSource CymbalSfx;
+    public AudioSource CannonSfx;
+    public float CymbalDelay;
+    public float CannonDelay;
 
     [Header("Front Cannon")]
     public float FCanPeriod;
@@ -36,17 +45,23 @@ public class SternShipM17 : MonoBehaviour
         if (fElapsed > FCanPeriod)
         {
             fElapsed = 0f;
-            FrontCannon.Play("cannon");
-            CannonSfx.Play();
-            CymbalSfx.Play();
+            //FireCannon(FrontCannon);
         }
 
         if (bElapsed > BCanPeriod)
         {
             bElapsed = 0f;
-            BackCannon.Play("cannon");
-            CannonSfx.Play();
-            CymbalSfx.Play();
+            //FireCannon(BackCannon);
         }
+    }
+
+    private IEnumerator FireFrontCannon()
+    {
+        FrontCannon.SetTrigger("fire");
+        yield return new WaitForSeconds(CymbalDelay);
+        CymbalSfx.Play();
+        yield return new WaitForSeconds(CannonDelay);
+        CannonSfx.Play();
+
     }
 }
