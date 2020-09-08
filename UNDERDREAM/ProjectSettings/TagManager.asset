@@ -71,6 +71,15 @@ TagManager:
   - name: Top
     uniqueID: 728374803
     locked: 0
+  - name: CannonBall
+    uniqueID: 2835923335
+    locked: 0
+  - name: Cannon
+    uniqueID: 4114302389
+    locked: 0
+  - name: CannonSmoke
+    uniqueID: 2200801977
+    locked: 0
   - name: BlackBorder
     uniqueID: 3324099951
     locked: 0
