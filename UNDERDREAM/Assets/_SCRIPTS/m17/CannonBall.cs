@@ -13,6 +13,10 @@ public class CannonBall : MonoBehaviour
     public BoxCollider2D Ground;
     public BoatController Player;
 
+    [Header("VFX")]
+    public Animator SplashEffect;
+    public Vector3 SplashEffectOffset;
+
     [Header("SFX")]
     public AudioSource CrashSfx;
     public AudioSource Splash;
@@ -21,12 +25,7 @@ public class CannonBall : MonoBehaviour
     {
         if (MyCollider.IsTouching(Ground))
         {
-            // play splash sfx
-            // play splash anim
-            // become invis
-            Splash.Play();
-            this.SetVisible(false);
-            this.transform.localPosition = Vector3.zero;
+            StartCoroutine(SplashWater());
         }
         else if (MyCollider.IsTouching(Player.MyCollider))
         {
@@ -34,12 +33,21 @@ public class CannonBall : MonoBehaviour
         }
     }
 
+    private IEnumerator SplashWater()
+    {
+        SplashEffect.gameObject.SetActive(true);
+        SplashEffect.gameObject.transform.position = this.gameObject.transform.position + SplashEffectOffset;
+        SplashEffect.SetTrigger("splash");
+        Splash.Play();
+        this.SetVisible(false);
+        yield return 0;
+    }
+
     private IEnumerator HitPlayer()
     {
         Player.TakeDamage();
         CrashSfx.Play();
         this.SetVisible(false);
-        this.transform.localPosition = Vector3.zero;
         yield return 0;
     }
 
