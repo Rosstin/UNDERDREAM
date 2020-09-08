@@ -78,6 +78,9 @@ public class SternShipM17 : MonoBehaviour
     {
         updateVelocity = false;
         cannon.MyAnimator.SetTrigger("fire");
+
+        cannon.RandomRotation();
+
         yield return new WaitForSeconds(CymbalDelay);
         CymbalSfx.Play();
         yield return new WaitForSeconds(CannonDelay);

@@ -9,9 +9,24 @@ public class SternCannon : MonoBehaviour
     public CannonBall Ball;
     public Animator Smoke;
 
+    [Header("Rotation Bounds")]
+    public Transform[] FireRotations; //list of potential fire rots
+
+    private Quaternion initialLocalRotation;
+
+    private int currentFireRotation = 0;
+
     private void Awake()
     {
         Smoke.gameObject.SetActive(false);
         Ball.gameObject.SetActive(false);
+        initialLocalRotation = this.transform.localRotation;
+    }
+
+    public void RandomRotation()
+    {
+        var randomRotationIndex = Random.Range(0, FireRotations.Length);
+        currentFireRotation = randomRotationIndex;
+        this.transform.localRotation = FireRotations[randomRotationIndex].localRotation;
     }
 }
