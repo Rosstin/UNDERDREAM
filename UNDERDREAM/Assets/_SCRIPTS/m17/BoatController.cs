@@ -8,8 +8,14 @@ public class BoatController : BaseController
     [Header("Scene Time")]
     [SerializeField] [Range(20f, 100f)] private float SceneTime;
 
-    [Header("Damage Sprites")]
-    [SerializeField] private GameObject[] DamageSprites;
+    [Header("Damage")]
+    public GameObject[] DamageSprites;
+    public Vector2 KnockbackForceCannon;
+    public Vector2 KnockbackForceSternTouch;
+    public float DamageCooldownTime;
+    public Jitter CamJitter;
+    public AudioSource CrashSfx;
+    [Range(0f, 2f)] public float CamJitterDuration;
 
     [Header("Jump")]
     [SerializeField] [Range(0.0001f, 0.0009f)] private float speedMetersPerSecond;
@@ -26,9 +32,13 @@ public class BoatController : BaseController
     [SerializeField] private Rigidbody2D myRigidbody;
     public BoxCollider2D MyCollider;
 
-    private float timeSinceLastJump = 0f;
+    [Header("Outlets: Stern")]
+    public BoxCollider2D SternCollider;
 
+    private float timeSinceLastJump = 0f;
+    private float elapsed =0f;
     private int takenDamage = 0;
+    private float invincibilityCooldownElapsed=0f;
 
     public enum MoveDirection
     {
@@ -41,20 +51,31 @@ public class BoatController : BaseController
     /// <summary>
     /// take damage and get more beat up
     /// </summary>
-    public void TakeDamage()
+    public void TakeDamage(Vector2 knockbackForce)
     {
-        Debug.LogWarning("player take damage");
-        takenDamage++;
-
-        if (takenDamage >= DamageSprites.Length)
+        if (invincibilityCooldownElapsed > DamageCooldownTime)
         {
-            LoadHintScene();
+            invincibilityCooldownElapsed = 0f;
+            takenDamage++;
+
+            if (takenDamage >= DamageSprites.Length)
+            {
+                LoadHintScene();
+            }
+            else // actually take the damage
+            {
+                CrashSfx.Play();
+                CamJitter.JitterForDuration(CamJitterDuration);
+                this.myRigidbody.AddForce(knockbackForce);
+                DamageSprites[takenDamage - 1].gameObject.SetActive(false);
+                DamageSprites[takenDamage].gameObject.SetActive(true);
+            }
         }
         else
         {
-            DamageSprites[takenDamage-1].gameObject.SetActive(false);
-            DamageSprites[takenDamage].gameObject.SetActive(true);
+            Debug.Log("still invincible");
         }
+
     }
 
     private void Start()
@@ -68,6 +89,18 @@ public class BoatController : BaseController
         BaseUpdate();
 
         timeSinceLastJump += Time.deltaTime;
+        elapsed += Time.deltaTime;
+        invincibilityCooldownElapsed += Time.deltaTime;
+
+        if (elapsed > SceneTime)
+        {
+            LoadNextScene();
+        }
+
+        if (this.MyCollider.IsTouching(SternCollider))
+        {
+            TakeDamage(KnockbackForceSternTouch);
+        }
 
         BaseUpdate();
 
