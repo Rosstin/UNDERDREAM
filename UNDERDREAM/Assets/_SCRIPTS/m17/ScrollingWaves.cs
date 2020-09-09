@@ -7,12 +7,11 @@ public class ScrollingWaves : MonoBehaviour
     public float Speed;
     public Vector2 MinMaxX;
 
-    public GameObject[] Waves;
-
+    public SpriteRenderer[] Waves;
 
     void Update()
     {
-        foreach (GameObject wave in Waves)
+        foreach (SpriteRenderer wave in Waves)
         {
             wave.transform.position +=
                 new Vector3(
