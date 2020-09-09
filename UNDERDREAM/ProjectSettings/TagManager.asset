@@ -50,6 +50,18 @@ TagManager:
   - name: NearBG
     uniqueID: 2506738249
     locked: 0
+  - name: SmallWaves1
+    uniqueID: 3292104359
+    locked: 0
+  - name: SmallWaves2
+    uniqueID: 2033202551
+    locked: 0
+  - name: SmallWaves3
+    uniqueID: 3823256413
+    locked: 0
+  - name: SmallWaves4
+    uniqueID: 369567773
+    locked: 0
   - name: SmallBoat
     uniqueID: 4265013295
     locked: 0
@@ -71,6 +83,15 @@ TagManager:
   - name: Top
     uniqueID: 728374803
     locked: 0
+  - name: CannonBall
+    uniqueID: 2835923335
+    locked: 0
+  - name: Cannon
+    uniqueID: 4114302389
+    locked: 0
+  - name: CannonSmoke
+    uniqueID: 2200801977
+    locked: 0
   - name: Waves1
     uniqueID: 2018767227
     locked: 0
@@ -82,15 +103,6 @@ TagManager:
     locked: 0
   - name: Waves4
     uniqueID: 861876205
-    locked: 0
-  - name: CannonBall
-    uniqueID: 2835923335
-    locked: 0
-  - name: Cannon
-    uniqueID: 4114302389
-    locked: 0
-  - name: CannonSmoke
-    uniqueID: 2200801977
     locked: 0
   - name: BlackBorder
     uniqueID: 3324099951
