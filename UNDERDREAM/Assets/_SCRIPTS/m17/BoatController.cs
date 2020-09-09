@@ -5,6 +5,11 @@ using UnityEngine.EventSystems;
 
 public class BoatController : BaseController
 {
+    [Header("Scene Time")]
+    [SerializeField] [Range(20f, 100f)] private float SceneTime;
+
+    [Header("Damage Sprites")]
+    [SerializeField] private GameObject[] DamageSprites;
 
     [Header("Jump")]
     [SerializeField] [Range(0.0001f, 0.0009f)] private float speedMetersPerSecond;
@@ -17,14 +22,13 @@ public class BoatController : BaseController
     [Header("Outlets: Container")]
     [SerializeField] private GameObject container;
 
-    [Header("Outlets: Bounds")]
-    [SerializeField]  private Collider target;
-
     [Header("Outlets: Components")]
     [SerializeField] private Rigidbody2D myRigidbody;
     public BoxCollider2D MyCollider;
 
     private float timeSinceLastJump = 0f;
+
+    private int takenDamage = 0;
 
     public enum MoveDirection
     {
@@ -40,6 +44,22 @@ public class BoatController : BaseController
     public void TakeDamage()
     {
         Debug.LogWarning("player take damage");
+        takenDamage++;
+
+        if (takenDamage >= DamageSprites.Length)
+        {
+            // fail -- go to sun hint screen
+        }
+        else
+        {
+            DamageSprites[takenDamage-1].gameObject.SetActive(false);
+            DamageSprites[takenDamage].gameObject.SetActive(true);
+        }
+    }
+
+    private void Start()
+    {
+        DamageSprites[0].gameObject.SetActive(true);
     }
 
     private void Update()

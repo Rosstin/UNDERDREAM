@@ -76,7 +76,7 @@ public class ArmControllerM09 : BaseController
 
     private void StartPostClench()
     {
-        camJitter.enabled = true;
+        camJitter.SetJitter(true);
         whoopsSound.Play();
         startedClenched = true;
         face.gameObject.SetActive(false);

@@ -32,13 +32,13 @@ public class ControllerM12 : BaseController
             flags[0] = true;
             NewHole.SetActive(true);
             CannonSound.Play();
-            CamJitter.enabled = true;
+            CamJitter.SetJitter(true);
         }
         else if (elapsed > Times[1] && !flags[1])
         {
             flags[1] = true;
             NewSmoke.SetActive(true);
-            CamJitter.enabled = false;
+            CamJitter.SetJitter(false);
         }
         else if (elapsed > Times[2] && !flags[2])
         {

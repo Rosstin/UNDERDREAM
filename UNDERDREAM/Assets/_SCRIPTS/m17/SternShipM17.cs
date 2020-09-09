@@ -87,12 +87,12 @@ public class SternShipM17 : MonoBehaviour
         CannonSfx.Play();
         cannon.Smoke.gameObject.SetActive(true);
         cannon.Smoke.SetTrigger("fire");
-        CamJitter.enabled = true;
+        CamJitter.SetJitter(true);
         MyRigidbody.AddForce(CannonFireEffectOnStern);
         cannon.FireBall();
         yield return new WaitForSeconds(ScreenShakeDuration);
         cannon.Smoke.gameObject.SetActive(false);
-        CamJitter.enabled = false;
+        CamJitter.SetJitter(false);
         updateVelocity = true;
     }
 }

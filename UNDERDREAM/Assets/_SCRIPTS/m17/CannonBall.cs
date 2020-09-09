@@ -12,10 +12,12 @@ public class CannonBall : MonoBehaviour
     [Header("Outlets - Scene")]
     public BoxCollider2D Ground;
     public BoatController Player;
+    public Jitter CamJitter;
 
     [Header("VFX")]
     public Animator SplashEffect;
     public Vector3 SplashEffectOffset;
+    [Range(0f, 1f)] public float CamJitterDuration;
 
     [Header("SFX")]
     public AudioSource CrashSfx;
@@ -47,6 +49,7 @@ public class CannonBall : MonoBehaviour
     {
         Player.TakeDamage();
         CrashSfx.Play();
+        CamJitter.JitterForDuration(CamJitterDuration);
         this.SetVisible(false);
         yield return 0;
     }
