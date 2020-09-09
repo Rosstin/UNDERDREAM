@@ -71,6 +71,12 @@ TagManager:
   - name: Top
     uniqueID: 728374803
     locked: 0
+  - name: Waves1
+    uniqueID: 2018767227
+    locked: 0
+  - name: Waves2
+    uniqueID: 1753314737
+    locked: 0
   - name: CannonBall
     uniqueID: 2835923335
     locked: 0
