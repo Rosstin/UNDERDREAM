@@ -48,7 +48,7 @@ public class BoatController : BaseController
 
         if (takenDamage >= DamageSprites.Length)
         {
-            // fail -- go to sun hint screen
+            LoadHintScene();
         }
         else
         {
@@ -59,6 +59,7 @@ public class BoatController : BaseController
 
     private void Start()
     {
+        base.Start();
         DamageSprites[0].gameObject.SetActive(true);
     }
 

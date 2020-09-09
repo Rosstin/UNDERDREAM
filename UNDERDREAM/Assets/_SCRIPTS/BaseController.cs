@@ -42,7 +42,7 @@ public class BaseController : MonoBehaviour
 
     public void LoadNextScene()
     {
-        Debug.Log("LoadNextScene");
+        Debug.Log("LoadNextScene.. " + " from " + Data.Scenes[Data.CurrentScene] + " to whatever this index represents: " + Data.CurrentScene+1 );
         if (Data.TimeSinceLoadedLastScene > Data.LoadingCooldown)
         {
             if (Data.CurrentScene < Data.Scenes.Count - 1)
@@ -54,14 +54,38 @@ public class BaseController : MonoBehaviour
                 Debug.LogWarning("end of game, looping");
                 Data.CurrentScene = 0;
             }
-            SceneManager.LoadScene(Data.Scenes[Data.CurrentScene]);
+            LoadScene(Data.Scenes[Data.CurrentScene]);
             Data.TimeSinceLoadedLastScene = 0f;
         }
         else
         {
             Debug.LogError("Scenes are being loaded too fast!");
         }
+    }
 
+    public void LoadHintScene()
+    {
+        Debug.LogWarning("Data.Scenes[Data.CurrentScene]: " + Data.Scenes[Data.CurrentScene]);
+        if (Data.Scenes[Data.CurrentScene] == "m17")
+        {
+            LoadScene("h17");
+            Data.TimeSinceLoadedLastScene = 0f;
+        }
+        else
+        {
+            Debug.LogWarning("this scene doesn't have a hint scene!");
+        }
+    }
+
+    public void LoadRegularScene()
+    {
+        LoadScene(Data.Scenes[Data.CurrentScene]);
+    }
+
+    private void LoadScene(string sceneName)
+    {
+        SceneManager.LoadScene(sceneName);
+        Data.TimeSinceLoadedLastScene = 0f;
     }
 
 }

@@ -3933,6 +3933,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jitterPeriod: 0.05
   jitter: {x: 0.04, y: 0.04, z: 0}
+  JitterEnabled: 1
 --- !u!1 &1847373173
 GameObject:
   m_ObjectHideFlags: 0
@@ -4760,7 +4761,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2135971659
 Transform:
   m_ObjectHideFlags: 0
@@ -4796,6 +4797,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Data: {fileID: 11400000, guid: 030ba6bd61089974fb3f8046db4984fb, type: 2}
+  SceneTime: 0
+  DamageSprites: []
   speedMetersPerSecond: 0.00045
   jumpForceUp: 888
   jumpForceForward: 0
@@ -4803,7 +4806,6 @@ MonoBehaviour:
   jumpSpeedMargin: 0.02
   boingSfx: {fileID: 1522327124}
   container: {fileID: 2135971658}
-  target: {fileID: 0}
   myRigidbody: {fileID: 2135971662}
   MyCollider: {fileID: 2135971661}
 --- !u!61 &2135971661
@@ -5012,6 +5014,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SternShipAnimatedCannons
+      objectReference: {fileID: 0}
+    - target: {fileID: 6549052568751901708, guid: 928c10ae9727e3a46a85bfa8538d4c5b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6549052568751901713, guid: 928c10ae9727e3a46a85bfa8538d4c5b,
         type: 3}
