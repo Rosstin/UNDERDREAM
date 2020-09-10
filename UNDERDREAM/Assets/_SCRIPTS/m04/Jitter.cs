@@ -32,6 +32,11 @@ public class Jitter : MonoBehaviour
 
     private void Start()
     {
+        ResetStartingPosition();
+    }
+
+    public void ResetStartingPosition()
+    {
         JitterEnabled = false;
         startingPosition = this.gameObject.transform.localPosition;
     }

@@ -5,8 +5,16 @@ using UnityEngine.EventSystems;
 
 public class BoatController : BaseController
 {
-    [Header("Scene Time")]
-    [SerializeField] [Range(20f, 100f)] private float SceneTime;
+    [Header("Part Two")]
+    [Range(40f, 44f)] public float PartTwoTime; // about 42 seconds or so into Bumblebee2.wav
+    [Range(70f, 100f)] public float PartThreeTime; // about 80 seconds or so in Bumblebee2.wav
+    public Vector3 CamPosP2;
+    public Camera MainCam;
+    public GameObject Old;
+    public GameObject New;
+    public BoxCollider2D OldGroundCollider;
+    public BoxCollider2D NewGroundCollider;
+    public Vector3 LowerAmountP2;
 
     [Header("Damage")]
     public GameObject[] DamageSprites;
@@ -25,20 +33,22 @@ public class BoatController : BaseController
     [SerializeField] private float jumpSpeedMargin;
     [SerializeField] private AudioSource boingSfx;
 
-    [Header("Outlets: Container")]
+    [Header("Outlets")]
     [SerializeField] private GameObject container;
-
-    [Header("Outlets: Components")]
     [SerializeField] private Rigidbody2D myRigidbody;
     public BoxCollider2D MyCollider;
-
-    [Header("Outlets: Stern")]
     public BoxCollider2D SternCollider;
+    public FlyingLemon Lemon;
 
     private float timeSinceLastJump = 0f;
     private float elapsed =0f;
     private int takenDamage = 0;
     private float invincibilityCooldownElapsed=0f;
+
+    private bool startP2 = false;
+    private bool startP3 = false;
+
+    private Vector3 lemonInitialLocalPosition;
 
     public enum MoveDirection
     {
@@ -78,8 +88,24 @@ public class BoatController : BaseController
 
     }
 
+    public Collider2D GetCurrentGroundCollider()
+    {
+        if (!startP2)
+        {
+            return OldGroundCollider;
+        }
+        else
+        {
+            return NewGroundCollider;
+        }
+    }
+
     private void Start()
     {
+        Old.gameObject.SetActive(true);
+        New.gameObject.SetActive(false);
+        lemonInitialLocalPosition = Lemon.gameObject.transform.localPosition;
+
         base.Start();
         DamageSprites[0].gameObject.SetActive(true);
     }
@@ -92,8 +118,25 @@ public class BoatController : BaseController
         elapsed += Time.deltaTime;
         invincibilityCooldownElapsed += Time.deltaTime;
 
-        if (elapsed > SceneTime)
+        if (!startP2 && elapsed > PartTwoTime)
         {
+            // zoom out, start spawning sharks
+            startP2 = true;
+            MainCam.gameObject.transform.position = CamPosP2;
+            CamJitter.ResetStartingPosition();
+
+            Old.gameObject.SetActive(false);
+            New.gameObject.SetActive(true);
+
+            this.gameObject.transform.position += LowerAmountP2;
+            SternCollider.gameObject.transform.position += LowerAmountP2;
+            Lemon.gameObject.transform.localPosition = lemonInitialLocalPosition;
+
+        }
+
+        if (!startP3 && elapsed > PartThreeTime)
+        {
+            startP3 = true;
             LoadNextScene();
         }
 
@@ -120,6 +163,11 @@ public class BoatController : BaseController
         {
             didSomething = true;
             UpdateMoveLeftRight(MoveDirection.Right);
+        }
+
+        if (startP2)
+        {
+            // do specific new updates for things like the sharks
         }
 
     }

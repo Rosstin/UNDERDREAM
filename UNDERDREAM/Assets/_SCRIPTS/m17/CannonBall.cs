@@ -10,7 +10,6 @@ public class CannonBall : MonoBehaviour
     public SpriteRenderer MySpriteRenderer;
 
     [Header("Outlets - Scene")]
-    public BoxCollider2D Ground;
     public BoatController Player;
 
     [Header("VFX")]
@@ -22,7 +21,7 @@ public class CannonBall : MonoBehaviour
 
     private void Update()
     {
-        if (MyCollider.IsTouching(Ground))
+        if (MyCollider.IsTouching(Player.GetCurrentGroundCollider()))
         {
             StartCoroutine(SplashWater());
         }
