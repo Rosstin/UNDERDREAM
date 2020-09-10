@@ -7,6 +7,19 @@ public class SternShipM17 : MonoBehaviour
     [Header("Part Two New Values")]
     public Vector2 PartTwoVelocity;
     public Vector2 PartTwoCannonFireEffectOnStern;
+    public Vector2 SternNewFloatAmounts;
+    public Vector2 SternNewFloatPeriods;
+
+    [Header("Stern Body Movement")]
+    public GameObject SternBody;
+    public Float SternFloat;
+    public Transform SternRiseDestination;
+    public Transform SternGoal;
+    public AnimationCurve SternRiseCurve;
+    public AnimationCurve SternForwardCurve;
+    public float SternRisePeriod;
+    public float SternForwardPeriod;
+    public BoxCollider2D SternCollider;
 
     [Header("Main Camera Jitter Outlet")]
     public Jitter CamJitter;
@@ -45,6 +58,11 @@ public class SternShipM17 : MonoBehaviour
     private float elapsed; 
     private float fElapsed; // elapsed for front can
     private float bElapsed; // elapsed for back can
+    private float twoElapsed; // elapsed for stern rising
+
+    private Vector3 sternInitialLocalPos;
+
+    private bool sternRisen = false;
 
     private Vector2 currentKnockback;
     private Vector2 currentV;
@@ -58,6 +76,8 @@ public class SternShipM17 : MonoBehaviour
 
     private void Start()
     {
+        sternInitialLocalPos = SternBody.transform.localPosition;
+
         // syncopate the cannon shots
         fElapsed = -FCanInitialDelay;
         bElapsed = -BCanInitialDelay;
@@ -71,6 +91,32 @@ public class SternShipM17 : MonoBehaviour
         elapsed += Time.deltaTime;
         fElapsed += Time.deltaTime;
         bElapsed += Time.deltaTime;
+
+        if (partTwoStarted)
+        {
+            twoElapsed += Time.deltaTime;
+
+            if (!sternRisen)
+            {
+                SternFloat.enabled = false;
+                SternBody.transform.localPosition = Vector3.Lerp(sternInitialLocalPos, SternRiseDestination.localPosition, 
+                    SternRiseCurve.Evaluate(twoElapsed / SternRisePeriod));
+                if (twoElapsed > SternRisePeriod)
+                {
+                    sternRisen = true;
+                    twoElapsed = 0f;
+                }
+            }
+            else
+            {
+                SternFloat.enabled = true;
+                SternFloat.FloatPeriods = SternNewFloatPeriods;
+                SternFloat.FloatAmounts= SternNewFloatAmounts;
+
+                SternBody.transform.localPosition = Vector3.Lerp(SternRiseDestination.localPosition, SternGoal.localPosition,
+                    SternForwardCurve.Evaluate(twoElapsed / SternForwardPeriod));
+            }
+        }
 
         if (updateVelocity)
         {

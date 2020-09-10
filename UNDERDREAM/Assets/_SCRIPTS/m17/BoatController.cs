@@ -41,7 +41,9 @@ public class BoatController : BaseController
     [SerializeField] private Rigidbody2D myRigidbody;
     public BoxCollider2D MyCollider;
     public BoxCollider2D SternCollider;
+    public BoxCollider2D SternBodyCollider;
     public FlyingLemon Lemon;
+    public BoxCollider2D BodyCollider;
 
     private float timeSinceLastJump = 0f;
     private float elapsed =0f;
@@ -143,7 +145,9 @@ public class BoatController : BaseController
             LoadNextScene();
         }
 
-        if (this.MyCollider.IsTouching(SternCollider))
+        if (this.MyCollider.IsTouching(SternCollider) || this.MyCollider.IsTouching(SternBodyCollider)
+        || this.BodyCollider.IsTouching(SternBodyCollider)
+        )
         {
             TakeDamage(KnockbackForceSternTouch);
         }

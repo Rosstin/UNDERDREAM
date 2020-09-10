@@ -14,7 +14,6 @@ public class Jitter : MonoBehaviour
 
     public void SetJitter(bool jitterOn)
     {
-        Debug.Log("set jitt " + jitterOn);
         JitterEnabled = jitterOn;
     }
 
