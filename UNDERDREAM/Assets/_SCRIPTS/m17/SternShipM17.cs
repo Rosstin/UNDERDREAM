@@ -6,6 +6,7 @@ public class SternShipM17 : MonoBehaviour
 {
     [Header("Part Two New Values")]
     public Vector2 PartTwoVelocity;
+    public Vector2 PartTwoCannonFireEffectOnStern;
 
     [Header("Main Camera Jitter Outlet")]
     public Jitter CamJitter;
@@ -45,12 +46,14 @@ public class SternShipM17 : MonoBehaviour
     private float fElapsed; // elapsed for front can
     private float bElapsed; // elapsed for back can
 
+    private Vector2 currentKnockback;
     private Vector2 currentV;
 
     public void StartPartTwo()
     {
         partTwoStarted = true;
         currentV = PartTwoVelocity;
+        currentKnockback = PartTwoCannonFireEffectOnStern;
     }
 
     private void Start()
@@ -59,6 +62,7 @@ public class SternShipM17 : MonoBehaviour
         fElapsed = -FCanInitialDelay;
         bElapsed = -BCanInitialDelay;
 
+        currentKnockback = CannonFireEffectOnStern;
         currentV= BoatVelocity;
     }
 
@@ -100,7 +104,7 @@ public class SternShipM17 : MonoBehaviour
         cannon.Smoke.gameObject.SetActive(true);
         cannon.Smoke.SetTrigger("fire");
         CamJitter.SetJitter(true);
-        MyRigidbody.AddForce(CannonFireEffectOnStern);
+        MyRigidbody.AddForce(currentKnockback);
         cannon.FireBall();
         yield return new WaitForSeconds(ScreenShakeDuration);
         cannon.Smoke.gameObject.SetActive(false);
