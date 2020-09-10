@@ -43,6 +43,10 @@ public class SternShipM17 : MonoBehaviour
     public float CymbalDelay;
     public float CannonDelay;
     public float ScreenShakeDuration;
+    public AudioSource SternChuckle1;
+    public AudioSource SternChuckle2;
+    public AudioSource SternBigLaugh;
+
 
     [Header("Front Cannon")]
     public float FCanPeriod;
@@ -69,6 +73,7 @@ public class SternShipM17 : MonoBehaviour
 
     public void StartPartTwo()
     {
+        SternChuckle1.Play();
         partTwoStarted = true;
         currentV = PartTwoVelocity;
         currentKnockback = PartTwoCannonFireEffectOnStern;
@@ -103,6 +108,7 @@ public class SternShipM17 : MonoBehaviour
                     SternRiseCurve.Evaluate(twoElapsed / SternRisePeriod));
                 if (twoElapsed > SternRisePeriod)
                 {
+                    SternChuckle2.Play();
                     sternRisen = true;
                     twoElapsed = 0f;
                 }

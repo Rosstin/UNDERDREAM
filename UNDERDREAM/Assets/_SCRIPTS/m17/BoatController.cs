@@ -27,6 +27,7 @@ public class BoatController : BaseController
     public Jitter CamJitter;
     public AudioSource CrashSfx;
     [Range(0f, 2f)] public float CamJitterDuration;
+    public AudioSource[] SternLaughs;
 
     [Header("Jump")]
     [SerializeField] [Range(0.0001f, 0.0009f)] private float speedMetersPerSecond;
@@ -145,10 +146,16 @@ public class BoatController : BaseController
             LoadNextScene();
         }
 
-        if (this.MyCollider.IsTouching(SternCollider) || this.MyCollider.IsTouching(SternBodyCollider)
-        || this.BodyCollider.IsTouching(SternBodyCollider)
-        )
+        if (this.MyCollider.IsTouching(SternCollider))
         {
+            TakeDamage(KnockbackForceSternTouch);
+        }
+
+        if (this.BodyCollider.IsTouching(SternBodyCollider))
+        {
+            var rLaugh = Random.Range(0, SternLaughs.Length);
+            SternLaughs[rLaugh].Play();
+
             TakeDamage(KnockbackForceSternTouch);
         }
 
