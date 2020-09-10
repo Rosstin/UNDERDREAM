@@ -5358,12 +5358,12 @@ PrefabInstance:
     - target: {fileID: 112238605773596234, guid: d10f2a0aba6095741b586cdfd4e20e22,
         type: 3}
       propertyPath: MinMaxX.x
-      value: -20
+      value: -22
       objectReference: {fileID: 0}
     - target: {fileID: 112238605773596234, guid: d10f2a0aba6095741b586cdfd4e20e22,
         type: 3}
       propertyPath: MinMaxX.y
-      value: 11
+      value: 15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d10f2a0aba6095741b586cdfd4e20e22, type: 3}
@@ -5672,6 +5672,11 @@ PrefabInstance:
       propertyPath: CamJitter
       value: 
       objectReference: {fileID: 1834884505}
+    - target: {fileID: 4090669892318278168, guid: 928c10ae9727e3a46a85bfa8538d4c5b,
+        type: 3}
+      propertyPath: BoatVelocity.x
+      value: -0.22
+      objectReference: {fileID: 0}
     - target: {fileID: 4090669892351656409, guid: 928c10ae9727e3a46a85bfa8538d4c5b,
         type: 3}
       propertyPath: m_Sprite
