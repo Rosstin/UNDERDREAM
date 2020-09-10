@@ -2568,7 +2568,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PartTwoVelocity: {x: -0.63, y: 0}
   PartTwoCannonFireEffectOnStern: {x: 150, y: 50}
-  SternNewFloatAmounts: {x: 1, y: 2.2}
+  SternNewFloatAmounts: {x: 0.5, y: 3}
   SternNewFloatPeriods: {x: 0.5, y: 1}
   SternBody: {fileID: 8623867369755562628}
   SternFloat: {fileID: 0}

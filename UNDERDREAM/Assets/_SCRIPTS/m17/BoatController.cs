@@ -16,6 +16,11 @@ public class BoatController : BaseController
     public BoxCollider2D NewGroundCollider;
     public Vector3 LowerAmountP2;
 
+    [Header("End Condition")]
+    public BoxCollider2D IslandCollider;
+    public GameObject Explosion;
+    public float ExplosionJitterDuration;
+
     [Header("Stern")]
     public SternShipM17 Stern;
 
@@ -53,6 +58,7 @@ public class BoatController : BaseController
 
     private bool startP2 = false;
     private bool startP3 = false;
+    private bool hitIsland = false;
 
     private Vector3 lemonInitialLocalPosition;
 
@@ -124,6 +130,15 @@ public class BoatController : BaseController
         elapsed += Time.deltaTime;
         invincibilityCooldownElapsed += Time.deltaTime;
 
+        if (!hitIsland && MyCollider.IsTouching(IslandCollider))
+        {
+            hitIsland = true;
+            CamJitter.JitterForDuration(ExplosionJitterDuration);
+            CrashSfx.Play();
+            Explosion.gameObject.SetActive(true);
+            Stern.gameObject.SetActive(false);
+        }
+
         if (!startP2 && elapsed > PartTwoTime)
         {
             // zoom out, start spawning sharks
@@ -140,7 +155,7 @@ public class BoatController : BaseController
             Lemon.gameObject.transform.localPosition = lemonInitialLocalPosition;
         }
 
-        if (!startP3 && elapsed > PartThreeTime)
+        if (!startP3 && hitIsland && elapsed > PartThreeTime)
         {
             startP3 = true;
             LoadNextScene();

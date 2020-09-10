@@ -107,3 +107,6 @@ TagManager:
   - name: BlackBorder
     uniqueID: 3324099951
     locked: 0
+  - name: OverBorder
+    uniqueID: 4043059493
+    locked: 0
