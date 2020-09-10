@@ -3494,6 +3494,18 @@ Transform:
   m_Father: {fileID: 1994926568}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1526899145 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4090669892318278168, guid: 928c10ae9727e3a46a85bfa8538d4c5b,
+    type: 3}
+  m_PrefabInstance: {fileID: 4090669892457549634}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 221a1f8f290fbe34da4df738926d03d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1547954205
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5477,7 +5489,7 @@ PrefabInstance:
     - target: {fileID: 3074642203547264269, guid: 093a0c0bd3d15a1488dfba3af225daee,
         type: 3}
       propertyPath: LowerAmountP2.y
-      value: -2.9
+      value: -2.8
       objectReference: {fileID: 0}
     - target: {fileID: 3074642203547264269, guid: 093a0c0bd3d15a1488dfba3af225daee,
         type: 3}
@@ -5499,6 +5511,16 @@ PrefabInstance:
       propertyPath: PartTwoTime
       value: 42.2
       objectReference: {fileID: 0}
+    - target: {fileID: 3074642203547264269, guid: 093a0c0bd3d15a1488dfba3af225daee,
+        type: 3}
+      propertyPath: NewSternSpeed.x
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3074642203547264269, guid: 093a0c0bd3d15a1488dfba3af225daee,
+        type: 3}
+      propertyPath: Stern
+      value: 
+      objectReference: {fileID: 1526899145}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 093a0c0bd3d15a1488dfba3af225daee, type: 3}
 --- !u!1001 &4065824524426520639
@@ -5676,6 +5698,11 @@ PrefabInstance:
         type: 3}
       propertyPath: BoatVelocity.x
       value: -0.22
+      objectReference: {fileID: 0}
+    - target: {fileID: 4090669892318278168, guid: 928c10ae9727e3a46a85bfa8538d4c5b,
+        type: 3}
+      propertyPath: PartTwoVelocity.x
+      value: -0.6
       objectReference: {fileID: 0}
     - target: {fileID: 4090669892351656409, guid: 928c10ae9727e3a46a85bfa8538d4c5b,
         type: 3}

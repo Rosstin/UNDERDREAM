@@ -16,6 +16,9 @@ public class BoatController : BaseController
     public BoxCollider2D NewGroundCollider;
     public Vector3 LowerAmountP2;
 
+    [Header("Stern")]
+    public SternShipM17 Stern;
+
     [Header("Damage")]
     public GameObject[] DamageSprites;
     public Vector2 KnockbackForceCannon;
@@ -130,8 +133,8 @@ public class BoatController : BaseController
 
             this.gameObject.transform.position += LowerAmountP2;
             SternCollider.gameObject.transform.position += LowerAmountP2;
+            Stern.StartPartTwo();
             Lemon.gameObject.transform.localPosition = lemonInitialLocalPosition;
-
         }
 
         if (!startP3 && elapsed > PartThreeTime)

@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class SternShipM17 : MonoBehaviour
 {
+    [Header("Part Two New Values")]
+    public Vector2 PartTwoVelocity;
+
     [Header("Main Camera Jitter Outlet")]
     public Jitter CamJitter;
 
@@ -35,11 +38,20 @@ public class SternShipM17 : MonoBehaviour
     public float BCanPeriod;
     public float BCanInitialDelay;
 
+    private bool partTwoStarted = false;
     private bool updateVelocity = true;
 
     private float elapsed; 
     private float fElapsed; // elapsed for front can
     private float bElapsed; // elapsed for back can
+
+    private Vector2 currentV;
+
+    public void StartPartTwo()
+    {
+        partTwoStarted = true;
+        currentV = PartTwoVelocity;
+    }
 
     private void Start()
     {
@@ -47,7 +59,7 @@ public class SternShipM17 : MonoBehaviour
         fElapsed = -FCanInitialDelay;
         bElapsed = -BCanInitialDelay;
 
-        MyRigidbody.velocity = BoatVelocity;
+        currentV= BoatVelocity;
     }
 
     private void Update()
@@ -58,7 +70,7 @@ public class SternShipM17 : MonoBehaviour
 
         if (updateVelocity)
         {
-            MyRigidbody.velocity = BoatVelocity;
+            MyRigidbody.velocity = currentV;
         }
 
         if (fElapsed > FCanPeriod)
