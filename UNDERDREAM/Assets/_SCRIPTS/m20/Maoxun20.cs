@@ -25,6 +25,15 @@ public class Maoxun20 : BaseController
     public float NextSceneTime;
     public float EscapeCooldown;
 
+    [Header("Nut")]
+    public Rigidbody2D Nut;
+    public BoxCollider2D NutCollider;
+    public BoxCollider2D HeadCollider;
+    public Vector3 NutForce;
+    public float NutTorque;
+    public AudioSource NutSFX;
+    public Vector3 CoconutStruckOffset;
+
     [Header("Exit Condition")]
     public SternM20 Stern;
 
@@ -68,6 +77,7 @@ public class Maoxun20 : BaseController
     private float escapeElapsed = 0f;
     private bool escaped = false;
     private bool landed = false;
+    private bool struck = false;
 
     public enum MoveDirection
     {
@@ -174,9 +184,24 @@ public class Maoxun20 : BaseController
                 this.myRigidbody.freezeRotation = true;
                 this.myRigidbody.velocity = Vector2.zero;
 
-                // wait then load next scene
-                LoadNextScene(NextSceneTime);
+                Nut.gravityScale = 1f;
 
+                HeadCollider.enabled = true;
+
+            }
+        }
+
+        if (landed && !struck)
+        {
+            if (NutCollider.IsTouching(HeadCollider))
+            {
+                struck = true;
+                Nut.AddForce(NutForce);
+                Nut.AddTorque(NutTorque);
+                NutSFX.Play();
+                this.transform.localPosition += CoconutStruckOffset;
+                this.myRigidbody.velocity=Vector2.zero;
+                LoadNextScene(NextSceneTime);
             }
         }
 
