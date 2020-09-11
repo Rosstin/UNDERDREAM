@@ -10,9 +10,7 @@ public class Maoxun06 : BaseController
     [SerializeField] private AudioSource snatchSFX;
 
     [Header("Movement")]
-    [SerializeField]
-    [Range(0.0001f, 0.0009f)]
-    private float speedMetersPerSecond;
+    [SerializeField]  [Range(0.0001f, 0.0009f)] private float speedMetersPerSecond;
     [SerializeField] private float jumpForceUp;
     [SerializeField] [Range(0f, 0.0009f)] private float jumpForceForward;
     [SerializeField] private float jumpCooldown;

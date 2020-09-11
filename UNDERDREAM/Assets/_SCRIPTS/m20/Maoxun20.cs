@@ -10,8 +10,23 @@ public class Maoxun20 : BaseController
     public float StartTorque;
     public BoxCollider2D SandCollider;
     public AudioSource SandHitSFX;
+    public BoatM20 MyBoatM20;
 
-    [Header("Exit Condition")] public SternM20 Stern;
+    [Header("Wiggle")]
+    public float WiggleCooldown;
+    public AudioSource PopOutSfx;
+    public Vector3 WiggleOffset;
+    public int EscapeWiggles;
+
+    [Header("Escape")]
+    public BoxCollider2D ColliderStand;
+    public Vector2 EscapeForce;
+    public float EscapeTorque;
+    public float NextSceneTime;
+    public float EscapeCooldown;
+
+    [Header("Exit Condition")]
+    public SternM20 Stern;
 
     [Header("Movement")]
     [SerializeField] [Range(0.0001f, 0.0009f)] private float speedMetersPerSecond;
@@ -40,11 +55,18 @@ public class Maoxun20 : BaseController
         Walk
     }
 
+    private int numWiggles=0;
+
     private bool struckSand=false;
+    private bool toldBoatToDrown = false;
 
     private MaoxunAnimState06 currentState;
 
     private float timeSinceLastJump = 0f;
+
+    private float wiggleElapsed=0f;
+    private float escapeElapsed = 0f;
+    private bool escaped = false;
 
     public enum MoveDirection
     {
@@ -93,11 +115,66 @@ public class Maoxun20 : BaseController
             this.myRigidbody.velocity = Vector2.zero;
         }
 
-        if (struckSand)
+        if (!toldBoatToDrown&& struckSand)
         {
             if (Stern.IsSternGone())
             {
-                LoadNextScene();
+                toldBoatToDrown = true;
+                MyBoatM20.Drown();
+            }
+        }
+
+        if (struckSand && !escaped)
+        {
+            wiggleElapsed += Time.deltaTime;
+            if (
+                Input.GetKeyDown(KeyCode.Space)
+                ||
+                Input.GetKeyDown(KeyCode.LeftArrow)
+                ||
+                Input.GetKeyDown(KeyCode.RightArrow)
+                ||
+                Input.GetKeyDown(KeyCode.UpArrow)
+                ||
+                Input.GetKeyDown(KeyCode.DownArrow)
+            )
+            {
+
+                if (wiggleElapsed > WiggleCooldown)
+                {
+                    //wiggle
+                    numWiggles++;
+                    SandHitSFX.Play();
+                    wiggleElapsed = 0f;
+                    this.transform.localPosition += WiggleOffset;
+                    if (numWiggles > EscapeWiggles)
+                    {
+                        PopOutSfx.Play();
+                        escaped = true;
+
+                        this.myRigidbody.gravityScale = 1;
+                        this.myRigidbody.freezeRotation = false;
+                        myRigidbody.AddForce(EscapeForce);
+                        myRigidbody.AddTorque(EscapeTorque);
+                    }
+                }
+            }
+
+        }
+
+        if (escaped)
+        {
+            escapeElapsed += Time.deltaTime;
+            if (escapeElapsed > EscapeCooldown && myCollider.IsTouching(ColliderStand))
+            {
+                SandHitSFX.Play();
+                this.myRigidbody.gravityScale = 0;
+                this.myRigidbody.freezeRotation = true;
+                this.myRigidbody.velocity = Vector2.zero;
+
+                // wait then load next scene
+                LoadNextScene(NextSceneTime);
+
             }
         }
 

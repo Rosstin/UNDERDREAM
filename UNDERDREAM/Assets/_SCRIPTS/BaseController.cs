@@ -40,9 +40,15 @@ public class BaseController : MonoBehaviour
         }
     }
 
-    public void LoadNextScene()
+    public void LoadNextScene(float delay = 0f)
     {
-        Debug.Log("LoadNextScene.. " + " from " + Data.Scenes[Data.CurrentScene] + " to whatever this index represents: " + Data.CurrentScene+1 );
+        StartCoroutine(LoadNextSceneCoroutine(delay));
+    }
+
+    private IEnumerator LoadNextSceneCoroutine(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        Debug.Log("LoadNextScene.. " + " from " + Data.Scenes[Data.CurrentScene] + " to whatever this index represents: " + Data.CurrentScene + 1);
         if (Data.TimeSinceLoadedLastScene > Data.LoadingCooldown)
         {
             if (Data.CurrentScene < Data.Scenes.Count - 1)
