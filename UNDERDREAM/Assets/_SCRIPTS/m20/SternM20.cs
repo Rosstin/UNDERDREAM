@@ -4,15 +4,25 @@ using UnityEngine;
 
 public class SternM20 : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [Header("My Outlets")]
+    public AudioSource SternChuckle2;
+    public AudioSource SnatchSFX;
+    public BoxCollider2D MyCollider;
 
-    // Update is called once per frame
+    [Header("Lemon Outlet")]
+    public FlyingLemon Lemon;
+
+    private bool caughtLemon = false;
+
     void Update()
     {
-        
+        if (!caughtLemon &&
+            Lemon.MyCollider.IsTouching(this.MyCollider))
+        {
+            caughtLemon = true;
+            Lemon.Freeze();
+            SnatchSFX.Play();
+            SternChuckle2.Play();
+        }        
     }
 }

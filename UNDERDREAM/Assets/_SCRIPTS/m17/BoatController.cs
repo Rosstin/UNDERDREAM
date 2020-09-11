@@ -8,6 +8,7 @@ public class BoatController : BaseController
     [Header("Part Two")]
     [Range(40f, 44f)] public float PartTwoTime; // about 42 seconds or so into Bumblebee2.wav
     [Range(70f, 100f)] public float PartThreeTime; // about 80 seconds or so in Bumblebee2.wav
+    [Range(70f, 100f)] public float IslandHittable; // dont let player hit island prematurely
     public Vector3 CamPosP2;
     public Camera MainCam;
     public GameObject Old;
@@ -15,6 +16,7 @@ public class BoatController : BaseController
     public BoxCollider2D OldGroundCollider;
     public BoxCollider2D NewGroundCollider;
     public Vector3 LowerAmountP2;
+    public AudioSource BigSandHitSFX;
 
     [Header("End Condition")]
     public BoxCollider2D IslandCollider;
@@ -130,11 +132,13 @@ public class BoatController : BaseController
         elapsed += Time.deltaTime;
         invincibilityCooldownElapsed += Time.deltaTime;
 
-        if (!hitIsland && MyCollider.IsTouching(IslandCollider))
+        if (elapsed > IslandHittable 
+            && !hitIsland && MyCollider.IsTouching(IslandCollider))
         {
             hitIsland = true;
             CamJitter.JitterForDuration(ExplosionJitterDuration);
             CrashSfx.Play();
+            BigSandHitSFX.Play();
             Explosion.gameObject.SetActive(true);
             Stern.gameObject.SetActive(false);
         }
@@ -176,7 +180,10 @@ public class BoatController : BaseController
 
         BaseUpdate();
 
-        bool didSomething = false;
+        var didSomething = false;
+        if (!hitIsland)
+        {
+
         if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.Space))
         {
             didSomething = true;
@@ -192,7 +199,9 @@ public class BoatController : BaseController
         {
             didSomething = true;
             UpdateMoveLeftRight(MoveDirection.Right);
+            }
         }
+
 
         if (startP2)
         {

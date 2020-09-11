@@ -49,6 +49,16 @@ public class FlyingLemon : MonoBehaviour
         } 
     }
 
+    /// <summary>
+    /// Freeze in place
+    /// </summary>
+    public void Freeze()
+    {
+        Body.velocity = Vector2.zero;
+        Body.gravityScale = 0f;
+        Body.freezeRotation = true;
+    }
+
     private bool BoingPlaying()
     {
         return Boing1.isPlaying || Boing2.isPlaying;

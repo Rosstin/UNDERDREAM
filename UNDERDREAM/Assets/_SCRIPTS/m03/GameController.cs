@@ -39,6 +39,7 @@ public class GameController : BaseController
 
     [Header("Outlets: SFX")]
     [SerializeField] private AudioSource hangrySFX;
+    [SerializeField] private AudioSource boingSfx;
 
     public enum MaoxunAnimStateM03
     {
@@ -201,6 +202,7 @@ public class GameController : BaseController
 
     private void ImpartJumpForce()
     {
+        boingSfx.Play();
         this.myRigidbody.AddForce(new Vector3(-jumpForceForward, jumpForceUp, 0f));
     }
 

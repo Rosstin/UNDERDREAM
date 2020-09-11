@@ -5819,6 +5819,18 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 6549052568751901715, guid: 928c10ae9727e3a46a85bfa8538d4c5b, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 928c10ae9727e3a46a85bfa8538d4c5b, type: 3}
+--- !u!114 &6919807584082703953 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 396458601782713020, guid: 29fde929dc00c0d4fb31668fc9755ef4,
+    type: 3}
+  m_PrefabInstance: {fileID: 7316265453463383277}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b751ddc2fa848f647997ca2017c50778, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &6977859842358796277
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5886,6 +5898,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3346253587769473825, guid: f596e3ec2038026408942ca89fe5dd80,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8380208769844993335, guid: f596e3ec2038026408942ca89fe5dd80,
+        type: 3}
+      propertyPath: Lemon
+      value: 
+      objectReference: {fileID: 6919807584082703953}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f596e3ec2038026408942ca89fe5dd80, type: 3}
 --- !u!1001 &7316265453463383277
@@ -5993,12 +6015,12 @@ PrefabInstance:
     - target: {fileID: 396458601782713020, guid: 29fde929dc00c0d4fb31668fc9755ef4,
         type: 3}
       propertyPath: StartingForce.x
-      value: 315
+      value: 344
       objectReference: {fileID: 0}
     - target: {fileID: 396458601782713020, guid: 29fde929dc00c0d4fb31668fc9755ef4,
         type: 3}
       propertyPath: StartingForce.y
-      value: 850
+      value: 790
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 29fde929dc00c0d4fb31668fc9755ef4, type: 3}

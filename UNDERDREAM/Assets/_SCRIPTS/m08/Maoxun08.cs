@@ -29,6 +29,9 @@ public class Maoxun08 : BaseController
     [SerializeField] private Rigidbody2D myRigidbody;
     [SerializeField] private BoxCollider2D myCollider;
 
+    [Header("Outlet: Boing SFX")]
+    [SerializeField] private AudioSource boingSfx;
+
     public enum MaoxunAnimState06
     {
         Idle,
@@ -143,6 +146,7 @@ public class Maoxun08 : BaseController
 
     private void ImpartJumpForce()
     {
+        boingSfx.Play();
         this.myRigidbody.AddForce(new Vector2(-jumpForceForward, jumpForceUp));
     }
 
