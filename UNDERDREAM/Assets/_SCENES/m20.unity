@@ -1784,6 +1784,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &974008030 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8380208769844993335, guid: f596e3ec2038026408942ca89fe5dd80,
+    type: 3}
+  m_PrefabInstance: {fileID: 6977859842358796277}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab84dc90c4d236d4fba74bb2a4a83a6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1030373460
 GameObject:
   m_ObjectHideFlags: 0
@@ -5201,6 +5213,7 @@ MonoBehaviour:
   Data: {fileID: 11400000, guid: 030ba6bd61089974fb3f8046db4984fb, type: 2}
   PartTwoTime: 0
   PartThreeTime: 0
+  IslandHittable: 0
   CamPosP2: {x: 0, y: 0, z: 0}
   MainCam: {fileID: 0}
   Old: {fileID: 0}
@@ -5208,6 +5221,7 @@ MonoBehaviour:
   OldGroundCollider: {fileID: 0}
   NewGroundCollider: {fileID: 0}
   LowerAmountP2: {x: 0, y: 0, z: 0}
+  BigSandHitSFX: {fileID: 0}
   IslandCollider: {fileID: 0}
   Explosion: {fileID: 0}
   ExplosionJitterDuration: 0
@@ -5461,6 +5475,11 @@ PrefabInstance:
       propertyPath: SandCollider
       value: 
       objectReference: {fileID: 3490410656014355408}
+    - target: {fileID: 7479818862746335779, guid: 5688b31f31d0a8e4dad1e238fe7af49d,
+        type: 3}
+      propertyPath: Stern
+      value: 
+      objectReference: {fileID: 974008030}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5688b31f31d0a8e4dad1e238fe7af49d, type: 3}
 --- !u!1001 &3490410656014355407
@@ -5905,9 +5924,124 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8380208769844993335, guid: f596e3ec2038026408942ca89fe5dd80,
         type: 3}
+      propertyPath: SternGoneCurve.m_Curve.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8380208769844993335, guid: f596e3ec2038026408942ca89fe5dd80,
+        type: 3}
       propertyPath: Lemon
       value: 
       objectReference: {fileID: 6919807584082703953}
+    - target: {fileID: 8380208769844993335, guid: f596e3ec2038026408942ca89fe5dd80,
+        type: 3}
+      propertyPath: SternGoneCurve.m_Curve.Array.data[0].inSlope
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8380208769844993335, guid: f596e3ec2038026408942ca89fe5dd80,
+        type: 3}
+      propertyPath: SternGoneCurve.m_Curve.Array.data[0].outSlope
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8380208769844993335, guid: f596e3ec2038026408942ca89fe5dd80,
+        type: 3}
+      propertyPath: SternGoneCurve.m_Curve.Array.data[0].outWeight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8380208769844993335, guid: f596e3ec2038026408942ca89fe5dd80,
+        type: 3}
+      propertyPath: SternGoneCurve.m_Curve.Array.data[1].time
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8380208769844993335, guid: f596e3ec2038026408942ca89fe5dd80,
+        type: 3}
+      propertyPath: SternGoneCurve.m_Curve.Array.data[1].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8380208769844993335, guid: f596e3ec2038026408942ca89fe5dd80,
+        type: 3}
+      propertyPath: SternGoneCurve.m_Curve.Array.data[1].inSlope
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8380208769844993335, guid: f596e3ec2038026408942ca89fe5dd80,
+        type: 3}
+      propertyPath: SternGoneCurve.m_Curve.Array.data[1].outSlope
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8380208769844993335, guid: f596e3ec2038026408942ca89fe5dd80,
+        type: 3}
+      propertyPath: SternGoneCurve.m_Curve.Array.data[1].inWeight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8380208769844993335, guid: f596e3ec2038026408942ca89fe5dd80,
+        type: 3}
+      propertyPath: SternGoneCurve.m_Curve.Array.data[1].outWeight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8380208769844993335, guid: f596e3ec2038026408942ca89fe5dd80,
+        type: 3}
+      propertyPath: SternGoneCurve.m_Curve.Array.data[2].time
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8380208769844993335, guid: f596e3ec2038026408942ca89fe5dd80,
+        type: 3}
+      propertyPath: SternGoneCurve.m_Curve.Array.data[2].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8380208769844993335, guid: f596e3ec2038026408942ca89fe5dd80,
+        type: 3}
+      propertyPath: SternGoneCurve.m_Curve.Array.data[2].inSlope
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8380208769844993335, guid: f596e3ec2038026408942ca89fe5dd80,
+        type: 3}
+      propertyPath: SternGoneCurve.m_Curve.Array.data[2].outSlope
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8380208769844993335, guid: f596e3ec2038026408942ca89fe5dd80,
+        type: 3}
+      propertyPath: SternGoneCurve.m_Curve.Array.data[2].inWeight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8380208769844993335, guid: f596e3ec2038026408942ca89fe5dd80,
+        type: 3}
+      propertyPath: SternGoneCurve.m_Curve.Array.data[2].outWeight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8380208769844993335, guid: f596e3ec2038026408942ca89fe5dd80,
+        type: 3}
+      propertyPath: SternGoneCurve.m_Curve.Array.data[3].time
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8380208769844993335, guid: f596e3ec2038026408942ca89fe5dd80,
+        type: 3}
+      propertyPath: SternGoneCurve.m_Curve.Array.data[3].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8380208769844993335, guid: f596e3ec2038026408942ca89fe5dd80,
+        type: 3}
+      propertyPath: SternGoneCurve.m_Curve.Array.data[3].inSlope
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8380208769844993335, guid: f596e3ec2038026408942ca89fe5dd80,
+        type: 3}
+      propertyPath: SternGoneCurve.m_Curve.Array.data[3].outSlope
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8380208769844993335, guid: f596e3ec2038026408942ca89fe5dd80,
+        type: 3}
+      propertyPath: SternGoneCurve.m_Curve.Array.data[3].inWeight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8380208769844993335, guid: f596e3ec2038026408942ca89fe5dd80,
+        type: 3}
+      propertyPath: SternGoneCurve.m_Curve.Array.data[3].outWeight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8380208769844993335, guid: f596e3ec2038026408942ca89fe5dd80,
+        type: 3}
+      propertyPath: SternGonePeriod
+      value: 4.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f596e3ec2038026408942ca89fe5dd80, type: 3}
 --- !u!1001 &7316265453463383277

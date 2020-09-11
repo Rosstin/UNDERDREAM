@@ -11,6 +11,8 @@ public class Maoxun20 : BaseController
     public BoxCollider2D SandCollider;
     public AudioSource SandHitSFX;
 
+    [Header("Exit Condition")] public SternM20 Stern;
+
     [Header("Movement")]
     [SerializeField] [Range(0.0001f, 0.0009f)] private float speedMetersPerSecond;
     [SerializeField] private float jumpForceUp;
@@ -89,6 +91,14 @@ public class Maoxun20 : BaseController
             this.myRigidbody.gravityScale = 0;
             this.myRigidbody.freezeRotation = true;
             this.myRigidbody.velocity = Vector2.zero;
+        }
+
+        if (struckSand)
+        {
+            if (Stern.IsSternGone())
+            {
+                LoadNextScene();
+            }
         }
 
         var didSomething = false;
