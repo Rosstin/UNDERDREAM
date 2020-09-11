@@ -19,8 +19,11 @@ public class BoatM20 : MonoBehaviour
     private bool finishedDrowning = false;
     public void Drown()
     {
-        drown = true;
-        DrownSFX.Play();
+        if (!drown)
+        {
+            drown = true;
+            DrownSFX.Play();
+        }
     }
 
     private void Start()
@@ -29,7 +32,7 @@ public class BoatM20 : MonoBehaviour
     }
     private void Update()
     {
-        if (drown)
+        if (drown && drownElapsed<DrownPeriod)
         {
             drownElapsed += Time.deltaTime;
 

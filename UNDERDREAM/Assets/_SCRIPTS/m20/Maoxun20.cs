@@ -67,6 +67,7 @@ public class Maoxun20 : BaseController
     private float wiggleElapsed=0f;
     private float escapeElapsed = 0f;
     private bool escaped = false;
+    private bool landed = false;
 
     public enum MoveDirection
     {
@@ -165,8 +166,9 @@ public class Maoxun20 : BaseController
         if (escaped)
         {
             escapeElapsed += Time.deltaTime;
-            if (escapeElapsed > EscapeCooldown && myCollider.IsTouching(ColliderStand))
+            if (!landed&& escapeElapsed > EscapeCooldown && myCollider.IsTouching(ColliderStand))
             {
+                landed = true;
                 SandHitSFX.Play();
                 this.myRigidbody.gravityScale = 0;
                 this.myRigidbody.freezeRotation = true;
