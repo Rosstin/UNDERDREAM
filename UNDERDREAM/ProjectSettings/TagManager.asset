@@ -44,6 +44,12 @@ TagManager:
   - name: DistantBG
     uniqueID: 3552879709
     locked: 0
+  - name: MoonGlow
+    uniqueID: 143052211
+    locked: 0
+  - name: Moon
+    uniqueID: 1121820411
+    locked: 0
   - name: LessDistantBG
     uniqueID: 4087333275
     locked: 0

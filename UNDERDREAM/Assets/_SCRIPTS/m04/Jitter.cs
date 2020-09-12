@@ -6,11 +6,11 @@ public class Jitter : MonoBehaviour
 {
     [SerializeField] private float jitterPeriod;
     [SerializeField] private Vector3 jitter;
+    public bool JitterEnabled = true;
 
     private float jitterElapsed = 0;
     private Vector3 startingPosition;
 
-    public bool JitterEnabled = true;
 
     public void SetJitter(bool jitterOn)
     {
@@ -36,7 +36,6 @@ public class Jitter : MonoBehaviour
 
     public void ResetStartingPosition()
     {
-        JitterEnabled = false;
         startingPosition = this.gameObject.transform.localPosition;
     }
 
