@@ -98,7 +98,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -103148893
-  m_SortingLayer: 11
+  m_SortingLayer: 13
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 03cc2c50fc2406b42bf18e0ac32f0978, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -197,7 +197,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -103148893
-  m_SortingLayer: 11
+  m_SortingLayer: 13
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 3d13e8302fd6aa848a0a070f56d7c616, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -475,9 +475,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7833922219694663633}
+  - component: {fileID: 2328196143699763817}
   - component: {fileID: 1546234879334054565}
   - component: {fileID: 6243023579905199168}
-  - component: {fileID: 7559271804727350327}
   m_Layer: 0
   m_Name: MAOXUN-m23
   m_TagString: Untagged
@@ -502,6 +502,33 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2328196143699763817
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7833922219694663635}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0187a9f52d46052419540bb690cc6f7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Data: {fileID: 11400000, guid: 030ba6bd61089974fb3f8046db4984fb, type: 2}
+  ScareSprite: {fileID: 0}
+  ScareTime: 2
+  snatchSFX: {fileID: 0}
+  speedMetersPerSecond: 0.00036
+  jumpForceUp: 222
+  jumpForceForward: 0
+  jumpCooldown: 0.2
+  jumpSpeedMargin: 0.02
+  boingSfx: {fileID: 651226234619720182}
+  Container: {fileID: 7833922219693554809}
+  IdleAnimation: {fileID: 2813308771669135054}
+  WalkAnimation: {fileID: 2864222065235027696}
+  myRigidbody: {fileID: 6243023579905199168}
+  myCollider: {fileID: 1546234879334054565}
 --- !u!61 &1546234879334054565
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -513,7 +540,7 @@ BoxCollider2D:
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_UsedByEffector: 1
+  m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
@@ -549,25 +576,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!251 &7559271804727350327
-PlatformEffector2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7833922219694663635}
-  m_Enabled: 1
-  m_UseColliderMask: 1
-  m_ColliderMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_RotationalOffset: 180
-  m_UseOneWay: 1
-  m_UseOneWayGrouping: 0
-  m_SurfaceArc: 80.29
-  m_UseSideFriction: 0
-  m_UseSideBounce: 0
-  m_SideArc: 1
 --- !u!1 &7833922219872117282
 GameObject:
   m_ObjectHideFlags: 0
@@ -635,7 +643,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -167332993
-  m_SortingLayer: 10
+  m_SortingLayer: 12
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: b926ab31af0c56949a6d9d2ae269b25d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
