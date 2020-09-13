@@ -4,16 +4,29 @@ using UnityEngine;
 
 public class ShantyText : MonoBehaviour
 {
-    [SerializeField] private List<string> shouts;
-    [SerializeField] private float shoutDuration;
-    [SerializeField] private TMPro.TextMeshPro textOut;
+    [Header("Shouts (also please set the bool for each shout)")]
+    public List<string> Shouts;
+    public List<bool> IsShortBig;
+
+    [Header("Short Shouts (small bubble, big text)")]
+    public TMPro.TextMeshPro ShortBigTextOut;
+
+    [Header("Long Shouts (big bubble, small text)")]
+    public TMPro.TextMeshPro LongSmallTextOut;
+
+    [Header("Shout Duration")]
+    public float ShoutDuration;
+
+    [Header("Outlets")]
+    public GameObject ShortBigBubble;
+    public GameObject LongSmallBubble;
 
     public Vector3 Jitter;
     public float JitterPeriod;
 
     private float jitterElapsed = 0f;
     private float elapsed = 0f;
-    private int currentShout = 0;
+    private int currentShout = -1;
 
     private Vector3 startingPosition;
 
@@ -21,7 +34,7 @@ public class ShantyText : MonoBehaviour
     void Start()
     {
         startingPosition = this.gameObject.transform.localPosition;
-        textOut.text = shouts[currentShout];
+        elapsed = ShoutDuration;
     }
 
     // Update is called once per frame
@@ -41,16 +54,36 @@ public class ShantyText : MonoBehaviour
 
         }
 
-        if (elapsed > shoutDuration)
+        // new shout
+        if (elapsed > ShoutDuration)
         {
             elapsed = 0f;
             currentShout++;
-            if (currentShout >= shouts.Count)
+            if (currentShout >= Shouts.Count)
             {
                 currentShout = 0;
             }
 
-            textOut.text = shouts[currentShout];
+            // big short text like HI!
+            if (IsShortBig[currentShout])
+            {
+                ShortBigTextOut.gameObject.SetActive(true);
+                ShortBigBubble.SetActive(true);
+                LongSmallTextOut.gameObject.SetActive(false);
+                LongSmallBubble.SetActive(false);
+
+                ShortBigTextOut.text = Shouts[currentShout];
+            }
+            // small long text like CAN YOU GET MY BALL?
+            else
+            {
+                ShortBigTextOut.gameObject.SetActive(false);
+                ShortBigBubble.SetActive(false);
+                LongSmallTextOut.gameObject.SetActive(true);
+                LongSmallBubble.SetActive(true);
+
+                LongSmallTextOut.text = Shouts[currentShout];
+            }
         }
     }
 }
