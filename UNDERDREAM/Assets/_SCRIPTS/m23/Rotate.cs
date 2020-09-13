@@ -6,11 +6,11 @@ public class Rotate : MonoBehaviour
 {
     public float RotatePerSecond;
 
-    private bool randomStart=true;
+    public bool RandomStart;
 
     private void Start()
     {
-        if (randomStart)
+        if (RandomStart)
         {
             var randomRot = Random.Range(0f, 360f);
             this.gameObject.transform.Rotate(0,0,randomRot,Space.Self);
