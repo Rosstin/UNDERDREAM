@@ -9,6 +9,9 @@ public class MaoxunM23 : BaseController
     public GameObject ScareSprite;
     public float ScareTime;
 
+    [Header("Outlets")]
+    public BoxCollider2D GroundCollider;
+
     [Header("Goal")]
     [SerializeField] private AudioSource snatchSFX;
 
@@ -28,23 +31,29 @@ public class MaoxunM23 : BaseController
     [Header("Outlets: Maoxun Animations")]
     [SerializeField] private GameObject IdleAnimation;
     [SerializeField] private GameObject WalkAnimation;
+    [SerializeField] private GameObject JumpKickAnimation;
 
     [Header("Outlets: Components")]
     [SerializeField] private Rigidbody2D myRigidbody;
     [SerializeField] private BoxCollider2D myCollider;
 
-    public enum MaoxunAnimState06
+    public enum MaoxunAnimState23
     {
         Idle,
-        Walk
+        Walk,
+        JumpKick
     }
 
-    private MaoxunAnimState06 currentState;
+    private MaoxunAnimState23 currentState;
 
     private float timeSinceLastJump = 0f;
 
     private bool doneScared = false;
     private float scareElapsed = 0f;
+
+    private bool airborne = false;
+
+    private bool kicking = false;
 
     public enum MoveDirection
     {
@@ -57,24 +66,29 @@ public class MaoxunM23 : BaseController
     private new void Start()
     {
         base.Start();
-        ActivateAnimation(MaoxunAnimState06.Idle);
+        ActivateAnimation(MaoxunAnimState23.Idle);
 
         this.myRigidbody.gravityScale = 0f;
         this.Container.SetActive(false);
         ScareSprite.gameObject.SetActive(true);
     }
 
-    public void ActivateAnimation(MaoxunAnimState06 anim)
+    public void ActivateAnimation(MaoxunAnimState23 anim)
     {
+        currentState = anim;
         IdleAnimation.SetActive(false);
         WalkAnimation.SetActive(false);
+        JumpKickAnimation.SetActive(false);
         switch (anim)
         {
-            case MaoxunAnimState06.Idle:
+            case MaoxunAnimState23.Idle:
                 IdleAnimation.SetActive(true);
                 break;
-            case MaoxunAnimState06.Walk:
+            case MaoxunAnimState23.Walk:
                 WalkAnimation.SetActive(true);
+                break;
+            case MaoxunAnimState23.JumpKick:
+                JumpKickAnimation.SetActive(true);
                 break;
         }
     }
@@ -84,7 +98,6 @@ public class MaoxunM23 : BaseController
         timeSinceLastJump += Time.deltaTime;
 
         BaseUpdate();
-
 
         scareElapsed += Time.deltaTime;
 
@@ -96,40 +109,51 @@ public class MaoxunM23 : BaseController
             this.myRigidbody.gravityScale = 1f;
         }
 
-        //float distanceToTarget = Vector3.Distance(this.transform.position, Target.transform.position);
-
-        /*
-        if (distanceToTarget < lemonDistance)
-        {
-            snatchSFX.Play();
-            LoadNextScene();
-        }*/
-
+        // if ur airborne and hit space, jumpkick
         if (doneScared)
         {
+            var didSomething = false;
 
-        var didSomething = false;
-        if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.Space))
-        {
-            didSomething = true;
-            UpdateJump();
-        }
+            if (this.myCollider.IsTouching(GroundCollider))
+            {
+                airborne = false;
+                kicking = false;
+            }
+            else
+            {
+                didSomething = true;
+                airborne = true;
+            }
 
-        if (Input.GetKey(KeyCode.LeftArrow))
-        {
-            didSomething = true;
-            UpdateMoveLeftRight(MoveDirection.Left);
-        }
-        else if (Input.GetKey(KeyCode.RightArrow))
-        {
-            didSomething = true;
-            UpdateMoveLeftRight(MoveDirection.Right);
-        }
+            if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.Space))
+            {
+                didSomething = true;
 
-        if (!didSomething)
-        {
-            UpdateIdle();
-        }
+                if (airborne)
+                {
+                    AttemptKick();
+                }
+                else
+                {
+                    AttemptJump();
+                }
+            }
+
+            if (Input.GetKey(KeyCode.LeftArrow))
+            {
+                didSomething = true;
+                UpdateMoveLeftRight(MoveDirection.Left);
+            }
+            else if (Input.GetKey(KeyCode.RightArrow))
+            {
+                didSomething = true;
+                UpdateMoveLeftRight(MoveDirection.Right);
+            }
+
+            if (!didSomething)
+            {
+                UpdateIdle();
+            }
 
         }
 
@@ -137,14 +161,19 @@ public class MaoxunM23 : BaseController
 
     private void UpdateIdle()
     {
-        if (currentState != MaoxunAnimState06.Idle)
+        if (currentState != MaoxunAnimState23.Idle && !kicking)
         {
-            ActivateAnimation(MaoxunAnimState06.Idle);
-            currentState = MaoxunAnimState06.Idle;
+            ActivateAnimation(MaoxunAnimState23.Idle);
         }
     }
 
-    private void UpdateJump()
+    private void AttemptKick()
+    {
+        kicking = true;
+        ActivateAnimation(MaoxunAnimState23.JumpKick);
+    }
+
+    private void AttemptJump()
     {
         if (timeSinceLastJump > jumpCooldown
         && Mathf.Abs(this.myRigidbody.velocity.y) < jumpSpeedMargin
@@ -163,10 +192,9 @@ public class MaoxunM23 : BaseController
 
     private void UpdateMoveLeftRight(MoveDirection direction)
     {
-        if (currentState != MaoxunAnimState06.Walk)
+        if (!kicking && currentState != MaoxunAnimState23.Walk)
         {
-            ActivateAnimation(MaoxunAnimState06.Walk);
-            currentState = MaoxunAnimState06.Walk;
+            ActivateAnimation(MaoxunAnimState23.Walk);
         }
 
         int sign = -1;
