@@ -4,15 +4,22 @@ using UnityEngine;
 
 public class Rotate : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public float RotatePerSecond;
+
+    private bool randomStart=true;
+
+    private void Start()
     {
-        
+        if (randomStart)
+        {
+            var randomRot = Random.Range(0f, 360f);
+            this.gameObject.transform.Rotate(0,0,randomRot,Space.Self);
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+        var rotThisFrame = RotatePerSecond * Time.deltaTime;
+        this.gameObject.transform.Rotate(0,0, rotThisFrame, Space.Self);
     }
 }
