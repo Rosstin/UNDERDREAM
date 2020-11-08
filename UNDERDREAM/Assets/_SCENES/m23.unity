@@ -2428,6 +2428,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 7833922219872117282, guid: de498ce318938724ea388534d9b80ff1,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2813308771669135054, guid: de498ce318938724ea388534d9b80ff1,
         type: 3}
       propertyPath: m_Layer
@@ -2613,15 +2618,30 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 362362591806247930, guid: 9b7ed2f3c8d888c45958d17f12ec639b,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7234093614957223253, guid: 9b7ed2f3c8d888c45958d17f12ec639b,
         type: 3}
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 2788065723155535252, guid: 9b7ed2f3c8d888c45958d17f12ec639b,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5257863552825898989, guid: 9b7ed2f3c8d888c45958d17f12ec639b,
         type: 3}
       propertyPath: m_RootOrder
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 730205306448756524, guid: 9b7ed2f3c8d888c45958d17f12ec639b,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5432305011776306617, guid: 9b7ed2f3c8d888c45958d17f12ec639b,
         type: 3}

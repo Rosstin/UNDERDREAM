@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class Coconut : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private Rigidbody2D rb;
+    [SerializeField] private CapsuleCollider2D col;
+
+    private void Start()
     {
-        
+        rb.gravityScale = 0f;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Drop()
     {
-        
+        rb.gravityScale = 1f;
     }
+
 }

@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1508918236423424609}
   - component: {fileID: 434349229269921346}
+  - component: {fileID: 8350500472300767004}
   - component: {fileID: 4134700677878494252}
   - component: {fileID: 6207468766900650656}
-  - component: {fileID: 8350500472300767004}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: c1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -69,7 +69,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -542086105
-  m_SortingLayer: 14
+  m_SortingLayer: 17
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: de32cda395105c94491a9fd9a636ac2b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -82,6 +82,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &8350500472300767004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2968000429161587448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79a9211dbdcd54143853147b871aeb23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: 4134700677878494252}
+  col: {fileID: 6207468766900650656}
 --- !u!50 &4134700677878494252
 Rigidbody2D:
   serializedVersion: 4
@@ -97,7 +111,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -119,15 +133,3 @@ CapsuleCollider2D:
   m_Offset: {x: 0.0000009536743, y: 0}
   m_Size: {x: 2.6799996, y: 3.1899996}
   m_Direction: 0
---- !u!114 &8350500472300767004
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2968000429161587448}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 79a9211dbdcd54143853147b871aeb23, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
