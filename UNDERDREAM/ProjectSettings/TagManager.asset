@@ -71,6 +71,12 @@ TagManager:
   - name: SmallWaves4
     uniqueID: 369567773
     locked: 0
+  - name: Island
+    uniqueID: 2321952647
+    locked: 0
+  - name: Trunk
+    uniqueID: 3512749095
+    locked: 0
   - name: SmallBoat
     uniqueID: 4265013295
     locked: 0
@@ -80,11 +86,17 @@ TagManager:
   - name: Maoxun
     uniqueID: 4191818403
     locked: 0
+  - name: Coconuts
+    uniqueID: 445570527
+    locked: 0
   - name: Forward
     uniqueID: 3752881191
     locked: 0
   - name: ForwardPlus
     uniqueID: 1377502611
+    locked: 0
+  - name: ForwardLeaves
+    uniqueID: 2185052993
     locked: 0
   - name: AlmostTop
     uniqueID: 1175885057

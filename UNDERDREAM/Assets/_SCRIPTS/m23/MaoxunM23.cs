@@ -37,6 +37,9 @@ public class MaoxunM23 : BaseController
     [SerializeField] private Rigidbody2D myRigidbody;
     [SerializeField] private BoxCollider2D myCollider;
 
+    [Header("Outer: Tree Collider")]
+    [SerializeField] private Island island;
+
     public enum MaoxunAnimState23
     {
         Idle,
@@ -123,6 +126,16 @@ public class MaoxunM23 : BaseController
             {
                 didSomething = true;
                 airborne = true;
+            }
+
+            if (kicking
+                && myCollider.IsTouching(island.TreeCollider)
+                && !island.IsJittering()
+                )
+            {
+                island.ShakeTree();
+                //kicking = false;
+                // push her away a little bit
             }
 
             if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.Space))
