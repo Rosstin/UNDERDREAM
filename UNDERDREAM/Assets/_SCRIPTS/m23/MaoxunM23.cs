@@ -130,7 +130,7 @@ public class MaoxunM23 : BaseController
 
             if (kicking
                 && myCollider.IsTouching(island.TreeCollider)
-                && !island.IsJittering()
+                && island.IsReady()
                 )
             {
                 island.ShakeTree();

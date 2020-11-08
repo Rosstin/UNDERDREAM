@@ -2653,11 +2653,6 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 5
       objectReference: {fileID: 0}
-    - target: {fileID: 4015791804533814660, guid: 9b7ed2f3c8d888c45958d17f12ec639b,
-        type: 3}
-      propertyPath: TreeJitterTimeSeconds
-      value: 0.5
-      objectReference: {fileID: 0}
     - target: {fileID: 5265702937109755832, guid: 9b7ed2f3c8d888c45958d17f12ec639b,
         type: 3}
       propertyPath: m_RootOrder

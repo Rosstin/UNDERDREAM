@@ -453,13 +453,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d794b93bc7ae4c4d8246398214c8dfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TreeJitterTimeSeconds: 0.5
+  NutDropCooldownSeconds: 0.5
+  TreeCollider: {fileID: 7768057132827923502}
+  treeJitter: {fileID: 1703394864443099823}
   coconuts:
   - {fileID: 249535381117784104}
   - {fileID: 2360144318415132230}
   - {fileID: 3451307354416593552}
-  TreeJitterTimeSeconds: 0.5
-  TreeCollider: {fileID: 7768057132827923502}
-  treeJitter: {fileID: 1703394864443099823}
 --- !u!212 &4142255351042881087
 SpriteRenderer:
   m_ObjectHideFlags: 0

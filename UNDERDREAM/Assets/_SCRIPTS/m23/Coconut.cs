@@ -15,6 +15,7 @@ public class Coconut : MonoBehaviour
     public void Drop()
     {
         rb.gravityScale = 1f;
+        this.transform.parent = null;
     }
 
 }

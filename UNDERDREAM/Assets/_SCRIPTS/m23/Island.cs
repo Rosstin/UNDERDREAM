@@ -5,18 +5,24 @@ using UnityEngine;
 public class Island : MonoBehaviour
 {
 
+
+    [Header("Timing")]
+    public float TreeJitterTimeSeconds;
+    public float NutDropCooldownSeconds;
+
+    [Header("Public Outlets")]
+    public BoxCollider2D TreeCollider;
+
+    [Header("Private Outlets")]
+    [SerializeField] private Jitter treeJitter;
     [SerializeField] private List<Coconut> coconuts;
 
-    public float TreeJitterTimeSeconds;
-
-    public BoxCollider2D TreeCollider;
-    [SerializeField] private Jitter treeJitter;
-
     private int droppedNutIndex = 0;
+    private bool readyForNextDrop = true;
 
-    public bool IsJittering()
+    public bool IsReady()
     {
-        return treeJitter.JitterEnabled;
+        return readyForNextDrop;
     }
 
     public void ShakeTree()
@@ -26,6 +32,8 @@ public class Island : MonoBehaviour
 
     private IEnumerator Shake()
     {
+        readyForNextDrop = false;
+
         // play a sound
 
         // jitter the tree
@@ -40,6 +48,8 @@ public class Island : MonoBehaviour
 
         yield return new WaitForSeconds(TreeJitterTimeSeconds);
         treeJitter.JitterEnabled = false;
+        yield return new WaitForSeconds(NutDropCooldownSeconds);
+        readyForNextDrop = true;
     }
 
 
