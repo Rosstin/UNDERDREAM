@@ -22,14 +22,30 @@ public class Beatkeeper : MonoBehaviour
     [SerializeField] private GameObject rightEdge;
 
     private float lastTime = 0f;
-    private float currentTime = 0f;
-    private int beatIndex = 0;
+    private int beatIndexPlayer = 0;
+    private int beatIndexInternal = 0;
     private bool itsOver = false;
 
-    // Start is called before the first frame update
-    void Start()
+    private float currentTime = 0f;
+
+    private IEnumerator KickOffHurdle(int myHurdleIndex, GameObject myHurdle)
     {
-        
+        while (true)
+        {
+            float startTime = beatTimes[myHurdleIndex] - beatRadiusPlayerInput;
+            float endTime = beatTimes[myHurdleIndex] + beatRadiusPlayerInput;
+
+            float hurdleProgress = (currentTime - startTime) / (endTime-startTime);
+            myHurdle.transform.position = Vector3.Lerp(rightEdge.transform.position, leftEdge.transform.position, hurdleProgress);
+
+            if(currentTime > endTime)
+            {
+                Destroy(myHurdle);
+                break;
+            }
+
+            yield return 0;
+        }
     }
 
     // Update is called once per frame
@@ -46,25 +62,28 @@ public class Beatkeeper : MonoBehaviour
             lastTime = currentTime;
             currentTime = song.time;
 
-            float startTime = beatTimes[beatIndex] - beatRadiusPlayerInput;
-            float endTime = beatTimes[beatIndex] + beatRadiusPlayerInput;
+            // the player has to be able to see the hurdles ahead of time
+            float startTime = beatTimes[beatIndexPlayer] - beatRadiusPlayerInput;
+            float endTime = beatTimes[beatIndexPlayer] + beatRadiusPlayerInput;
 
-            if (currentTime > startTime && currentTime < endTime)
+            // kick off the hurdle        
+            if (currentTime > startTime)
             {
-                float hurdleProgress = (currentTime - startTime) / (beatRadiusPlayerInput);
-                hurdle.transform.position = Vector3.Lerp(rightEdge.transform.position, leftEdge.transform.position, hurdleProgress);
+                beatIndexPlayer++;
+                GameObject newHurdle = Instantiate(hurdle);
+                StartCoroutine(KickOffHurdle(beatIndexPlayer, newHurdle));
             }
 
             // play a beat on the beat
             if (
-                currentTime > beatTimes[beatIndex]
+                currentTime > beatTimes[beatIndexInternal]
                 &&
-                lastTime < beatTimes[beatIndex]
+                lastTime < beatTimes[beatIndexInternal]
                 )
             {
                 success.Play();
-                beatIndex++;
-                if (beatIndex >= beatTimes.Count)
+                beatIndexInternal++;
+                if (beatIndexInternal >= beatTimes.Count)
                 {
                     itsOver = true;
                 }
