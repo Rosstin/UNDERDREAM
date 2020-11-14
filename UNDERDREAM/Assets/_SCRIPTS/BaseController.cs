@@ -23,6 +23,8 @@ public class BaseController : MonoBehaviour
             }
         }
 
+
+        // TODO(Rosstin): currentscene should work differently to force the actual right scene?
         Debug.Log("currentScene: " + Data.Scenes[Data.CurrentScene] + ".. password: " + Data.Passwords[Data.CurrentScene]);
     }
 

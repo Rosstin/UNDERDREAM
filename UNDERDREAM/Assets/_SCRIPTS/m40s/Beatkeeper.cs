@@ -51,6 +51,9 @@ public class Beatkeeper : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        lastTime = currentTime;
+        currentTime = song.time;
+
         if (!song.isPlaying)
         {
             // restart
@@ -59,22 +62,24 @@ public class Beatkeeper : MonoBehaviour
 
         if (!itsOver)
         {
-            lastTime = currentTime;
-            currentTime = song.time;
 
-            // the player has to be able to see the hurdles ahead of time
-            float startTime = beatTimes[beatIndexPlayer] - beatRadiusPlayerInput;
-            float endTime = beatTimes[beatIndexPlayer] + beatRadiusPlayerInput;
-
-            // kick off the hurdle        
-            if (currentTime > startTime)
+            if(beatIndexPlayer < beatTimes.Count)
             {
-                beatIndexPlayer++;
-                GameObject newHurdle = Instantiate(hurdle);
-                StartCoroutine(KickOffHurdle(beatIndexPlayer, newHurdle));
+                // the player has to be able to see the hurdles ahead of time
+                float startTime = beatTimes[beatIndexPlayer] - beatRadiusPlayerInput;
+                float endTime = beatTimes[beatIndexPlayer] + beatRadiusPlayerInput;
+
+                // kick off the hurdle        
+                if (currentTime > startTime)
+                {
+                    GameObject newHurdle = Instantiate(hurdle);
+                    StartCoroutine(KickOffHurdle(beatIndexPlayer, newHurdle));
+                    beatIndexPlayer++;
+                }
             }
 
             // play a beat on the beat
+            /*
             if (
                 currentTime > beatTimes[beatIndexInternal]
                 &&
@@ -88,6 +93,7 @@ public class Beatkeeper : MonoBehaviour
                     itsOver = true;
                 }
             }
+            */
         }
     }
 }
