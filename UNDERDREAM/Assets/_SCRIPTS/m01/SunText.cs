@@ -24,6 +24,7 @@ public class SunText : MonoBehaviour
     {
         startingPosition = this.gameObject.transform.localPosition;
         textOut.text = sunShouts[currentShout];
+        textLine.SetActive(!string.IsNullOrWhiteSpace(textOut.text));
     }
 
     // Update is called once per frame
@@ -54,7 +55,7 @@ public class SunText : MonoBehaviour
 
             textOut.text = sunShouts[currentShout];
 
-            textLine.SetActive(textOut.text != "");
+            textLine.SetActive(!string.IsNullOrWhiteSpace(textOut.text ));
         }
     }
 }
