@@ -21,12 +21,25 @@ public class Beatkeeper : MonoBehaviour
     [SerializeField] private AudioSource wipeout;
 
     [Header("Hurdle")]
-    [SerializeField] private GameObject hurdle;
+    [SerializeField] private Hurdle hurdle;
     [SerializeField] private GameObject leftEdge;
     [SerializeField] private GameObject rightEdge;
 
     [Header("Mistakes")]
     [SerializeField] private int allowedMistakes;
+
+    [Header("Blackout")]
+    [SerializeField] private Cloudloop blackout;
+
+    [Header("Output Text")]
+    [SerializeField] private TMPro.TextMeshPro outputText;
+    [SerializeField] private List<string> successShouts;
+    [SerializeField] private List<string> missShouts;
+    [SerializeField] private List<string> failureShouts;
+
+    private int lastSuccessShout;
+    private int lastMissShout;
+    private int lastFailureShout;
 
     private float lastTime = 0f;
     private int beatIndexPlayer = 0;
@@ -37,8 +50,40 @@ public class Beatkeeper : MonoBehaviour
 
     private float currentTime = 0f;
 
-    private IEnumerator KickOffHurdle(int myHurdleIndex, GameObject myHurdle)
+    private void Start()
     {
+        blackout.gameObject.SetActive(false);
+        blackout.enabled = false;
+    }
+
+    private IEnumerator Failure()
+    {
+        // shout a failure shout
+        int failShoutIndex = Random.Range(0, failureShouts.Count);
+        if (lastFailureShout == failShoutIndex)
+        {
+            failShoutIndex++;
+            if (failShoutIndex >= failureShouts.Count)
+            {
+                failShoutIndex = 0;
+            }
+        }
+        outputText.text = failureShouts[failShoutIndex];
+        lastFailureShout = failShoutIndex;
+
+        this.enabled = (false); // stop the update loop
+        song.Stop();
+        blackout.gameObject.SetActive(true);
+        blackout.enabled = true;
+        wipeout.Play();
+        yield return new WaitForSeconds(wipeout.clip.length + wipeoutBuffer);
+        Restart();
+    }
+
+    private IEnumerator KickOffHurdle(int myHurdleIndex, Hurdle myHurdle)
+    {
+        bool madeYellow = false;
+
         float visualStartTime = beatTimes[myHurdleIndex] - beatRadiusVisualHint;
         float visualEndTime = beatTimes[myHurdleIndex] + beatRadiusVisualHint;
 
@@ -49,10 +94,57 @@ public class Beatkeeper : MonoBehaviour
 
         while (currentTime < visualEndTime)
         {
+            if(currentTime > inputStartTime && !madeYellow)
+            {
+                madeYellow = true;
+                myHurdle.MakeYellow(); 
+            }
+
+            // success
             if(currentTime > inputStartTime && currentTime < inputEndTime &&  
                 Input.GetKeyDown(KeyCode.UpArrow)){
                 success.Play();
                 inputSuccess = true;
+
+                // make the hurdle green
+                myHurdle.MakeGreen();
+
+                // shout a success shout
+                int successShoutIndex = Random.Range(0, successShouts.Count);
+                if(lastSuccessShout == successShoutIndex)
+                {
+                    successShoutIndex++;
+                    if(successShoutIndex >= successShouts.Count)
+                    {
+                        successShoutIndex = 0;
+                    }
+                }
+                outputText.text = successShouts[successShoutIndex];
+                lastSuccessShout = successShoutIndex;
+            }
+
+            // miss..
+            if(currentTime > inputEndTime && !inputSuccess)
+            {
+                // todo toss the hurdle
+                myHurdle.MakeRed();
+
+                // shout a miss shout
+                int missShoutIndex = Random.Range(0, missShouts.Count);
+                if (lastMissShout == missShoutIndex)
+                {
+                    missShoutIndex++;
+                    if (missShoutIndex >= missShouts.Count)
+                    {
+                        missShoutIndex = 0;
+                    }
+                }
+                outputText.text = missShouts[missShoutIndex];
+                lastMissShout = missShoutIndex;
+
+                numMistakes++;
+                mistake.Play();
+                break;
             }
 
             float hurdleProgress = (currentTime - visualStartTime) / (visualEndTime-visualStartTime);
@@ -61,21 +153,13 @@ public class Beatkeeper : MonoBehaviour
             yield return 0;
         }
 
-        if (!inputSuccess)
-        {
-            // todo toss the hurdle
-            numMistakes++;
-            mistake.Play();
-        }
-
         if(numMistakes > allowedMistakes)
         {
-            wipeout.Play();
-            yield return new WaitForSeconds(wipeout.clip.length+wipeoutBuffer);
-            Restart();
+            StartCoroutine(Failure());
         }
 
-        Destroy(myHurdle);
+        yield return new WaitForSeconds(0.2f);
+        Destroy(myHurdle.gameObject);
     }
 
     private void Restart()
@@ -107,7 +191,7 @@ public class Beatkeeper : MonoBehaviour
                 // kick off the hurdle        
                 if (currentTime > startTime)
                 {
-                    GameObject newHurdle = Instantiate(hurdle);
+                    Hurdle newHurdle = Instantiate(hurdle.gameObject).GetComponent<Hurdle>();
                     StartCoroutine(KickOffHurdle(beatIndexPlayer, newHurdle));
                     beatIndexPlayer++;
                 }

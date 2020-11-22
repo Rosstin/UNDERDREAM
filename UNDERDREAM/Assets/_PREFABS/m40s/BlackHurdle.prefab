@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1805978560339951164}
+  - component: {fileID: 4664501907278042870}
   - component: {fileID: 1805978560339951167}
   - component: {fileID: 1805978560339951166}
   m_Layer: 0
@@ -32,6 +33,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4664501907278042870
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1805978560339951161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 981970c1645cff74d977d4db6ed625a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blackMaterial: {fileID: 2100000, guid: 874ae57de8f83f3498f030b7d037aafb, type: 2}
+  greenMaterial: {fileID: 2100000, guid: 7413d8970153ecd4c91dc6d8370008bd, type: 2}
+  redMaterial: {fileID: 2100000, guid: e9e14662539c52b4c8df400b513ad7dd, type: 2}
+  yellowMaterial: {fileID: 2100000, guid: 43709955e22d1d147826a323a553b441, type: 2}
+  meshRenderer: {fileID: 1805978560339951166}
 --- !u!33 &1805978560339951167
 MeshFilter:
   m_ObjectHideFlags: 0
