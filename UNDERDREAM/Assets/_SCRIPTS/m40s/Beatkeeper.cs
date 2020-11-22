@@ -91,6 +91,7 @@ public class Beatkeeper : MonoBehaviour
         float inputEndTime = beatTimes[myHurdleIndex] + beatInputLag;
 
         bool inputSuccess = false;
+        bool missed = false;
 
         while (currentTime < visualEndTime)
         {
@@ -124,8 +125,10 @@ public class Beatkeeper : MonoBehaviour
             }
 
             // miss..
-            if(currentTime > inputEndTime && !inputSuccess)
+            else if(currentTime > inputEndTime && !inputSuccess && !missed)
             {
+                missed = true;
+
                 // todo toss the hurdle
                 myHurdle.MakeRed();
 
@@ -144,7 +147,6 @@ public class Beatkeeper : MonoBehaviour
 
                 numMistakes++;
                 mistake.Play();
-                break;
             }
 
             float hurdleProgress = (currentTime - visualStartTime) / (visualEndTime-visualStartTime);
