@@ -10,6 +10,7 @@ public class Cloudloop : MonoBehaviour
     [SerializeField] AnimationCurve moveCurve;
     [SerializeField] GameObject cloud;
     [SerializeField] float startingPercent;
+    [SerializeField] bool dontLoop;
 
     private float elapsedTime=0;
 
@@ -28,7 +29,7 @@ public class Cloudloop : MonoBehaviour
         cloud.transform.position = Vector3.Lerp(leftEdge.transform.position, rightEdge.transform.position, elapsedTime/travelTime);
 
 
-        if(elapsedTime >= travelTime)
+        if(!dontLoop && elapsedTime >= travelTime)
         {
             elapsedTime = 0f;
         }
