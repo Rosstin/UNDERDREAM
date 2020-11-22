@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Beatkeeper : MonoBehaviour
+public class Beatkeeper : BaseController
 {
     [Header("Timing")]
     [SerializeField] private List<float> beatTimes;
@@ -52,6 +52,7 @@ public class Beatkeeper : MonoBehaviour
 
     private void Start()
     {
+        base.Start();
         blackout.gameObject.SetActive(false);
         blackout.enabled = false;
     }
@@ -172,13 +173,15 @@ public class Beatkeeper : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        BaseUpdate();
+
         lastTime = currentTime;
         currentTime = song.time;
 
         if (!song.isPlaying)
         {
             // restart // todo go to next scene instead
-            Restart();
+            LoadNextScene();
         }
 
         if (!itsOver)

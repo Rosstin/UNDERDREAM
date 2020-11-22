@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MaoxunM40 : BaseController
+public class MaoxunM40 : MonoBehaviour
 {
     [Header("Outlets")]
     public BoxCollider2D GroundCollider;
@@ -65,7 +65,6 @@ public class MaoxunM40 : BaseController
 
     private new void Start()
     {
-        base.Start();
         ActivateAnimation(MaoxunAnimState23.Idle);
     }
 
@@ -92,8 +91,6 @@ public class MaoxunM40 : BaseController
     public void Update()
     {
         timeSinceLastJump += Time.deltaTime;
-
-        BaseUpdate();
 
         var didSomething = false;
 
