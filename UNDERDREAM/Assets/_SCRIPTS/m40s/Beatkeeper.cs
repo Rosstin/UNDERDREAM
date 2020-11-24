@@ -7,6 +7,7 @@ public class Beatkeeper : BaseController
 {
     [Header("Timing")]
     [SerializeField] private List<float> beatTimes;
+    [SerializeField] private List<float> aTimes;
     [SerializeField] private float beatRadiusVisualHint;
     [SerializeField] private float beatInputLead;
     [SerializeField] private float beatInputLag;
@@ -25,6 +26,11 @@ public class Beatkeeper : BaseController
     [SerializeField] private GameObject leftEdge;
     [SerializeField] private GameObject rightEdge;
 
+    [Header("A Object")]
+    [SerializeField] private BeatObject a;
+    [SerializeField] private Transform aStart;
+    [SerializeField] private Transform aEnd;
+
     [Header("Mistakes")]
     [SerializeField] private int allowedMistakes;
 
@@ -42,8 +48,12 @@ public class Beatkeeper : BaseController
     private int lastFailureShout;
 
     private float lastTime = 0f;
+
     private int beatIndexPlayer = 0;
     private int beatIndexInternal = 0;
+
+    private int aIndex = 0;
+
     private bool itsOver = false;
 
     private int numMistakes = 0;
@@ -81,6 +91,38 @@ public class Beatkeeper : BaseController
         Restart();
     }
 
+    /// <summary>
+    /// kick off a visual flair on time to beat
+    /// </summary>
+    /// <param name="index"></param>
+    /// <param name="beatObject"></param>
+    /// <returns></returns>
+    private IEnumerator KickOffBeatObject(int index, BeatObject beatObject)
+    {
+        bool madeYellow = false;
+
+        float visualStartTime = aTimes[index] - beatRadiusVisualHint;
+        float visualEndTime = aTimes[index] + beatRadiusVisualHint;
+
+        while (currentTime < visualEndTime)
+        {
+            float hurdleProgress = (currentTime - visualStartTime) / (visualEndTime - visualStartTime);
+            beatObject.transform.position = Vector3.Lerp(aStart.transform.position, aEnd.transform.position, hurdleProgress);
+
+            yield return 0;
+        }
+
+        yield return new WaitForSeconds(0.2f);
+        Destroy(beatObject.gameObject);
+    }
+
+
+    /// <summary>
+    /// Kick off something the player needs to interact with
+    /// </summary>
+    /// <param name="myHurdleIndex"></param>
+    /// <param name="myHurdle"></param>
+    /// <returns></returns>
     private IEnumerator KickOffHurdle(int myHurdleIndex, Hurdle myHurdle)
     {
         bool madeYellow = false;
@@ -199,6 +241,21 @@ public class Beatkeeper : BaseController
                     Hurdle newHurdle = Instantiate(hurdle.gameObject).GetComponent<Hurdle>();
                     StartCoroutine(KickOffHurdle(beatIndexPlayer, newHurdle));
                     beatIndexPlayer++;
+                }
+            }
+
+            if(aTimes.Count > 0 && aIndex < aTimes.Count)
+            {
+                // the player has to be able to see the hurdles ahead of time
+                float startTime = beatTimes[aIndex] - beatRadiusVisualHint;
+                float endTime = beatTimes[aIndex] + beatRadiusVisualHint;
+
+                // kick off the hurdle        
+                if (currentTime > startTime)
+                {
+                    BeatObject newHurdle = Instantiate(a.gameObject).GetComponent<BeatObject>();
+                    StartCoroutine(KickOffBeatObject(aIndex, newHurdle));
+                    aIndex++;
                 }
             }
 
