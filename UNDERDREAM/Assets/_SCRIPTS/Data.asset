@@ -33,6 +33,7 @@ MonoBehaviour:
   - m40
   - m41
   - m42
+  - m43
   Passwords:
   - whydo
   - birds
@@ -107,6 +108,8 @@ MonoBehaviour:
   - thesetears
   - imcrying
   - itsyouthatineed
-  CurrentScene: 0
-  TimeSinceLoadedLastScene: 1.059172
+  CurrentScene: 20
+  TimeSinceLoadedLastScene: 10.871212
   LoadingCooldown: 0.1
+  TigerSongPrefab: {fileID: 2563527177453090825, guid: 8e281106705802b4fb147e8e9576b032,
+    type: 3}

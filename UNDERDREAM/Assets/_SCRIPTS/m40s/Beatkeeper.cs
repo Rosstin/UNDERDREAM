@@ -6,68 +6,78 @@ using UnityEngine.SceneManagement;
 public class Beatkeeper : BaseController
 {
     [Header("Timing")]
-    [SerializeField] private List<float> beatTimes;
-    [SerializeField] private List<float> aTimes;
-    [SerializeField] private float beatRadiusVisualHint;
-    [SerializeField] private float beatInputLead;
-    [SerializeField] private float beatInputLag;
-    [SerializeField] private float wipeoutBuffer;
-
-    [Header("Song")]
-    [SerializeField] private AudioSource song;
+    [SerializeField] protected List<float> beatTimes;
+    [SerializeField] protected List<float> aTimes;
+    [SerializeField] protected float beatRadiusVisualHint;
+    [SerializeField] protected float beatInputLead;
+    [SerializeField] protected float beatInputLag;
+    [SerializeField] protected float wipeoutBuffer;
+    [SerializeField] protected float songSegmentStartTime;
+    [SerializeField] protected float songSegmentEndTime;
 
     [Header("SFX")]
-    [SerializeField] private AudioSource success;
-    [SerializeField] private AudioSource mistake;
-    [SerializeField] private AudioSource wipeout;
+    [SerializeField] protected AudioSource success;
+    [SerializeField] protected AudioSource mistake;
+    [SerializeField] protected AudioSource wipeout;
 
     [Header("Hurdle")]
-    [SerializeField] private Hurdle hurdle;
-    [SerializeField] private GameObject leftEdge;
-    [SerializeField] private GameObject rightEdge;
+    [SerializeField] protected Hurdle hurdle;
+    [SerializeField] protected GameObject leftEdge;
+    [SerializeField] protected GameObject rightEdge;
 
     [Header("A Object")]
-    [SerializeField] private BeatObject a;
-    [SerializeField] private Transform aStart;
-    [SerializeField] private Transform aEnd;
+    [SerializeField]
+    protected Hurdle a;
+    [SerializeField] protected Transform aStart;
+    [SerializeField] protected Transform aEnd;
 
     [Header("Mistakes")]
-    [SerializeField] private int allowedMistakes;
+    [SerializeField]
+    protected int allowedMistakes;
 
     [Header("Blackout")]
-    [SerializeField] private Cloudloop blackout;
+    [SerializeField]
+    protected Cloudloop blackout;
 
     [Header("Output Text")]
-    [SerializeField] private TMPro.TextMeshPro outputText;
-    [SerializeField] private List<string> successShouts;
-    [SerializeField] private List<string> missShouts;
-    [SerializeField] private List<string> failureShouts;
+    [SerializeField]
+    protected TMPro.TextMeshPro outputText;
+    [SerializeField] protected List<string> successShouts;
+    [SerializeField] protected List<string> missShouts;
+    [SerializeField] protected List<string> failureShouts;
 
-    private int lastSuccessShout;
-    private int lastMissShout;
-    private int lastFailureShout;
+    protected int lastSuccessShout;
+    protected int lastMissShout;
+    protected int lastFailureShout;
 
-    private float lastTime = 0f;
+    protected float lastTime = 0f;
 
-    private int beatIndexPlayer = 0;
-    private int beatIndexInternal = 0;
+    protected int beatIndexPlayer = 0;
+    protected int beatIndexInternal = 0;
 
-    private int aIndex = 0;
+    protected int aIndex = 0;
 
-    private bool itsOver = false;
+    protected bool itsOver = false;
 
-    private int numMistakes = 0;
+    protected int numMistakes = 0;
 
-    private float currentTime = 0f;
+    protected float currentTime = 0f;
 
-    private void Start()
+    protected void Start()
     {
         base.Start();
         blackout.gameObject.SetActive(false);
         blackout.enabled = false;
+
+        if (!Data.TigerSongExists())
+        {
+            Data.CreateTigerSong();
+        }
+        Data.GetTigerSong().time = (songSegmentStartTime);
+        Data.GetTigerSong().Play();
     }
 
-    private IEnumerator Failure()
+    protected IEnumerator Failure()
     {
         // shout a failure shout
         int failShoutIndex = Random.Range(0, failureShouts.Count);
@@ -83,7 +93,7 @@ public class Beatkeeper : BaseController
         lastFailureShout = failShoutIndex;
 
         this.enabled = (false); // stop the update loop
-        song.Stop();
+        Data.GetTigerSong().Stop();
         blackout.gameObject.SetActive(true);
         blackout.enabled = true;
         wipeout.Play();
@@ -97,7 +107,7 @@ public class Beatkeeper : BaseController
     /// <param name="index"></param>
     /// <param name="beatObject"></param>
     /// <returns></returns>
-    private IEnumerator KickOffBeatObject(int index, BeatObject beatObject)
+    protected IEnumerator KickOffBeatObject(int index, BeatObject beatObject)
     {
         bool madeYellow = false;
 
@@ -123,7 +133,7 @@ public class Beatkeeper : BaseController
     /// <param name="myHurdleIndex"></param>
     /// <param name="myHurdle"></param>
     /// <returns></returns>
-    private IEnumerator KickOffHurdle(int myHurdleIndex, Hurdle myHurdle)
+    protected IEnumerator KickOffHurdle(int myHurdleIndex, Hurdle myHurdle)
     {
         bool madeYellow = false;
 
@@ -207,22 +217,20 @@ public class Beatkeeper : BaseController
         Destroy(myHurdle.gameObject);
     }
 
-    private void Restart()
+    protected void Restart()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
-    // Update is called once per frame
-    void Update()
+    protected void Update()
     {
         BaseUpdate();
 
         lastTime = currentTime;
-        currentTime = song.time;
+        currentTime = Data.GetTigerSong().time;
 
-        if (!song.isPlaying)
+        if ( currentTime > songSegmentEndTime)
         {
-            // restart // todo go to next scene instead
             LoadNextScene();
         }
 
@@ -259,22 +267,6 @@ public class Beatkeeper : BaseController
                 }
             }
 
-            // play a beat on the beat
-            /*
-            if (
-                currentTime > beatTimes[beatIndexInternal]
-                &&
-                lastTime < beatTimes[beatIndexInternal]
-                )
-            {
-                success.Play();
-                beatIndexInternal++;
-                if (beatIndexInternal >= beatTimes.Count)
-                {
-                    itsOver = true;
-                }
-            }
-            */
         }
     }
 }
