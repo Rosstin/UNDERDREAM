@@ -17,6 +17,7 @@ public class BeatkeeperM43 : BeatkeeperM42
         Hurdle mirrorHurdle = Instantiate(myHurdle.gameObject).GetComponent<Hurdle>();
         Vector3 mirrorStart = new Vector3(-start.position.x, start.position.y, start.position.z);
         Vector3 mirrorEnd = new Vector3(-end.position.x, end.position.y, end.position.z);
+        mirrorHurdle.transform.localScale = new Vector3(-1, 1, 1);
 
         bool madeYellow = false;
 

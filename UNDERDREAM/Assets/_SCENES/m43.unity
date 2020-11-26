@@ -493,7 +493,7 @@ MonoBehaviour:
   - 63.22
   - 64.32
   - 65.42
-  beatRadiusVisualHint: 1.5
+  beatRadiusVisualHint: 1.1
   beatInputLead: 0.5
   beatInputLag: 0.2
   wipeoutBuffer: 0.2
@@ -526,7 +526,6 @@ MonoBehaviour:
   - bummer...
   - dang yo...
   - aw man...
-  dumbbellOffset: 0.4
 --- !u!1 &274906238
 GameObject:
   m_ObjectHideFlags: 0
@@ -4066,7 +4065,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1805978560742531091}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 15, y: -2, z: 0}
+  m_LocalPosition: {x: 15, y: -0.73, z: 0}
   m_LocalScale: {x: 1, y: 33, z: 1}
   m_Children: []
   m_Father: {fileID: 204721349}
@@ -4080,7 +4079,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1805978561827544637}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -15, y: -2, z: 0}
+  m_LocalPosition: {x: -7, y: -0.73, z: 0}
   m_LocalScale: {x: 1, y: 33, z: 1}
   m_Children: []
   m_Father: {fileID: 204721349}
