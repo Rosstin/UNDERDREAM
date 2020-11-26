@@ -125,7 +125,6 @@ public class BeatkeeperM42 : Beatkeeper
 
         if (!itsOver)
         {
-
             if (beatIndexPlayer < beatTimes.Count)
             {
                 // the player has to be able to see the hurdles ahead of time
@@ -155,6 +154,23 @@ public class BeatkeeperM42 : Beatkeeper
                     aIndex++;
                 }
             }
+
+            // play a beat on the beat
+            /*
+            if (
+                currentTime > beatTimes[beatIndexInternal]
+                &&
+                lastTime < beatTimes[beatIndexInternal]
+                )
+            {
+                success.Play();
+                beatIndexInternal++;
+                if (beatIndexInternal >= beatTimes.Count)
+                {
+                    itsOver = true;
+                }
+            }
+            */
 
         }
     }

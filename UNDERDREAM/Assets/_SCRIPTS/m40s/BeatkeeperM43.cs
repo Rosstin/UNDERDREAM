@@ -3,110 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class BeatkeeperM43 : BaseController
+public class BeatkeeperM43 : BeatkeeperM42
 {
-    [Header("Timing")]
-    [SerializeField]
-    private List<float> beatTimes;
-    [SerializeField] private List<float> aTimes;
-    [SerializeField] private float beatRadiusVisualHint;
-    [SerializeField] private float beatInputLead;
-    [SerializeField] private float beatInputLag;
-    [SerializeField] private float wipeoutBuffer;
-
-    [Header("Song")]
-    [SerializeField]
-    private AudioSource song;
-
-    [Header("SFX")]
-    [SerializeField]
-    private AudioSource success;
-    [SerializeField] private AudioSource mistake;
-    [SerializeField] private AudioSource wipeout;
-
-    [Header("Hurdle")]
-    [SerializeField]
-    private Hurdle hurdle;
-    [SerializeField] private Transform start;
-    [SerializeField] private Transform end;
-
-    [Header("A Object")]
-    [SerializeField]
-    private Hurdle a;
-    [SerializeField] private Transform aStart;
-    [SerializeField] private Transform aEnd;
-
-    [Header("Mistakes")]
-    [SerializeField]
-    private int allowedMistakes;
-
-    [Header("Blackout")]
-    [SerializeField]
-    private Cloudloop blackout;
-
-    [Header("Output Text")]
-    [SerializeField]
-    private TMPro.TextMeshPro outputText;
-    [SerializeField] private List<string> successShouts;
-    [SerializeField] private List<string> missShouts;
-    [SerializeField] private List<string> failureShouts;
-
-    private int lastSuccessShout;
-    private int lastMissShout;
-    private int lastFailureShout;
-
-    private float lastTime = 0f;
-
-    private int beatIndexPlayer = 0;
-    private int beatIndexInternal = 0;
-
-    private int aIndex = 0;
-
-    private bool itsOver = false;
-
-    private int numMistakes = 0;
-
-    private float currentTime = 0f;
-
-    private void Start()
-    {
-        base.Start();
-        blackout.gameObject.SetActive(false);
-        blackout.enabled = false;
-    }
-
-    private IEnumerator Failure()
-    {
-        // shout a failure shout
-        int failShoutIndex = Random.Range(0, failureShouts.Count);
-        if (lastFailureShout == failShoutIndex)
-        {
-            failShoutIndex++;
-            if (failShoutIndex >= failureShouts.Count)
-            {
-                failShoutIndex = 0;
-            }
-        }
-        outputText.text = failureShouts[failShoutIndex];
-        lastFailureShout = failShoutIndex;
-
-        this.enabled = (false); // stop the update loop
-        song.Stop();
-        blackout.gameObject.SetActive(true);
-        blackout.enabled = true;
-        wipeout.Play();
-        yield return new WaitForSeconds(wipeout.clip.length + wipeoutBuffer);
-        Restart();
-    }
-
     /// <summary>
     /// Kick off something the player needs to interact with
     /// </summary>
     /// <param name="myHurdleIndex"></param>
     /// <param name="myHurdle"></param>
     /// <returns></returns>
-    private IEnumerator KickOffHurdle(int myHurdleIndex, Hurdle myHurdle, List<float> times, Transform start, Transform end)
+    private IEnumerator KickOffHurdle(int myHurdleIndex, Hurdle myHurdle, List<float> times, Transform start, Transform end, bool isFish)
     {
+
+        Hurdle mirrorHurdle = Instantiate(myHurdle.gameObject).GetComponent<Hurdle>();
+        Vector3 mirrorStart = new Vector3(-start.position.x, start.position.y, start.position.z);
+        Vector3 mirrorEnd = new Vector3(-end.position.x, end.position.y, end.position.z);
+
         bool madeYellow = false;
 
         float visualStartTime = times[myHurdleIndex] - beatRadiusVisualHint;
@@ -122,7 +33,8 @@ public class BeatkeeperM43 : BaseController
         if (myHurdle.CorrectCommand == "up")
         {
             correctCode = KeyCode.UpArrow;
-        }else if(myHurdle.CorrectCommand == "down")
+        }
+        else if (myHurdle.CorrectCommand == "down")
         {
             correctCode = KeyCode.DownArrow;
         }
@@ -137,6 +49,7 @@ public class BeatkeeperM43 : BaseController
             {
                 madeYellow = true;
                 myHurdle.MakeReady();
+                mirrorHurdle.MakeReady();
             }
 
             // success
@@ -147,7 +60,14 @@ public class BeatkeeperM43 : BaseController
                 inputSuccess = true;
 
                 // make the hurdle green
+
                 myHurdle.MakeCorrect();
+                mirrorHurdle.MakeCorrect();
+                if (isFish)
+                {
+                    myHurdle.gameObject.SetActive(false);
+                    mirrorHurdle.gameObject.SetActive(false);
+                }
 
                 // shout a success shout
                 int successShoutIndex = Random.Range(0, successShouts.Count);
@@ -170,6 +90,7 @@ public class BeatkeeperM43 : BaseController
 
                 // todo toss the hurdle
                 myHurdle.MakeWrong();
+                mirrorHurdle.MakeWrong();
 
                 // shout a miss shout
                 int missShoutIndex = Random.Range(0, missShouts.Count);
@@ -189,7 +110,8 @@ public class BeatkeeperM43 : BaseController
             }
 
             float hurdleProgress = (currentTime - visualStartTime) / (visualEndTime - visualStartTime);
-            myHurdle.transform.position = Vector3.Lerp(start.position, end.position, hurdleProgress);
+            myHurdle.transform.position = Vector3.Lerp(start.position, end.position , hurdleProgress);
+            mirrorHurdle.transform.position = Vector3.Lerp(  mirrorStart, mirrorEnd, hurdleProgress);
 
             yield return 0;
         }
@@ -201,29 +123,24 @@ public class BeatkeeperM43 : BaseController
 
         yield return new WaitForSeconds(0.2f);
         Destroy(myHurdle.gameObject);
-    }
-
-    private void Restart()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        Destroy(mirrorHurdle.gameObject);
     }
 
     // Update is called once per frame
-    void Update()
+    new void Update()
     {
         BaseUpdate();
 
         lastTime = currentTime;
-        currentTime = song.time;
+        currentTime = Data.GetTigerSong().time;
 
-        if (!song.isPlaying)
+        if (currentTime > songSegmentEndTime)
         {
             LoadNextScene();
         }
 
         if (!itsOver)
         {
-
             if (beatIndexPlayer < beatTimes.Count)
             {
                 // the player has to be able to see the hurdles ahead of time
@@ -234,7 +151,7 @@ public class BeatkeeperM43 : BaseController
                 if (currentTime > startTime)
                 {
                     Hurdle newHurdle = Instantiate(hurdle.gameObject).GetComponent<Hurdle>();
-                    StartCoroutine(KickOffHurdle(beatIndexPlayer, newHurdle, beatTimes, start.transform, end.transform));
+                    StartCoroutine(KickOffHurdle(beatIndexPlayer, newHurdle, beatTimes, rightEdge.transform, leftEdge.transform, false));
                     beatIndexPlayer++;
                 }
             }
@@ -249,11 +166,28 @@ public class BeatkeeperM43 : BaseController
                 if (currentTime > startTime)
                 {
                     Hurdle newHurdle = Instantiate(a.gameObject).GetComponent<Hurdle>();
-                    StartCoroutine(KickOffHurdle(aIndex, newHurdle, aTimes, aStart, aEnd));
+                    StartCoroutine(KickOffHurdle(aIndex, newHurdle, aTimes, aStart, aEnd, true));
                     aIndex++;
                 }
             }
 
+            // play a beat on the beat
+            /*
+            if (
+                currentTime > beatTimes[beatIndexInternal]
+                &&
+                lastTime < beatTimes[beatIndexInternal]
+                )
+            {
+                success.Play();
+                beatIndexInternal++;
+                if (beatIndexInternal >= beatTimes.Count)
+                {
+                    itsOver = true;
+                }
+            }
+            */
+        }
+
         }
     }
-}
