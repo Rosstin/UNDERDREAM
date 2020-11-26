@@ -2,16 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Cloudloop : MonoBehaviour
+public class TimedMovement : MonoBehaviour
 {
     [SerializeField] private Transform leftEdge;
     [SerializeField] private Transform rightEdge;
     [SerializeField] private float travelTime;
-    [SerializeField] GameObject cloud;
+    [SerializeField] AnimationCurve moveCurve;
+    [SerializeField] GameObject movingObject;
     [SerializeField] float startingPercent;
     [SerializeField] bool dontLoop;
 
-    private float elapsedTime=0;
+    private float elapsedTime = 0;
 
     private void Start()
     {
@@ -25,10 +26,12 @@ public class Cloudloop : MonoBehaviour
     {
         elapsedTime += Time.deltaTime;
 
-        cloud.transform.position = Vector3.Lerp(leftEdge.transform.position, rightEdge.transform.position, elapsedTime/travelTime);
+        float progress = moveCurve.Evaluate(elapsedTime / travelTime);
+
+        movingObject.transform.position = Vector3.Lerp(leftEdge.transform.position, rightEdge.transform.position, progress);
 
 
-        if(!dontLoop && elapsedTime >= travelTime)
+        if (!dontLoop && elapsedTime >= travelTime)
         {
             elapsedTime = 0f;
         }

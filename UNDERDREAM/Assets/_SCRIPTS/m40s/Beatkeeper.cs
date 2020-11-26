@@ -141,7 +141,7 @@ public class Beatkeeper : BaseController
             if(currentTime > inputStartTime && !madeYellow)
             {
                 madeYellow = true;
-                myHurdle.MakeYellow(); 
+                myHurdle.MakeReady(); 
             }
 
             // success
@@ -151,7 +151,7 @@ public class Beatkeeper : BaseController
                 inputSuccess = true;
 
                 // make the hurdle green
-                myHurdle.MakeGreen();
+                myHurdle.MakeCorrect();
 
                 // shout a success shout
                 int successShoutIndex = Random.Range(0, successShouts.Count);
@@ -173,7 +173,7 @@ public class Beatkeeper : BaseController
                 missed = true;
 
                 // todo toss the hurdle
-                myHurdle.MakeRed();
+                myHurdle.MakeWrong();
 
                 // shout a miss shout
                 int missShoutIndex = Random.Range(0, missShouts.Count);

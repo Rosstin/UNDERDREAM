@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1805978560339951164}
   - component: {fileID: 4664501907278042870}
   m_Layer: 0
-  m_Name: BlackHurdle
+  m_Name: FishHurdle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -61,7 +61,7 @@ GameObject:
   - component: {fileID: 2112420163583560207}
   - component: {fileID: 4404832470002888991}
   m_Layer: 0
-  m_Name: mine-nochain
+  m_Name: sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -115,11 +115,11 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 728374803
-  m_SortingLayer: 30
+  m_SortingLayerID: -1973014649
+  m_SortingLayer: 20
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: df140d79057dd8d45b51ce18a473a820, type: 3}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Sprite: {fileID: 21300000, guid: b676a4e9d4557264a910ec98ff0abf53, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

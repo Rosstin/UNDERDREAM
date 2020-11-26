@@ -27,12 +27,12 @@ public class BeatkeeperM42 : BaseController
     [Header("Hurdle")]
     [SerializeField]
     private Hurdle hurdle;
-    [SerializeField] private GameObject leftEdge;
-    [SerializeField] private GameObject rightEdge;
+    [SerializeField] private Transform start;
+    [SerializeField] private Transform end;
 
     [Header("A Object")]
     [SerializeField]
-    private BeatObject a;
+    private Hurdle a;
     [SerializeField] private Transform aStart;
     [SerializeField] private Transform aEnd;
 
@@ -99,6 +99,7 @@ public class BeatkeeperM42 : BaseController
         Restart();
     }
 
+    /*
     /// <summary>
     /// kick off a visual flair on time to beat
     /// </summary>
@@ -123,7 +124,7 @@ public class BeatkeeperM42 : BaseController
         yield return new WaitForSeconds(0.2f);
         Destroy(beatObject.gameObject);
     }
-
+    */
 
     /// <summary>
     /// Kick off something the player needs to interact with
@@ -131,36 +132,49 @@ public class BeatkeeperM42 : BaseController
     /// <param name="myHurdleIndex"></param>
     /// <param name="myHurdle"></param>
     /// <returns></returns>
-    private IEnumerator KickOffHurdle(int myHurdleIndex, Hurdle myHurdle)
+    private IEnumerator KickOffHurdle(int myHurdleIndex, Hurdle myHurdle, List<float> times, Transform start, Transform end)
     {
         bool madeYellow = false;
 
-        float visualStartTime = beatTimes[myHurdleIndex] - beatRadiusVisualHint;
-        float visualEndTime = beatTimes[myHurdleIndex] + beatRadiusVisualHint;
+        float visualStartTime = times[myHurdleIndex] - beatRadiusVisualHint;
+        float visualEndTime = times[myHurdleIndex] + beatRadiusVisualHint;
 
-        float inputStartTime = beatTimes[myHurdleIndex] - beatInputLead;
-        float inputEndTime = beatTimes[myHurdleIndex] + beatInputLag;
+        float inputStartTime = times[myHurdleIndex] - beatInputLead;
+        float inputEndTime = times[myHurdleIndex] + beatInputLag;
 
         bool inputSuccess = false;
         bool missed = false;
+
+        KeyCode correctCode = KeyCode.Space;
+        if (myHurdle.CorrectCommand == "up")
+        {
+            correctCode = KeyCode.UpArrow;
+        }else if(myHurdle.CorrectCommand == "down")
+        {
+            correctCode = KeyCode.DownArrow;
+        }
+        else
+        {
+            Debug.LogError("unhandled code!");
+        }
 
         while (currentTime < visualEndTime)
         {
             if (currentTime > inputStartTime && !madeYellow)
             {
                 madeYellow = true;
-                myHurdle.MakeYellow();
+                myHurdle.MakeReady();
             }
 
             // success
             if (currentTime > inputStartTime && currentTime < inputEndTime &&
-                (Input.GetKeyDown(KeyCode.UpArrow) || (Input.GetKeyDown(KeyCode.DownArrow))))
+                (Input.GetKeyDown(correctCode)))
             {
                 success.Play();
                 inputSuccess = true;
 
                 // make the hurdle green
-                myHurdle.MakeGreen();
+                myHurdle.MakeCorrect();
 
                 // shout a success shout
                 int successShoutIndex = Random.Range(0, successShouts.Count);
@@ -182,7 +196,7 @@ public class BeatkeeperM42 : BaseController
                 missed = true;
 
                 // todo toss the hurdle
-                myHurdle.MakeRed();
+                myHurdle.MakeWrong();
 
                 // shout a miss shout
                 int missShoutIndex = Random.Range(0, missShouts.Count);
@@ -202,7 +216,7 @@ public class BeatkeeperM42 : BaseController
             }
 
             float hurdleProgress = (currentTime - visualStartTime) / (visualEndTime - visualStartTime);
-            myHurdle.transform.position = Vector3.Lerp(rightEdge.transform.position, leftEdge.transform.position, hurdleProgress);
+            myHurdle.transform.position = Vector3.Lerp(start.position, end.position, hurdleProgress);
 
             yield return 0;
         }
@@ -248,7 +262,7 @@ public class BeatkeeperM42 : BaseController
                 if (currentTime > startTime)
                 {
                     Hurdle newHurdle = Instantiate(hurdle.gameObject).GetComponent<Hurdle>();
-                    StartCoroutine(KickOffHurdle(beatIndexPlayer, newHurdle));
+                    StartCoroutine(KickOffHurdle(beatIndexPlayer, newHurdle, beatTimes, start.transform, end.transform));
                     beatIndexPlayer++;
                 }
             }
@@ -256,34 +270,18 @@ public class BeatkeeperM42 : BaseController
             if (aTimes.Count > 0 && aIndex < aTimes.Count)
             {
                 // the player has to be able to see the hurdles ahead of time
-                float startTime = beatTimes[aIndex] - beatRadiusVisualHint;
-                float endTime = beatTimes[aIndex] + beatRadiusVisualHint;
+                float startTime = aTimes[aIndex] - beatRadiusVisualHint;
+                float endTime = aTimes[aIndex] + beatRadiusVisualHint;
 
                 // kick off the hurdle        
                 if (currentTime > startTime)
                 {
-                    BeatObject newHurdle = Instantiate(a.gameObject).GetComponent<BeatObject>();
-                    StartCoroutine(KickOffBeatObject(aIndex, newHurdle));
+                    Hurdle newHurdle = Instantiate(a.gameObject).GetComponent<Hurdle>();
+                    StartCoroutine(KickOffHurdle(aIndex, newHurdle, aTimes, aStart, aEnd));
                     aIndex++;
                 }
             }
 
-            // play a beat on the beat
-            /*
-            if (
-                currentTime > beatTimes[beatIndexInternal]
-                &&
-                lastTime < beatTimes[beatIndexInternal]
-                )
-            {
-                success.Play();
-                beatIndexInternal++;
-                if (beatIndexInternal >= beatTimes.Count)
-                {
-                    itsOver = true;
-                }
-            }
-            */
         }
     }
 }

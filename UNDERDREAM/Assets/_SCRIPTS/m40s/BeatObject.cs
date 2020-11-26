@@ -4,15 +4,10 @@ using UnityEngine;
 
 public class BeatObject : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public string Command;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
+
+
+
 }

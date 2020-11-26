@@ -4,30 +4,37 @@ using UnityEngine;
 
 public class Hurdle : MonoBehaviour
 {
-    [SerializeField] private Material blackMaterial;
-    [SerializeField] private Material greenMaterial;
-    [SerializeField] private Material redMaterial;
-    [SerializeField] private Material yellowMaterial;
-    [SerializeField] private MeshRenderer meshRenderer;
+    public string CorrectCommand;
 
-    public void MakeBlack()
+    [SerializeField] private Color normalColor;
+    [SerializeField] private Color correctColor;
+    [SerializeField] private Color wrongColor;
+    [SerializeField] private Color readyColor;
+    [SerializeField] private SpriteRenderer spriteRenderer;
+
+    private void Start()
     {
-        meshRenderer.material = blackMaterial;
+        MakeNormal();
     }
 
-    public void MakeGreen()
+    public void MakeNormal()
     {
-        meshRenderer.material = greenMaterial;
+        spriteRenderer.color= normalColor;
     }
 
-    public void MakeRed()
+    public void MakeCorrect()
     {
-        meshRenderer.material = redMaterial;
+        spriteRenderer.color = correctColor;
     }
 
-    public void MakeYellow()
+    public void MakeWrong()
     {
-        meshRenderer.material = yellowMaterial;
+        spriteRenderer.color = wrongColor;
+    }
+
+    public void MakeReady()
+    {
+        spriteRenderer.color = readyColor;
     }
 
 
