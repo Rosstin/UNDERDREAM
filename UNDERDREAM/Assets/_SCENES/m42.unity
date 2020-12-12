@@ -480,8 +480,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Data: {fileID: 11400000, guid: 030ba6bd61089974fb3f8046db4984fb, type: 2}
   beatTimes:
-  - 48.35
-  - 49.44
   - 50.54
   - 51.64
   - 52.74
@@ -489,8 +487,6 @@ MonoBehaviour:
   - 54.94
   - 56.04
   aTimes:
-  - 47.8
-  - 48.9
   - 50
   - 51.1
   - 52.2
