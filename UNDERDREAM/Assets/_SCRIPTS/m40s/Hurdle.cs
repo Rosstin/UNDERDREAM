@@ -6,11 +6,11 @@ public class Hurdle : MonoBehaviour
 {
     public string CorrectCommand;
 
-    [SerializeField] private Color normalColor;
-    [SerializeField] private Color correctColor;
-    [SerializeField] private Color wrongColor;
-    [SerializeField] private Color readyColor;
-    [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] protected Color normalColor;
+    [SerializeField] protected Color correctColor;
+    [SerializeField] protected Color wrongColor;
+    [SerializeField] protected Color readyColor;
+    [SerializeField] protected SpriteRenderer spriteRenderer;
 
     private HurdleState myState;
 

@@ -5,6 +5,20 @@ using UnityEngine.SceneManagement;
 
 public class BeatkeeperM45 : Beatkeeper
 {
+    [Header("Specific to m45")]
+    /// <summary>
+    /// for the punching bag, in the middle it's all the way down
+    /// </summary>
+    [SerializeField] private AnimationCurve hurdleCurve;
+    [SerializeField] private PunchingBag punchingBag;
+    [SerializeField] private SwingingMine swingingMine;
+
+    new void Start()
+    {
+        base.Start();
+
+        punchingBag.transform.position = rightEdge.transform.position;
+    }
 
     // Update is called once per frame
     new void Update()
@@ -30,12 +44,14 @@ public class BeatkeeperM45 : Beatkeeper
                 // kick off the hurdle        
                 if (currentTime > startTime)
                 {
-                    Hurdle newHurdle = Instantiate(hurdle.gameObject).GetComponent<Hurdle>();
-                    StartCoroutine(KickOffHurdle(beatIndexPlayer, newHurdle, beatTimes, rightEdge.transform, leftEdge.transform));
+                    StartCoroutine(KickOffHurdle(beatIndexPlayer, punchingBag, beatTimes, rightEdge.transform, leftEdge.transform));
                     beatIndexPlayer++;
                 }
             }
 
+
+            // ball and chain
+            /*
             if (aTimes.Count > 0 && aIndex < aTimes.Count)
             {
                 // the player has to be able to see the hurdles ahead of time
@@ -46,10 +62,11 @@ public class BeatkeeperM45 : Beatkeeper
                 if (currentTime > startTime)
                 {
                     Hurdle newHurdle = Instantiate(a.gameObject).GetComponent<Hurdle>();
-                    StartCoroutine(KickOffHurdle(aIndex, newHurdle, aTimes, aStart, aEnd, aDisappearSpot));
+                    StartCoroutine(KickOffHurdle(aIndex, punchingBag, aTimes, aStart, aEnd));
                     aIndex++;
                 }
             }
+            */
 
 
 
@@ -63,7 +80,7 @@ public class BeatkeeperM45 : Beatkeeper
     /// <param name="myHurdleIndex"></param>
     /// <param name="myHurdle"></param>
     /// <returns></returns>
-    private IEnumerator KickOffHurdle(int myHurdleIndex, Hurdle myHurdle, List<float> times, Transform start, Transform end, Transform disappearSpot = null)
+    private IEnumerator KickOffHurdle(int myHurdleIndex, PunchingBag myHurdle, List<float> times, Transform start, Transform end)
     {
         bool madeYellow = false;
 
@@ -106,6 +123,7 @@ public class BeatkeeperM45 : Beatkeeper
 
                 // make the hurdle green
                 myHurdle.MakeCorrect();
+                myHurdle.TakeDamage();
 
                 // shout a success shout
                 int successShoutIndex = Random.Range(0, successShouts.Count);
@@ -146,31 +164,13 @@ public class BeatkeeperM45 : Beatkeeper
                 mistake.Play();
             }
 
+            // the punching bag hurdle moves up and then down, it's at the end in middle time
+
             float hurdleProgress = (currentTime - visualStartTime) / (visualEndTime - visualStartTime);
-            myHurdle.transform.position = Vector3.Lerp(start.position, end.position, hurdleProgress);
 
-            // disappear when you move past the spot and you're successful
-            if(disappearSpot!=null && myHurdle.GetState() == Hurdle.HurdleState.Correct)
-            {
-                // objects moving right
-                if (disappearSpot.position.x > start.position.x)
-                {
-                    if(myHurdle.transform.position.x > disappearSpot.position.x)
-                    {
-                        // disappear
-                        myHurdle.SetVisible(false);
-                    }
-                }
-                else
-                {
-                    if (myHurdle.transform.position.x < disappearSpot.position.x)
-                    {
-                        // disappear
-                        myHurdle.SetVisible(false);
-                    }
-                }
+            float prog = hurdleCurve.Evaluate(hurdleProgress);
 
-            }
+            myHurdle.transform.position = Vector3.Lerp(start.position, end.position, prog);
 
             yield return 0;
         }
@@ -181,7 +181,6 @@ public class BeatkeeperM45 : Beatkeeper
         }
 
         yield return new WaitForSeconds(0.2f);
-        Destroy(myHurdle.gameObject);
     }
 
 }

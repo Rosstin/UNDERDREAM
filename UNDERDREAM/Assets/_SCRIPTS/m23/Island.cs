@@ -25,9 +25,17 @@ public class Island : MonoBehaviour
         return readyForNextDrop;
     }
 
-    public void ShakeTree()
+    public int ShakeTree()
     {
+        int nutIndex = droppedNutIndex;
+
+        if (nutIndex >= coconuts.Count)
+        {
+            nutIndex = 99;
+        }
+
         StartCoroutine(Shake());
+        return nutIndex;
     }
 
     private IEnumerator Shake()

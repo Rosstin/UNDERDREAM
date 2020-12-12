@@ -133,7 +133,11 @@ public class MaoxunM23 : BaseController
                 && island.IsReady()
                 )
             {
-                island.ShakeTree();
+                int nutIndex = island.ShakeTree();
+                if(nutIndex > 7)
+                {
+                    LoadNextScene();
+                }
                 //kicking = false;
                 // push her away a little bit
             }
