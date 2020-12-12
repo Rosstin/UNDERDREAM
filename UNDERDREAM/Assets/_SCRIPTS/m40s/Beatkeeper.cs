@@ -30,6 +30,7 @@ public class Beatkeeper : BaseController
     protected Hurdle a;
     [SerializeField] protected Transform aStart;
     [SerializeField] protected Transform aEnd;
+    [SerializeField] protected Transform aDisappearSpot;
 
     [Header("Mistakes")]
     [SerializeField]

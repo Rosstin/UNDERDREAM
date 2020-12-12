@@ -12,7 +12,7 @@ public class BeatkeeperM42 : Beatkeeper
     /// <param name="myHurdleIndex"></param>
     /// <param name="myHurdle"></param>
     /// <returns></returns>
-    private IEnumerator KickOffHurdle(int myHurdleIndex, Hurdle myHurdle, List<float> times, Transform start, Transform end)
+    private IEnumerator KickOffHurdle(int myHurdleIndex, Hurdle myHurdle, List<float> times, Transform start, Transform end, Transform disappearSpot = null)
     {
         bool madeYellow = false;
 
@@ -98,6 +98,29 @@ public class BeatkeeperM42 : Beatkeeper
             float hurdleProgress = (currentTime - visualStartTime) / (visualEndTime - visualStartTime);
             myHurdle.transform.position = Vector3.Lerp(start.position, end.position, hurdleProgress);
 
+            // disappear when you move past the spot and you're successful
+            if(disappearSpot!=null && myHurdle.GetState() == Hurdle.HurdleState.Correct)
+            {
+                // objects moving right
+                if (disappearSpot.position.x > start.position.x)
+                {
+                    if(myHurdle.transform.position.x > disappearSpot.position.x)
+                    {
+                        // disappear
+                        myHurdle.SetVisible(false);
+                    }
+                }
+                else
+                {
+                    if (myHurdle.transform.position.x < disappearSpot.position.x)
+                    {
+                        // disappear
+                        myHurdle.SetVisible(false);
+                    }
+                }
+
+            }
+
             yield return 0;
         }
 
@@ -150,7 +173,7 @@ public class BeatkeeperM42 : Beatkeeper
                 if (currentTime > startTime)
                 {
                     Hurdle newHurdle = Instantiate(a.gameObject).GetComponent<Hurdle>();
-                    StartCoroutine(KickOffHurdle(aIndex, newHurdle, aTimes, aStart, aEnd));
+                    StartCoroutine(KickOffHurdle(aIndex, newHurdle, aTimes, aStart, aEnd, aDisappearSpot));
                     aIndex++;
                 }
             }
