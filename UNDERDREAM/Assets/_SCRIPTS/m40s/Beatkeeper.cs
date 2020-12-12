@@ -73,8 +73,19 @@ public class Beatkeeper : BaseController
         {
             Data.CreateTigerSong();
         }
-        Data.GetTigerSong().time = (songSegmentStartTime);
-        Data.GetTigerSong().Play();
+
+        // if you're out of sync (maybe because this is a redo, or big slowdown), reset time to correct spot
+        if(Data.GetTigerSong().time > songSegmentStartTime + 3 ||
+            Data.GetTigerSong().time < songSegmentStartTime - 3
+            )
+        {
+            Data.GetTigerSong().time = (songSegmentStartTime);
+        }
+
+        if (!Data.GetTigerSong().isPlaying)
+        {
+            Data.GetTigerSong().Play();
+        }
     }
 
     protected IEnumerator Failure()
