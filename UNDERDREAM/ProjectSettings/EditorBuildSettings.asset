@@ -80,4 +80,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_SCENES/m45.unity
     guid: a27b6d31ae142104e80d0d62a8022d79
+  - enabled: 1
+    path: Assets/_SCENES/m46.unity
+    guid: 7982ac457ea20dd4e8f9a3fceeb0d8b3
   m_configObjects: {}

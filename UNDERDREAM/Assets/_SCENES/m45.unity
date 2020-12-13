@@ -540,7 +540,7 @@ MonoBehaviour:
   beatInputLag: 0.2
   wipeoutBuffer: 0.2
   songSegmentStartTime: 75
-  songSegmentEndTime: 86
+  songSegmentEndTime: 84
   success: {fileID: 596141229}
   mistake: {fileID: 1916536828}
   wipeout: {fileID: 2011031857}
@@ -2459,6 +2459,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8475037808990120740, guid: 171981370b55a5040a5c3f1b19c19845,
+        type: 3}
+      propertyPath: m_Name
+      value: SwingingMine
+      objectReference: {fileID: 0}
     - target: {fileID: -8106956674371620071, guid: 171981370b55a5040a5c3f1b19c19845,
         type: 3}
       propertyPath: Curve.m_Curve.Array.size
@@ -2488,11 +2493,6 @@ PrefabInstance:
         type: 3}
       propertyPath: MaxAngleMinimum
       value: 0.01
-      objectReference: {fileID: 0}
-    - target: {fileID: 8475037808990120740, guid: 171981370b55a5040a5c3f1b19c19845,
-        type: 3}
-      propertyPath: m_Name
-      value: SwingingMine
       objectReference: {fileID: 0}
     - target: {fileID: 8475037808990120737, guid: 171981370b55a5040a5c3f1b19c19845,
         type: 3}
