@@ -693,7 +693,7 @@ MonoBehaviour:
   beatInputLag: 0.3
   wipeoutBuffer: 0.2
   songSegmentStartTime: 83.5
-  songSegmentEndTime: 130
+  songSegmentEndTime: 100
   success: {fileID: 596141229}
   mistake: {fileID: 1916536828}
   wipeout: {fileID: 2011031857}
