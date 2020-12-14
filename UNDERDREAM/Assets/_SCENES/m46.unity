@@ -628,7 +628,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 204721349}
-  - component: {fileID: 204721350}
+  - component: {fileID: 204721351}
   m_Layer: 0
   m_Name: BEATKEEPER
   m_TagString: Untagged
@@ -659,10 +659,12 @@ Transform:
   - {fileID: 310424838}
   - {fileID: 889601183}
   - {fileID: 36179643}
+  - {fileID: 717737704}
+  - {fileID: 892712411}
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &204721350
+--- !u!114 &204721351
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -671,7 +673,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 204721348}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a276dcd3fa675ec4596e78d9dbd94045, type: 3}
+  m_Script: {fileID: 11500000, guid: 8e5173a55c465094abeeec2b50975000, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Data: {fileID: 11400000, guid: 030ba6bd61089974fb3f8046db4984fb, type: 2}
@@ -698,9 +700,9 @@ MonoBehaviour:
   hurdle: {fileID: 4664501907278042870, guid: e7764fe27b63bf94e944c79e1b665c7d, type: 3}
   leftEdge: {fileID: 1805978560742531091}
   rightEdge: {fileID: 1805978561827544637}
-  a: {fileID: 0}
-  aStart: {fileID: 0}
-  aEnd: {fileID: 0}
+  a: {fileID: 4664501907278042870, guid: e7764fe27b63bf94e944c79e1b665c7d, type: 3}
+  aStart: {fileID: 717737704}
+  aEnd: {fileID: 892712411}
   aDisappearSpot: {fileID: 0}
   allowedMistakes: 3
   blackout: {fileID: 310424839}
@@ -712,14 +714,15 @@ MonoBehaviour:
   - nice
   - awesome
   missShouts:
-  - OOPS
   - DANG
+  - OOPS
   - WHOOPS
   - UH-OH
   failureShouts:
-  - bummer...
-  - dang yo...
   - aw man...
+  - shucks...
+  - dang yo...
+  - bummer...
 --- !u!1 &293414551
 GameObject:
   m_ObjectHideFlags: 0
@@ -2075,6 +2078,36 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &717737703
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 717737704}
+  m_Layer: 0
+  m_Name: MoxieStart
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &717737704
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 717737703}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -35, y: -6, z: 0}
+  m_LocalScale: {x: 1, y: 33, z: 1}
+  m_Children: []
+  m_Father: {fileID: 204721349}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &783480804
 GameObject:
   m_ObjectHideFlags: 0
@@ -2386,6 +2419,36 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &892712410
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 892712411}
+  m_Layer: 0
+  m_Name: MoxieEnd
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &892712411
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 892712410}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -55, y: -6, z: 0}
+  m_LocalScale: {x: 1, y: 33, z: 1}
+  m_Children: []
+  m_Father: {fileID: 204721349}
+  m_RootOrder: 13
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &914624802
 GameObject:
   m_ObjectHideFlags: 0
@@ -5238,7 +5301,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1805978560742531094}
   m_Layer: 0
-  m_Name: RightEdge
+  m_Name: ShantyEnd
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5282,7 +5345,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1805978561827544632}
   m_Layer: 0
-  m_Name: LeftEdge
+  m_Name: ShantyStart
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

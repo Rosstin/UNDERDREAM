@@ -27,28 +27,18 @@ public class BeatkeeperM46 : Beatkeeper
                 float startTime = beatTimes[beatIndexPlayer] - beatRadiusVisualHint;
                 float endTime = beatTimes[beatIndexPlayer] + beatRadiusVisualHint;
 
-                // kick off the hurdle        
+                // kick off the hurdle  for shanty      
                 if (currentTime > startTime)
                 {
-                    Hurdle newHurdle = Instantiate(hurdle.gameObject).GetComponent<Hurdle>();
-                    StartCoroutine(KickOffHurdle(beatIndexPlayer, newHurdle, beatTimes, rightEdge.transform, leftEdge.transform));
+                    Hurdle shantyHurdle = Instantiate(hurdle.gameObject).GetComponent<Hurdle>();
+                    StartCoroutine(KickOffHurdle(beatIndexPlayer, shantyHurdle, beatTimes, rightEdge.transform, leftEdge.transform));
+
+                    Hurdle moxieHurdle = Instantiate(a.gameObject).GetComponent<Hurdle>();
+                    StartCoroutine(KickOffHurdle(beatIndexPlayer, moxieHurdle, beatTimes, aStart, aEnd));
+
                     beatIndexPlayer++;
                 }
-            }
 
-            if (aTimes.Count > 0 && aIndex < aTimes.Count)
-            {
-                // the player has to be able to see the hurdles ahead of time
-                float startTime = aTimes[aIndex] - beatRadiusVisualHint;
-                float endTime = aTimes[aIndex] + beatRadiusVisualHint;
-
-                // kick off the hurdle        
-                if (currentTime > startTime)
-                {
-                    Hurdle newHurdle = Instantiate(a.gameObject).GetComponent<Hurdle>();
-                    StartCoroutine(KickOffHurdle(aIndex, newHurdle, aTimes, aStart, aEnd, aDisappearSpot));
-                    aIndex++;
-                }
             }
         }
 
