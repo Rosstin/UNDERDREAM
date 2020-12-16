@@ -96,6 +96,11 @@ public class MaoxunM23 : BaseController
         }
     }
 
+    public void GetBonked()
+    {
+        Debug.LogWarning("bonk!");
+    }
+
     public void Update()
     {
         timeSinceLastJump += Time.deltaTime;

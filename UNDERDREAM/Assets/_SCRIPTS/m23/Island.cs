@@ -16,6 +16,7 @@ public class Island : MonoBehaviour
     [Header("Private Outlets")]
     [SerializeField] private Jitter treeJitter;
     [SerializeField] private List<Coconut> coconuts;
+    [SerializeField] private AudioSource treekickSfx;
 
     private int droppedNutIndex = 0;
     private bool readyForNextDrop = true;
@@ -27,9 +28,10 @@ public class Island : MonoBehaviour
 
     public int ShakeTree()
     {
+        treekickSfx.Play();
         int nutIndex = droppedNutIndex;
 
-        if (nutIndex >= coconuts.Count)
+        if (nutIndex >= coconuts.Count + 4)
         {
             nutIndex = 99;
         }
