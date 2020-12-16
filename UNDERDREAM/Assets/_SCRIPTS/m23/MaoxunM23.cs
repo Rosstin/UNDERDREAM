@@ -63,7 +63,7 @@ public class MaoxunM23 : BaseController
     public AudioSource NutSFX;
     public Vector3 CoconutStruckOffset;
     public Quaternion InitialRotation;
-
+    public GameObject AlbaStarsAnimation;
 
     public enum MaoxunAnimState23
     {
@@ -107,6 +107,8 @@ public class MaoxunM23 : BaseController
         base.Start();
         ActivateAnimation(MaoxunAnimState23.Idle);
 
+        AlbaStarsAnimation.gameObject.SetActive(false);
+
         InitialRotation = this.transform.rotation;
 
         this.myRigidbody.gravityScale = 0f;
@@ -149,7 +151,7 @@ public class MaoxunM23 : BaseController
 
     public void GetBonked()
     {
-        Debug.LogWarning("bonk!");
+        AlbaStarsAnimation.gameObject.SetActive(true);
         SandHitSFX.Play();
         this.myRigidbody.gravityScale = 0;
         SetMobile(false);
@@ -192,6 +194,8 @@ public class MaoxunM23 : BaseController
                     this.transform.localPosition += WiggleOffset;
                     if (numWiggles > EscapeWiggles)
                     {
+                        AlbaStarsAnimation.gameObject.SetActive(false);
+
                         currentlyFlippingOut = true;
 
                         PopOutSfx.Play();
