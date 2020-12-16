@@ -40,6 +40,31 @@ public class MaoxunM23 : BaseController
     [Header("Outer: Tree Collider")]
     [SerializeField] private Island island;
 
+    [Header("Coconut Struck Stuff")]
+    public AudioSource SandHitSFX;
+
+    [Header("Coconut Struck Stuff: Wiggle")]
+    public float WiggleCooldown;
+    public AudioSource PopOutSfx;
+    public Vector3 WiggleOffset;
+    public int EscapeWiggles;
+
+    [Header("Coconut Struck Stuff: Escape")]
+    public Vector2 EscapeForce;
+    public float EscapeTorque;
+    public float EscapeCooldown;
+
+    [Header("Coconut Struck Stuff: Nut")]
+    public Rigidbody2D Nut;
+    public BoxCollider2D NutCollider;
+    public BoxCollider2D HeadCollider;
+    public Vector3 NutForce;
+    public float NutTorque;
+    public AudioSource NutSFX;
+    public Vector3 CoconutStruckOffset;
+    public Quaternion InitialRotation;
+
+
     public enum MaoxunAnimState23
     {
         Idle,
@@ -58,6 +83,17 @@ public class MaoxunM23 : BaseController
 
     private bool kicking = false;
 
+    // related to coconut strike
+    private int numWiggles = 0;
+    private bool struckSand = false;
+    private float wiggleElapsed = 0f;
+    private float escapeElapsed = 0f;
+    private bool escaped = false;
+    private bool landed = false;
+    private bool struck = false;
+    private bool currentlyFlippingOut = false;
+
+
     public enum MoveDirection
     {
         Up,
@@ -70,6 +106,8 @@ public class MaoxunM23 : BaseController
     {
         base.Start();
         ActivateAnimation(MaoxunAnimState23.Idle);
+
+        InitialRotation = this.transform.rotation;
 
         this.myRigidbody.gravityScale = 0f;
         this.Container.SetActive(false);
@@ -96,9 +134,30 @@ public class MaoxunM23 : BaseController
         }
     }
 
+    private void SetMobile(bool mobile)
+    {
+        if (!mobile)
+        {
+            this.myRigidbody.freezeRotation = true;
+            this.myRigidbody.velocity = Vector2.zero;
+        }
+        else
+        {
+            this.myRigidbody.freezeRotation = false;
+        }
+    }
+
     public void GetBonked()
     {
         Debug.LogWarning("bonk!");
+        SandHitSFX.Play();
+        this.myRigidbody.gravityScale = 0;
+        SetMobile(false);
+        escaped = false;
+        numWiggles = 0;
+        wiggleElapsed = 0;
+        struckSand = true;
+        currentlyFlippingOut = false;
     }
 
     public void Update()
@@ -107,77 +166,132 @@ public class MaoxunM23 : BaseController
 
         BaseUpdate();
 
-        scareElapsed += Time.deltaTime;
 
-        if (!doneScared&& scareElapsed > ScareTime)
+        if (struckSand && !escaped)
         {
-            doneScared = true;
-            ScareSprite.gameObject.SetActive(false);
-            this.Container.gameObject.SetActive(true);
-            this.myRigidbody.gravityScale = 1f;
-        }
-
-        // if ur airborne and hit space, jumpkick
-        if (doneScared)
-        {
-            var didSomething = false;
-
-            if (this.myCollider.IsTouching(GroundCollider))
+            wiggleElapsed += Time.deltaTime;
+            if (
+                Input.GetKeyDown(KeyCode.Space)
+                ||
+                Input.GetKeyDown(KeyCode.LeftArrow)
+                ||
+                Input.GetKeyDown(KeyCode.RightArrow)
+                ||
+                Input.GetKeyDown(KeyCode.UpArrow)
+                ||
+                Input.GetKeyDown(KeyCode.DownArrow)
+            )
             {
-                airborne = false;
-                kicking = false;
-            }
-            else
-            {
-                didSomething = true;
-                airborne = true;
-            }
 
-            if (kicking
-                && myCollider.IsTouching(island.TreeCollider)
-                && island.IsReady()
-                )
-            {
-                int nutIndex = island.ShakeTree();
-                if(nutIndex > 7)
+                if (wiggleElapsed > WiggleCooldown)
                 {
-                    LoadNextScene();
+                    //wiggle
+                    numWiggles++;
+                    SandHitSFX.Play();
+                    wiggleElapsed = 0f;
+                    this.transform.localPosition += WiggleOffset;
+                    if (numWiggles > EscapeWiggles)
+                    {
+                        currentlyFlippingOut = true;
+
+                        PopOutSfx.Play();
+                        escaped = true;
+                        this.myRigidbody.gravityScale = 1;
+
+                        myRigidbody.AddForce(EscapeForce);
+                        myRigidbody.AddTorque(EscapeTorque);
+                    }
                 }
-                //kicking = false;
-                // push her away a little bit
+            }
+        }
+        else if (currentlyFlippingOut)
+        {
+            // wait until you land then give back control to the player and right moxie
+            if (myCollider.IsTouching(GroundCollider))
+            {
+                // right her
+                this.transform.rotation = InitialRotation;
+                SetMobile(true);
+                currentlyFlippingOut = false;
+            }
+        }
+        else
+        {
+            scareElapsed += Time.deltaTime;
+
+            if (!doneScared && scareElapsed > ScareTime)
+            {
+                doneScared = true;
+                ScareSprite.gameObject.SetActive(false);
+                this.Container.gameObject.SetActive(true);
+                this.myRigidbody.gravityScale = 1f;
             }
 
-            if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.Space))
+            // if ur airborne and hit space, jumpkick
+            if (doneScared && !currentlyFlippingOut)
             {
-                didSomething = true;
+                var didSomething = false;
 
-                if (airborne)
+                if (this.myCollider.IsTouching(GroundCollider))
                 {
-                    AttemptKick();
+                    airborne = false;
+                    kicking = false;
                 }
                 else
                 {
-                    AttemptJump();
+                    didSomething = true;
+                    airborne = true;
                 }
-            }
 
-            if (Input.GetKey(KeyCode.LeftArrow))
-            {
-                didSomething = true;
-                UpdateMoveLeftRight(MoveDirection.Left);
-            }
-            else if (Input.GetKey(KeyCode.RightArrow))
-            {
-                didSomething = true;
-                UpdateMoveLeftRight(MoveDirection.Right);
-            }
+                if (kicking
+                    && myCollider.IsTouching(island.TreeCollider)
+                    && island.IsReady()
+                    )
+                {
+                    int nutIndex = island.ShakeTree();
+                    if (nutIndex > 7)
+                    {
+                        LoadNextScene();
+                    }
+                    //kicking = false;
+                    // push her away a little bit
+                }
 
-            if (!didSomething)
-            {
-                UpdateIdle();
-            }
+                if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.Space))
+                {
+                    didSomething = true;
 
+                    if (airborne)
+                    {
+                        AttemptKick();
+                    }
+                    else
+                    {
+                        AttemptJump();
+                    }
+                }
+
+                if (Input.GetKey(KeyCode.LeftArrow))
+                {
+                    didSomething = true;
+                    UpdateMoveLeftRight(MoveDirection.Left);
+                }
+                else if (Input.GetKey(KeyCode.RightArrow))
+                {
+                    didSomething = true;
+                    UpdateMoveLeftRight(MoveDirection.Right);
+                }
+
+                if (!didSomething)
+                {
+                    UpdateIdle();
+                }
+
+            }
         }
+
+
+
 
     }
 
