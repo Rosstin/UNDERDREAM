@@ -17,6 +17,8 @@ public class GameController : BaseController
     [SerializeField] [Range(1f, 9f)] private float speedMetersPerSecond;
     [SerializeField] private float jumpForceUp;
     [SerializeField] [Range(0f, 0.0009f)] private float jumpForceForward;
+    [SerializeField] private float jumpCooldown;
+    [SerializeField] private float jumpSpeedMargin;
 
     [Header("Outlets: Container")]
     [SerializeField] private GameObject Container;
@@ -31,11 +33,12 @@ public class GameController : BaseController
 
     [Header("Outlets: Bounds")]
     [SerializeField] private Transform Feet;
-    [SerializeField] private Collider Ground;
+    [SerializeField] private BoxCollider2D Ground;
+    [SerializeField] private Transform GroundY;
 
     [Header("Outlets: Components")]
-    [SerializeField] private Rigidbody myRigidbody;
-    [SerializeField] private Collider myCollider;
+    [SerializeField] private Rigidbody2D myRigidbody;
+    [SerializeField] private BoxCollider2D myCollider;
 
     [Header("Outlets: SFX")]
     [SerializeField] private AudioSource hangrySFX;
@@ -56,6 +59,8 @@ public class GameController : BaseController
     private bool hangry = false;
     private float currentHunger;
     private float hangryTime = 0f;
+
+    private float timeSinceLastJump = 0f;
 
     public enum MoveDirection
     {
@@ -101,6 +106,8 @@ public class GameController : BaseController
         UpdateGravity();
 
         UpdateHunger();
+
+        timeSinceLastJump += Time.deltaTime;
 
 
         if (!hangry)
@@ -183,19 +190,16 @@ public class GameController : BaseController
 
     private void UpdateGravity()
     {
-        if (Ground.Raycast(new Ray(Feet.position, Vector3.down), out RaycastHit hit, MAX_RAY_DISTANCE))
-        {
-            distanceToGround = hit.distance;
-        }
-        else {
-            distanceToGround = 999f;
-        }
+            distanceToGround = Feet.position.y - GroundY.position.y;
     }
 
     private void UpdateJump()
     {
-        if (distanceToGround < GROUND_ERROR)
+        if ( timeSinceLastJump > jumpCooldown
+        && Mathf.Abs(this.myRigidbody.velocity.y) < jumpSpeedMargin 
+        )
         {
+            timeSinceLastJump = 0f;
             ImpartJumpForce();
         }
     }
@@ -203,7 +207,7 @@ public class GameController : BaseController
     private void ImpartJumpForce()
     {
         boingSfx.Play();
-        this.myRigidbody.AddForce(new Vector3(-jumpForceForward, jumpForceUp, 0f), ForceMode.Impulse);
+        this.myRigidbody.AddForce(new Vector3(-jumpForceForward, jumpForceUp, 0f), ForceMode2D.Impulse);
     }
 
     private void UpdateMoveLeftRight(MoveDirection direction)
