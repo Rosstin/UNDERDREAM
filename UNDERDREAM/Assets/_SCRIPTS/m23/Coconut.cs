@@ -13,6 +13,11 @@ public class Coconut : MonoBehaviour
     [SerializeField] private float TravelDuration;
     [SerializeField] private MaoxunM23 Moxie;
 
+    [Header("After Bonk")]
+    public float AfterBonkTorque;
+    public Vector2 AfterBonkForce;
+
+
     private Vector3 initPos;
 
     private void Start()
@@ -28,12 +33,6 @@ public class Coconut : MonoBehaviour
         // home in on moxie's head, when you hit it, knock her into the sand
         initPos = this.transform.position;
         StartCoroutine(BonkMoxie(initPos, MoxieHead));
-
-
-
-
-
-
     }
 
     private IEnumerator BonkMoxie(Vector3 start, Transform end)
@@ -54,6 +53,13 @@ public class Coconut : MonoBehaviour
 
             yield return 0;
         }
+
+        rb.AddForce(AfterBonkForce);
+        rb.AddTorque(AfterBonkTorque);
+        rb.gravityScale = 1f;
+
+
+        // after you hit moxie, apply force and go flying to the right
     }
 
 }

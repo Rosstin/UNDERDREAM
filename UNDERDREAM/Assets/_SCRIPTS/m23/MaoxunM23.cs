@@ -219,6 +219,7 @@ public class MaoxunM23 : BaseController
                         this.myRigidbody.gravityScale = 1;
 
                         // enable this in a little bit
+                        ActivateAnimation(MaoxunAnimState23.Idle);
                         StartCoroutine(EnableMyColliderInABit());
 
                         myRigidbody.AddForce(EscapeForce);
@@ -272,7 +273,7 @@ public class MaoxunM23 : BaseController
                     )
                 {
                     int nutIndex = island.ShakeTree();
-                    if (nutIndex > 7)
+                    if (nutIndex > 5)
                     {
                         LoadNextScene();
                     }

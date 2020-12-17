@@ -31,7 +31,7 @@ public class Island : MonoBehaviour
         treekickSfx.Play();
         int nutIndex = droppedNutIndex;
 
-        if (nutIndex >= coconuts.Count + 4)
+        if (nutIndex >= coconuts.Count)
         {
             nutIndex = 99;
         }

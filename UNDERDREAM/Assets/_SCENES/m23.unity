@@ -2540,7 +2540,7 @@ PrefabInstance:
     - target: {fileID: 4568369436831416366, guid: 196cca1e5be67a348a2c0e0aab58a906,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.52
+      value: 1.24
       objectReference: {fileID: 0}
     - target: {fileID: 4568369436831416366, guid: 196cca1e5be67a348a2c0e0aab58a906,
         type: 3}
@@ -3007,6 +3007,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 249535381117784104, guid: 9b7ed2f3c8d888c45958d17f12ec639b,
         type: 3}
+      propertyPath: AfterBonkTorque
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 249535381117784104, guid: 9b7ed2f3c8d888c45958d17f12ec639b,
+        type: 3}
+      propertyPath: AfterBonkForce.x
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 249535381117784104, guid: 9b7ed2f3c8d888c45958d17f12ec639b,
+        type: 3}
+      propertyPath: AfterBonkForce.y
+      value: 350
+      objectReference: {fileID: 0}
+    - target: {fileID: 249535381117784104, guid: 9b7ed2f3c8d888c45958d17f12ec639b,
+        type: 3}
       propertyPath: TravelCurve.m_Curve.Array.size
       value: 2
       objectReference: {fileID: 0}
@@ -3055,6 +3070,11 @@ PrefabInstance:
       propertyPath: m_IsTrigger
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 448382243799196109, guid: 9b7ed2f3c8d888c45958d17f12ec639b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 553578460296449526, guid: 9b7ed2f3c8d888c45958d17f12ec639b,
         type: 3}
       propertyPath: m_Size.x
@@ -3069,6 +3089,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsTrigger
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 655652689052221014, guid: 9b7ed2f3c8d888c45958d17f12ec639b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 730205306448756524, guid: 9b7ed2f3c8d888c45958d17f12ec639b,
         type: 3}
@@ -3099,6 +3124,21 @@ PrefabInstance:
         type: 3}
       propertyPath: TravelDuration
       value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2360144318415132230, guid: 9b7ed2f3c8d888c45958d17f12ec639b,
+        type: 3}
+      propertyPath: AfterBonkTorque
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2360144318415132230, guid: 9b7ed2f3c8d888c45958d17f12ec639b,
+        type: 3}
+      propertyPath: AfterBonkForce.x
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 2360144318415132230, guid: 9b7ed2f3c8d888c45958d17f12ec639b,
+        type: 3}
+      propertyPath: AfterBonkForce.y
+      value: 350
       objectReference: {fileID: 0}
     - target: {fileID: 2360144318415132230, guid: 9b7ed2f3c8d888c45958d17f12ec639b,
         type: 3}
@@ -3179,6 +3219,21 @@ PrefabInstance:
         type: 3}
       propertyPath: TravelDuration
       value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3451307354416593552, guid: 9b7ed2f3c8d888c45958d17f12ec639b,
+        type: 3}
+      propertyPath: AfterBonkTorque
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3451307354416593552, guid: 9b7ed2f3c8d888c45958d17f12ec639b,
+        type: 3}
+      propertyPath: AfterBonkForce.x
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 3451307354416593552, guid: 9b7ed2f3c8d888c45958d17f12ec639b,
+        type: 3}
+      propertyPath: AfterBonkForce.y
+      value: 350
       objectReference: {fileID: 0}
     - target: {fileID: 3451307354416593552, guid: 9b7ed2f3c8d888c45958d17f12ec639b,
         type: 3}
@@ -3334,6 +3389,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_RootOrder
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6548812426929075315, guid: 9b7ed2f3c8d888c45958d17f12ec639b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 7234093614957223253, guid: 9b7ed2f3c8d888c45958d17f12ec639b,
         type: 3}
