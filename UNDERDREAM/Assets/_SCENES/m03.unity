@@ -924,7 +924,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 596281978}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -7.28, y: 2, z: 0.5}
+  m_LocalPosition: {x: 12.87, y: 4.26, z: 0.5}
   m_LocalScale: {x: 4, y: 4, z: 4}
   m_Children:
   - {fileID: 423293041}
@@ -2458,6 +2458,11 @@ PrefabInstance:
       propertyPath: textLine
       value: 
       objectReference: {fileID: 535593151}
+    - target: {fileID: 3473917090214250920, guid: 1871af833db6f73459b1efc983f81a76,
+        type: 3}
+      propertyPath: JitterPeriod
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 3473917090214250920, guid: 1871af833db6f73459b1efc983f81a76,
         type: 3}
       propertyPath: shoutDuration
