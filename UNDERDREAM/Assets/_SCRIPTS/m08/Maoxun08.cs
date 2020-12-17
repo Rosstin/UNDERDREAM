@@ -10,7 +10,7 @@ public class Maoxun08 : BaseController
     [SerializeField] private AudioSource snatchSFX;
 
     [Header("Movement")]
-    [SerializeField] [Range(0.0001f, 0.0009f)] private float speedMetersPerSecond;
+    [SerializeField] [Range(1f, 9f)] private float speedMetersPerSecond;
     [SerializeField] private float jumpForceUp;
     [SerializeField] [Range(0f, 0.0009f)] private float jumpForceForward;
     [SerializeField] private float jumpCooldown;
@@ -168,7 +168,7 @@ public class Maoxun08 : BaseController
 
         this.transform.localPosition
             = new Vector3(
-            this.transform.localPosition.x + (sign * speedMetersPerSecond) / Time.deltaTime,
+            this.transform.localPosition.x + (sign * speedMetersPerSecond) * Time.deltaTime,
             this.transform.localPosition.y,
             this.transform.localPosition.z
             );
