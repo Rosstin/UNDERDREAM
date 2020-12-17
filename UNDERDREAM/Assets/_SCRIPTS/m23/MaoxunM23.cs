@@ -68,6 +68,9 @@ public class MaoxunM23 : BaseController
     public Quaternion InitialRotation;
     public GameObject AlbaStarsAnimation;
 
+    [Header("Ball Stuff")]
+    public BeachBall Ball;
+
     public enum MaoxunAnimState23
     {
         Idle,
@@ -275,7 +278,10 @@ public class MaoxunM23 : BaseController
                     int nutIndex = island.ShakeTree();
                     if (nutIndex > 5)
                     {
-                        LoadNextScene();
+                        Ball.Release();
+                        // drop the ball
+                        // add gravity, give it some force 
+                        //LoadNextScene();
                     }
                     //kicking = false;
                     // push her away a little bit
