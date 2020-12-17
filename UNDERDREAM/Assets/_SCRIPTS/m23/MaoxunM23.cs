@@ -42,6 +42,9 @@ public class MaoxunM23 : BaseController
 
     [Header("Coconut Struck Stuff")]
     public AudioSource SandHitSFX;
+    public GameObject BonkedMoxie;
+    public GameObject Sandpile;
+    public Transform BonkedLocation;
 
     [Header("Coconut Struck Stuff: Wiggle")]
     public float WiggleCooldown;
@@ -106,6 +109,8 @@ public class MaoxunM23 : BaseController
     {
         base.Start();
         ActivateAnimation(MaoxunAnimState23.Idle);
+        BonkedMoxie.SetActive(false);
+        Sandpile.SetActive(false);
 
         AlbaStarsAnimation.gameObject.SetActive(false);
 
@@ -160,6 +165,13 @@ public class MaoxunM23 : BaseController
         wiggleElapsed = 0;
         struckSand = true;
         currentlyFlippingOut = false;
+
+        this.myCollider.enabled = false;
+        Container.gameObject.SetActive(false);
+        Sandpile.gameObject.SetActive(true);
+        BonkedMoxie.gameObject.SetActive(true);
+
+        this.gameObject.transform.position = BonkedLocation.transform.position;
     }
 
     public void Update()
@@ -194,6 +206,10 @@ public class MaoxunM23 : BaseController
                     this.transform.localPosition += WiggleOffset;
                     if (numWiggles > EscapeWiggles)
                     {
+                        Container.gameObject.SetActive(true);
+                        BonkedMoxie.SetActive(false);
+                        Sandpile.SetActive(false);
+
                         AlbaStarsAnimation.gameObject.SetActive(false);
 
                         currentlyFlippingOut = true;
@@ -201,6 +217,9 @@ public class MaoxunM23 : BaseController
                         PopOutSfx.Play();
                         escaped = true;
                         this.myRigidbody.gravityScale = 1;
+
+                        // enable this in a little bit
+                        StartCoroutine(EnableMyColliderInABit());
 
                         myRigidbody.AddForce(EscapeForce);
                         myRigidbody.AddTorque(EscapeTorque);
@@ -297,6 +316,12 @@ public class MaoxunM23 : BaseController
 
 
 
+    }
+
+    private IEnumerator EnableMyColliderInABit()
+    {
+        yield return new WaitForSeconds(0.5f);
+        this.myCollider.enabled = true;
     }
 
     private void UpdateIdle()
