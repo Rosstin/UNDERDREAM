@@ -15,9 +15,13 @@ public class BeachBall : MonoBehaviour
 
     [Header("Shanty")]
     public BoxCollider2D ShantyCollider;
+    public ShantyM23 Shanty;
 
     [Header("Moxie")]
     public MaoxunM23 Moxie;
+
+    [Header("Caught Pos")]
+    public Transform CaughtPos;
 
     public void Release()
     {
@@ -37,7 +41,14 @@ public class BeachBall : MonoBehaviour
     {
         if (this.col.IsTouching(ShantyCollider))
         {
-            Moxie.LoadNextScene();
+            Shanty.GetBall();
+            this.transform.position = CaughtPos.position;
+            this.rb.freezeRotation = true;
+            this.rb.gravityScale = 0f;
+            this.col.enabled = false;
+            this.rb.velocity = Vector2.zero;
+
+            //Moxie.LoadNextScene();
         }
     }
     

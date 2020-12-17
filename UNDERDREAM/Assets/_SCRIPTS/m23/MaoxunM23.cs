@@ -98,7 +98,7 @@ public class MaoxunM23 : BaseController
     private bool landed = false;
     private bool struck = false;
     private bool currentlyFlippingOut = false;
-
+    private bool released;
 
     public enum MoveDirection
     {
@@ -276,11 +276,10 @@ public class MaoxunM23 : BaseController
                     )
                 {
                     int nutIndex = island.ShakeTree();
-                    if (nutIndex > 5)
+                    if (nutIndex > 5 && !released)
                     {
+                        released = true;
                         Ball.Release();
-                        // drop the ball
-                        // add gravity, give it some force 
                         //LoadNextScene();
                     }
                     //kicking = false;

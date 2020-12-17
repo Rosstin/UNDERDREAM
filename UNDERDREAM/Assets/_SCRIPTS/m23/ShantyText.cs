@@ -24,11 +24,17 @@ public class ShantyText : MonoBehaviour
     public Vector3 Jitter;
     public float JitterPeriod;
 
+    private bool looped=false;
+
     private float jitterElapsed = 0f;
     private float elapsed = 0f;
     private int currentShout = -1;
 
     private Vector3 startingPosition;
+
+    public bool IsFinished() {
+        return looped;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -62,6 +68,7 @@ public class ShantyText : MonoBehaviour
             if (currentShout >= Shouts.Count)
             {
                 currentShout = 0;
+                looped = true;
             }
 
             // big short text like HI!
