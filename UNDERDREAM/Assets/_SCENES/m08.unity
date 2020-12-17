@@ -2842,6 +2842,7 @@ GameObject:
   - component: {fileID: 2069301082}
   - component: {fileID: 2069301081}
   - component: {fileID: 2069301083}
+  - component: {fileID: 2069301084}
   m_Layer: 11
   m_Name: biglemon
   m_TagString: Untagged
@@ -2983,6 +2984,22 @@ MonoBehaviour:
   Boing1Prob: 0.2
   VelocityThreshold: 0.02
   StartBoingTime: 0.02
+--- !u!58 &2069301084
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2069301078}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 5.08
 --- !u!82 &2117589933 stripped
 AudioSource:
   m_CorrespondingSourceObject: {fileID: 7849256932834824651, guid: 0bc2e91b7b0343e44a51bcd9ec5fabce,
@@ -3289,7 +3306,7 @@ PrefabInstance:
         type: 3}
       propertyPath: Target
       value: 
-      objectReference: {fileID: 2069301081}
+      objectReference: {fileID: 2069301084}
     - target: {fileID: 71993835245748742, guid: a2074674f0af276479bb25ebead286be,
         type: 3}
       propertyPath: Container

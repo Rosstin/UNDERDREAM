@@ -23,7 +23,7 @@ public class Maoxun08 : BaseController
     [SerializeField] private GameObject WalkAnimation;
 
     [Header("Outlets: Bounds")]
-    [SerializeField] private BoxCollider2D Target;
+    [SerializeField] private CircleCollider2D Target;
 
     [Header("Outlets: Components")]
     [SerializeField] private Rigidbody2D myRigidbody;
