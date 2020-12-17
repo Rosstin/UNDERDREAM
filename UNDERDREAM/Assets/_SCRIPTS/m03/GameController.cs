@@ -203,7 +203,7 @@ public class GameController : BaseController
     private void ImpartJumpForce()
     {
         boingSfx.Play();
-        this.myRigidbody.AddForce(new Vector3(-jumpForceForward, jumpForceUp, 0f));
+        this.myRigidbody.AddForce(new Vector3(-jumpForceForward, jumpForceUp, 0f), ForceMode.Impulse);
     }
 
     private void UpdateMoveLeftRight(MoveDirection direction)
