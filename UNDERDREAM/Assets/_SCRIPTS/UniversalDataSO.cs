@@ -16,12 +16,15 @@ public class UniversalDataSO : ScriptableObject
     [Header("Loading Cooldown")]
     public float LoadingCooldown = 0.1f; // if a scene attempts loading multiple times, ignore it until at least this much time has passed
 
-    [Header("Tiger Song")]
+    [Header("Songs")]
     [SerializeField] private AudioSource TigerSongPrefab;
+    [SerializeField] private AudioSource SabreSongPrefab;
 
     private AudioSource tigerSongInstance = null;
-
     public AudioSource GetTigerSong() { return tigerSongInstance; }
+
+    private AudioSource sabreSongInstance;
+    public AudioSource GetSabreSong() { return sabreSongInstance; }
 
     public bool TigerSongExists()
     {
@@ -38,6 +41,23 @@ public class UniversalDataSO : ScriptableObject
     {
         Destroy(tigerSongInstance);
         tigerSongInstance = null;
+    }
+
+    public bool SabreSongExists()
+    {
+        return sabreSongInstance != null;
+    }
+
+    public void CreateSabreSong()
+    {
+        sabreSongInstance = Instantiate(SabreSongPrefab.gameObject).GetComponent<AudioSource>();
+        DontDestroyOnLoad(sabreSongInstance);
+    }
+
+    public void DestroySabreSong()
+    {
+        Destroy(sabreSongInstance);
+        sabreSongInstance = null;
     }
 
 

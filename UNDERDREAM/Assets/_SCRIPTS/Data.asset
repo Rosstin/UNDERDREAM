@@ -117,3 +117,5 @@ MonoBehaviour:
   LoadingCooldown: 0.1
   TigerSongPrefab: {fileID: 2563527177453090825, guid: 8e281106705802b4fb147e8e9576b032,
     type: 3}
+  SabreSongPrefab: {fileID: 878262542675754527, guid: 861b4474d1c50bf409be79dc229365c8,
+    type: 3}
