@@ -4331,6 +4331,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Data: {fileID: 11400000, guid: 030ba6bd61089974fb3f8046db4984fb, type: 2}
+  mineTimes:
+  - 7.85
+  - 8.5
+  - 9.2
+  - 9.8
+  cannonTimes:
+  - 12
+  - 13.3
 --- !u!1001 &1470175003
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7003,10 +7011,20 @@ PrefabInstance:
       propertyPath: m_LocalScale.x
       value: -0.8333333
       objectReference: {fileID: 0}
+    - target: {fileID: 4090669892351656414, guid: 928c10ae9727e3a46a85bfa8538d4c5b,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.65
+      objectReference: {fileID: 0}
     - target: {fileID: 4090669894142225829, guid: 928c10ae9727e3a46a85bfa8538d4c5b,
         type: 3}
       propertyPath: m_LocalScale.x
       value: -0.8333333
+      objectReference: {fileID: 0}
+    - target: {fileID: 4090669894142225829, guid: 928c10ae9727e3a46a85bfa8538d4c5b,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 3.37
       objectReference: {fileID: 0}
     - target: {fileID: 4090669894142225834, guid: 928c10ae9727e3a46a85bfa8538d4c5b,
         type: 3}
