@@ -15,6 +15,9 @@ public class SternShipM70 : MonoBehaviour
     public float SternForwardPeriod;
     public BoxCollider2D SternCollider;
 
+    [Header("Ship Jump")]
+    public Vector2 JumpForce;
+
     [Header("Main Camera Jitter Outlet")]
     public Jitter CamJitter;
 
@@ -59,6 +62,8 @@ public class SternShipM70 : MonoBehaviour
 
     private void Start()
     {
+        FrontCannon.MyAnimator.speed = 2f;
+        BackCannon.MyAnimator.speed = 2f;
         sternInitialLocalPos = SternBody.transform.localPosition;
 
         currentKnockback = CannonFireEffectOnStern;
@@ -97,10 +102,46 @@ public class SternShipM70 : MonoBehaviour
 
         if (updateVelocity)
         {
-            MyRigidbody.velocity = currentV;
+            MyRigidbody.velocity = new Vector2(currentV.x, MyRigidbody.velocity.y);
         }
 
     }
+
+    public void Jump()
+    {
+        StartCoroutine(JumpCoroutine());
+    }
+
+    private IEnumerator JumpCoroutine()
+    {
+        updateVelocity = false;
+        MyRigidbody.AddForce(JumpForce);
+        yield return new WaitForSeconds(0.2f);
+        updateVelocity = true;
+    }
+
+    /*
+    private IEnumerator JumpCoroutine()
+    {
+    float animTime = 0f;
+    while (animTime < jumpDuration)
+    {
+        animTime += Time.deltaTime;
+        float upProgress = jumpCurve.Evaluate(animTime / jumpDuration);
+        this.transform.position = Vector3.Lerp(startPosition.position, upPosition.position, upProgress);
+        yield return 0;
+    }
+    yield return new WaitForSeconds(hangTime);
+    animTime = 0f;
+    while (animTime < jumpDuration)
+    {
+        animTime += Time.deltaTime;
+        float downProg = jumpCurve.Evaluate(animTime / jumpDuration);
+        this.transform.position = Vector3.Lerp(upPosition.position, startPosition.position, downProg);
+        yield return 0;
+    }
+    }
+    */
 
     public void FireFrontCannon()
     {

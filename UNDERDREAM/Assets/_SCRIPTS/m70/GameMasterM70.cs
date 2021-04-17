@@ -8,14 +8,17 @@ public class GameMasterM70 : MonoBehaviour
 
     [Header("Timing")]
     [SerializeField] protected List<float> mineTimes;
-    [SerializeField] protected List<float> cannonTimes;
+    [SerializeField] protected List<float> frontCannonTimes;
+    [SerializeField] protected List<float> backCannonTimes;
+    [SerializeField] public float timeItTakesCannonsToFire;
 
     [Header("Outlets")]
     [SerializeField]
     private SternShipM70 ship;
 
     private int mineTimeIndex = 0;
-    private int cannonTimeIndex = 0;
+    private int frontCannonTimeIndex = 0;
+    private int backCannonTimeIndex = 0;
 
     private float elapsed = 0f;
 
@@ -40,18 +43,28 @@ public class GameMasterM70 : MonoBehaviour
         {
             if(currentTime > mineTimes[mineTimeIndex])
             {
-                ship.FireBackCannon();
+                ship.Jump();
                 mineTimeIndex++;
             }
         }
 
-        if(cannonTimeIndex < cannonTimes.Count)
+        if(frontCannonTimeIndex < frontCannonTimes.Count)
         {
-            if(currentTime > cannonTimes[cannonTimeIndex])
+            if(currentTime > frontCannonTimes[frontCannonTimeIndex]-timeItTakesCannonsToFire)
             {
                 ship.FireFrontCannon();
-                cannonTimeIndex++;
+                frontCannonTimeIndex++;
             }
         }
+
+        if (backCannonTimeIndex < backCannonTimes.Count)
+        {
+            if (currentTime > backCannonTimes[backCannonTimeIndex]-timeItTakesCannonsToFire)
+            {
+                ship.FireBackCannon();
+                backCannonTimeIndex++;
+            }
+        }
+
     }
 }

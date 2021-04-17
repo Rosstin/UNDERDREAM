@@ -4184,9 +4184,29 @@ MonoBehaviour:
   - 8.5
   - 9.2
   - 9.8
-  cannonTimes:
+  - 16.9
+  - 17.5
+  - 18.3
+  - 18.9
+  - 28.7
+  - 29.2
+  - 30
+  - 30.6
+  frontCannonTimes:
   - 12
   - 13.3
+  - 21.1
+  - 22.4
+  - 32.8
+  - 34.2
+  backCannonTimes:
+  - 12.3
+  - 13.6
+  - 21.4
+  - 22.7
+  - 33.1
+  - 34.5
+  timeItTakesCannonsToFire: 1
   ship: {fileID: 1766585133}
 --- !u!1001 &1470175003
 PrefabInstance:
@@ -6681,6 +6701,11 @@ PrefabInstance:
       propertyPath: CamJitter
       value: 
       objectReference: {fileID: 1834884505}
+    - target: {fileID: 2300088057941731170, guid: 6c312706e8cf77147a9159c3470abdc9,
+        type: 3}
+      propertyPath: m_GravityScale
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8399035577871651003, guid: 6c312706e8cf77147a9159c3470abdc9,
         type: 3}
       propertyPath: CamJitter
@@ -6703,9 +6728,24 @@ PrefabInstance:
       objectReference: {fileID: 2052687247609978646}
     - target: {fileID: 8399035577871651003, guid: 6c312706e8cf77147a9159c3470abdc9,
         type: 3}
+      propertyPath: JumpForce.x
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 8399035577871651003, guid: 6c312706e8cf77147a9159c3470abdc9,
+        type: 3}
+      propertyPath: JumpForce.y
+      value: 250
+      objectReference: {fileID: 0}
+    - target: {fileID: 8399035577871651003, guid: 6c312706e8cf77147a9159c3470abdc9,
+        type: 3}
       propertyPath: SternCollider
       value: 
       objectReference: {fileID: 2052687247609978643}
+    - target: {fileID: 8399035577871651003, guid: 6c312706e8cf77147a9159c3470abdc9,
+        type: 3}
+      propertyPath: BoatVelocity.x
+      value: -0.3
+      objectReference: {fileID: 0}
     - target: {fileID: 8399035577871651003, guid: 6c312706e8cf77147a9159c3470abdc9,
         type: 3}
       propertyPath: SternRisePeriod
@@ -6721,6 +6761,11 @@ PrefabInstance:
       propertyPath: SternRiseDestination
       value: 
       objectReference: {fileID: 2052687247609978645}
+    - target: {fileID: 8399035577871651003, guid: 6c312706e8cf77147a9159c3470abdc9,
+        type: 3}
+      propertyPath: CannonFireEffectOnStern.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8399035577871651003, guid: 6c312706e8cf77147a9159c3470abdc9,
         type: 3}
       propertyPath: SternRiseCurve.m_Curve.Array.size
@@ -6759,7 +6804,7 @@ PrefabInstance:
     - target: {fileID: 9104745907626449985, guid: 6c312706e8cf77147a9159c3470abdc9,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.47
+      value: 4.94
       objectReference: {fileID: 0}
     - target: {fileID: 9104745907626449985, guid: 6c312706e8cf77147a9159c3470abdc9,
         type: 3}
