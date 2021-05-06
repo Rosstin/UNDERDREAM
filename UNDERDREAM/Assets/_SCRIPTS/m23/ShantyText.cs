@@ -32,6 +32,8 @@ public class ShantyText : MonoBehaviour
 
     private Vector3 startingPosition;
 
+    public int CurrentShout => currentShout;
+
     public bool IsFinished() {
         return looped;
     }

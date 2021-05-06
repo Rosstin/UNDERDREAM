@@ -12,9 +12,6 @@ public class MaoxunM23 : BaseController
     [Header("Outlets")]
     public BoxCollider2D GroundCollider;
 
-    [Header("Goal")]
-    [SerializeField] private AudioSource snatchSFX;
-
     [Header("Movement")]
     [SerializeField] [Range(1f, 9f)] private float speedMetersPerSecond;
     [SerializeField] private float jumpForceUp;
@@ -36,6 +33,7 @@ public class MaoxunM23 : BaseController
     [Header("Outlets: Components")]
     [SerializeField] private Rigidbody2D myRigidbody;
     [SerializeField] private BoxCollider2D myCollider;
+    [SerializeField] private BoxCollider2D footCollider;
 
     [Header("Outer: Tree Collider")]
     [SerializeField] private Island island;
@@ -58,18 +56,25 @@ public class MaoxunM23 : BaseController
     public float EscapeCooldown;
 
     [Header("Coconut Struck Stuff: Nut")]
-    public Rigidbody2D Nut;
-    public BoxCollider2D NutCollider;
-    public BoxCollider2D HeadCollider;
-    public Vector3 NutForce;
-    public float NutTorque;
-    public AudioSource NutSFX;
-    public Vector3 CoconutStruckOffset;
     public Quaternion InitialRotation;
     public GameObject AlbaStarsAnimation;
 
     [Header("Ball Stuff")]
     public BeachBall Ball;
+
+    [Header("Part Two")]
+    public Transform PartTwoHorizontalPosition;
+    public float PartTwoJumpForceUp;
+    public BoxCollider2D TreeCollider;
+    public BoxCollider2D YesCollider;
+    public BoxCollider2D NoCollider;
+
+    [Header("Part Three")]
+    public Camera YesCamera;
+    public Camera NoCamera;
+    public Camera Cam1;
+    public Camera Cam2;
+    public AudioSource CannonSfx;
 
     public enum MaoxunAnimState23
     {
@@ -100,12 +105,47 @@ public class MaoxunM23 : BaseController
     private bool currentlyFlippingOut = false;
     private bool released;
 
+    private bool part2 = false;
+    private bool part3 = false;
+
     public enum MoveDirection
     {
         Up,
         Down,
         Left,
         Right
+    }
+
+    public void StartYes()
+    {
+        part3 = true;
+        Time.timeScale = 0.1f;
+        CannonSfx.Play();
+        YesCamera.gameObject.SetActive(true);
+    NoCamera.gameObject.SetActive(false); 
+     Cam1.gameObject.SetActive(false); 
+    Cam2.gameObject.SetActive(false); 
+
+}
+
+public void StartNo()
+    {
+        part3 = true;
+        Time.timeScale = 0.1f;
+        CannonSfx.Play();
+        YesCamera.gameObject.SetActive(false);
+        NoCamera.gameObject.SetActive(true);
+        Cam1.gameObject.SetActive(false);
+        Cam2.gameObject.SetActive(false);
+    }
+
+    public void StartPart2()
+    {
+        part2 = true;
+        speedMetersPerSecond = 0f;
+        this.transform.position = new Vector3(PartTwoHorizontalPosition.position.x, this.transform.position.y, this.transform.position.z);
+        jumpForceUp = PartTwoJumpForceUp;
+        TreeCollider.enabled = false;
     }
 
     private new void Start()
@@ -136,7 +176,10 @@ public class MaoxunM23 : BaseController
                 IdleAnimation.SetActive(true);
                 break;
             case MaoxunAnimState23.Walk:
-                WalkAnimation.SetActive(true);
+                if(!part2)
+                    WalkAnimation.SetActive(true);
+                else
+                    IdleAnimation.SetActive(true);
                 break;
             case MaoxunAnimState23.JumpKick:
                 JumpKickAnimation.SetActive(true);
@@ -271,7 +314,7 @@ public class MaoxunM23 : BaseController
                 }
 
                 if (kicking
-                    && myCollider.IsTouching(island.TreeCollider)
+                    && footCollider.IsTouching(island.TreeCollider)
                     && island.IsReady()
                     )
                 {
@@ -284,6 +327,14 @@ public class MaoxunM23 : BaseController
                     }
                     //kicking = false;
                     // push her away a little bit
+                }
+
+                if(!part3 &&part2 && kicking && footCollider.IsTouching(YesCollider))
+                {
+                    StartYes();
+                }else if(!part3 &&part2 && kicking && footCollider.IsTouching(NoCollider))
+                {
+                    StartNo();
                 }
 
                 if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.Space))
