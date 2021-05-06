@@ -282,7 +282,7 @@ GameObject:
   - component: {fileID: 205352248}
   - component: {fileID: 205352247}
   m_Layer: 0
-  m_Name: armmask
+  m_Name: feetmask
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -349,7 +349,7 @@ Transform:
   m_LocalScale: {x: 3.032163, y: 2.5816185, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 18
+  m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &224207127
 GameObject:
@@ -407,7 +407,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -542086105
-  m_SortingLayer: 26
+  m_SortingLayer: 28
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 03dcc843a1a65184fb495a9fc3bbc0c5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -433,7 +433,7 @@ Transform:
   m_Children:
   - {fileID: 238274492}
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -28.44}
 --- !u!61 &224207130
 BoxCollider2D:
@@ -478,6 +478,8 @@ MonoBehaviour:
   CaughtSFX: {fileID: 238274491}
   P1Text: {fileID: 1300416977}
   P2Text: {fileID: 1642245448}
+  Cam1: {fileID: 1540311992}
+  Cam2: {fileID: 1834884503}
   Moxie: {fileID: 21890936}
 --- !u!1 &238274490
 GameObject:
@@ -670,7 +672,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &559013828
 GameObject:
@@ -1029,7 +1031,7 @@ Transform:
   m_Children:
   - {fileID: 2063769339}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1052972246 stripped
 Transform:
@@ -1117,7 +1119,7 @@ Transform:
   m_LocalScale: {x: 0.375, y: 0.375, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1092173503
 MonoBehaviour:
@@ -1298,7 +1300,7 @@ Transform:
   m_Children:
   - {fileID: 742308704}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1170044440
 GameObject:
@@ -1413,7 +1415,7 @@ Transform:
   m_LocalScale: {x: 0.45, y: 0.45, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!58 &1177524142
 CircleCollider2D:
@@ -1490,7 +1492,7 @@ GameObject:
   - component: {fileID: 1286841811}
   - component: {fileID: 1286841810}
   m_Layer: 0
-  m_Name: violin-scare
+  m_Name: violin-scare-SFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1604,7 +1606,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1300416977 stripped
 MonoBehaviour:
@@ -1929,7 +1931,90 @@ Transform:
   m_LocalScale: {x: 0.2, y: 0.2, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_RootOrder: 18
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1540311990
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1540311993}
+  - component: {fileID: 1540311992}
+  - component: {fileID: 1540311991}
+  m_Layer: 0
+  m_Name: Cam1
+  m_TagString: MainCamera
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!81 &1540311991
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1540311990}
+  m_Enabled: 1
+--- !u!20 &1540311992
+Camera:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1540311990}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_ClearFlags: 1
+  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_projectionMatrixMode: 1
+  m_GateFitMode: 2
+  m_FOVAxisMode: 0
+  m_SensorSize: {x: 36, y: 24}
+  m_LensShift: {x: 0, y: 0}
+  m_FocalLength: 50
+  m_NormalizedViewPortRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+  near clip plane: 0.3
+  far clip plane: 1000
+  field of view: 60
+  orthographic: 0
+  orthographic size: 5
+  m_Depth: -1
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingPath: -1
+  m_TargetTexture: {fileID: 0}
+  m_TargetDisplay: 0
+  m_TargetEye: 3
+  m_HDR: 1
+  m_AllowMSAA: 1
+  m_AllowDynamicResolution: 0
+  m_ForceIntoRT: 0
+  m_OcclusionCulling: 1
+  m_StereoConvergence: 10
+  m_StereoSeparation: 0.022
+--- !u!4 &1540311993
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1540311990}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.26, y: -0.51, z: -9}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1547954205
 PrefabInstance:
@@ -2117,7 +2202,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 19
+  m_RootOrder: 21
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1642245447
 PrefabInstance:
@@ -2199,7 +2284,7 @@ PrefabInstance:
     - target: {fileID: 9212890838754019689, guid: 295545b43f9485e40be9ea851b72cb6d,
         type: 3}
       propertyPath: m_RootOrder
-      value: 20
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 9212890838754019689, guid: 295545b43f9485e40be9ea851b72cb6d,
         type: 3}
@@ -2314,7 +2399,7 @@ PrefabInstance:
     - target: {fileID: 9212890838754019690, guid: 295545b43f9485e40be9ea851b72cb6d,
         type: 3}
       propertyPath: Shouts.Array.size
-      value: 7
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 9212890838754019690, guid: 295545b43f9485e40be9ea851b72cb6d,
         type: 3}
@@ -2324,47 +2409,47 @@ PrefabInstance:
     - target: {fileID: 9212890838754019690, guid: 295545b43f9485e40be9ea851b72cb6d,
         type: 3}
       propertyPath: Shouts.Array.data[1]
-      value: MY KIDS LOVE THIS STUPID THING
+      value: THANK YOU SO MUCH, MY KIDS LOVE THIS STUPID THING
       objectReference: {fileID: 0}
     - target: {fileID: 9212890838754019690, guid: 295545b43f9485e40be9ea851b72cb6d,
         type: 3}
       propertyPath: Shouts.Array.data[2]
-      value: MAN, THAT PIRATE...
+      value: ...
       objectReference: {fileID: 0}
     - target: {fileID: 9212890838754019690, guid: 295545b43f9485e40be9ea851b72cb6d,
         type: 3}
       propertyPath: Shouts.Array.data[3]
-      value: IF ONLY SOMEONE WOULD DO SOMETHING
+      value: HEY DO YOU WANT TO HELP ME BEAT UP THAT STUPID PIRATE?
       objectReference: {fileID: 0}
     - target: {fileID: 9212890838754019690, guid: 295545b43f9485e40be9ea851b72cb6d,
         type: 3}
       propertyPath: Shouts.Array.data[4]
-      value: HEY, YOU LOOK PRETTY TOUGH!
+      value: HEY DO YOU WANT TO HELP ME BEAT UP THAT STUPID PIRATE?
       objectReference: {fileID: 0}
     - target: {fileID: 9212890838754019690, guid: 295545b43f9485e40be9ea851b72cb6d,
         type: 3}
       propertyPath: Shouts.Array.data[5]
-      value: MAYBE, WITH SOME TRAINING?
+      value: HEY DO YOU WANT TO HELP ME BEAT UP THAT STUPID PIRATE?
       objectReference: {fileID: 0}
     - target: {fileID: 9212890838754019690, guid: 295545b43f9485e40be9ea851b72cb6d,
         type: 3}
       propertyPath: Shouts.Array.data[6]
-      value: WHAT DO YOU THINK?
+      value: HEY DO YOU WANT TO HELP ME BEAT UP THAT STUPID PIRATE?
       objectReference: {fileID: 0}
     - target: {fileID: 9212890838754019690, guid: 295545b43f9485e40be9ea851b72cb6d,
         type: 3}
       propertyPath: Shouts.Array.data[7]
-      value: TRY KICKING IT
+      value: HEY DO YOU WANT TO HELP ME BEAT UP THAT STUPID PIRATE?
       objectReference: {fileID: 0}
     - target: {fileID: 9212890838754019690, guid: 295545b43f9485e40be9ea851b72cb6d,
         type: 3}
       propertyPath: Shouts.Array.data[8]
-      value: YOU CAN KICK IN THE AIR
+      value: HEY DO YOU WANT TO HELP ME BEAT UP THAT STUPID PIRATE?
       objectReference: {fileID: 0}
     - target: {fileID: 9212890838754019690, guid: 295545b43f9485e40be9ea851b72cb6d,
         type: 3}
       propertyPath: Shouts.Array.data[9]
-      value: PRESS SPACE WHILE JUMPING
+      value: HEY DO YOU WANT TO HELP ME BEAT UP THAT STUPID PIRATE?
       objectReference: {fileID: 0}
     - target: {fileID: 9212890838754019690, guid: 295545b43f9485e40be9ea851b72cb6d,
         type: 3}
@@ -2374,37 +2459,37 @@ PrefabInstance:
     - target: {fileID: 9212890838754019690, guid: 295545b43f9485e40be9ea851b72cb6d,
         type: 3}
       propertyPath: Shouts.Array.data[10]
-      value: JUST KEEP TRYING
+      value: HEY DO YOU WANT TO HELP ME BEAT UP THAT STUPID PIRATE?
       objectReference: {fileID: 0}
     - target: {fileID: 9212890838754019690, guid: 295545b43f9485e40be9ea851b72cb6d,
         type: 3}
       propertyPath: Shouts.Array.data[11]
-      value: YOU'LL GET IT EVENTUALLY
+      value: HEY DO YOU WANT TO HELP ME BEAT UP THAT STUPID PIRATE?
       objectReference: {fileID: 0}
     - target: {fileID: 9212890838754019690, guid: 295545b43f9485e40be9ea851b72cb6d,
         type: 3}
       propertyPath: Shouts.Array.data[12]
-      value: I BELIEVE IN YOU
+      value: HEY DO YOU WANT TO HELP ME BEAT UP THAT STUPID PIRATE?
       objectReference: {fileID: 0}
     - target: {fileID: 9212890838754019690, guid: 295545b43f9485e40be9ea851b72cb6d,
         type: 3}
       propertyPath: Shouts.Array.data[13]
-      value: JUST JUMP AND KICK IT
+      value: HEY DO YOU WANT TO HELP ME BEAT UP THAT STUPID PIRATE?
       objectReference: {fileID: 0}
     - target: {fileID: 9212890838754019690, guid: 295545b43f9485e40be9ea851b72cb6d,
         type: 3}
       propertyPath: Shouts.Array.data[14]
-      value: DON'T MIND THE COCONUTS
+      value: HEY DO YOU WANT TO HELP ME BEAT UP THAT STUPID PIRATE?
       objectReference: {fileID: 0}
     - target: {fileID: 9212890838754019690, guid: 295545b43f9485e40be9ea851b72cb6d,
         type: 3}
       propertyPath: Shouts.Array.data[15]
-      value: YOU KNOW COCONUTS HAVE A LOT OF FIBER
+      value: HEY DO YOU WANT TO HELP ME BEAT UP THAT STUPID PIRATE?
       objectReference: {fileID: 0}
     - target: {fileID: 9212890838754019690, guid: 295545b43f9485e40be9ea851b72cb6d,
         type: 3}
       propertyPath: Shouts.Array.data[16]
-      value: DO YOU GET ENOUGH FIBER?
+      value: HEY DO YOU WANT TO HELP ME BEAT UP THAT PIRATE?
       objectReference: {fileID: 0}
     - target: {fileID: 9212890838754019690, guid: 295545b43f9485e40be9ea851b72cb6d,
         type: 3}
@@ -2664,7 +2749,7 @@ Transform:
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1700041694
 MonoBehaviour:
@@ -2714,7 +2799,7 @@ Transform:
   - {fileID: 1128673833}
   - {fileID: 568784623}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1792122630
 PrefabInstance:
@@ -2847,12 +2932,12 @@ GameObject:
   - component: {fileID: 1834884503}
   - component: {fileID: 1834884502}
   m_Layer: 0
-  m_Name: Main Camera
+  m_Name: Cam2
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!81 &1834884502
 AudioListener:
   m_ObjectHideFlags: 0
@@ -2912,11 +2997,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1834884501}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.26, y: -0.51, z: -9}
+  m_LocalPosition: {x: -0.8, y: -1.24, z: -7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1874307026
 PrefabInstance:
@@ -3091,7 +3176,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 445570527
-  m_SortingLayer: 25
+  m_SortingLayer: 27
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: d2ac3a52711a0464192bad74212b398f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -3116,7 +3201,7 @@ Transform:
   m_LocalScale: {x: 0.36, y: 0.36, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 17
+  m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &1945614115 stripped
 BoxCollider2D:
@@ -3246,7 +3331,7 @@ Transform:
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2146368591
 SpriteRenderer:
@@ -3285,7 +3370,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 445570527
-  m_SortingLayer: 25
+  m_SortingLayer: 27
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: c2f83eca73980034eaca5131af4be11c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -3313,7 +3398,7 @@ PrefabInstance:
     - target: {fileID: 4568369436831416366, guid: 196cca1e5be67a348a2c0e0aab58a906,
         type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 4568369436831416366, guid: 196cca1e5be67a348a2c0e0aab58a906,
         type: 3}
@@ -3407,7 +3492,7 @@ PrefabInstance:
     - target: {fileID: 7872303354381442726, guid: 90c6668b814620e4fbb2e54d6608662c,
         type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7872303354381442726, guid: 90c6668b814620e4fbb2e54d6608662c,
         type: 3}
@@ -3662,7 +3747,7 @@ PrefabInstance:
     - target: {fileID: 7833922219694663633, guid: de498ce318938724ea388534d9b80ff1,
         type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7833922219694663633, guid: de498ce318938724ea388534d9b80ff1,
         type: 3}
@@ -4101,7 +4186,7 @@ PrefabInstance:
     - target: {fileID: 4142255351042881086, guid: 9b7ed2f3c8d888c45958d17f12ec639b,
         type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 4142255351042881086, guid: 9b7ed2f3c8d888c45958d17f12ec639b,
         type: 3}
@@ -4270,7 +4355,7 @@ PrefabInstance:
     - target: {fileID: 9212890838754019689, guid: 295545b43f9485e40be9ea851b72cb6d,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 9212890838754019689, guid: 295545b43f9485e40be9ea851b72cb6d,
         type: 3}
