@@ -79,6 +79,11 @@ public class BaseController : MonoBehaviour
             LoadScene("h17");
             Data.TimeSinceLoadedLastScene = 0f;
         }
+        else if (Data.Scenes[Data.CurrentScene] == "m23")
+        {
+            LoadScene("h23");
+            Data.TimeSinceLoadedLastScene = 0f;
+        }
         else
         {
             Debug.LogWarning("this scene doesn't have a hint scene!");

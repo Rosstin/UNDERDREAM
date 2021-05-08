@@ -334,7 +334,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &170610698
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1131,11 +1131,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 982563697}
-  - component: {fileID: 982563696}
+  - component: {fileID: 982563698}
   - component: {fileID: 982563695}
   - component: {fileID: 982563694}
+  - component: {fileID: 982563696}
   - component: {fileID: 982563693}
-  - component: {fileID: 982563698}
   m_Layer: 0
   m_Name: SunText
   m_TagString: Untagged
@@ -1341,17 +1341,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sunShouts:
-  - Hey you.
-  - Yeah you.
+  - and so...
+  - moxie gave up her quest for revenge
   - ...
-  - Open your eyes.
-  - What, you gonna sleep forever?
+  - and, uh....
+  - i dunno
+  - she became a baker, or something
   - ...
-  - You're asking for a pretty big sunburn.
-  - Hit space to open your eyes.
+  - u sure you dont wanna kick that pirate's ass
+  - honestly i think we'd all appreciate it.
+  - guy is a real dick
   - ...
-  - Put some energy into it.
-  - Tap quickly.
+  - press space + an arrow at the same time
+  - if you wanna make a different decision
+  - press space + an arrow at the same time
+  - ...
   shoutDuration: 5
   textOut: {fileID: 982563693}
   textLine: {fileID: 997285205}
@@ -1735,7 +1739,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1161787202}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3afd084e6ca7ebb43bb1ea97f9bbb09b, type: 3}
+  m_Script: {fileID: 11500000, guid: c4b44be415e094e458c6ff1409c81ac1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Data: {fileID: 11400000, guid: 030ba6bd61089974fb3f8046db4984fb, type: 2}
@@ -1743,9 +1747,9 @@ MonoBehaviour:
   botLid: {fileID: 345880713}
   sky: {fileID: 1707524038}
   maxClosedness: 30
-  startingClosedness: 20
-  eyeOpeningPowerPerKeystroke: 2
-  closingPower: 1
+  startingClosedness: 5
+  eyeOpeningPowerPerKeystroke: 1
+  closingPower: 0.79
 --- !u!4 &1217803092 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1486671113333441994, guid: 83b996a959433f143ab0ff4991b7e7c2,
@@ -1777,7 +1781,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1279516339}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -5.84, z: 0}
+  m_LocalPosition: {x: 0, y: -7, z: 0}
   m_LocalScale: {x: 3000, y: 600, z: 1}
   m_Children: []
   m_Father: {fileID: 1901169591}
@@ -3021,7 +3025,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2140982086}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 5.83, z: 0}
+  m_LocalPosition: {x: 0, y: 7, z: 0}
   m_LocalScale: {x: 3000, y: 600, z: 1}
   m_Children: []
   m_Father: {fileID: 1901169591}

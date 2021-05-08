@@ -124,11 +124,11 @@ public class MaoxunM23 : BaseController
         YesCamera.gameObject.SetActive(true);
     NoCamera.gameObject.SetActive(false); 
      Cam1.gameObject.SetActive(false); 
-    Cam2.gameObject.SetActive(false); 
-
+    Cam2.gameObject.SetActive(false);
+        StartCoroutine(YesCoroutine());
 }
 
-public void StartNo()
+    public void StartNo()
     {
         part3 = true;
         Time.timeScale = 0.1f;
@@ -137,7 +137,24 @@ public void StartNo()
         NoCamera.gameObject.SetActive(true);
         Cam1.gameObject.SetActive(false);
         Cam2.gameObject.SetActive(false);
+        StartCoroutine(NoCoroutine());
     }
+
+    private IEnumerator YesCoroutine()
+    {
+        yield return new WaitForSeconds(0.5f);
+        Time.timeScale = 1f;
+        LoadNextScene();
+    }
+
+    private IEnumerator NoCoroutine()
+    {
+        yield return new WaitForSeconds(0.5f);
+        Time.timeScale = 1f;
+        LoadHintScene();
+    }
+
+
 
     public void StartPart2()
     {
