@@ -4,6 +4,18 @@ using UnityEngine;
 
 public class MoxieM70 : BaseController
 {
+    [Header("Biting Stern")]
+    public BoxCollider2D SternCollider;
+    public BoxCollider2D BiteCollider;
+    [SerializeField] private float biteForceUp;
+    [SerializeField] private float biteForceBackward;
+    [SerializeField] private float biteCooldown;
+    [SerializeField] private AudioSource biteSfx;
+
+    [Header("Shanty Animation")]
+    public GameObject ShantyBiteAnimation;
+    public GameObject ShantyIdleAnimation;
+
     [Header("Outlets")]
     public BoxCollider2D GroundCollider;
 
@@ -29,21 +41,30 @@ public class MoxieM70 : BaseController
     [SerializeField] private GameObject JumpKickAnimation;
 
     [Header("Outlets: Components")]
-    [SerializeField]
-    private Rigidbody2D myRigidbody;
+    [SerializeField] private Rigidbody2D myRigidbody;
     [SerializeField] private BoxCollider2D myCollider;
 
-    public enum MaoxunAnimState23
+    public enum MaoxunAnimState70
     {
         Idle,
         Walk,
         JumpKick
     }
 
-    private MaoxunAnimState23 currentState;
+    private MaoxunAnimState70 currentMoxieAnimState;
     private float timeSinceLastJump = 0f;
     private bool airborne = false;
     private bool kicking = false;
+
+    public enum ShantyAnimStateM70
+    {
+        Idle,
+        Bite
+    }
+
+    private ShantyAnimStateM70 currentShantyAnimState;
+    private float timeSinceLastBite = 0f;
+
 
     public enum MoveDirection
     {
@@ -56,29 +77,42 @@ public class MoxieM70 : BaseController
     private new void Start()
     {
         base.Start();
-        //AlbaStarsAnimation.gameObject.SetActive(false);
-
-        //InitialRotation = this.transform.rotation;
 
         this.myRigidbody.gravityScale = 1f;
         this.Container.SetActive(true);
     }
 
-    public void ActivateAnimation(MaoxunAnimState23 anim)
+    public void ActivateShantyAnimation(ShantyAnimStateM70 anim)
     {
-        currentState = anim;
+        currentShantyAnimState = anim;
+        ShantyIdleAnimation.SetActive(false);
+        ShantyBiteAnimation.SetActive(false);
+        switch (anim)
+        {
+            case ShantyAnimStateM70.Bite:
+                ShantyBiteAnimation.SetActive(true);
+                break;
+            case ShantyAnimStateM70.Idle:
+                ShantyIdleAnimation.SetActive(true);
+                break;
+        }
+    }
+
+    public void ActivateAnimation(MaoxunAnimState70 anim)
+    {
+        currentMoxieAnimState = anim;
         IdleAnimation.SetActive(false);
         WalkAnimation.SetActive(false);
         JumpKickAnimation.SetActive(false);
         switch (anim)
         {
-            case MaoxunAnimState23.Idle:
+            case MaoxunAnimState70.Idle:
                 IdleAnimation.SetActive(true);
                 break;
-            case MaoxunAnimState23.Walk:
+            case MaoxunAnimState70.Walk:
                 WalkAnimation.SetActive(true);
                 break;
-            case MaoxunAnimState23.JumpKick:
+            case MaoxunAnimState70.JumpKick:
                 JumpKickAnimation.SetActive(true);
                 break;
         }
@@ -97,49 +131,58 @@ public class MoxieM70 : BaseController
         }
     }
 
+    private void BiteStern()
+    {
+        timeSinceLastBite = 0f;
+        ActivateShantyAnimation(ShantyAnimStateM70.Bite);
+        biteSfx.Play();
+        this.myRigidbody.AddForce(new Vector2(biteForceBackward, biteForceUp));
+    }
 
     public void Update()
     {
         timeSinceLastJump += Time.deltaTime;
+        timeSinceLastBite += Time.deltaTime;
 
         BaseUpdate();
 
         bool didSomething = false;
 
-        
-                if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.Space))
-                {
-                    didSomething = true;
+        if (BiteCollider.IsTouching(SternCollider) && timeSinceLastBite > biteCooldown)
+        {
+            // play shanty's bite animation and bounce backwards
+            BiteStern();
+        }
 
-                    if (airborne)
-                    {
-                        AttemptKick();
-                    }
-                    else
-                    {
-                        AttemptJump();
-                    }
-                }
+        if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.Space))
+        {
+            didSomething = true;
 
-                if (Input.GetKey(KeyCode.LeftArrow))
-                {
-                    didSomething = true;
-                    UpdateMoveLeftRight(MoveDirection.Left);
-                }
-                else if (Input.GetKey(KeyCode.RightArrow))
-                {
-                    didSomething = true;
-                    UpdateMoveLeftRight(MoveDirection.Right);
-                }
+            if (airborne)
+            {
+                AttemptKick();
+            }
+            else
+            {
+                AttemptJump();
+            }
+        }
 
-                if (!didSomething)
-                {
-                    UpdateIdle();
-                }
+        if (Input.GetKey(KeyCode.LeftArrow))
+        {
+            didSomething = true;
+            UpdateMoveLeftRight(MoveDirection.Left);
+        }
+        else if (Input.GetKey(KeyCode.RightArrow))
+        {
+            didSomething = true;
+            UpdateMoveLeftRight(MoveDirection.Right);
+        }
 
-
-
-
+        if (!didSomething)
+        {
+            UpdateIdle();
+        }
     }
 
     private IEnumerator EnableMyColliderInABit()
@@ -150,16 +193,16 @@ public class MoxieM70 : BaseController
 
     private void UpdateIdle()
     {
-        if (currentState != MaoxunAnimState23.Idle && !kicking)
+        if (currentMoxieAnimState != MaoxunAnimState70.Idle && !kicking)
         {
-            ActivateAnimation(MaoxunAnimState23.Idle);
+            ActivateAnimation(MaoxunAnimState70.Idle);
         }
     }
 
     private void AttemptKick()
     {
         kicking = true;
-        ActivateAnimation(MaoxunAnimState23.JumpKick);
+        ActivateAnimation(MaoxunAnimState70.JumpKick);
     }
 
     private void AttemptJump()
@@ -181,9 +224,9 @@ public class MoxieM70 : BaseController
 
     private void UpdateMoveLeftRight(MoveDirection direction)
     {
-        if (!kicking && currentState != MaoxunAnimState23.Walk)
+        if (!kicking && currentMoxieAnimState != MaoxunAnimState70.Walk)
         {
-            ActivateAnimation(MaoxunAnimState23.Walk);
+            ActivateAnimation(MaoxunAnimState70.Walk);
         }
 
         int sign = -1;

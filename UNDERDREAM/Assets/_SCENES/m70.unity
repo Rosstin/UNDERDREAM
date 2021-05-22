@@ -431,6 +431,63 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1792122630}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &282951377
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 282951378}
+  - component: {fileID: 282951379}
+  m_Layer: 0
+  m_Name: BiteColliderStern
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &282951378
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 282951377}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 981733345}
+  m_RootOrder: 20
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &282951379
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 282951377}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 4.7106934, y: -2.0868378}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 2.691063, y: 6.2031116}
+  m_EdgeRadius: 0
 --- !u!1 &348082127
 GameObject:
   m_ObjectHideFlags: 0
@@ -1787,8 +1844,9 @@ GameObject:
   m_Component:
   - component: {fileID: 691824209}
   - component: {fileID: 691824210}
+  - component: {fileID: 691824211}
   m_Layer: 0
-  m_Name: shanty-ride
+  m_Name: shanty-ride+bitecollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1858,6 +1916,32 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!61 &691824211
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 691824208}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 5.035372, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 12.45, y: 8.1}
+    newSize: {x: 12.45, y: 8.1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 3.7732008, y: 8.1}
+  m_EdgeRadius: 0
 --- !u!1 &714479949
 GameObject:
   m_ObjectHideFlags: 0
@@ -2290,6 +2374,12 @@ Transform:
   m_Father: {fileID: 1994926568}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &981733345 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 9104745907626449985, guid: 6c312706e8cf77147a9159c3470abdc9,
+    type: 3}
+  m_PrefabInstance: {fileID: 2052687247609978642}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1052972246 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8165881881460005635, guid: f4f4605753994b641b0b25abcf1a718c,
@@ -4724,6 +4814,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Data: {fileID: 11400000, guid: 030ba6bd61089974fb3f8046db4984fb, type: 2}
+  SternCollider: {fileID: 282951379}
+  BiteCollider: {fileID: 691824211}
+  biteForceUp: 222
+  biteForceBackward: -111
+  biteCooldown: 1
+  biteSfx: {fileID: 534552734}
+  ShantyBiteAnimation: {fileID: 691824208}
+  ShantyIdleAnimation: {fileID: 691824208}
   GroundCollider: {fileID: 350908017}
   snatchSFX: {fileID: 445257983}
   speedMetersPerSecond: 2
@@ -5574,6 +5672,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9104745907626449986, guid: 6c312706e8cf77147a9159c3470abdc9,
+        type: 3}
+      propertyPath: m_SortingLayer
+      value: 21
+      objectReference: {fileID: 0}
+    - target: {fileID: 9104745907626449986, guid: 6c312706e8cf77147a9159c3470abdc9,
+        type: 3}
+      propertyPath: m_SortingLayerID
+      value: -782218201
       objectReference: {fileID: 0}
     - target: {fileID: 9104745907626450012, guid: 6c312706e8cf77147a9159c3470abdc9,
         type: 3}
