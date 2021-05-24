@@ -104,6 +104,27 @@ TagManager:
   - name: Trunk
     uniqueID: 3512749095
     locked: 0
+  - name: MLPiston
+    uniqueID: 2299111853
+    locked: 0
+  - name: MLFoot
+    uniqueID: 3899537887
+    locked: 0
+  - name: MLCable
+    uniqueID: 621605623
+    locked: 0
+  - name: MLCannon
+    uniqueID: 214795553
+    locked: 0
+  - name: MLBox
+    uniqueID: 3950015933
+    locked: 0
+  - name: MLHousing
+    uniqueID: 977066141
+    locked: 0
+  - name: M70SternShipBody
+    uniqueID: 3848308741
+    locked: 0
   - name: SmallBoat
     uniqueID: 4265013295
     locked: 0
