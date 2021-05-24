@@ -6454,7 +6454,7 @@ MonoBehaviour:
   SternCollider: {fileID: 282951379}
   BiteCollider: {fileID: 691824211}
   biteForceUp: 222
-  biteForceBackward: -111
+  biteForceBackward: -222
   biteCooldown: 1
   biteSfx: {fileID: 534552734}
   ShantyBiteAnimation: {fileID: 691824208}
