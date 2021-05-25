@@ -13,7 +13,12 @@ public class SternShipM70 : MonoBehaviour
 
     [Header("Damage Scars")]
     [SerializeField] private Animator damageAnimation;
-    [SerializeField] private int numDamageFrames;
+    [SerializeField][Range(3, 11)] private int numDamageFrames;
+    [SerializeField] private MoxieM70 player;
+    [SerializeField][Range(0,1)] private float smallSmokeAppearHealth;
+    [SerializeField] private GameObject smallSmoke;
+    [SerializeField] [Range(0, 1)] private float bigSmokeAppearHealth;
+    [SerializeField] private GameObject bigSmoke;
 
     [Header("Stern Body Movement")]
     public GameObject SternBody;
@@ -108,6 +113,26 @@ public class SternShipM70 : MonoBehaviour
         float damageRatio = ((float)damageIndex) / (((float)numDamageFrames) * 1f);
 
         damageAnimation.Play("ship-bottom", 0, damageRatio);
+
+        if(damageRatio >= smallSmokeAppearHealth && damageRatio < bigSmokeAppearHealth)
+        {
+            smallSmoke.gameObject.SetActive(true);
+        }
+        else if(damageRatio >= bigSmokeAppearHealth)
+        {
+            bigSmoke.gameObject.SetActive(true);
+            smallSmoke.gameObject.SetActive(false);
+        }
+        else
+        {
+            smallSmoke.gameObject.SetActive(false);
+            bigSmoke.gameObject.SetActive(false);
+        }
+
+        if (damageRatio >= 1f)
+        {
+            player.LoadNextScene();
+        }
     }
 
     public void CrankTop()

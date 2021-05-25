@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class MoxieM70 : BaseController
 {
+    [Header("Damage")]
+    [SerializeField] private float damageCooldown;
+    [SerializeField] private Vector2 knockbackForceCannonball;
+
     [Header("Biting Stern")]
     public BoxCollider2D SternCollider;
     public BoxCollider2D BiteCollider;
@@ -56,6 +60,7 @@ public class MoxieM70 : BaseController
     private float timeSinceLastJump = 0f;
     private bool airborne = false;
     private bool kicking = false;
+    private float invincibilityCooldownElapsed = 0f;
 
     public enum ShantyAnimStateM70
     {
@@ -132,6 +137,26 @@ public class MoxieM70 : BaseController
         }
     }
 
+    /// <summary>
+    /// take damage and get more beat up
+    /// </summary>
+    public void TakeDamage()
+    {
+        if (invincibilityCooldownElapsed > damageCooldown)
+        {
+            invincibilityCooldownElapsed = 0f;
+
+            //CrashSfx.Play();
+            //CamJitter.JitterForDuration(CamJitterDuration);
+            this.myRigidbody.AddForce(knockbackForceCannonball);
+        }
+        else
+        {
+            Debug.Log("still invincible");
+        }
+
+    }
+
     private void BiteStern()
     {
         timeSinceLastBite = 0f;
@@ -143,7 +168,9 @@ public class MoxieM70 : BaseController
 
     public void Update()
     {
-        timeSinceLastJump += Time.deltaTime;
+             invincibilityCooldownElapsed +=Time.deltaTime;
+
+    timeSinceLastJump += Time.deltaTime;
         timeSinceLastBite += Time.deltaTime;
 
         BaseUpdate();
