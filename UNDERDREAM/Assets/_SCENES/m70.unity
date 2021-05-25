@@ -2646,9 +2646,8 @@ GameObject:
   m_Component:
   - component: {fileID: 691824209}
   - component: {fileID: 691824210}
-  - component: {fileID: 691824211}
   m_Layer: 0
-  m_Name: shanty-ride+bitecollider
+  m_Name: shanty-ride
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2718,32 +2717,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &691824211
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 691824208}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 5.035372, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 12, y: 7.12}
-    newSize: {x: 12.45, y: 8.1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 3.7732008, y: 8.1}
-  m_EdgeRadius: 0
 --- !u!1 &714479949
 GameObject:
   m_ObjectHideFlags: 0
@@ -3453,6 +3426,63 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &851616997
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 851616998}
+  - component: {fileID: 851616999}
+  m_Layer: 0
+  m_Name: bitecollider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &851616998
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 851616997}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.53, y: -0.110000014, z: 0}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
+  m_Children: []
+  m_Father: {fileID: 1325682591}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &851616999
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 851616997}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 5.035372, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 12, y: 7.12}
+    newSize: {x: 12.45, y: 8.1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 3.7732008, y: 8.1}
+  m_EdgeRadius: 0
 --- !u!1 &928131718
 GameObject:
   m_ObjectHideFlags: 0
@@ -5329,6 +5359,7 @@ Transform:
   - {fileID: 1139710008}
   - {fileID: 691824209}
   - {fileID: 1254360359}
+  - {fileID: 851616998}
   m_Father: {fileID: 1876328721}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -7362,15 +7393,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Data: {fileID: 11400000, guid: 030ba6bd61089974fb3f8046db4984fb, type: 2}
   damageCooldown: 0.2
-  knockbackForceCannonball: {x: 100, y: 100}
+  knockbackForceCannonball: {x: -300, y: 200}
   SternCollider: {fileID: 282951379}
-  BiteCollider: {fileID: 691824211}
+  BiteCollider: {fileID: 851616999}
   biteForceUp: 222
   biteForceBackward: -222
-  biteCooldown: 1
+  biteCooldown: 0.5
   biteSfx: {fileID: 534552734}
   sternShip: {fileID: 7562602014537682857}
-  biteTime: 1
+  biteTime: 0.5
   ShantyBiteAnimation: {fileID: 1254360358}
   ShantyIdleAnimation: {fileID: 691824208}
   GroundCollider: {fileID: 350908017}
