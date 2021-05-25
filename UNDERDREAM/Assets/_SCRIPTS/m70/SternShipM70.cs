@@ -9,6 +9,7 @@ public class SternShipM70 : MonoBehaviour
     [SerializeField] private Transform fullClosedTopPosition;
     [SerializeField] private GameObject shipTop;
     [SerializeField] private float opennessDecayRatioPerSecond;
+    [SerializeField] private float crankAmount;
 
     [Header("Stern Body Movement")]
     public GameObject SternBody;
@@ -96,7 +97,7 @@ public class SternShipM70 : MonoBehaviour
     {
         // play crank sfx
         // play stern anim
-        OpenTopBy(0.01f);
+        OpenTopBy(crankAmount);
     }
 
     public void OpenTopBy(float additionalRatio)
