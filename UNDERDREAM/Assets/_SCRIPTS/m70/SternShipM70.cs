@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class SternShipM70 : MonoBehaviour
 {
+    [Header("Missile Launcher")]
+    [SerializeField] private Transform fullOpenTopPosition;
+    [SerializeField] private Transform fullClosedTopPosition;
+    [SerializeField] private GameObject shipTop;
+    [SerializeField] private float opennessDecayRatioPerSecond;
+
     [Header("Stern Body Movement")]
     public GameObject SternBody;
-    public Float SternFloat;
-    public Transform SternRiseDestination;
-    public Transform SternGoal;
-    public AnimationCurve SternRiseCurve;
-    public AnimationCurve SternForwardCurve;
-    public float SternRisePeriod;
-    public float SternForwardPeriod;
     public BoxCollider2D SternCollider;
 
     [Header("Ship Jump")]
@@ -59,6 +58,7 @@ public class SternShipM70 : MonoBehaviour
     private Vector2 currentKnockback;
     private Vector2 currentV;
 
+    private float topOpennessRatio;
 
     private void Start()
     {
@@ -76,35 +76,32 @@ public class SternShipM70 : MonoBehaviour
         fElapsed += Time.deltaTime;
         bElapsed += Time.deltaTime;
 
-        if (partTwoStarted)
+        // decay top cranking
+        topOpennessRatio -= opennessDecayRatioPerSecond * Time.deltaTime;
+        // clamp the min
+        if(topOpennessRatio < 0)
         {
-            twoElapsed += Time.deltaTime;
-
-            if (!sternRisen)
-            {
-                SternFloat.enabled = false;
-                SternBody.transform.localPosition = Vector3.Lerp(sternInitialLocalPos, SternRiseDestination.localPosition, 
-                    SternRiseCurve.Evaluate(twoElapsed / SternRisePeriod));
-                if (twoElapsed > SternRisePeriod)
-                {
-                    SternChuckle2.Play();
-                    sternRisen = true;
-                    twoElapsed = 0f;
-                }
-            }
-            else
-            {
-                SternFloat.enabled = true;
-                SternBody.transform.localPosition = Vector3.Lerp(SternRiseDestination.localPosition, SternGoal.localPosition,
-                    SternForwardCurve.Evaluate(twoElapsed / SternForwardPeriod));
-            }
+            topOpennessRatio = 0;
         }
+
+        shipTop.transform.localPosition = Vector3.LerpUnclamped(fullClosedTopPosition.localPosition, fullOpenTopPosition.localPosition, topOpennessRatio);
 
         if (updateVelocity)
         {
             MyRigidbody.velocity = new Vector2(currentV.x, MyRigidbody.velocity.y);
         }
+    }
 
+    public void CrankTop()
+    {
+        // play crank sfx
+        // play stern anim
+        OpenTopBy(0.01f);
+    }
+
+    public void OpenTopBy(float additionalRatio)
+    {
+        topOpennessRatio += additionalRatio;
     }
 
     public void Jump()
