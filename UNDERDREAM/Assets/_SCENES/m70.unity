@@ -2353,6 +2353,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 665595503}
+  - component: {fileID: 665595504}
   m_Layer: 0
   m_Name: missilelauncher
   m_TagString: Untagged
@@ -2379,6 +2380,20 @@ Transform:
   m_Father: {fileID: 7072360077222495059}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &665595504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 665595502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b500d12d2859214c9641bedcc3381c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  topAnchor: {fileID: 564760370}
+  botAnchor: {fileID: 726575317}
 --- !u!1 &691824208
 GameObject:
   m_ObjectHideFlags: 0
@@ -7035,7 +7050,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1994926568}
   m_Layer: 0
-  m_Name: PART1
+  m_Name: waves-border-groundcollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
