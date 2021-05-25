@@ -5285,7 +5285,7 @@ MonoBehaviour:
   - 18.9
   - 28.7
   - 29.2
-  - 30
+  - 29.9
   - 30.6
   - 37.6
   - 38.3
@@ -11680,11 +11680,11 @@ MonoBehaviour:
   crankAmount: 0.02
   SternBody: {fileID: 5722627303466180038}
   SternCollider: {fileID: 1197224203703343628}
-  JumpForce: {x: 50, y: 250}
+  JumpForce: {x: 50, y: 200}
   CamJitter: {fileID: 1834884505}
   MyRigidbody: {fileID: 258695071090112624}
   CannonFireEffectOnStern: {x: 0, y: 50}
-  BoatVelocity: {x: -0.3, y: 0}
+  BoatVelocity: {x: -0.25, y: 0}
   FrontCannon: {fileID: 3895531774095492657}
   BackCannon: {fileID: 1604348382447089904}
   CymbalSfx: {fileID: 808576903651495915}
