@@ -16,6 +16,7 @@ public class MoxieM70 : BaseController
     [SerializeField] private float biteCooldown;
     [SerializeField] private AudioSource biteSfx;
     [SerializeField] private SternShipM70 sternShip;
+    [SerializeField] [Range(0.1f, 5f)] private float biteTime;
 
     [Header("Shanty Animation")]
     public GameObject ShantyBiteAnimation;
@@ -159,6 +160,7 @@ public class MoxieM70 : BaseController
 
     private void BiteStern()
     {
+        Debug.LogWarning("bitestern");
         timeSinceLastBite = 0f;
         ActivateShantyAnimation(ShantyAnimStateM70.Bite);
         biteSfx.Play();
@@ -172,6 +174,11 @@ public class MoxieM70 : BaseController
 
     timeSinceLastJump += Time.deltaTime;
         timeSinceLastBite += Time.deltaTime;
+
+        if(timeSinceLastBite> biteTime)
+        {
+            ActivateShantyAnimation(ShantyAnimStateM70.Idle);
+        }
 
         BaseUpdate();
 
