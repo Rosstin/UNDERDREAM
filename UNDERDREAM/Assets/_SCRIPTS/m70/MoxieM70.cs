@@ -11,6 +11,7 @@ public class MoxieM70 : BaseController
     [SerializeField] private float biteForceBackward;
     [SerializeField] private float biteCooldown;
     [SerializeField] private AudioSource biteSfx;
+    [SerializeField] private SternShipM70 sternShip;
 
     [Header("Shanty Animation")]
     public GameObject ShantyBiteAnimation;
@@ -137,6 +138,7 @@ public class MoxieM70 : BaseController
         ActivateShantyAnimation(ShantyAnimStateM70.Bite);
         biteSfx.Play();
         this.myRigidbody.AddForce(new Vector2(biteForceBackward, biteForceUp));
+        sternShip.GetBit();
     }
 
     public void Update()

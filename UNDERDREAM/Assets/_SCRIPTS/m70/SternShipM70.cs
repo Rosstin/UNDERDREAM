@@ -11,6 +11,10 @@ public class SternShipM70 : MonoBehaviour
     [SerializeField] private float opennessDecayRatioPerSecond;
     [SerializeField] private float crankAmount;
 
+    [Header("Damage Scars")]
+    [SerializeField] private Animator damageAnimation;
+    [SerializeField] private int numDamageFrames;
+
     [Header("Stern Body Movement")]
     public GameObject SternBody;
     public BoxCollider2D SternCollider;
@@ -61,6 +65,8 @@ public class SternShipM70 : MonoBehaviour
 
     private float topOpennessRatio;
 
+    private int damageIndex = 0;
+
     private void Start()
     {
         FrontCannon.MyAnimator.speed = 2f;
@@ -93,6 +99,17 @@ public class SternShipM70 : MonoBehaviour
         }
     }
 
+
+    public void GetBit()
+    {
+        damageIndex++;
+        damageAnimation.speed = 0f;
+
+        float damageRatio = ((float)damageIndex) / (((float)numDamageFrames) * 1f);
+
+        damageAnimation.Play("ship-bottom", 0, damageRatio);
+    }
+
     public void CrankTop()
     {
         // play crank sfx
@@ -117,29 +134,6 @@ public class SternShipM70 : MonoBehaviour
         yield return new WaitForSeconds(0.2f);
         updateVelocity = true;
     }
-
-    /*
-    private IEnumerator JumpCoroutine()
-    {
-    float animTime = 0f;
-    while (animTime < jumpDuration)
-    {
-        animTime += Time.deltaTime;
-        float upProgress = jumpCurve.Evaluate(animTime / jumpDuration);
-        this.transform.position = Vector3.Lerp(startPosition.position, upPosition.position, upProgress);
-        yield return 0;
-    }
-    yield return new WaitForSeconds(hangTime);
-    animTime = 0f;
-    while (animTime < jumpDuration)
-    {
-        animTime += Time.deltaTime;
-        float downProg = jumpCurve.Evaluate(animTime / jumpDuration);
-        this.transform.position = Vector3.Lerp(upPosition.position, startPosition.position, downProg);
-        yield return 0;
-    }
-    }
-    */
 
     public void FireFrontCannon()
     {
