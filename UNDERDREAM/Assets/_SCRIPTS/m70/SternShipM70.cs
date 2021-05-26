@@ -19,6 +19,7 @@ public class SternShipM70 : MonoBehaviour
     [SerializeField] private GameObject smallSmoke;
     [SerializeField] [Range(0, 1)] private float bigSmokeAppearHealth;
     [SerializeField] private GameObject bigSmoke;
+    [SerializeField] private SternPanic sternPanic;
 
     [Header("Stern Body Movement")]
     public GameObject SternBody;
@@ -131,7 +132,8 @@ public class SternShipM70 : MonoBehaviour
 
         if (damageRatio >= 1f)
         {
-            player.LoadNextScene();
+            sternPanic.LoseHat();
+            //player.LoadNextScene();
         }
     }
 

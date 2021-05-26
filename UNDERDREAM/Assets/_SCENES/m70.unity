@@ -1242,7 +1242,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Speed: 1
-  MinMaxX: {x: -13, y: 13}
+  MinMaxX: {x: 13, y: -13}
   Waves:
   - {fileID: 1262703123}
 --- !u!1 &507470556

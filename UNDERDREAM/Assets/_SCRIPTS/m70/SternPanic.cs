@@ -13,6 +13,12 @@ public class SternPanic : MonoBehaviour
     private float progress;
     private int sign = 1;
 
+    // hat goes flying off and seeks shanty
+    public void LoseHat()
+    {
+
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,9 +35,10 @@ public class SternPanic : MonoBehaviour
 
         if(elapsed > PanicPeriod)
         {
-                elapsed = PanicPeriod;
             sign *= -1;
-        }else if(elapsed < 0)
+            elapsed = PanicPeriod;
+        }
+        else if(elapsed < 0)
         {
             sign *= -1;
             elapsed = 0f;
