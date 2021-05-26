@@ -21,6 +21,7 @@ public class SternPanic : MonoBehaviour
     {
         // play whoops sound
         Hat.gameObject.SetActive(true);
+        Hat.Fly();
         lostHat = true;
         this.MySprite.enabled = false;
         OwnedSprite.gameObject.SetActive(true);

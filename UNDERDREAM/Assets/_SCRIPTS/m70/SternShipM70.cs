@@ -118,8 +118,6 @@ public class SternShipM70 : MonoBehaviour
         damageRatio=Mathf.Clamp(
         damageRatio, 0f, MAX_DAMAGE_RATIO);
 
-        Debug.LogWarning("get bit damage rat " + damageRatio);
-
         damageAnimation.Play("ship-bottom", 0, damageRatio);
 
         if(damageRatio >= smallSmokeAppearHealth && damageRatio < bigSmokeAppearHealth)
