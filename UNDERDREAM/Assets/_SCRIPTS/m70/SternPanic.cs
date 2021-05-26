@@ -9,6 +9,7 @@ public class SternPanic : MonoBehaviour
     public float PanicPeriod;
     public SpriteRenderer MySprite;
     public SpriteRenderer OwnedSprite;
+    public Hat Hat; 
 
     private bool lostHat = false;
     private float elapsed;
@@ -19,6 +20,7 @@ public class SternPanic : MonoBehaviour
     public void LoseHat()
     {
         // play whoops sound
+        Hat.gameObject.SetActive(true);
         lostHat = true;
         this.MySprite.enabled = false;
         OwnedSprite.gameObject.SetActive(true);
@@ -27,6 +29,9 @@ public class SternPanic : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        MySprite.enabled = true;
+        OwnedSprite.gameObject.SetActive(false);
+        Hat.gameObject.SetActive(false);
         StartLocation.gameObject.SetActive(false);
         EndLocation.gameObject.SetActive(false);
     }
