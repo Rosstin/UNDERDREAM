@@ -8,7 +8,9 @@ public class SternPanic : MonoBehaviour
     public Transform EndLocation;
     public float PanicPeriod;
     public SpriteRenderer MySprite;
+    public SpriteRenderer OwnedSprite;
 
+    private bool lostHat = false;
     private float elapsed;
     private float progress;
     private int sign = 1;
@@ -16,7 +18,10 @@ public class SternPanic : MonoBehaviour
     // hat goes flying off and seeks shanty
     public void LoseHat()
     {
-
+        // play whoops sound
+        lostHat = true;
+        this.MySprite.enabled = false;
+        OwnedSprite.gameObject.SetActive(true);
     }
 
     // Start is called before the first frame update
@@ -29,6 +34,10 @@ public class SternPanic : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        if (!lostHat)
+        {
+
         MySprite.flipX = sign == -1;
 
         elapsed += sign*Time.deltaTime;
@@ -46,5 +55,6 @@ public class SternPanic : MonoBehaviour
         progress = elapsed / PanicPeriod;
 
         this.transform.localPosition = Vector3.Lerp(StartLocation.localPosition, EndLocation.localPosition, progress);
+        }
     }
 }

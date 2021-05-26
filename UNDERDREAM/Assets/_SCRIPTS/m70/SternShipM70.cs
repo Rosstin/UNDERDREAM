@@ -108,10 +108,17 @@ public class SternShipM70 : MonoBehaviour
 
     public void GetBit()
     {
+        float MAX_DAMAGE_RATIO = 0.98f;
+
         damageIndex++;
         damageAnimation.speed = 0f;
 
         float damageRatio = ((float)damageIndex) / (((float)numDamageFrames) * 1f);
+
+        damageRatio=Mathf.Clamp(
+        damageRatio, 0f, MAX_DAMAGE_RATIO);
+
+        Debug.LogWarning("get bit damage rat " + damageRatio);
 
         damageAnimation.Play("ship-bottom", 0, damageRatio);
 
@@ -130,7 +137,7 @@ public class SternShipM70 : MonoBehaviour
             bigSmoke.gameObject.SetActive(false);
         }
 
-        if (damageRatio >= 1f)
+        if (damageRatio >= MAX_DAMAGE_RATIO)
         {
             sternPanic.LoseHat();
             //player.LoadNextScene();
