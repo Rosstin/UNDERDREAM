@@ -21,6 +21,7 @@ public class MoxieM70 : BaseController
     [Header("Shanty Animation")]
     public GameObject ShantyBiteAnimation;
     public GameObject ShantyIdleAnimation;
+    [SerializeField] private GameObject SuperClosedMouthAnimation;
 
     [Header("Outlets")]
     public BoxCollider2D GroundCollider;
@@ -66,7 +67,8 @@ public class MoxieM70 : BaseController
     public enum ShantyAnimStateM70
     {
         Idle,
-        Bite
+        Bite,
+        SuperClosed,
     }
 
     private ShantyAnimStateM70 currentShantyAnimState;
@@ -96,12 +98,14 @@ public class MoxieM70 : BaseController
         Debug.LogWarning("shanty saiyan");
         shantyIsSaiyan = true;
         ActivateAnimation(MaoxunAnimState70.Panic);
+        ActivateShantyAnimation(ShantyAnimStateM70.SuperClosed);
     }
 
     public void ActivateShantyAnimation(ShantyAnimStateM70 anim)
     {
         currentShantyAnimState = anim;
         ShantyIdleAnimation.SetActive(false);
+        SuperClosedMouthAnimation.SetActive(false);
         ShantyBiteAnimation.SetActive(false);
         switch (anim)
         {
@@ -110,6 +114,9 @@ public class MoxieM70 : BaseController
                 break;
             case ShantyAnimStateM70.Idle:
                 ShantyIdleAnimation.SetActive(true);
+                break;
+            case ShantyAnimStateM70.SuperClosed:
+                SuperClosedMouthAnimation.SetActive(true);
                 break;
         }
     }
@@ -181,7 +188,7 @@ public class MoxieM70 : BaseController
     timeSinceLastJump += Time.deltaTime;
         timeSinceLastBite += Time.deltaTime;
 
-        if(timeSinceLastBite> biteTime)
+        if(!shantyIsSaiyan&& timeSinceLastBite> biteTime)
         {
             ActivateShantyAnimation(ShantyAnimStateM70.Idle);
         }
@@ -190,7 +197,7 @@ public class MoxieM70 : BaseController
 
         bool didSomething = false;
 
-        if (BiteCollider.IsTouching(SternCollider) && timeSinceLastBite > biteCooldown)
+        if (!shantyIsSaiyan&& BiteCollider.IsTouching(SternCollider) && timeSinceLastBite > biteCooldown)
         {
             // play shanty's bite animation and bounce backwards
             BiteStern();
