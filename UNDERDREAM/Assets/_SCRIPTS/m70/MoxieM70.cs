@@ -42,9 +42,8 @@ public class MoxieM70 : BaseController
     [SerializeField] private GameObject Container;
 
     [Header("Outlets: Maoxun Animations")]
-    [SerializeField] private GameObject IdleAnimation;
-    [SerializeField] private GameObject WalkAnimation;
-    [SerializeField] private GameObject JumpKickAnimation;
+    [SerializeField] private GameObject RideAnimation;
+    [SerializeField] private GameObject PanicAnimation;
 
     [Header("Outlets: Components")]
     [SerializeField] private Rigidbody2D myRigidbody;
@@ -52,9 +51,8 @@ public class MoxieM70 : BaseController
 
     public enum MaoxunAnimState70
     {
-        Idle,
-        Walk,
-        JumpKick
+        Ride,
+        Panic
     }
 
     private MaoxunAnimState70 currentMoxieAnimState;
@@ -62,6 +60,8 @@ public class MoxieM70 : BaseController
     private bool airborne = false;
     private bool kicking = false;
     private float invincibilityCooldownElapsed = 0f;
+
+    private bool shantyIsSaiyan = false;
 
     public enum ShantyAnimStateM70
     {
@@ -85,8 +85,17 @@ public class MoxieM70 : BaseController
     {
         base.Start();
 
+        ActivateAnimation(MaoxunAnimState70.Ride);
+
         this.myRigidbody.gravityScale = 1f;
         this.Container.SetActive(true);
+    }
+
+    public void ShantyGoesSaiyan()
+    {
+        Debug.LogWarning("shanty saiyan");
+        shantyIsSaiyan = true;
+        ActivateAnimation(MaoxunAnimState70.Panic);
     }
 
     public void ActivateShantyAnimation(ShantyAnimStateM70 anim)
@@ -107,20 +116,17 @@ public class MoxieM70 : BaseController
 
     public void ActivateAnimation(MaoxunAnimState70 anim)
     {
+        Debug.LogWarning("anim " + anim);
         currentMoxieAnimState = anim;
-        IdleAnimation.SetActive(false);
-        WalkAnimation.SetActive(false);
-        JumpKickAnimation.SetActive(false);
+        RideAnimation.SetActive(false);
+        PanicAnimation.SetActive(false);
         switch (anim)
         {
-            case MaoxunAnimState70.Idle:
-                IdleAnimation.SetActive(true);
+            case MaoxunAnimState70.Ride:
+                RideAnimation.SetActive(true);
                 break;
-            case MaoxunAnimState70.Walk:
-                WalkAnimation.SetActive(true);
-                break;
-            case MaoxunAnimState70.JumpKick:
-                JumpKickAnimation.SetActive(true);
+            case MaoxunAnimState70.Panic:
+                PanicAnimation.SetActive(true);
                 break;
         }
     }
@@ -194,14 +200,7 @@ public class MoxieM70 : BaseController
         {
             didSomething = true;
 
-            if (airborne)
-            {
-                AttemptKick();
-            }
-            else
-            {
                 AttemptJump();
-            }
         }
 
         if (Input.GetKey(KeyCode.LeftArrow))
@@ -215,30 +214,12 @@ public class MoxieM70 : BaseController
             UpdateMoveLeftRight(MoveDirection.Right);
         }
 
-        if (!didSomething)
-        {
-            UpdateIdle();
-        }
     }
 
     private IEnumerator EnableMyColliderInABit()
     {
         yield return new WaitForSeconds(0.5f);
         this.myCollider.enabled = true;
-    }
-
-    private void UpdateIdle()
-    {
-        if (currentMoxieAnimState != MaoxunAnimState70.Idle && !kicking)
-        {
-            ActivateAnimation(MaoxunAnimState70.Idle);
-        }
-    }
-
-    private void AttemptKick()
-    {
-        kicking = true;
-        ActivateAnimation(MaoxunAnimState70.JumpKick);
     }
 
     private void AttemptJump()
@@ -260,11 +241,6 @@ public class MoxieM70 : BaseController
 
     private void UpdateMoveLeftRight(MoveDirection direction)
     {
-        if (!kicking && currentMoxieAnimState != MaoxunAnimState70.Walk)
-        {
-            ActivateAnimation(MaoxunAnimState70.Walk);
-        }
-
         int sign = -1;
         if (direction == MoveDirection.Right)
         {

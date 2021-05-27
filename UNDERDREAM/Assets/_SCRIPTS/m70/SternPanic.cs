@@ -19,12 +19,15 @@ public class SternPanic : MonoBehaviour
     // hat goes flying off and seeks shanty
     public void LoseHat()
     {
-        // play whoops sound
-        Hat.gameObject.SetActive(true);
-        Hat.Fly();
-        lostHat = true;
-        this.MySprite.enabled = false;
-        OwnedSprite.gameObject.SetActive(true);
+        if (!lostHat)
+        {
+            // play whoops sound
+            Hat.gameObject.SetActive(true);
+            Hat.Fly();
+            lostHat = true;
+            this.MySprite.enabled = false;
+            OwnedSprite.gameObject.SetActive(true);
+        }
     }
 
     // Start is called before the first frame update

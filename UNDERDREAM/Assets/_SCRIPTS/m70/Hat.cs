@@ -5,7 +5,7 @@ using UnityEngine;
 public class Hat : MonoBehaviour
 {
     [Header("Seek Shanty")]
-    public GameObject Shanty;
+    public MoxieM70 Shanty;
     [SerializeField] [Range(0f, 10f)] private float lerpAmountPerSecond;
 
     [Header("Outlets")]
@@ -28,6 +28,8 @@ public class Hat : MonoBehaviour
 
     private float elapsed = 0f;
 
+    private bool finished = false;
+
     public void Start()
     {
         this.gameObject.SetActive(false);
@@ -35,10 +37,14 @@ public class Hat : MonoBehaviour
 
     public void Fly()
     {
-        Debug.LogWarning("hat Fly");
-        this.transform.parent = null;
-        Body.AddForce(StartingForce);
-        Body.AddTorque(StartingTorque);
+        if (!finished)
+        {
+            finished = true;
+            Debug.LogWarning("hat Fly");
+            this.transform.parent = null;
+            Body.AddForce(StartingForce);
+            Body.AddTorque(StartingTorque);
+        }
     }
 
     private void Update()
@@ -61,6 +67,13 @@ public class Hat : MonoBehaviour
 
         this.transform.position = Vector3.Lerp(this.transform.position, Shanty.transform.position, lerpAmountPerSecond*Time.deltaTime);
 
+        if (MyCollider.IsTouching(Shanty.BiteCollider))
+        {
+            // play click sound todo
+            Debug.LogWarning("shanty go saiyan from hat");
+            this.gameObject.SetActive(false);
+            Shanty.ShantyGoesSaiyan();
+        }
     }
 
     /// <summary>
