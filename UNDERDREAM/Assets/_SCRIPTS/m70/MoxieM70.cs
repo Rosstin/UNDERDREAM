@@ -95,10 +95,15 @@ public class MoxieM70 : BaseController
 
     public void ShantyGoesSaiyan()
     {
-        Debug.LogWarning("shanty saiyan");
-        shantyIsSaiyan = true;
-        ActivateAnimation(MaoxunAnimState70.Panic);
-        ActivateShantyAnimation(ShantyAnimStateM70.SuperClosed);
+        if(shantyIsSaiyan == false)
+        {
+            Debug.LogWarning("shanty saiyan");
+            shantyIsSaiyan = true;
+            this.myRigidbody.gravityScale = 0f;
+            ActivateAnimation(MaoxunAnimState70.Panic);
+            ActivateShantyAnimation(ShantyAnimStateM70.SuperClosed);
+            ZeroForce();
+        }
     }
 
     public void ActivateShantyAnimation(ShantyAnimStateM70 anim)
@@ -173,7 +178,6 @@ public class MoxieM70 : BaseController
 
     private void BiteStern()
     {
-        Debug.LogWarning("bitestern");
         timeSinceLastBite = 0f;
         ActivateShantyAnimation(ShantyAnimStateM70.Bite);
         biteSfx.Play();
@@ -183,8 +187,33 @@ public class MoxieM70 : BaseController
 
     public void Update()
     {
-             invincibilityCooldownElapsed +=Time.deltaTime;
 
+        BaseUpdate();
+
+        if (shantyIsSaiyan)
+        {
+            if (Input.GetKey(KeyCode.UpArrow))
+            {
+                UpdateFloat(MoveDirection.Up);
+            }else if (Input.GetKey(KeyCode.DownArrow))
+            {
+                UpdateFloat(MoveDirection.Down);
+
+            }
+
+            if (Input.GetKey(KeyCode.LeftArrow))
+            {
+                UpdateFloat(MoveDirection.Left);
+            }
+            else if (Input.GetKey(KeyCode.RightArrow))
+            {
+                UpdateFloat(MoveDirection.Right);
+            }
+        }
+        else { 
+
+
+        invincibilityCooldownElapsed += Time.deltaTime;
     timeSinceLastJump += Time.deltaTime;
         timeSinceLastBite += Time.deltaTime;
 
@@ -193,7 +222,6 @@ public class MoxieM70 : BaseController
             ActivateShantyAnimation(ShantyAnimStateM70.Idle);
         }
 
-        BaseUpdate();
 
         bool didSomething = false;
 
@@ -222,6 +250,7 @@ public class MoxieM70 : BaseController
         }
 
     }
+    }
 
     private IEnumerator EnableMyColliderInABit()
     {
@@ -244,6 +273,45 @@ public class MoxieM70 : BaseController
     {
         boingSfx.Play();
         this.myRigidbody.AddForce(new Vector2(-jumpForceForward, jumpForceUp));
+    }
+    private void ZeroForce()
+    {
+        this.myRigidbody.velocity = Vector3.zero;
+        this.myRigidbody.angularVelocity = 0;
+    }
+
+    private void UpdateFloat(MoveDirection dir)
+    {
+        int horizAmount = 0;
+        if (dir == MoveDirection.Right)
+        {
+            horizAmount = 1;
+        }else if(dir == MoveDirection.Left)
+        {
+            horizAmount = -1;
+        }
+
+        int vertAmount = 0;
+        if (dir == MoveDirection.Up )
+        {
+            vertAmount = 1;
+        }else if(dir == MoveDirection.Down)
+        {
+            vertAmount = -1;
+        }
+
+        if (horizAmount != 0)
+        {
+            this.transform.localScale = new Vector3(horizAmount * Mathf.Abs(this.transform.localScale.x), this.transform.localScale.y, this.transform.localScale.z);
+        }
+
+        this.transform.localPosition
+            = new Vector3(
+            this.transform.localPosition.x + (horizAmount * speedMetersPerSecond) * Time.deltaTime,
+            this.transform.localPosition.y + (vertAmount*speedMetersPerSecond)*Time.deltaTime,
+            this.transform.localPosition.z
+            );
+
     }
 
     private void UpdateMoveLeftRight(MoveDirection direction)
