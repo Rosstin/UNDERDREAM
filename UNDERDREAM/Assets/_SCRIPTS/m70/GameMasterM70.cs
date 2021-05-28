@@ -14,6 +14,9 @@ public class GameMasterM70 : MonoBehaviour
     [SerializeField] protected List<float> crankTimes;
     [SerializeField] public float timeItTakesToCrank;
 
+    [Header("Skip Time")]
+    [SerializeField]private float skipTimeAmount;
+
     [Header("Outlets")]
     [SerializeField]
     private SternShipM70 ship;
@@ -22,6 +25,9 @@ public class GameMasterM70 : MonoBehaviour
     private int frontCannonTimeIndex = 0;
     private int backCannonTimeIndex = 0;
     private int crankTimeIndex=0;
+
+    private bool skipNextUpdate;
+    private float skipNextUpdateElapsed = 0f;
 
     private float elapsed = 0f;
 
@@ -37,16 +43,34 @@ public class GameMasterM70 : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// skip next update when we skip the song ahead
+    /// </summary>
+    public void SkipNextUpdate()
+    {
+        skipNextUpdate = true;
+    }
+
     // Update is called once per frame
     void Update()
     {
+        if (skipNextUpdate == true)
+        {
+            skipNextUpdateElapsed += Time.deltaTime;
+            if(skipNextUpdateElapsed > skipTimeAmount)
+            {
+                skipNextUpdate = false;
+            }
+        }
+
         var currentTime = Data.GetSabreSong().time;
 
         if(mineTimeIndex < mineTimes.Count)
         {
             if(currentTime > mineTimes[mineTimeIndex])
             {
-                ship.Jump();
+                if(!skipNextUpdate)
+                    ship.Jump();
                 mineTimeIndex++;
             }
         }
@@ -55,7 +79,8 @@ public class GameMasterM70 : MonoBehaviour
         {
             if(currentTime > frontCannonTimes[frontCannonTimeIndex]-timeItTakesCannonsToFire)
             {
-                ship.FireFrontCannon();
+                if (!skipNextUpdate)
+                    ship.FireFrontCannon();
                 frontCannonTimeIndex++;
             }
         }
@@ -64,7 +89,8 @@ public class GameMasterM70 : MonoBehaviour
         {
             if (currentTime > backCannonTimes[backCannonTimeIndex]-timeItTakesCannonsToFire)
             {
-                ship.FireBackCannon();
+                if (!skipNextUpdate)
+                    ship.FireBackCannon();
                 backCannonTimeIndex++;
             }
         }
@@ -73,7 +99,8 @@ public class GameMasterM70 : MonoBehaviour
         {
             if (currentTime > crankTimes[crankTimeIndex] - timeItTakesToCrank)
             {
-                ship.CrankTop();
+                if (!skipNextUpdate)
+                    ship.CrankTop();
                 crankTimeIndex++;
             }
         }

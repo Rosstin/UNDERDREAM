@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class MoxieM70 : BaseController
 {
+    [Header("Super")]
+    [SerializeField]private GameObject bigBubble;
+    [SerializeField]private float etherealStartTime;
+    [SerializeField] private float marginSeconds;
+    [SerializeField] private GameMasterM70 gameMaster;
+
     [Header("Damage")]
     [SerializeField] private float damageCooldown;
     [SerializeField] private Vector2 knockbackForceCannonball;
@@ -87,7 +93,9 @@ public class MoxieM70 : BaseController
     {
         base.Start();
 
+        bigBubble.gameObject.SetActive(false);
         ActivateAnimation(MaoxunAnimState70.Ride);
+        ActivateShantyAnimation(ShantyAnimStateM70.Idle);
 
         this.myRigidbody.gravityScale = 1f;
         this.Container.SetActive(true);
@@ -98,11 +106,24 @@ public class MoxieM70 : BaseController
         if(shantyIsSaiyan == false)
         {
             Debug.LogWarning("shanty saiyan");
+            bigBubble.gameObject.SetActive(true);
             shantyIsSaiyan = true;
             this.myRigidbody.gravityScale = 0f;
             ActivateAnimation(MaoxunAnimState70.Panic);
             ActivateShantyAnimation(ShantyAnimStateM70.SuperClosed);
             ZeroForce();
+
+            gameMaster.SkipNextUpdate();
+
+            BiteCollider.enabled = false;
+
+            // skip to the ethereal part
+            if (Mathf.Abs(Data.GetSabreSong().time - etherealStartTime) > marginSeconds)
+            {
+                
+                Data.GetSabreSong().time = (etherealStartTime);
+            }
+
         }
     }
 
@@ -128,7 +149,6 @@ public class MoxieM70 : BaseController
 
     public void ActivateAnimation(MaoxunAnimState70 anim)
     {
-        Debug.LogWarning("anim " + anim);
         currentMoxieAnimState = anim;
         RideAnimation.SetActive(false);
         PanicAnimation.SetActive(false);
@@ -282,6 +302,7 @@ public class MoxieM70 : BaseController
 
     private void UpdateFloat(MoveDirection dir)
     {
+        ZeroForce();
         int horizAmount = 0;
         if (dir == MoveDirection.Right)
         {
@@ -300,10 +321,13 @@ public class MoxieM70 : BaseController
             vertAmount = -1;
         }
 
-        if (horizAmount != 0)
-        {
-            this.transform.localScale = new Vector3(horizAmount * Mathf.Abs(this.transform.localScale.x), this.transform.localScale.y, this.transform.localScale.z);
-        }
+        //this.transform.localScale = new Vector3(1 * Mathf.Abs(this.transform.localScale.x), this.transform.localScale.y, this.transform.localScale.z);
+
+        //if (horizAmount != 0)
+        //{
+        //this.transform.localScale = new Vector3(1 * Mathf.Abs(this.transform.localScale.x), this.transform.localScale.y, this.transform.localScale.z);
+        //bigBubble.transform.localScale = new Vector3(-horizAmount*bigBubble.transform.localScale.x, bigBubble.transform.localScale.y, bigBubble.transform.localScale.z);
+        //}
 
         this.transform.localPosition
             = new Vector3(
@@ -322,7 +346,7 @@ public class MoxieM70 : BaseController
             sign = 1;
         }
 
-        this.transform.localScale = new Vector3(sign * Mathf.Abs(this.transform.localScale.x), this.transform.localScale.y, this.transform.localScale.z);
+        //this.transform.localScale = new Vector3(Mathf.Abs(this.transform.localScale.x), this.transform.localScale.y, this.transform.localScale.z);
 
         this.transform.localPosition
             = new Vector3(

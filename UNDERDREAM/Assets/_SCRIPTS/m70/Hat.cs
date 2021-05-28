@@ -7,6 +7,7 @@ public class Hat : MonoBehaviour
     [Header("Seek Shanty")]
     public MoxieM70 Shanty;
     [SerializeField] [Range(0f, 10f)] private float lerpAmountPerSecond;
+    public Transform SeekSpot;
 
     [Header("Outlets")]
     public Rigidbody2D Body;
@@ -32,13 +33,13 @@ public class Hat : MonoBehaviour
 
     public void Start()
     {
-        this.gameObject.SetActive(false);
     }
 
     public void Fly()
     {
         if (!finished)
         {
+            this.gameObject.SetActive(true);
             finished = true;
             Debug.LogWarning("hat Fly");
             this.transform.parent = null;
@@ -65,7 +66,7 @@ public class Hat : MonoBehaviour
             }
         }
 
-        this.transform.position = Vector3.Lerp(this.transform.position, Shanty.transform.position, lerpAmountPerSecond*Time.deltaTime);
+        this.transform.position = Vector3.Lerp(this.transform.position, SeekSpot.transform.position, lerpAmountPerSecond*Time.deltaTime);
 
         if (MyCollider.IsTouching(Shanty.BiteCollider))
         {
