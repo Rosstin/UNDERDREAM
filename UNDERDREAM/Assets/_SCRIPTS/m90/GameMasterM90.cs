@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class GameMasterM90 : BaseController
 {
-    public UniversalDataSO Data;
-
     [Header("Song Start Time")]
     [SerializeField] private float songStartTime;
     [SerializeField] private float marginSeconds;
 
     // Start is called before the first frame update
-    void Start()
+    new void Start()
     {
+        base.Start();
+
         if (Data.TigerSongExists())
         {
             Data.DestroyTigerSong();
@@ -37,6 +37,7 @@ public class GameMasterM90 : BaseController
     // Update is called once per frame
     void Update()
     {
+        base.BaseUpdate();
         var currentTime = Data.GetSabreSong().time;
 
 
