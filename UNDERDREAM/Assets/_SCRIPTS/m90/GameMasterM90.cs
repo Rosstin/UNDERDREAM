@@ -8,6 +8,11 @@ public class GameMasterM90 : BaseController
     [SerializeField] private float songStartTime;
     [SerializeField] private float marginSeconds;
 
+    [Header("Freeze Lemon")]
+    [SerializeField]
+    private float freezeTime;
+    [SerializeField] private StairLemon stairLemon;
+
     // Start is called before the first frame update
     new void Start()
     {
@@ -39,6 +44,11 @@ public class GameMasterM90 : BaseController
     {
         base.BaseUpdate();
         var currentTime = Data.GetSabreSong().time;
+
+        if(currentTime > freezeTime)
+        {
+            stairLemon.Freeze();
+        }
 
 
 
