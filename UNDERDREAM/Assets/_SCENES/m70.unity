@@ -13430,7 +13430,7 @@ MonoBehaviour:
   opennessDecayRatioPerSecond: 0.01
   crankAmount: 0.02
   damageAnimation: {fileID: 621745014}
-  numDamageFrames: 3
+  numDamageFrames: 7
   player: {fileID: 1876328722}
   smallSmokeAppearHealth: 0.25
   smallSmoke: {fileID: 1078549345}
