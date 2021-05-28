@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class FollowLemonCam : MonoBehaviour
 {
+    [SerializeField] private Vector3 offset;
     [SerializeField] private GameObject lemon;
-    [SerializeField] private float z;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -15,6 +16,6 @@ public class FollowLemonCam : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        this.transform.position = new Vector3(lemon.transform.position.x, lemon.transform.position.y, z);
+        this.transform.position = new Vector3(offset.x+lemon.transform.position.x, offset.y+lemon.transform.position.y, offset.z);
     }
 }
