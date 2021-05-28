@@ -7,6 +7,7 @@ public class Hat : MonoBehaviour
     [Header("Seek Shanty")]
     public MoxieM70 Shanty;
     [SerializeField] [Range(0f, 10f)] private float lerpAmountPerSecond;
+    [SerializeField] [Range(0f, 1f)] private float lerpIncreasePerSecond;
     public Transform SeekSpot;
 
     [Header("Outlets")]
@@ -65,6 +66,9 @@ public class Hat : MonoBehaviour
                 Boing2.Play();
             }
         }
+
+        lerpAmountPerSecond += Time.deltaTime * lerpIncreasePerSecond;
+
 
         this.transform.position = Vector3.Lerp(this.transform.position, SeekSpot.transform.position, lerpAmountPerSecond*Time.deltaTime);
 

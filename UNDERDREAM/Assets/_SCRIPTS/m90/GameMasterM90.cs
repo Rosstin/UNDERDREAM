@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameMasterM72 : MonoBehaviour
+public class GameMasterM90 : BaseController
 {
     public UniversalDataSO Data;
 

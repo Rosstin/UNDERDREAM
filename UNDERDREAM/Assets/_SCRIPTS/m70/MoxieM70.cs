@@ -9,6 +9,8 @@ public class MoxieM70 : BaseController
     [SerializeField]private float etherealStartTime;
     [SerializeField] private float marginSeconds;
     [SerializeField] private GameMasterM70 gameMaster;
+    [SerializeField] private BoxCollider2D laser;
+    [SerializeField] private float gunDestroyTime;
 
     [Header("Damage")]
     [SerializeField] private float damageCooldown;
@@ -67,6 +69,8 @@ public class MoxieM70 : BaseController
     private bool airborne = false;
     private bool kicking = false;
     private float invincibilityCooldownElapsed = 0f;
+
+    private float saiyanElapsed = 0f;
 
     private bool shantyIsSaiyan = false;
 
@@ -207,11 +211,18 @@ public class MoxieM70 : BaseController
 
     public void Update()
     {
-
         BaseUpdate();
 
         if (shantyIsSaiyan)
         {
+            saiyanElapsed += Time.deltaTime;
+            if( saiyanElapsed > gunDestroyTime &&
+            laser.IsTouching(SternCollider)){
+                //todo explosions
+                LoadNextScene();
+            }
+
+
             if (Input.GetKey(KeyCode.UpArrow))
             {
                 UpdateFloat(MoveDirection.Up);
