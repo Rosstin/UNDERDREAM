@@ -73,7 +73,9 @@ public class BaseController : MonoBehaviour
 
     public void LoadHintScene()
     {
-        Debug.LogWarning("Data.Scenes[Data.CurrentScene]: " + Data.Scenes[Data.CurrentScene]);
+
+
+        Debug.LogWarning("loading hint scene.. Data.Scenes[Data.CurrentScene]: " + Data.Scenes[Data.CurrentScene]);
         if (Data.Scenes[Data.CurrentScene] == "m17")
         {
             LoadScene("h17");
@@ -82,6 +84,11 @@ public class BaseController : MonoBehaviour
         else if (Data.Scenes[Data.CurrentScene] == "m23")
         {
             LoadScene("h23");
+            Data.TimeSinceLoadedLastScene = 0f;
+        }
+        else if(Data.Scenes[Data.CurrentScene] == "m90")
+        {
+            LoadScene("h90");
             Data.TimeSinceLoadedLastScene = 0f;
         }
         else

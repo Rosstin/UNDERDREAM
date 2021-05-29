@@ -6,12 +6,12 @@ using UnityEngine.Assertions.Must;
 public class ArmControllerM90 : MonoBehaviour
 {
     [Header("Lemon")]
-    [SerializeField]
-    private StairLemon lemon;
+    [SerializeField]private StairLemon lemon;
+    [SerializeField] private Transform handSpot;
+    [SerializeField] private GameMasterM90 gm;
 
     [Header("Arm")]
     [SerializeField] [Range(0f, 1f)] private float armSpeed;
-    [SerializeField] private AnimationCurve armSpeedCurve;
 
     [Header("Arm Outlets")]
     [SerializeField] private GameObject arm;
@@ -19,18 +19,14 @@ public class ArmControllerM90 : MonoBehaviour
     [Header("Set Starting Offset")]
     [SerializeField] private Vector3 offset;
 
-
     void Update()
     {
+        if(this.handSpot.position.x > lemon.transform.position.x)
+        {
+            gm.LoadNextScene();
+        }
+
         var modifiedArmSpeed = armSpeed;
-
-        
-
-
-       // var armProgress = arm.transform.position.y / minPosition.y;
-    
-
-        //var modifiedArmSpeed = armSpeedCurve.Evaluate(armProgress) * armSpeed;
 
         if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.RightArrow))
         {
@@ -53,13 +49,6 @@ public class ArmControllerM90 : MonoBehaviour
         }
 
         arm.transform.position = lemon.transform.position + offset;
-
-        // dont let arm extend farther than we want
-        /*
-        if (arm.transform.position.x < minPosition.x)
-        {
-            arm.transform.position = new Vector3(minPosition.x, arm.transform.position.y, arm.transform.position.z);
-        }*/
 
     }
 }
