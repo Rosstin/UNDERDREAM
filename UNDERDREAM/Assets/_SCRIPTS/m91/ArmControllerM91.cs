@@ -5,6 +5,13 @@ using UnityEngine.SceneManagement;
 
 public class ArmControllerM91 : BaseController
 {
+    [Header("End")]
+    [SerializeField]
+    private float endTime;
+
+    [Header("SFX")]
+    [SerializeField] private AudioSource gulp;
+
     [Header("Face Outlets")]
     [SerializeField] private GameObject face;
     [SerializeField] private GameObject puckerAnim;
@@ -80,11 +87,10 @@ public class ArmControllerM91 : BaseController
             StartPostClench();
         }
 
-        /*
-        if (postClenchElapsed > nextSceneTime)
+        if (postClenchElapsed > endTime)
         {
             LoadNextScene();
-        }*/
+        }
     }
 
     void UpdatePreClench()
@@ -132,7 +138,7 @@ public class ArmControllerM91 : BaseController
 
         if (arm.transform.position.y > maxHeight)
         {
-            //clickSound.Play();
+            gulp.Play();
 
             arm.SetActive(false);
             clenchedArm.SetActive(true);
