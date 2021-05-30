@@ -49,7 +49,7 @@ public class ArmControllerM91 : BaseController
 
         jitterElapsed += Time.deltaTime;
 
-        if (jitterElapsed > jitterPeriod)
+        if (jitterElapsed > jitterPeriod && clenched==false)
         {
             jitterElapsed = 0f;
             this.gameObject.transform.localPosition += new Vector3(
@@ -151,8 +151,11 @@ public class ArmControllerM91 : BaseController
 
             clenched = true;
 
-            jitter *= jitterIntensityIncreaseAfterClench;
-            jitterPeriod /= jitterIntensityIncreaseAfterClench;
+
+            jitterPeriod = 500000f;
+                jitter /= 90000f;
+            //jitter *= jitterIntensityIncreaseAfterClench;
+            //jitterPeriod /= jitterIntensityIncreaseAfterClench;
         }
     }
 
