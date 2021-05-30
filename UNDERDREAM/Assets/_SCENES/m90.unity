@@ -2399,7 +2399,7 @@ MonoBehaviour:
   lemon: {fileID: 7360131794746783099}
   handSpot: {fileID: 601730873}
   gm: {fileID: 1448119761}
-  armSpeed: 0.4
+  armSpeed: 0.6
   arm: {fileID: 881694554}
   offset: {x: -2.2, y: 2.2, z: 0}
 --- !u!4 &1052972246 stripped
