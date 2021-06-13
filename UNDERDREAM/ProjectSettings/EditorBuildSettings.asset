@@ -90,6 +90,9 @@ EditorBuildSettings:
     path: Assets/_SCENES/m70.unity
     guid: 2342054ab61af9a458a647a3116334c2
   - enabled: 1
+    path: Assets/_SCENES/m71.unity
+    guid: a855c78a12dec6541930a12eb03de9e4
+  - enabled: 1
     path: Assets/_SCENES/m90.unity
     guid: 5a10e236db3a1da44b9356eb52eeddc8
   - enabled: 1
