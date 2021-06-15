@@ -32,7 +32,7 @@ public class BaseController : MonoBehaviour
     {
         Data.TimeSinceLoadedLastScene += Time.deltaTime;
 
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKey(KeyCode.LeftControl) && Input.GetKey(KeyCode.Q))
         {
             Application.Quit();
         }

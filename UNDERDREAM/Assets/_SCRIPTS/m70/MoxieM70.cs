@@ -109,7 +109,6 @@ public class MoxieM70 : BaseController
     {
         if(shantyIsSaiyan == false)
         {
-            Debug.LogWarning("shanty saiyan");
             bigBubble.gameObject.SetActive(true);
             shantyIsSaiyan = true;
             this.myRigidbody.gravityScale = 0f;

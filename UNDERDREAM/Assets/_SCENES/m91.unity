@@ -1823,7 +1823,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Data: {fileID: 11400000, guid: 030ba6bd61089974fb3f8046db4984fb, type: 2}
-  endTime: 5
+  endTime: 3
   gulp: {fileID: 808349010}
   face: {fileID: 72053038}
   puckerAnim: {fileID: 547999613}
