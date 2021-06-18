@@ -19,6 +19,8 @@ public class MoxieControllerM71 : BaseController
     // Update is called once per frame
     void Update()
     {
+        BaseUpdate();
+
         if (myCollider.IsTouching(lemonCollider))
         {
             Debug.LogWarning("touching!");

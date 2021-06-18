@@ -2398,6 +2398,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6b6d0da40778fa4a889c006e4b36a6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BaseController: {fileID: 1448119761}
   lemon: {fileID: 7360131794746783099}
   handSpot: {fileID: 601730873}
   gm: {fileID: 1448119761}
