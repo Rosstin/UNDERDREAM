@@ -184,18 +184,18 @@ public class BoatController : BaseController
         if (!hitIsland)
         {
 
-        if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.Space))
+        if (CommandsHeldThisFrame.ContainsKey(KeyCode.UpArrow) || CommandsHeldThisFrame.ContainsKey(KeyCode.Space))
         {
             didSomething = true;
             UpdateJump();
         }
 
-        if (Input.GetKey(KeyCode.LeftArrow))
+        if (CommandsHeldThisFrame.ContainsKey(KeyCode.LeftArrow))
         {
             didSomething = true;
             UpdateMoveLeftRight(MoveDirection.Left);
         }
-        else if (Input.GetKey(KeyCode.RightArrow))
+        else if (CommandsHeldThisFrame.ContainsKey(KeyCode.RightArrow))
         {
             didSomething = true;
             UpdateMoveLeftRight(MoveDirection.Right);

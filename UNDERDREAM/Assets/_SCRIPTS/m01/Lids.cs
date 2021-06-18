@@ -35,9 +35,10 @@ public class Lids : BaseController
             closedness = maxClosedness;
         }
 
-        if (Input.GetKeyDown(KeyCode.Space)
-            || Input.GetKeyDown(KeyCode.DownArrow)
-            || Input.GetKeyDown(KeyCode.UpArrow)
+        if (
+            CommandsStartedThisFrame.ContainsKey(Command.Fire) ||
+            CommandsStartedThisFrame.ContainsKey(Command.Down) ||
+            CommandsStartedThisFrame.ContainsKey(Command.Up)
             )
         {
             closedness -= eyeOpeningPowerPerKeystroke;

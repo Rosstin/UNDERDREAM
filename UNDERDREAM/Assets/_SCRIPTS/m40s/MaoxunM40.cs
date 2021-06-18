@@ -119,12 +119,12 @@ public class MaoxunM40 : MonoBehaviour
             }
         }
 
-        if (Input.GetKey(KeyCode.LeftArrow))
+        if (CommandsHeldThisFrame.ContainsKey(KeyCode.LeftArrow))
         {
             didSomething = true;
             UpdateMoveLeftRight(MoveDirection.Left);
         }
-        else if (Input.GetKey(KeyCode.RightArrow))
+        else if (CommandsHeldThisFrame.ContainsKey(KeyCode.RightArrow))
         {
             didSomething = true;
             UpdateMoveLeftRight(MoveDirection.Right);

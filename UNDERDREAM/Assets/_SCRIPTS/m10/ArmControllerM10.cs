@@ -76,7 +76,7 @@ public class ArmControllerM10 : BaseController
                     Random.Range(-jitter.z, jitter.z));
         }
 
-        if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.RightArrow))
+        if (CommandsHeldThisFrame.ContainsKey(KeyCode.UpArrow) || CommandsHeldThisFrame.ContainsKey(KeyCode.RightArrow))
         {
             arm.transform.localPosition =
                 new Vector3(
@@ -86,7 +86,7 @@ public class ArmControllerM10 : BaseController
                     );
         }
 
-        if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.LeftArrow))
+        if (CommandsHeldThisFrame.ContainsKey(KeyCode.DownArrow) || CommandsHeldThisFrame.ContainsKey(KeyCode.LeftArrow))
         {
             arm.transform.localPosition =
                 new Vector3(

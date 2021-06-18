@@ -113,18 +113,18 @@ public class GameController : BaseController
         if (!hangry)
         {
             bool didSomething = false;
-            if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.Space))
+            if (CommandsHeldThisFrame.ContainsKey(Command.Up) || CommandsHeldThisFrame.ContainsKey(Command.Fire))
             {
                 didSomething = true;
                 UpdateJump();
             }
 
-            if (Input.GetKey(KeyCode.LeftArrow))
+            if (CommandsHeldThisFrame.ContainsKey(Command.Left))
             {
                 didSomething = true;
                 UpdateMoveLeftRight(MoveDirection.Left);
             }
-            else if (Input.GetKey(KeyCode.RightArrow))
+            else if (CommandsHeldThisFrame.ContainsKey(Command.Right))
             {
                 didSomething = true;
                 UpdateMoveLeftRight(MoveDirection.Right);

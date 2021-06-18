@@ -1747,8 +1747,8 @@ MonoBehaviour:
   botLid: {fileID: 345880713}
   sky: {fileID: 1707524038}
   maxClosedness: 30
-  startingClosedness: 5
-  eyeOpeningPowerPerKeystroke: 1
+  startingClosedness: 26
+  eyeOpeningPowerPerKeystroke: 0.7
   closingPower: 0.79
 --- !u!4 &1217803092 stripped
 Transform:

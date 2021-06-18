@@ -75,7 +75,7 @@ public class ArmController : BaseController
     void UpdatePreClench()
     {
 
-        if (Input.GetKey(KeyCode.UpArrow))
+        if (CommandsHeldThisFrame.ContainsKey(Command.Up))
         {
             arm.transform.localPosition =
                 new Vector3(
@@ -85,7 +85,7 @@ public class ArmController : BaseController
                     );
         }
 
-        if (Input.GetKey(KeyCode.DownArrow))
+        if (CommandsHeldThisFrame.ContainsKey(Command.Down))
         {
             arm.transform.localPosition =
                 new Vector3(
@@ -95,7 +95,7 @@ public class ArmController : BaseController
                     );
         }
 
-        if (Input.GetKey(KeyCode.LeftArrow))
+        if (CommandsHeldThisFrame.ContainsKey(Command.Left))
         {
             arm.transform.localPosition =
                 new Vector3(
@@ -105,7 +105,7 @@ public class ArmController : BaseController
                     );
         }
 
-        if (Input.GetKey(KeyCode.RightArrow))
+        if (CommandsHeldThisFrame.ContainsKey(Command.Right))
         {
             arm.transform.localPosition =
                 new Vector3(

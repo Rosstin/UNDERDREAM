@@ -15,6 +15,7 @@ public class MoxieAndLemonSpinning : MonoBehaviour
     public GameObject Lemon;
     public GameObject Controller;
     public GameObject[] Contained;
+    public BaseController BaseController;
 
     [Header("Starting Motion")]
     public float StartingTorque;
@@ -68,7 +69,7 @@ public class MoxieAndLemonSpinning : MonoBehaviour
         bool activated = false;
         while (!activated)
         {
-            if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.Space))
+            if (BaseController.CommandsHeldThisFrame.ContainsKey(BaseController.Command.Up) || BaseController.CommandsHeldThisFrame.ContainsKey(BaseController.Command.Fire))
             {
                 SkiddingMoxie.gameObject.SetActive(false);
                 Controller.SetActive(true);

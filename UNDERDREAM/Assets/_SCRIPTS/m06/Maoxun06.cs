@@ -86,18 +86,18 @@ public class Maoxun06 : BaseController
         }
 
         bool didSomething = false;
-        if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.Space))
+        if (CommandsHeldThisFrame.ContainsKey(Command.Up) || CommandsHeldThisFrame.ContainsKey(Command.Fire))
         {
             didSomething = true;
             UpdateJump();
         }
 
-        if (Input.GetKey(KeyCode.LeftArrow))
+        if (CommandsHeldThisFrame.ContainsKey(Command.Left))
         {
             didSomething = true;
             UpdateMoveLeftRight(MoveDirection.Left);
         }
-        else if (Input.GetKey(KeyCode.RightArrow))
+        else if (CommandsHeldThisFrame.ContainsKey(Command.Right))
         {
             didSomething = true;
             UpdateMoveLeftRight(MoveDirection.Right);
@@ -106,11 +106,6 @@ public class Maoxun06 : BaseController
         if (!didSomething)
         {
             UpdateIdle();
-        }
-
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            Application.Quit();
         }
     }
 

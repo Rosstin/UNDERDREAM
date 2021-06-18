@@ -28,7 +28,7 @@ public class ArmControllerM90 : MonoBehaviour
 
         var modifiedArmSpeed = armSpeed;
 
-        if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.RightArrow))
+        if (CommandsHeldThisFrame.ContainsKey(KeyCode.DownArrow) || CommandsHeldThisFrame.ContainsKey(KeyCode.RightArrow))
         {
             offset =
                 new Vector3(
@@ -38,7 +38,7 @@ public class ArmControllerM90 : MonoBehaviour
                     );
         }
 
-        else if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.LeftArrow))
+        else if (CommandsHeldThisFrame.ContainsKey(KeyCode.UpArrow) || CommandsHeldThisFrame.ContainsKey(KeyCode.LeftArrow))
         {
             offset =
                 new Vector3(

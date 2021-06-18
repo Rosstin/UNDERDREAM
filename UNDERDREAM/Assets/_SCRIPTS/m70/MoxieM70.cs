@@ -222,20 +222,20 @@ public class MoxieM70 : BaseController
             }
 
 
-            if (Input.GetKey(KeyCode.UpArrow))
+            if (CommandsHeldThisFrame.ContainsKey(KeyCode.UpArrow))
             {
                 UpdateFloat(MoveDirection.Up);
-            }else if (Input.GetKey(KeyCode.DownArrow))
+            }else if (CommandsHeldThisFrame.ContainsKey(KeyCode.DownArrow))
             {
                 UpdateFloat(MoveDirection.Down);
 
             }
 
-            if (Input.GetKey(KeyCode.LeftArrow))
+            if (CommandsHeldThisFrame.ContainsKey(KeyCode.LeftArrow))
             {
                 UpdateFloat(MoveDirection.Left);
             }
-            else if (Input.GetKey(KeyCode.RightArrow))
+            else if (CommandsHeldThisFrame.ContainsKey(KeyCode.RightArrow))
             {
                 UpdateFloat(MoveDirection.Right);
             }
@@ -268,12 +268,12 @@ public class MoxieM70 : BaseController
                 AttemptJump();
         }
 
-        if (Input.GetKey(KeyCode.LeftArrow))
+        if (CommandsHeldThisFrame.ContainsKey(KeyCode.LeftArrow))
         {
             didSomething = true;
             UpdateMoveLeftRight(MoveDirection.Left);
         }
-        else if (Input.GetKey(KeyCode.RightArrow))
+        else if (CommandsHeldThisFrame.ContainsKey(KeyCode.RightArrow))
         {
             didSomething = true;
             UpdateMoveLeftRight(MoveDirection.Right);

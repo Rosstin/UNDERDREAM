@@ -33,11 +33,6 @@ public class BaseController : MonoBehaviour
         Data.TimeSinceLoadedLastScene += Time.deltaTime;
         UpdateKeycodesToCommands();
 
-        if (Input.GetKey(KeyCode.LeftControl) && Input.GetKey(KeyCode.Q))
-        {
-            Application.Quit();
-        }
-
         if (Input.GetKeyDown(KeyCode.F9)){
             LoadNextScene();
         }

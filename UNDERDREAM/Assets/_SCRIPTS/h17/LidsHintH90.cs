@@ -29,27 +29,22 @@ public class LidsHintH90 : BaseController
     {
         BaseUpdate();
 
-        if (Input.GetKey(KeyCode.Space) &&
-            (
-            Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow)
-            )
-            )
-        {
-            LoadRegularScene();
-        }
-
-
-
         closedness += Time.deltaTime * closingPower;
 
         closedness = Mathf.Clamp(closedness, 0, maxClosedness);
 
-        if (Input.GetKeyDown(KeyCode.Space)
-            || Input.GetKeyDown(KeyCode.DownArrow)
-            || Input.GetKeyDown(KeyCode.UpArrow)
-        )
+        if (
+            CommandsStartedThisFrame.ContainsKey(Command.Fire) ||
+            CommandsStartedThisFrame.ContainsKey(Command.Down) ||
+            CommandsStartedThisFrame.ContainsKey(Command.Up)
+            )
         {
             closedness -= eyeOpeningPowerPerKeystroke;
+        }
+
+        if (closedness < 0f)
+        {
+            LoadRegularScene();
         }
 
         topLid.transform.position =
