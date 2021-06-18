@@ -38,8 +38,6 @@ public class LidsHintH23 : BaseController
             LoadRegularScene();
         }
 
-
-
         closedness += Time.deltaTime * closingPower;
 
         closedness = Mathf.Clamp(closedness, 0, maxClosedness);

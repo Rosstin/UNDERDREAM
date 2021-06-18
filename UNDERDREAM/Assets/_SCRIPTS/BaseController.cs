@@ -31,6 +31,7 @@ public class BaseController : MonoBehaviour
     public void BaseUpdate()
     {
         Data.TimeSinceLoadedLastScene += Time.deltaTime;
+        UpdateKeycodesToCommands();
 
         if (Input.GetKey(KeyCode.LeftControl) && Input.GetKey(KeyCode.Q))
         {
@@ -107,5 +108,52 @@ public class BaseController : MonoBehaviour
         SceneManager.LoadScene(sceneName);
         Data.TimeSinceLoadedLastScene = 0f;
     }
+
+
+    #region UniversalInput
+    public enum Command
+    {
+        Up,
+        Down,
+        Left,
+        Right,
+        Fire,
+        Quit
+    }
+
+    [NonSerialized] public Dictionary<Command, bool> CommandsStartedThisFrame = new Dictionary<Command, bool>();
+    [NonSerialized] public Dictionary<Command, bool> CommandsHeldThisFrame= new Dictionary<Command, bool>();
+
+    private void UpdateKeycodesToCommands()
+    {
+        CommandsStartedThisFrame.Clear();
+        CommandsHeldThisFrame.Clear();
+
+        KeycodesToCommands(KeyCode.UpArrow, Command.Up);
+        KeycodesToCommands(KeyCode.DownArrow, Command.Down);
+        KeycodesToCommands(KeyCode.LeftArrow, Command.Left);
+        KeycodesToCommands(KeyCode.RightArrow, Command.Right);
+        KeycodesToCommands(KeyCode.Space, Command.Fire);
+    }
+
+
+    /// <summary>
+    /// Adds commands to a list
+    /// </summary>
+    /// <param name="keyCode"></param>
+    /// <param name="command"></param>
+    private void KeycodesToCommands(KeyCode keyCode, Command command)
+    {
+        if (Input.GetKeyDown(keyCode))
+        {
+            CommandsStartedThisFrame.Add(command, true);
+        }
+
+        if (Input.GetKey(keyCode))
+        {
+            CommandsHeldThisFrame.Add(command, true);
+        }
+    }
+    #endregion
 
 }
