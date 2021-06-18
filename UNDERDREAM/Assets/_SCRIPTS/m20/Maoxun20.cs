@@ -139,15 +139,15 @@ public class Maoxun20 : BaseController
         {
             wiggleElapsed += Time.deltaTime;
             if (
-                Input.GetKeyDown(KeyCode.Space)
+                CommandsStartedThisFrame.ContainsKey(Command.Fire)
                 ||
-                Input.GetKeyDown(KeyCode.LeftArrow)
+                CommandsStartedThisFrame.ContainsKey(Command.Left)
                 ||
-                Input.GetKeyDown(KeyCode.RightArrow)
+                CommandsStartedThisFrame.ContainsKey(Command.Right)
                 ||
-                Input.GetKeyDown(KeyCode.UpArrow)
+                CommandsStartedThisFrame.ContainsKey(Command.Up)
                 ||
-                Input.GetKeyDown(KeyCode.DownArrow)
+                CommandsStartedThisFrame.ContainsKey(Command.Down)
             )
             {
 

@@ -2638,6 +2638,7 @@ MonoBehaviour:
   Contained:
   - {fileID: 1891329480}
   - {fileID: 2134011120}
+  BaseController: {fileID: 4891556165610576567}
   StartingTorque: -300
   StartingForce: {x: 150, y: 0}
   LemonOffset: {x: 1, y: 1, z: 0}
@@ -3553,6 +3554,18 @@ AudioSource:
     type: 3}
   m_PrefabInstance: {fileID: 4891556165610576564}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &4891556165610576567 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 71993835245748742, guid: a2074674f0af276479bb25ebead286be,
+    type: 3}
+  m_PrefabInstance: {fileID: 4891556165610576564}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1246087273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9409fe71afa1c264989c632aa4bf98cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!61 &6471666412116559065 stripped
 BoxCollider2D:
   m_CorrespondingSourceObject: {fileID: 1886364182335446637, guid: a2074674f0af276479bb25ebead286be,

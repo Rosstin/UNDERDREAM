@@ -77,7 +77,7 @@ public class PendulumController : BaseController
 
         bool helpingSwing = false;
         bool hurtingSwing = false;
-        if (CommandsHeldThisFrame.ContainsKey(KeyCode.LeftArrow))
+        if (CommandsHeldThisFrame.ContainsKey(Command.Left))
         {
             Head.transform.localPosition = new Vector3(headStartPosition.x - HeadOffset, headStartPosition.y, headStartPosition.z);
             if (currentTime > 0)
@@ -89,7 +89,7 @@ public class PendulumController : BaseController
                 hurtingSwing = true;
             }
         }
-        else if (CommandsHeldThisFrame.ContainsKey(KeyCode.RightArrow))
+        else if (CommandsHeldThisFrame.ContainsKey(Command.Right))
         {
             Head.transform.localPosition = new Vector3(headStartPosition.x + HeadOffset, headStartPosition.y, headStartPosition.z);
             if(currentTime < 0)

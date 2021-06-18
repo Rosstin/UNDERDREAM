@@ -26,21 +26,21 @@ public class MoxieControllerM71 : BaseController
         }
 
 
-        if (CommandsHeldThisFrame.ContainsKey(KeyCode.UpArrow))
+        if (CommandsHeldThisFrame.ContainsKey(Command.Up))
         {
             UpdateFloat(MoveDirection.Up);
         }
-        else if (CommandsHeldThisFrame.ContainsKey(KeyCode.DownArrow))
+        else if (CommandsHeldThisFrame.ContainsKey(Command.Down))
         {
             UpdateFloat(MoveDirection.Down);
 
         }
 
-        if (CommandsHeldThisFrame.ContainsKey(KeyCode.LeftArrow))
+        if (CommandsHeldThisFrame.ContainsKey(Command.Left))
         {
             UpdateFloat(MoveDirection.Left);
         }
-        else if (CommandsHeldThisFrame.ContainsKey(KeyCode.RightArrow))
+        else if (CommandsHeldThisFrame.ContainsKey(Command.Right))
         {
             UpdateFloat(MoveDirection.Right);
         }

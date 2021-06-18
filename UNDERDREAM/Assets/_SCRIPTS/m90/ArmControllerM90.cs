@@ -5,6 +5,8 @@ using UnityEngine.Assertions.Must;
 
 public class ArmControllerM90 : MonoBehaviour
 {
+    public BaseController BaseController;
+
     [Header("Lemon")]
     [SerializeField]private StairLemon lemon;
     [SerializeField] private Transform handSpot;
@@ -28,7 +30,7 @@ public class ArmControllerM90 : MonoBehaviour
 
         var modifiedArmSpeed = armSpeed;
 
-        if (CommandsHeldThisFrame.ContainsKey(KeyCode.DownArrow) || CommandsHeldThisFrame.ContainsKey(KeyCode.RightArrow))
+        if (BaseController.CommandsHeldThisFrame.ContainsKey(BaseController.Command.Down) || BaseController.CommandsHeldThisFrame.ContainsKey(BaseController.Command.Right))
         {
             offset =
                 new Vector3(
@@ -38,7 +40,7 @@ public class ArmControllerM90 : MonoBehaviour
                     );
         }
 
-        else if (CommandsHeldThisFrame.ContainsKey(KeyCode.UpArrow) || CommandsHeldThisFrame.ContainsKey(KeyCode.LeftArrow))
+        else if (BaseController.CommandsHeldThisFrame.ContainsKey(BaseController.Command.Up) || BaseController.CommandsHeldThisFrame.ContainsKey(BaseController.Command.Left))
         {
             offset =
                 new Vector3(

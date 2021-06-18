@@ -168,7 +168,7 @@ public class Beatkeeper : BaseController
 
             // success
             if(currentTime > inputStartTime && currentTime < inputEndTime &&  
-                Input.GetKeyDown(KeyCode.UpArrow)){
+                CommandsStartedThisFrame.ContainsKey(Command.Up)){
                 success.Play();
                 inputSuccess = true;
 

@@ -98,18 +98,18 @@ public class Maoxun08 : BaseController
         }
 
         bool didSomething = false;
-        if (CommandsHeldThisFrame.ContainsKey(KeyCode.UpArrow) || CommandsHeldThisFrame.ContainsKey(KeyCode.Space))
+        if (CommandsHeldThisFrame.ContainsKey(Command.Up) || CommandsHeldThisFrame.ContainsKey(Command.Fire))
         {
             didSomething = true;
             UpdateJump();
         }
 
-        if (CommandsHeldThisFrame.ContainsKey(KeyCode.LeftArrow))
+        if (CommandsHeldThisFrame.ContainsKey(Command.Left))
         {
             didSomething = true;
             UpdateMoveLeftRight(MoveDirection.Left);
         }
-        else if (CommandsHeldThisFrame.ContainsKey(KeyCode.RightArrow))
+        else if (CommandsHeldThisFrame.ContainsKey(Command.Right))
         {
             didSomething = true;
             UpdateMoveLeftRight(MoveDirection.Right);

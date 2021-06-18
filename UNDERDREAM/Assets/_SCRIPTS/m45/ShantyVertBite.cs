@@ -13,6 +13,8 @@ public class ShantyVertBite : MonoBehaviour
     [SerializeField] private SpriteRenderer openMouthSprite;
     [SerializeField] private SpriteRenderer closedMouthSprite;
 
+    [SerializeField] private BaseController baseController; 
+
     void Start()
     {
         this.transform.position = (startPosition.position);
@@ -22,12 +24,12 @@ public class ShantyVertBite : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.UpArrow))
+        if (baseController.CommandsStartedThisFrame.ContainsKey(BaseController.Command.Up))
         {
             StartCoroutine(JumpUp());
         }
 
-        if (Input.GetKeyDown(KeyCode.DownArrow))
+        if (baseController.CommandsStartedThisFrame.ContainsKey(BaseController.Command.Down))
         {
             StartCoroutine(JumpDown());
         }

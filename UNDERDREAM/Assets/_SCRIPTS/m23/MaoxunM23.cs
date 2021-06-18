@@ -248,15 +248,15 @@ public class MaoxunM23 : BaseController
         {
             wiggleElapsed += Time.deltaTime;
             if (
-                Input.GetKeyDown(KeyCode.Space)
+                CommandsStartedThisFrame.ContainsKey(Command.Fire)
                 ||
-                Input.GetKeyDown(KeyCode.LeftArrow)
+                CommandsStartedThisFrame.ContainsKey(Command.Left)
                 ||
-                Input.GetKeyDown(KeyCode.RightArrow)
+                CommandsStartedThisFrame.ContainsKey(Command.Right)
                 ||
-                Input.GetKeyDown(KeyCode.UpArrow)
+                CommandsStartedThisFrame.ContainsKey(Command.Up)
                 ||
-                Input.GetKeyDown(KeyCode.DownArrow)
+                CommandsStartedThisFrame.ContainsKey(Command.Down)
             )
             {
 
@@ -354,7 +354,7 @@ public class MaoxunM23 : BaseController
                     StartNo();
                 }
 
-                if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.Space))
+                if (CommandsStartedThisFrame.ContainsKey(Command.Up) || CommandsStartedThisFrame.ContainsKey(Command.Fire))
                 {
                     didSomething = true;
 
@@ -368,12 +368,12 @@ public class MaoxunM23 : BaseController
                     }
                 }
 
-                if (CommandsHeldThisFrame.ContainsKey(KeyCode.LeftArrow))
+                if (CommandsHeldThisFrame.ContainsKey(Command.Left))
                 {
                     didSomething = true;
                     UpdateMoveLeftRight(MoveDirection.Left);
                 }
-                else if (CommandsHeldThisFrame.ContainsKey(KeyCode.RightArrow))
+                else if (CommandsHeldThisFrame.ContainsKey(Command.Right))
                 {
                     didSomething = true;
                     UpdateMoveLeftRight(MoveDirection.Right);

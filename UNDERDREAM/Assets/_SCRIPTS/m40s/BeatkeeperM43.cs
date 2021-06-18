@@ -30,14 +30,14 @@ public class BeatkeeperM43 : BeatkeeperM42
         bool inputSuccess = false;
         bool missed = false;
 
-        KeyCode correctCode = KeyCode.Space;
+        Command correctCode = Command.Fire;
         if (myHurdle.CorrectCommand == "up")
         {
-            correctCode = KeyCode.UpArrow;
+            correctCode = Command.Up;
         }
         else if (myHurdle.CorrectCommand == "down")
         {
-            correctCode = KeyCode.DownArrow;
+            correctCode = Command.Down;
         }
         else
         {
@@ -55,7 +55,7 @@ public class BeatkeeperM43 : BeatkeeperM42
 
             // success
             if (currentTime > inputStartTime && currentTime < inputEndTime &&
-                (Input.GetKeyDown(correctCode)))
+                (CommandsStartedThisFrame.ContainsKey(correctCode)))
             {
                 success.Play();
                 inputSuccess = true;

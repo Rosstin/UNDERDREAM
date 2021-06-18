@@ -8,7 +8,7 @@ public class MoxiePushup : MonoBehaviour
     [SerializeField] private GameObject upSprite;
     [SerializeField] private float hangTime;
 
-    //private bool jumping;
+    [SerializeField] private BaseController baseController;
 
     private void Up()
     {
@@ -25,36 +25,16 @@ public class MoxiePushup : MonoBehaviour
     void Start()
     {
         Down();
-        //jumping = false;
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.DownArrow))
+        if (baseController.CommandsStartedThisFrame.ContainsKey(BaseController.Command.Down))
         {
             Down();
-        }else if (Input.GetKeyDown(KeyCode.UpArrow))
+        }else if (baseController.CommandsStartedThisFrame.ContainsKey(BaseController.Command.Up))
         {
             Up();
         }
-
-        /*
-        if (Input.GetKeyDown(KeyCode.UpArrow) && !jumping)
-        {
-            // start jump
-            jumping = true;
-            StartCoroutine(Jump());
-        }
-        */
     }
-
-
-    /*
-    private IEnumerator Jump()
-    {
-        float animTime = 0f;
-        yield return new WaitForSeconds(hangTime);
-        jumping = false;
-    }
-    */
 }

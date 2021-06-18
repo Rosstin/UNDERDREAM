@@ -10,6 +10,7 @@ public class ShantyJump : MonoBehaviour
     [SerializeField] private AnimationCurve jumpCurve;
     [SerializeField] private float jumpDuration;
     [SerializeField] private float hangTime;
+    [SerializeField] private BaseController baseController; 
 
 
     private bool jumping;
@@ -23,7 +24,7 @@ public class ShantyJump : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.UpArrow) && !jumping)
+        if (baseController.CommandsStartedThisFrame.ContainsKey(BaseController.Command.Up) && !jumping)
         {
             // start jump
             jumping = true;
