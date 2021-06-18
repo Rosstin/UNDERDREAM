@@ -21,6 +21,7 @@ public class Maoxun08 : BaseController
     [Header("Outlets: Maoxun Animations")]
     [SerializeField] private GameObject IdleAnimation;
     [SerializeField] private GameObject WalkAnimation;
+    [SerializeField] private GameObject Scarf;
 
     [Header("Outlets: Bounds")]
     [SerializeField] private CircleCollider2D Target;
@@ -28,6 +29,7 @@ public class Maoxun08 : BaseController
     [Header("Outlets: Components")]
     [SerializeField] private Rigidbody2D myRigidbody;
     [SerializeField] private BoxCollider2D myCollider;
+    [SerializeField] private Collider2D lemonGrabCollider;
 
     [Header("Outlet: Boing SFX")]
     [SerializeField] private AudioSource boingSfx;
@@ -40,6 +42,8 @@ public class Maoxun08 : BaseController
     private MaoxunAnimState06 currentState;
 
     private float timeSinceLastJump = 0f;
+
+    private bool visible;
 
     public enum MoveDirection
     {
@@ -58,13 +62,19 @@ public class Maoxun08 : BaseController
 
     public void SetVisible(bool visible)
     {
+        this.visible = visible;
+
         if (!visible)
         {
             this.IdleAnimation.SetActive(visible);
             this.WalkAnimation.SetActive(visible);
+            this.Scarf.SetActive(visible);
+            this.lemonGrabCollider.enabled = false;
         }
         else
         {
+            this.lemonGrabCollider.enabled = true;
+            this.Scarf.SetActive(visible);
             this.IdleAnimation.SetActive(visible);
         }
     }
@@ -90,8 +100,10 @@ public class Maoxun08 : BaseController
 
         BaseUpdate();
 
+        if (!visible) return;
+
         float distanceToTarget = Vector3.Distance(this.transform.position, Target.transform.position);
-        if (distanceToTarget < lemonDistance || Target.IsTouching(this.myCollider))
+        if (distanceToTarget < lemonDistance || Target.IsTouching(this.lemonGrabCollider))
         {
             snatchSFX.Play();
             LoadNextScene();
@@ -118,11 +130,6 @@ public class Maoxun08 : BaseController
         if (!didSomething)
         {
             UpdateIdle();
-        }
-
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            Application.Quit();
         }
     }
 

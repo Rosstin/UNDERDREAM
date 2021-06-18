@@ -13,9 +13,9 @@ public class MoxieAndLemonSpinning : MonoBehaviour
     public AudioSource ExplosionSound;
     public GameObject SkiddingMoxie;
     public GameObject Lemon;
-    public GameObject Controller;
+    public Maoxun08 Controller;
     public GameObject[] Contained;
-    public BaseController BaseController;
+    [SerializeField] private BaseController baseController;
 
     [Header("Starting Motion")]
     public float StartingTorque;
@@ -32,7 +32,7 @@ public class MoxieAndLemonSpinning : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Controller.SetActive(false);
+        Controller.SetVisible(false);
         Body.AddForce(StartingForce);
         Body.AddTorque(StartingTorque);
     }
@@ -69,10 +69,15 @@ public class MoxieAndLemonSpinning : MonoBehaviour
         bool activated = false;
         while (!activated)
         {
-            if (BaseController.CommandsHeldThisFrame.ContainsKey(BaseController.Command.Up) || BaseController.CommandsHeldThisFrame.ContainsKey(BaseController.Command.Fire))
+            foreach(var key in baseController.CommandsHeldThisFrame.Keys)
+            {
+                Debug.LogWarning("key down " + key);
+            }
+
+            if (baseController.CommandsHeldThisFrame.ContainsKey(BaseController.Command.Up) || baseController.CommandsHeldThisFrame.ContainsKey(BaseController.Command.Fire))
             {
                 SkiddingMoxie.gameObject.SetActive(false);
-                Controller.SetActive(true);
+                Controller.SetVisible(true);
                 activated = true;
             }
             yield return null;

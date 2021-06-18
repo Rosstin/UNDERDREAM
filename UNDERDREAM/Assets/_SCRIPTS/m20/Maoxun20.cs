@@ -210,11 +210,6 @@ public class Maoxun20 : BaseController
         {
             UpdateIdle();
         }
-
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            Application.Quit();
-        }
     }
 
     private void UpdateIdle()
