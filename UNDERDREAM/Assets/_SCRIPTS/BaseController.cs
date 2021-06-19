@@ -35,10 +35,14 @@ public class BaseController : MonoBehaviour
         Data.TimeSinceLoadedLastScene += Time.deltaTime;
         UpdateKeycodesToCommands();
 
-        /*
         if (Input.GetKeyDown(KeyCode.F9)){
             LoadNextScene();
-        }*/
+        }
+
+        if(Input.GetKey(KeyCode.Q) && Input.GetKey(KeyCode.LeftControl))
+        {
+            Application.Quit();
+        }
     }
 
     public void LoadNextScene(float delay = 0f)
@@ -127,13 +131,38 @@ public class BaseController : MonoBehaviour
         CommandsStartedThisFrame.Clear();
         CommandsHeldThisFrame.Clear();
 
+        // Fire/Jump
         ButtonControlsToCommands(Gamepad.current.rightTrigger, Command.Fire);
-
-        KeycodesToCommands(KeyCode.UpArrow, Command.Up);
-        KeycodesToCommands(KeyCode.DownArrow, Command.Down);
-        KeycodesToCommands(KeyCode.LeftArrow, Command.Left);
-        KeycodesToCommands(KeyCode.RightArrow, Command.Right);
+        ButtonControlsToCommands(Gamepad.current.leftTrigger, Command.Fire);
+        ButtonControlsToCommands(Gamepad.current.buttonNorth, Command.Fire);
+        ButtonControlsToCommands(Gamepad.current.buttonSouth, Command.Fire);
+        ButtonControlsToCommands(Gamepad.current.buttonEast, Command.Fire);
+        ButtonControlsToCommands(Gamepad.current.buttonWest, Command.Fire);
         KeycodesToCommands(KeyCode.Space, Command.Fire);
+
+        // Up
+        KeycodesToCommands(KeyCode.UpArrow, Command.Up);
+        ButtonControlsToCommands(Gamepad.current.leftStick.up, Command.Up);
+        ButtonControlsToCommands(Gamepad.current.rightStick.up, Command.Up);
+        ButtonControlsToCommands(Gamepad.current.dpad.up, Command.Up);
+
+        // Down
+        KeycodesToCommands(KeyCode.DownArrow, Command.Down);
+        ButtonControlsToCommands(Gamepad.current.leftStick.down, Command.Down);
+        ButtonControlsToCommands(Gamepad.current.rightStick.down, Command.Down);
+        ButtonControlsToCommands(Gamepad.current.dpad.down, Command.Down);
+
+        // Left
+        KeycodesToCommands(KeyCode.LeftArrow, Command.Left);
+        ButtonControlsToCommands(Gamepad.current.leftStick.left, Command.Left);
+        ButtonControlsToCommands(Gamepad.current.rightStick.left, Command.Left);
+        ButtonControlsToCommands(Gamepad.current.dpad.left, Command.Left);
+
+        // Right
+        KeycodesToCommands(KeyCode.RightArrow, Command.Right);
+        ButtonControlsToCommands(Gamepad.current.leftStick.right, Command.Right);
+        ButtonControlsToCommands(Gamepad.current.rightStick.right, Command.Right);
+        ButtonControlsToCommands(Gamepad.current.dpad.right, Command.Right);
     }
 
 
@@ -141,12 +170,12 @@ public class BaseController : MonoBehaviour
     {
         if (buttonControl.wasPressedThisFrame)
         {
-            CommandsStartedThisFrame.Add(command, true);
+            if(!CommandsStartedThisFrame.ContainsKey(command)) CommandsStartedThisFrame.Add(command, true);
         }
 
         if (buttonControl.isPressed)
         {
-            CommandsHeldThisFrame.Add(command, true);
+            if (!CommandsHeldThisFrame.ContainsKey(command)) CommandsHeldThisFrame.Add(command, true);
         }
     }
 
@@ -159,12 +188,12 @@ public class BaseController : MonoBehaviour
     {
         if (Input.GetKeyDown(keyCode))
         {
-            CommandsStartedThisFrame.Add(command, true);
+            if (!CommandsStartedThisFrame.ContainsKey(command)) CommandsStartedThisFrame.Add(command, true);
         }
 
         if (Input.GetKey(keyCode))
         {
-            CommandsHeldThisFrame.Add(command, true);
+            if (!CommandsHeldThisFrame.ContainsKey(command)) CommandsHeldThisFrame.Add(command, true);
         }
     }
     #endregion
