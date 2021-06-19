@@ -2,6 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Controls;
 using UnityEngine.SceneManagement;
 
 /// <summary>
@@ -33,9 +35,10 @@ public class BaseController : MonoBehaviour
         Data.TimeSinceLoadedLastScene += Time.deltaTime;
         UpdateKeycodesToCommands();
 
+        /*
         if (Input.GetKeyDown(KeyCode.F9)){
             LoadNextScene();
-        }
+        }*/
     }
 
     public void LoadNextScene(float delay = 0f)
@@ -124,6 +127,8 @@ public class BaseController : MonoBehaviour
         CommandsStartedThisFrame.Clear();
         CommandsHeldThisFrame.Clear();
 
+        ButtonControlsToCommands(Gamepad.current.rightTrigger, Command.Fire);
+
         KeycodesToCommands(KeyCode.UpArrow, Command.Up);
         KeycodesToCommands(KeyCode.DownArrow, Command.Down);
         KeycodesToCommands(KeyCode.LeftArrow, Command.Left);
@@ -131,6 +136,19 @@ public class BaseController : MonoBehaviour
         KeycodesToCommands(KeyCode.Space, Command.Fire);
     }
 
+
+    private void ButtonControlsToCommands(ButtonControl buttonControl, Command command)
+    {
+        if (buttonControl.wasPressedThisFrame)
+        {
+            CommandsStartedThisFrame.Add(command, true);
+        }
+
+        if (buttonControl.isPressed)
+        {
+            CommandsHeldThisFrame.Add(command, true);
+        }
+    }
 
     /// <summary>
     /// Adds commands to a list
