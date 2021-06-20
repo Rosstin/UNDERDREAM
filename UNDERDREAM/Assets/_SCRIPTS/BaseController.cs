@@ -137,6 +137,24 @@ public class BaseController : MonoBehaviour
         KeycodesToCommands(KeyCode.Q, Command.Fire);
         KeycodesToCommands(KeyCode.LeftShift, Command.Fire);
         KeycodesToCommands(KeyCode.RightShift, Command.Fire);
+
+        // Up
+        KeycodesToCommands(KeyCode.UpArrow, Command.Up);
+        KeycodesToCommands(KeyCode.W, Command.Up);
+
+        // Down
+        KeycodesToCommands(KeyCode.DownArrow, Command.Down);
+        KeycodesToCommands(KeyCode.S, Command.Down);
+
+        // Left
+        KeycodesToCommands(KeyCode.LeftArrow, Command.Left);
+        KeycodesToCommands(KeyCode.A, Command.Left);
+
+        // Right
+        KeycodesToCommands(KeyCode.RightArrow, Command.Right);
+        KeycodesToCommands(KeyCode.D, Command.Right);
+
+                if(Gamepad.current != null){
         ButtonControlsToCommands(Gamepad.current.rightTrigger, Command.Fire);
         ButtonControlsToCommands(Gamepad.current.leftTrigger, Command.Fire);
         ButtonControlsToCommands(Gamepad.current.buttonNorth, Command.Fire);
@@ -144,33 +162,23 @@ public class BaseController : MonoBehaviour
         ButtonControlsToCommands(Gamepad.current.buttonEast, Command.Fire);
         ButtonControlsToCommands(Gamepad.current.buttonWest, Command.Fire);
 
-        // Up
-        KeycodesToCommands(KeyCode.UpArrow, Command.Up);
-        KeycodesToCommands(KeyCode.W, Command.Up);
         ButtonControlsToCommands(Gamepad.current.leftStick.up, Command.Up);
         ButtonControlsToCommands(Gamepad.current.rightStick.up, Command.Up);
         ButtonControlsToCommands(Gamepad.current.dpad.up, Command.Up);
 
-        // Down
-        KeycodesToCommands(KeyCode.DownArrow, Command.Down);
-        KeycodesToCommands(KeyCode.S, Command.Down);
         ButtonControlsToCommands(Gamepad.current.leftStick.down, Command.Down);
         ButtonControlsToCommands(Gamepad.current.rightStick.down, Command.Down);
         ButtonControlsToCommands(Gamepad.current.dpad.down, Command.Down);
 
-        // Left
-        KeycodesToCommands(KeyCode.LeftArrow, Command.Left);
-        KeycodesToCommands(KeyCode.A, Command.Left);
         ButtonControlsToCommands(Gamepad.current.leftStick.left, Command.Left);
         ButtonControlsToCommands(Gamepad.current.rightStick.left, Command.Left);
         ButtonControlsToCommands(Gamepad.current.dpad.left, Command.Left);
-
-        // Right
-        KeycodesToCommands(KeyCode.RightArrow, Command.Right);
-        KeycodesToCommands(KeyCode.D, Command.Right);
+        
         ButtonControlsToCommands(Gamepad.current.leftStick.right, Command.Right);
         ButtonControlsToCommands(Gamepad.current.rightStick.right, Command.Right);
         ButtonControlsToCommands(Gamepad.current.dpad.right, Command.Right);
+        }
+
     }
 
 
