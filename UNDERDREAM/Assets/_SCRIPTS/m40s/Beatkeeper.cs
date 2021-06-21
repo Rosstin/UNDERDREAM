@@ -37,8 +37,7 @@ public class Beatkeeper : BaseController
     protected int allowedMistakes;
 
     [Header("Blackout")]
-    [SerializeField]
-    protected Cloudloop blackout;
+    [SerializeField] protected Cloudloop blackout;
 
     [Header("Output Text")]
     [SerializeField]

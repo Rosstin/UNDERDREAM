@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameMasterM70 : MonoBehaviour
 {
@@ -13,13 +14,25 @@ public class GameMasterM70 : MonoBehaviour
     [SerializeField] public float timeItTakesCannonsToFire;
     [SerializeField] protected List<float> crankTimes;
     [SerializeField] public float timeItTakesToCrank;
+    [SerializeField] private float particleStartTime;
+    [SerializeField] private float flamesStartTime;
+    [SerializeField] private float gunFireTime;
+    [SerializeField] protected float wipeoutBuffer;
+
+    [Header("SFX")]
+    [SerializeField] protected AudioSource wipeout;
+    [SerializeField] private AudioSource laserSaw;
+    [SerializeField] private AudioSource laserCharge;
+    [SerializeField] private AudioSource laserFire;
 
     [Header("Skip Time")]
     [SerializeField]private float skipTimeAmount;
 
     [Header("Outlets")]
-    [SerializeField]
-    private SternShipM70 ship;
+    [SerializeField] private SternShipM70 ship;
+    [SerializeField] private GameObject particles;
+    [SerializeField] private GameObject flames;
+    [SerializeField] protected Cloudloop blackout;
 
     private int mineTimeIndex = 0;
     private int frontCannonTimeIndex = 0;
@@ -31,9 +44,44 @@ public class GameMasterM70 : MonoBehaviour
 
     private float elapsed = 0f;
 
+    private float lastTime = 0f;
+
+    /// <summary>
+    /// fire the big gun and restart the scene
+    /// </summary>
+    private void GoGoItanoCircus()
+    {
+        // todo play itano circus anim
+        Debug.LogWarning("GoGoItanoCircus");
+
+
+        StartCoroutine(Failure());
+
+    }
+
+    protected IEnumerator Failure()
+    {
+        //this.enabled = (false); // stop the update loop
+        laserFire.Play();
+        Data.GetSabreSong().Stop();
+        blackout.gameObject.SetActive(true);
+        blackout.enabled = true;
+        wipeout.Play();
+        yield return new WaitForSeconds(wipeout.clip.length + wipeoutBuffer);
+        Restart();
+    }
+
+    protected void Restart()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+
     // Start is called before the first frame update
     void Start()
     {
+        particles.gameObject.SetActive(false);
+        flames.gameObject.SetActive(false);
         Data.DestroyTigerSong();
         Data.CreateSabreSong();
 
@@ -41,6 +89,9 @@ public class GameMasterM70 : MonoBehaviour
         {
             Data.GetSabreSong().Play();
         }
+
+        blackout.gameObject.SetActive(false);
+        blackout.enabled = false;
     }
 
     /// <summary>
@@ -64,6 +115,22 @@ public class GameMasterM70 : MonoBehaviour
         }
 
         var currentTime = Data.GetSabreSong().time;
+
+        if (currentTime > particleStartTime && lastTime < particleStartTime)
+        {
+            laserSaw.Play();
+            particles.gameObject.SetActive(true);
+        }
+
+        if (currentTime > flamesStartTime && lastTime < flamesStartTime){
+            laserCharge.Play();
+            flames.gameObject.SetActive(true);
+        }
+
+        if (currentTime > gunFireTime && lastTime < gunFireTime)
+        {
+            GoGoItanoCircus();
+        }
 
         if(mineTimeIndex < mineTimes.Count)
         {
@@ -105,6 +172,7 @@ public class GameMasterM70 : MonoBehaviour
             }
         }
 
+        lastTime = currentTime;
 
     }
 }
