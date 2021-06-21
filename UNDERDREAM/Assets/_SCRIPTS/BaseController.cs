@@ -13,6 +13,11 @@ public class BaseController : MonoBehaviour
 {
     public UniversalDataSO Data;
 
+    // mouse margin for horiz, in viewport units (0 to 1)
+    private const float mouseMarginX = 0.2f;
+    // mouse margin for vert, in vp units (0 to 1)
+    private const float mouseMarginY = 0.2f;
+
     public void Start()
     {
         // set the current scene based on where this scene is in the build order
@@ -131,15 +136,105 @@ public class BaseController : MonoBehaviour
         CommandsStartedThisFrame.Clear();
         CommandsHeldThisFrame.Clear();
 
-        // Fire/Jump
+        // MOUSE
         if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1) || Input.GetMouseButtonDown(2))
         {
-            if (!CommandsStartedThisFrame.ContainsKey(Command.Fire)) CommandsStartedThisFrame.Add(Command.Fire, true);
+
+            var mouseX = Input.mousePosition.x / Screen.width;
+            var mouseY = Input.mousePosition.y / Screen.height;
+
+            Debug.LogWarning("mouseX " + mouseX + "     mouseY " + mouseY);
+
+            var isHorizNeutral=false;
+            var isVertNeutral = false;
+            // left click
+            if(mouseX < 0f+mouseMarginX)
+            {
+                if (!CommandsStartedThisFrame.ContainsKey(Command.Left)) CommandsStartedThisFrame.Add(Command.Left, true);
+            }
+            // right click
+            else if (mouseX > 1f- mouseMarginX)
+            {
+                if (!CommandsStartedThisFrame.ContainsKey(Command.Right)) CommandsStartedThisFrame.Add(Command.Right, true);
+            }
+            // middle click
+            else
+            {
+                isHorizNeutral = true;
+            }
+
+            // down click
+            if(mouseY < 0f + mouseMarginY)
+            {
+                if (!CommandsStartedThisFrame.ContainsKey(Command.Down)) CommandsStartedThisFrame.Add(Command.Down, true);
+            }
+            // up click
+            else if(mouseY > 1f - mouseMarginY)
+            {
+                if (!CommandsStartedThisFrame.ContainsKey(Command.Up)) CommandsStartedThisFrame.Add(Command.Up, true);
+            }
+            // middle click
+            else
+            {
+                isVertNeutral = true;
+            }
+
+            // firejump (click in center)
+            if (isVertNeutral && isHorizNeutral)
+            {
+                Debug.LogWarning("fire");
+                if (!CommandsStartedThisFrame.ContainsKey(Command.Fire)) CommandsStartedThisFrame.Add(Command.Fire, true);
+            }
         }
         if (Input.GetMouseButton(0) || Input.GetMouseButton(1) || Input.GetMouseButton(2))
         {
-            if (!CommandsHeldThisFrame.ContainsKey(Command.Fire)) CommandsHeldThisFrame.Add(Command.Fire, true);
+            var mouseX = Input.mousePosition.x / Screen.width;
+            var mouseY = Input.mousePosition.y / Screen.height;
+
+            var isHorizNeutral = false;
+            var isVertNeutral = false;
+            // left click
+            if (mouseX < 0f + mouseMarginX)
+            {
+                if (!CommandsHeldThisFrame.ContainsKey(Command.Left)) CommandsHeldThisFrame.Add(Command.Left, true);
+            }
+            // right click
+            else if (mouseX > 1f - mouseMarginX)
+            {
+                if (!CommandsHeldThisFrame.ContainsKey(Command.Right)) CommandsHeldThisFrame.Add(Command.Right, true);
+            }
+            // middle click
+            else
+            {
+                isHorizNeutral = true;
+            }
+
+            // down click
+            if (mouseY < 0f + mouseMarginY)
+            {
+                if (!CommandsHeldThisFrame.ContainsKey(Command.Down)) CommandsHeldThisFrame.Add(Command.Down, true);
+            }
+            // up click
+            else if (mouseY > 1f - mouseMarginY)
+            {
+                if (!CommandsHeldThisFrame.ContainsKey(Command.Up)) CommandsHeldThisFrame.Add(Command.Up, true);
+            }
+            // middle click
+            else
+            {
+                isVertNeutral = true;
+            }
+
+            // firejump (click in center)
+            if (isVertNeutral && isHorizNeutral)
+            {
+                if (!CommandsHeldThisFrame.ContainsKey(Command.Fire)) CommandsHeldThisFrame.Add(Command.Fire, true);
+            }
         }
+
+
+        // KEYBOARD
+        // Fire/Jump
         KeycodesToCommands(KeyCode.Space, Command.Fire);
         KeycodesToCommands(KeyCode.E, Command.Fire);
         KeycodesToCommands(KeyCode.Q, Command.Fire);
@@ -162,6 +257,7 @@ public class BaseController : MonoBehaviour
         KeycodesToCommands(KeyCode.RightArrow, Command.Right);
         KeycodesToCommands(KeyCode.D, Command.Right);
 
+        // GAMEPAD
                 if(Gamepad.current != null){
         ButtonControlsToCommands(Gamepad.current.rightTrigger, Command.Fire);
         ButtonControlsToCommands(Gamepad.current.leftTrigger, Command.Fire);
