@@ -178,23 +178,6 @@ public class BeatkeeperM42 : Beatkeeper
                 }
             }
 
-            // play a beat on the beat
-            /*
-            if (
-                currentTime > beatTimes[beatIndexInternal]
-                &&
-                lastTime < beatTimes[beatIndexInternal]
-                )
-            {
-                success.Play();
-                beatIndexInternal++;
-                if (beatIndexInternal >= beatTimes.Count)
-                {
-                    itsOver = true;
-                }
-            }
-            */
-
         }
     }
 }

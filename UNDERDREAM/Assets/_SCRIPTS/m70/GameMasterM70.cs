@@ -7,6 +7,9 @@ public class GameMasterM70 : MonoBehaviour
 {
     public UniversalDataSO Data;
 
+    [Header("Debug")]
+    [SerializeField] private float songStartTime;
+
     [Header("Timing")]
     [SerializeField] protected List<float> mineTimes;
     [SerializeField] protected List<float> frontCannonTimes;
@@ -33,6 +36,7 @@ public class GameMasterM70 : MonoBehaviour
     [SerializeField] private GameObject particles;
     [SerializeField] private GameObject flames;
     [SerializeField] protected Cloudloop blackout;
+    [SerializeField] private MissileLauncher missileLauncher;
 
     private int mineTimeIndex = 0;
     private int frontCannonTimeIndex = 0;
@@ -63,7 +67,6 @@ public class GameMasterM70 : MonoBehaviour
     {
         //this.enabled = (false); // stop the update loop
         laserFire.Play();
-        Data.GetSabreSong().Stop();
         blackout.gameObject.SetActive(true);
         blackout.enabled = true;
         wipeout.Play();
@@ -83,7 +86,16 @@ public class GameMasterM70 : MonoBehaviour
         particles.gameObject.SetActive(false);
         flames.gameObject.SetActive(false);
         Data.DestroyTigerSong();
+        Data.DestroySabreSong();
         Data.CreateSabreSong();
+
+        // if you're out of sync (maybe because this is a redo, or big slowdown), reset time to correct spot
+        if (Data.GetSabreSong().time > songStartTime + 3 ||
+            Data.GetSabreSong().time < songStartTime - 3
+            )
+        {
+            Data.GetSabreSong().time = (songStartTime);
+        }
 
         if (!Data.GetSabreSong().isPlaying)
         {
@@ -124,6 +136,7 @@ public class GameMasterM70 : MonoBehaviour
 
         if (currentTime > flamesStartTime && lastTime < flamesStartTime){
             laserCharge.Play();
+            missileLauncher.ExtendCannon();
             flames.gameObject.SetActive(true);
         }
 

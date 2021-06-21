@@ -132,6 +132,14 @@ public class BaseController : MonoBehaviour
         CommandsHeldThisFrame.Clear();
 
         // Fire/Jump
+        if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1) || Input.GetMouseButtonDown(2))
+        {
+            if (!CommandsStartedThisFrame.ContainsKey(Command.Fire)) CommandsStartedThisFrame.Add(Command.Fire, true);
+        }
+        if (Input.GetMouseButton(0) || Input.GetMouseButton(1) || Input.GetMouseButton(2))
+        {
+            if (!CommandsHeldThisFrame.ContainsKey(Command.Fire)) CommandsHeldThisFrame.Add(Command.Fire, true);
+        }
         KeycodesToCommands(KeyCode.Space, Command.Fire);
         KeycodesToCommands(KeyCode.E, Command.Fire);
         KeycodesToCommands(KeyCode.Q, Command.Fire);

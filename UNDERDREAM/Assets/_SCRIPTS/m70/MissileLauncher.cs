@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class MissileLauncher : MonoBehaviour
 {
+    [Header("Outlet: Components")]
+    [SerializeField] private GameObject cannon;
+
+    [Header("Fire Animation")]
+    [SerializeField] private float bodyBackPerSecond;
+    [SerializeField] private float gunForwardPerSecond;
+
     [Header("Outlet: Top and Bottom Anchors")]
     [SerializeField] private Transform topAnchor;
     [SerializeField] private Transform botAnchor;
@@ -29,6 +36,7 @@ public class MissileLauncher : MonoBehaviour
     [SerializeField] private LineRenderer botBackLR;
 
     private float upRatio = 0.5f;
+    private Vector3 offset = new Vector3();
 
     // Start is called before the first frame update
     void Start()
@@ -36,10 +44,26 @@ public class MissileLauncher : MonoBehaviour
         
     }
 
+    public void ExtendCannon()
+    {
+        StartCoroutine(ExtendCannonCo());
+    }
+
+    IEnumerator ExtendCannonCo()
+    {
+        while (true)
+        {
+            offset -= new Vector3(Time.deltaTime * bodyBackPerSecond, 0f, 0f);
+            cannon.gameObject.transform.localPosition += new Vector3(Time.deltaTime * gunForwardPerSecond, 0f, 0f);
+            yield return 0;
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
         this.transform.position = Vector3.Lerp(botAnchor.position, topAnchor.position, upRatio);
+        this.transform.position += offset;
 
         topFrontLR.SetPosition(0, topFrontFoot.transform.position);
         topFrontLR.SetPosition(1, topFrontSheath.transform.position);

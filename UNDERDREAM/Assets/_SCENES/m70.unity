@@ -1642,7 +1642,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 665595503}
-  m_RootOrder: 4
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!212 &349156171
 SpriteRenderer:
@@ -3504,7 +3504,7 @@ GameObject:
   - component: {fileID: 665595503}
   - component: {fileID: 665595504}
   m_Layer: 0
-  m_Name: gundam
+  m_Name: MISSILE-LAUNCHER
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3521,8 +3521,6 @@ Transform:
   m_LocalPosition: {x: 2.18, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1248858429}
-  - {fileID: 1947302682}
   - {fileID: 2119531101}
   - {fileID: 1843539599}
   - {fileID: 349156170}
@@ -3543,6 +3541,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b500d12d2859214c9641bedcc3381c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cannon: {fileID: 1843539598}
+  bodyBackPerSecond: -0.05
+  gunForwardPerSecond: 0.2
   topAnchor: {fileID: 564760370}
   botAnchor: {fileID: 726575317}
   topFrontFoot: {fileID: 564760369}
@@ -3832,7 +3833,7 @@ Transform:
   - {fileID: 1989070749}
   - {fileID: 147065445}
   m_Father: {fileID: 665595503}
-  m_RootOrder: 6
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &726575316
 GameObject:
@@ -5500,7 +5501,7 @@ Transform:
   - {fileID: 1453062729}
   - {fileID: 594042292}
   m_Father: {fileID: 665595503}
-  m_RootOrder: 5
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1091080959
 GameObject:
@@ -6336,12 +6337,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1248858428}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 1.65, y: 0.41, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -1.6499996, y: 0.40999994, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 0.5}
   m_Children: []
-  m_Father: {fileID: 665595503}
-  m_RootOrder: 0
+  m_Father: {fileID: 1843539599}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!95 &1248858430
 Animator:
@@ -7778,6 +7779,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Data: {fileID: 11400000, guid: 030ba6bd61089974fb3f8046db4984fb, type: 2}
+  songStartTime: 0
   mineTimes:
   - 7.85
   - 8.5
@@ -7879,7 +7881,7 @@ MonoBehaviour:
   particleStartTime: 45
   flamesStartTime: 50
   gunFireTime: 55
-  wipeoutBuffer: 2
+  wipeoutBuffer: 0.2
   wipeout: {fileID: 840250614}
   laserSaw: {fileID: 1415366974}
   laserCharge: {fileID: 181423049}
@@ -7889,6 +7891,7 @@ MonoBehaviour:
   particles: {fileID: 1248858428}
   flames: {fileID: 1947302681}
   blackout: {fileID: 1301089227}
+  missileLauncher: {fileID: 665595504}
 --- !u!1 &1453062728
 GameObject:
   m_ObjectHideFlags: 0
@@ -9590,9 +9593,11 @@ Transform:
   m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 2}
-  m_Children: []
+  m_Children:
+  - {fileID: 1947302682}
+  - {fileID: 1248858429}
   m_Father: {fileID: 665595503}
-  m_RootOrder: 3
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1843539600
 SpriteRenderer:
@@ -10016,12 +10021,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1947302681}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 1.65, y: 0.41, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -1.6499996, y: 0.40999994, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 0.5}
   m_Children: []
-  m_Father: {fileID: 665595503}
-  m_RootOrder: 1
+  m_Father: {fileID: 1843539599}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!95 &1947302683
 Animator:
@@ -10871,7 +10876,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 2}
   m_Children: []
   m_Father: {fileID: 665595503}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2119531102
 SpriteRenderer:
