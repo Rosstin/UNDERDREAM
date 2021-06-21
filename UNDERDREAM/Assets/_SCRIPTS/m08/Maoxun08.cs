@@ -24,7 +24,7 @@ public class Maoxun08 : BaseController
     [SerializeField] private GameObject Scarf;
 
     [Header("Outlets: Bounds")]
-    [SerializeField] private CircleCollider2D Target;
+    [SerializeField] private BoxCollider2D Target;
 
     [Header("Outlets: Components")]
     [SerializeField] private Rigidbody2D myRigidbody;
