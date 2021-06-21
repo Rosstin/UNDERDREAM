@@ -143,8 +143,6 @@ public class BaseController : MonoBehaviour
             var mouseX = Input.mousePosition.x / Screen.width;
             var mouseY = Input.mousePosition.y / Screen.height;
 
-            Debug.LogWarning("mouseX " + mouseX + "     mouseY " + mouseY);
-
             var isHorizNeutral=false;
             var isVertNeutral = false;
             // left click
@@ -182,7 +180,6 @@ public class BaseController : MonoBehaviour
             // firejump (click in center)
             if (isVertNeutral && isHorizNeutral)
             {
-                Debug.LogWarning("fire");
                 if (!CommandsStartedThisFrame.ContainsKey(Command.Fire)) CommandsStartedThisFrame.Add(Command.Fire, true);
             }
         }
