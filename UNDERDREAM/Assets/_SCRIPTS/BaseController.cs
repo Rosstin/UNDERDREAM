@@ -136,12 +136,20 @@ public class BaseController : MonoBehaviour
         CommandsStartedThisFrame.Clear();
         CommandsHeldThisFrame.Clear();
 
-        // MOUSE
-        if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1) || Input.GetMouseButtonDown(2))
+        // MOUSE / TOUCH
+        if (
+            Input.touchCount > 0 ||
+            Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1) || Input.GetMouseButtonDown(2))
         {
 
             var mouseX = Input.mousePosition.x / Screen.width;
             var mouseY = Input.mousePosition.y / Screen.height;
+
+            if (Input.touchCount > 0)
+            {
+                mouseX = Input.GetTouch(0).position.x / Screen.width;
+                mouseY = Input.GetTouch(0).position.y / Screen.height;
+            }
 
             var isHorizNeutral=false;
             var isVertNeutral = false;
