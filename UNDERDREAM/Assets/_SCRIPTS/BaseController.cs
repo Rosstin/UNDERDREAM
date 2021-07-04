@@ -18,6 +18,10 @@ public class BaseController : MonoBehaviour
     // mouse margin for vert, in vp units (0 to 1)
     private const float mouseMarginY = 0.2f;
 
+    private bool playerUsedMouseThisUpdate = false;
+    private bool playerUsedKeyboardThisUpdate = false;
+    private bool playerUsedGamepadThisUpdate = false;
+
     public void Start()
     {
         // set the current scene based on where this scene is in the build order
@@ -136,9 +140,14 @@ public class BaseController : MonoBehaviour
         CommandsStartedThisFrame.Clear();
         CommandsHeldThisFrame.Clear();
 
+        playerUsedMouseThisUpdate = false;
+        playerUsedKeyboardThisUpdate = false;
+        playerUsedGamepadThisUpdate = false;
+
         // MOUSE
         if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1) || Input.GetMouseButtonDown(2))
         {
+            playerUsedMouseThisUpdate = true;
 
             var mouseX = Input.mousePosition.x / Screen.width;
             var mouseY = Input.mousePosition.y / Screen.height;
@@ -185,6 +194,8 @@ public class BaseController : MonoBehaviour
         }
         if (Input.GetMouseButton(0) || Input.GetMouseButton(1) || Input.GetMouseButton(2))
         {
+            playerUsedMouseThisUpdate = true;
+
             var mouseX = Input.mousePosition.x / Screen.width;
             var mouseY = Input.mousePosition.y / Screen.height;
 
@@ -229,6 +240,12 @@ public class BaseController : MonoBehaviour
             }
         }
 
+        // check if player moved mouse without clicking
+        if ((Input.GetAxis("Mouse X") != 0) || (Input.GetAxis("Mouse Y") != 0))
+        {
+            playerUsedMouseThisUpdate = true;
+        }
+
 
         // KEYBOARD
         // Fire/Jump
@@ -255,31 +272,39 @@ public class BaseController : MonoBehaviour
         KeycodesToCommands(KeyCode.D, Command.Right);
 
         // GAMEPAD
-                if(Gamepad.current != null){
-        ButtonControlsToCommands(Gamepad.current.rightTrigger, Command.Fire);
-        ButtonControlsToCommands(Gamepad.current.leftTrigger, Command.Fire);
-        ButtonControlsToCommands(Gamepad.current.buttonNorth, Command.Fire);
-        ButtonControlsToCommands(Gamepad.current.buttonSouth, Command.Fire);
-        ButtonControlsToCommands(Gamepad.current.buttonEast, Command.Fire);
-        ButtonControlsToCommands(Gamepad.current.buttonWest, Command.Fire);
+        if(Gamepad.current != null){
+            ButtonControlsToCommands(Gamepad.current.rightTrigger, Command.Fire);
+            ButtonControlsToCommands(Gamepad.current.leftTrigger, Command.Fire);
+            ButtonControlsToCommands(Gamepad.current.buttonNorth, Command.Fire);
+            ButtonControlsToCommands(Gamepad.current.buttonSouth, Command.Fire);
+            ButtonControlsToCommands(Gamepad.current.buttonEast, Command.Fire);
+            ButtonControlsToCommands(Gamepad.current.buttonWest, Command.Fire);
 
-        ButtonControlsToCommands(Gamepad.current.leftStick.up, Command.Up);
-        ButtonControlsToCommands(Gamepad.current.rightStick.up, Command.Up);
-        ButtonControlsToCommands(Gamepad.current.dpad.up, Command.Up);
+            ButtonControlsToCommands(Gamepad.current.leftStick.up, Command.Up);
+            ButtonControlsToCommands(Gamepad.current.rightStick.up, Command.Up);
+            ButtonControlsToCommands(Gamepad.current.dpad.up, Command.Up);
 
-        ButtonControlsToCommands(Gamepad.current.leftStick.down, Command.Down);
-        ButtonControlsToCommands(Gamepad.current.rightStick.down, Command.Down);
-        ButtonControlsToCommands(Gamepad.current.dpad.down, Command.Down);
+            ButtonControlsToCommands(Gamepad.current.leftStick.down, Command.Down);
+            ButtonControlsToCommands(Gamepad.current.rightStick.down, Command.Down);
+            ButtonControlsToCommands(Gamepad.current.dpad.down, Command.Down);
 
-        ButtonControlsToCommands(Gamepad.current.leftStick.left, Command.Left);
-        ButtonControlsToCommands(Gamepad.current.rightStick.left, Command.Left);
-        ButtonControlsToCommands(Gamepad.current.dpad.left, Command.Left);
+            ButtonControlsToCommands(Gamepad.current.leftStick.left, Command.Left);
+            ButtonControlsToCommands(Gamepad.current.rightStick.left, Command.Left);
+            ButtonControlsToCommands(Gamepad.current.dpad.left, Command.Left);
         
-        ButtonControlsToCommands(Gamepad.current.leftStick.right, Command.Right);
-        ButtonControlsToCommands(Gamepad.current.rightStick.right, Command.Right);
-        ButtonControlsToCommands(Gamepad.current.dpad.right, Command.Right);
+            ButtonControlsToCommands(Gamepad.current.leftStick.right, Command.Right);
+            ButtonControlsToCommands(Gamepad.current.rightStick.right, Command.Right);
+            ButtonControlsToCommands(Gamepad.current.dpad.right, Command.Right);
         }
 
+        if (playerUsedMouseThisUpdate)
+        {
+            Cursor.visible = true;
+        }
+        else if (playerUsedGamepadThisUpdate || playerUsedKeyboardThisUpdate)
+        {
+            Cursor.visible = false;
+        }
     }
 
 
@@ -287,11 +312,13 @@ public class BaseController : MonoBehaviour
     {
         if (buttonControl.wasPressedThisFrame)
         {
-            if(!CommandsStartedThisFrame.ContainsKey(command)) CommandsStartedThisFrame.Add(command, true);
+            playerUsedGamepadThisUpdate = true;
+            if (!CommandsStartedThisFrame.ContainsKey(command)) CommandsStartedThisFrame.Add(command, true);
         }
 
         if (buttonControl.isPressed)
         {
+            playerUsedGamepadThisUpdate = true;
             if (!CommandsHeldThisFrame.ContainsKey(command)) CommandsHeldThisFrame.Add(command, true);
         }
     }
@@ -305,11 +332,13 @@ public class BaseController : MonoBehaviour
     {
         if (Input.GetKeyDown(keyCode))
         {
+            playerUsedKeyboardThisUpdate = true;
             if (!CommandsStartedThisFrame.ContainsKey(command)) CommandsStartedThisFrame.Add(command, true);
         }
 
         if (Input.GetKey(keyCode))
         {
+            playerUsedKeyboardThisUpdate = true;
             if (!CommandsHeldThisFrame.ContainsKey(command)) CommandsHeldThisFrame.Add(command, true);
         }
     }
