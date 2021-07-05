@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 282573794760912870}
   - component: {fileID: 2563527177453090825}
   m_Layer: 0
-  m_Name: 01 - Survivor - Eye Of The Tiger
+  m_Name: ML Montage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -41,7 +41,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 9bf98dd5887ffcc4ea3d469774176cbf, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 8aa5cce1da7550a43bfadddb5d92c9a1, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1

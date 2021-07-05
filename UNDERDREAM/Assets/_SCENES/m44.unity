@@ -486,27 +486,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Data: {fileID: 11400000, guid: 030ba6bd61089974fb3f8046db4984fb, type: 2}
   beatTimes:
-  - 68.2
-  - 69.3
-  - 70.4
-  - 71.5
-  - 72.6
-  - 73.7
-  - 74.8
+  - 47.454544
+  - 48.545456
+  - 49.636364
+  - 50.727272
+  - 51.81818
+  - 52.909092
+  - 54
   aTimes:
-  - 67.6
-  - 68.7
-  - 69.8
-  - 70.9
-  - 72
-  - 73.1
-  - 74.2
+  - 46.909092
+  - 48
+  - 49.090908
+  - 50.18182
+  - 51.272728
+  - 52.363636
+  - 53.454544
   beatRadiusVisualHint: 1.1
   beatInputLead: 0.5
   beatInputLag: 0.2
   wipeoutBuffer: 0.2
-  songSegmentStartTime: 65.75
-  songSegmentEndTime: 75
+  songSegmentStartTime: 46
+  songSegmentEndTime: 55
   success: {fileID: 596141229}
   mistake: {fileID: 1916536828}
   wipeout: {fileID: 2011031857}
