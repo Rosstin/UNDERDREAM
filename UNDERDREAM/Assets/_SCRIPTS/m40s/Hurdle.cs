@@ -12,7 +12,7 @@ public class Hurdle : MonoBehaviour
     [SerializeField] protected Color readyColor;
     [SerializeField] protected SpriteRenderer spriteRenderer;
 
-    private HurdleState myState;
+    protected HurdleState myState;
 
     public enum HurdleState
     {

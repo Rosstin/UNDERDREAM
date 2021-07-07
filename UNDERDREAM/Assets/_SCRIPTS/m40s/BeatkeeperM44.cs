@@ -66,6 +66,8 @@ public class BeatkeeperM44 : BeatkeeperM42
                 mirrorHurdle.MakeCorrect();
                 if (isFish)
                 {
+                    //todo start a coroutine to put the fish in moxie's mouth
+                    //myHurdle.
                     myHurdle.gameObject.SetActive(false);
                     mirrorHurdle.gameObject.SetActive(false);
                 }
@@ -172,22 +174,6 @@ public class BeatkeeperM44 : BeatkeeperM42
                 }
             }
 
-            // play a beat on the beat
-            /*
-            if (
-                currentTime > beatTimes[beatIndexInternal]
-                &&
-                lastTime < beatTimes[beatIndexInternal]
-                )
-            {
-                success.Play();
-                beatIndexInternal++;
-                if (beatIndexInternal >= beatTimes.Count)
-                {
-                    itsOver = true;
-                }
-            }
-            */
         }
 
     }

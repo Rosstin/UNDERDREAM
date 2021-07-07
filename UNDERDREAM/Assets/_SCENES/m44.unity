@@ -513,7 +513,7 @@ MonoBehaviour:
   hurdle: {fileID: 4664501907278042870, guid: aa73be3d1c1415c4396515e781f0abb4, type: 3}
   leftEdge: {fileID: 1805978561827544637}
   rightEdge: {fileID: 1805978560742531091}
-  a: {fileID: 4664501907278042870, guid: dd4af9c8302e18f4ba44593111845e63, type: 3}
+  a: {fileID: 7433912759367851544, guid: dd4af9c8302e18f4ba44593111845e63, type: 3}
   aStart: {fileID: 356527766}
   aEnd: {fileID: 274906239}
   aDisappearSpot: {fileID: 0}
