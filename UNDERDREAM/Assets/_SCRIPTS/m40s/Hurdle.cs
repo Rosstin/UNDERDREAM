@@ -22,6 +22,11 @@ public class Hurdle : MonoBehaviour
         Wrong
     }
 
+    public void SetPosition(Vector3 newPosition)
+    {
+        this.transform.position = newPosition;
+    }
+
     public void SetVisible(bool visible)
     {
         this.gameObject.SetActive(visible);

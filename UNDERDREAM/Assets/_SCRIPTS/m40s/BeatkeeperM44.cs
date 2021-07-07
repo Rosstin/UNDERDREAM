@@ -66,9 +66,9 @@ public class BeatkeeperM44 : BeatkeeperM42
                 if (isFish)
                 {
                     // they do the fish flippy thing instead of just disappearing, flying into moxie's mouth 
-                    ((FishHurdle)myHurdle).GoSpot = fishEatSpot.transform.position;
+                    ((FishHurdle)myHurdle).SetGoSpot(fishEatSpot.transform.position);
                     ((FishHurdle)myHurdle).MakeCorrect();
-                    ((FishHurdle)mirrorHurdle).GoSpot = fishEatSpot.transform.position;
+                    ((FishHurdle)mirrorHurdle).SetGoSpot(fishEatSpot.transform.position);
                     ((FishHurdle)mirrorHurdle).MakeCorrect();
                 }
                 else
@@ -96,7 +96,6 @@ public class BeatkeeperM44 : BeatkeeperM42
             {
                 missed = true;
 
-                // todo toss the hurdle
                 myHurdle.MakeWrong();
                 mirrorHurdle.MakeWrong();
 
@@ -118,12 +117,13 @@ public class BeatkeeperM44 : BeatkeeperM42
             }
 
 
-            if(isFish && myHurdle.GetState() == HurdleState.Correct)
+            if(isFish && myHurdle.GetState() == Hurdle.HurdleState.Correct)
             {
-                // do nothing
+                // if you're a fish and you're correctly answered, do nothing
             }
             else
             {
+                // move the hurdle
                 float hurdleProgress = (currentTime - visualStartTime) / (visualEndTime - visualStartTime);
                 myHurdle.transform.position = Vector3.Lerp(start.position, end.position, hurdleProgress);
                 mirrorHurdle.transform.position = Vector3.Lerp(mirrorStart, mirrorEnd, hurdleProgress);

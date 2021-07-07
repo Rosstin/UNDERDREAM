@@ -6,11 +6,17 @@ public class FishHurdle : Hurdle
 {
     public Vector3 GoSpot;
 
+    public void SetGoSpot(Vector3 goSpot)
+    {
+        Debug.LogWarning("spot " + goSpot);
+        this.GoSpot = goSpot;
+    }
+
     public override void MakeCorrect()
     {
-        Debug.LogWarning("do fish flippy thing");
-        //myState = HurdleState.Wrong;
-        //spriteRenderer.color = wrongColor;
+        base.MakeCorrect();
+        //myState = HurdleState.Correct;
+        //spriteRenderer.color = correctColor;
 
         // todo make it fly in moxie's mouth
 
@@ -23,16 +29,21 @@ public class FishHurdle : Hurdle
         // todo go to moxie's mouth then disappear
         float elapsed = 0f;
         const float PERIOD = 0.2f;
-        elapsed += Time.deltaTime;
+
+        //todo the fish should rotate and add an ease function
 
         Vector3 startPos = this.transform.position;
 
-        if(elapsed < PERIOD)
+        while(elapsed < PERIOD)
         {
-            Vector3.Lerp(startPos, GoSpot, elapsed / PERIOD);
-            yield return new WaitForSeconds(0.02f);
+            elapsed += Time.deltaTime;
+            this.transform.position = Vector3.Lerp(startPos, GoSpot, elapsed / PERIOD);
+
+            Debug.LogWarning("this.transform.position " + this.transform.position + "   GoSpot: " + GoSpot + "  elapsed = " + elapsed);
+
+            yield return 0;// new WaitForSeconds(0.02f);
         }
-        //this.gameObject.SetActive(false);
+        this.gameObject.SetActive(false);
     }
 
 }
