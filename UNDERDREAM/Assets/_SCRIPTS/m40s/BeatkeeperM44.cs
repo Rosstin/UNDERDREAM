@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class BeatkeeperM44 : BeatkeeperM42
 {
+    [SerializeField] private Transform fishEatSpot;
+
     /// <summary>
     /// Kick off something the player needs to interact with
     /// </summary>
@@ -61,15 +63,18 @@ public class BeatkeeperM44 : BeatkeeperM42
                 inputSuccess = true;
 
                 // make the hurdle green
-
-                myHurdle.MakeCorrect();
-                mirrorHurdle.MakeCorrect();
                 if (isFish)
                 {
-                    //todo start a coroutine to put the fish in moxie's mouth
-                    //myHurdle.
-                    myHurdle.gameObject.SetActive(false);
-                    mirrorHurdle.gameObject.SetActive(false);
+                    // they do the fish flippy thing instead of just disappearing, flying into moxie's mouth 
+                    ((FishHurdle)myHurdle).GoSpot = fishEatSpot.transform.position;
+                    ((FishHurdle)myHurdle).MakeCorrect();
+                    ((FishHurdle)mirrorHurdle).GoSpot = fishEatSpot.transform.position;
+                    ((FishHurdle)mirrorHurdle).MakeCorrect();
+                }
+                else
+                {
+                    myHurdle.MakeCorrect();
+                    mirrorHurdle.MakeCorrect();
                 }
 
                 // shout a success shout
@@ -112,9 +117,17 @@ public class BeatkeeperM44 : BeatkeeperM42
                 mistake.Play();
             }
 
-            float hurdleProgress = (currentTime - visualStartTime) / (visualEndTime - visualStartTime);
-            myHurdle.transform.position = Vector3.Lerp(start.position, end.position, hurdleProgress);
-            mirrorHurdle.transform.position = Vector3.Lerp(mirrorStart, mirrorEnd, hurdleProgress);
+
+            if(isFish && myHurdle.GetState() == HurdleState.Correct)
+            {
+                // do nothing
+            }
+            else
+            {
+                float hurdleProgress = (currentTime - visualStartTime) / (visualEndTime - visualStartTime);
+                myHurdle.transform.position = Vector3.Lerp(start.position, end.position, hurdleProgress);
+                mirrorHurdle.transform.position = Vector3.Lerp(mirrorStart, mirrorEnd, hurdleProgress);
+            }
 
             yield return 0;
         }
