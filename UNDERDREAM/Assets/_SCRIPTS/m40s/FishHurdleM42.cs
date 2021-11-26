@@ -2,15 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FishHurdle : Hurdle
+public class FishHurdleM42 : FishHurdle
 {
-    public Vector3 GoSpot;
-
-    public void SetGoSpot(Vector3 goSpot)
-    {
-        this.GoSpot = goSpot;
-    }
-
     public override void MakeCorrect()
     {
         base.MakeCorrect();
@@ -18,10 +11,14 @@ public class FishHurdle : Hurdle
         // todo make it fly in moxie's mouth
 
         StartCoroutine(GetEaten());
+
     }
 
     private IEnumerator GetEaten()
     {
+        // disappear with a mask after entering moxie's mouth
+        // should it speed up into her mouth?
+
         // todo go to moxie's mouth then disappear
         float elapsed = 0f;
         const float PERIOD = 0.2f;
@@ -34,6 +31,8 @@ public class FishHurdle : Hurdle
         {
             elapsed += Time.deltaTime;
             this.transform.position = Vector3.Lerp(startPos, GoSpot, elapsed / PERIOD);
+
+            Debug.LogWarning("this.transform.position " + this.transform.position + "   GoSpot: " + GoSpot + "  elapsed = " + elapsed);
 
             yield return 0;// new WaitForSeconds(0.02f);
         }

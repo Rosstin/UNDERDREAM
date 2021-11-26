@@ -5,14 +5,13 @@ using UnityEngine.SceneManagement;
 
 public class BeatkeeperM42 : Beatkeeper
 {
-
     /// <summary>
     /// Kick off something the player needs to interact with
     /// </summary>
     /// <param name="myHurdleIndex"></param>
     /// <param name="myHurdle"></param>
     /// <returns></returns>
-    private IEnumerator KickOffHurdle(int myHurdleIndex, Hurdle myHurdle, List<float> times, Transform start, Transform end, Transform disappearSpot = null)
+    private IEnumerator KickOffHurdle(int myHurdleIndex, Hurdle myHurdle, List<float> times, Transform start, Transform end, Transform disappearSpot = null, bool isFish = false)
     {
         bool madeYellow = false;
 
@@ -29,13 +28,14 @@ public class BeatkeeperM42 : Beatkeeper
         if (myHurdle.CorrectCommand == "up")
         {
             correctCode = Command.Up;
-        }else if(myHurdle.CorrectCommand == "down")
+        }
+        else if(myHurdle.CorrectCommand == "down")
         {
             correctCode = Command.Down;
         }
         else
         {
-            Debug.LogError("unhandled code!");
+            Debug.LogError("unhandled direction!");
         }
 
         while (currentTime < visualEndTime)
@@ -53,7 +53,6 @@ public class BeatkeeperM42 : Beatkeeper
                 success.Play();
                 inputSuccess = true;
 
-                // make the hurdle green
                 myHurdle.MakeCorrect();
 
                 // shout a success shout
@@ -99,7 +98,7 @@ public class BeatkeeperM42 : Beatkeeper
             myHurdle.transform.position = Vector3.Lerp(start.position, end.position, hurdleProgress);
 
             // disappear when you move past the spot and you're successful
-            if(disappearSpot!=null && myHurdle.GetState() == Hurdle.HurdleState.Correct)
+            if(disappearSpot != null && myHurdle.GetState() == Hurdle.HurdleState.Correct)
             {
                 // objects moving right
                 if (disappearSpot.position.x > start.position.x)
@@ -173,7 +172,7 @@ public class BeatkeeperM42 : Beatkeeper
                 if (currentTime > startTime)
                 {
                     Hurdle newHurdle = Instantiate(a.gameObject).GetComponent<Hurdle>();
-                    StartCoroutine(KickOffHurdle(aIndex, newHurdle, aTimes, aStart, aEnd, aDisappearSpot));
+                    StartCoroutine(KickOffHurdle(aIndex, newHurdle, aTimes, aStart, aEnd, aDisappearSpot, true));
                     aIndex++;
                 }
             }

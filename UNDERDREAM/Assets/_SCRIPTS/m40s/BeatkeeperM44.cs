@@ -15,7 +15,6 @@ public class BeatkeeperM44 : BeatkeeperM42
     /// <returns></returns>
     private IEnumerator KickOffHurdle(int myHurdleIndex, Hurdle myHurdle, List<float> times, Transform start, Transform end, bool isFish)
     {
-
         Hurdle mirrorHurdle = Instantiate(myHurdle.gameObject).GetComponent<Hurdle>();
         Vector3 mirrorStart = new Vector3(-start.position.x, start.position.y, start.position.z);
         Vector3 mirrorEnd = new Vector3(-end.position.x, end.position.y, end.position.z);
