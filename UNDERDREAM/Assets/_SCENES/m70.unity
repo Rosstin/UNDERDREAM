@@ -973,15 +973,12 @@ MonoBehaviour:
   lerpAmountPerSecond: 3
   lerpIncreasePerSecond: 0.5
   SeekSpot: {fileID: 851616998}
+  CollidePeriod: 3
   Body: {fileID: 209463018}
   MyCollider: {fileID: 209463017}
   StartingTorque: -300
   StartingForce: {x: -50, y: 80}
-  Boing1: {fileID: 330608711}
-  Boing2: {fileID: 176727364}
-  Boing1Prob: 0.2
   VelocityThreshold: 0.02
-  StartBoingTime: 0.02
 --- !u!58 &209463017
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1011,8 +1008,8 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 0.2
-  m_LinearDrag: 0.05
-  m_AngularDrag: 0.05
+  m_LinearDrag: 0.3
+  m_AngularDrag: 0.1
   m_GravityScale: 0.1
   m_Material: {fileID: 0}
   m_Interpolate: 0
@@ -4703,7 +4700,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 851616997}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.53, y: -0.110000014, z: 0}
+  m_LocalPosition: {x: 0.604, y: -0.110000014, z: 0}
   m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_Children: []
   m_Father: {fileID: 1325682591}
@@ -4722,7 +4719,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 5.035372, y: 0}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -4733,7 +4730,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3.7732008, y: 8.1}
+  m_Size: {x: 6.10372, y: 8.1}
   m_EdgeRadius: 0
 --- !u!1 &928131718
 GameObject:
