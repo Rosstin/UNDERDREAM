@@ -23,8 +23,10 @@ public class Hat : MonoBehaviour
     [Range(0.001f, 0.03f)]
     public float VelocityThreshold;
 
-    private float elapsed = 0f;
+    [Header("Click Sound")]
+    public AudioSource ClickSFX;
 
+    private float elapsed = 0f;
     private bool finished = false;
 
     public void Start()
@@ -37,7 +39,6 @@ public class Hat : MonoBehaviour
         {
             this.gameObject.SetActive(true);
             finished = true;
-            Debug.LogWarning("hat Fly");
             this.transform.parent = null;
             Body.AddForce(StartingForce);
             Body.AddTorque(StartingTorque);
@@ -55,7 +56,7 @@ public class Hat : MonoBehaviour
         if (MyCollider.IsTouching(Shanty.BiteCollider) || elapsed > CollidePeriod)
         {
             // play click sound todo
-            Debug.LogWarning("shanty go saiyan from hat");
+            ClickSFX.Play();
             this.gameObject.SetActive(false);
             Shanty.ShantyGoesSaiyan();
         }

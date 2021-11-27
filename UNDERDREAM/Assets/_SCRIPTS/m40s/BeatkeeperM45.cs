@@ -47,25 +47,6 @@ public class BeatkeeperM45 : Beatkeeper
                     beatIndexPlayer++;
                 }
             }
-
-
-            // ball and chain
-            /*
-            if (aTimes.Count > 0 && aIndex < aTimes.Count)
-            {
-                // the player has to be able to see the hurdles ahead of time
-                float startTime = aTimes[aIndex] - beatRadiusVisualHint;
-                float endTime = aTimes[aIndex] + beatRadiusVisualHint;
-
-                // kick off the hurdle        
-                if (currentTime > startTime)
-                {
-                    Hurdle newHurdle = Instantiate(a.gameObject).GetComponent<Hurdle>();
-                    StartCoroutine(KickOffHurdle(aIndex, punchingBag, aTimes, aStart, aEnd));
-                    aIndex++;
-                }
-            }
-            */
         }
     }
 

@@ -979,6 +979,7 @@ MonoBehaviour:
   StartingTorque: -300
   StartingForce: {x: -50, y: 80}
   VelocityThreshold: 0.02
+  ClickSFX: {fileID: 445257983}
 --- !u!58 &209463017
 CircleCollider2D:
   m_ObjectHideFlags: 0
