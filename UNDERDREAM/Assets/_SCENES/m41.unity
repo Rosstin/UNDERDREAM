@@ -724,33 +724,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Data: {fileID: 11400000, guid: 030ba6bd61089974fb3f8046db4984fb, type: 2}
   beatTimes:
-  - 27.43
-  - 28.55
-  - 29.1
-  - 29.4
-  - 30.8
-  - 31.3
-  - 31.7
-  - 33
-  - 33.5
-  - 34.1
-  - 36.4
-  - 37.5
-  - 37.9
-  - 38.3
-  - 39.7
-  - 40.1
-  - 40.5
-  - 41.8
-  - 42.4
-  - 42.8
+  - 20.727272
+  - 21.272728
+  - 21.818182
+  - 22.363636
+  - 22.90909
+  - 23.454546
+  - 24
+  - 24.545454
+  - 25.09091
+  - 25.636364
+  - 26.181818
+  - 26.727272
   aTimes: []
   beatRadiusVisualHint: 0.5
   beatInputLead: 0.3
   beatInputLag: 0.1
   wipeoutBuffer: 0.2
-  songSegmentStartTime: 26
-  songSegmentEndTime: 45
+  songSegmentStartTime: 19.2
+  songSegmentEndTime: 27
   success: {fileID: 596141229}
   mistake: {fileID: 1916536828}
   wipeout: {fileID: 2011031857}
@@ -1334,7 +1326,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 360554980}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.5, y: -4.32, z: 0}
+  m_LocalPosition: {x: 10.84, y: -4.32, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2630,7 +2622,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1120892450}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.5, y: 2.66, z: 0}
+  m_LocalPosition: {x: 10.84, y: 2.66, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -4782,8 +4774,8 @@ Camera:
   m_GameObject: {fileID: 2057442804}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0

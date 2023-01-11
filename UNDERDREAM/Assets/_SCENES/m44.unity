@@ -440,7 +440,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 204721349}
-  - component: {fileID: 204721350}
+  - component: {fileID: 204721351}
   m_Layer: 0
   m_Name: BEATKEEPER
   m_TagString: Untagged
@@ -472,7 +472,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &204721350
+--- !u!114 &204721351
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -481,39 +481,39 @@ MonoBehaviour:
   m_GameObject: {fileID: 204721348}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 23d9602bb3263ac478e4d466c7fc3cda, type: 3}
+  m_Script: {fileID: 11500000, guid: 30a9c50278dbe8148ad304d2957222f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Data: {fileID: 11400000, guid: 030ba6bd61089974fb3f8046db4984fb, type: 2}
   beatTimes:
-  - 68.2
-  - 69.3
-  - 70.4
-  - 71.5
-  - 72.6
-  - 73.7
-  - 74.8
+  - 47.45454
+  - 48.54546
+  - 49.63636
+  - 50.72727
+  - 51.81818
+  - 52.90909
+  - 54
   aTimes:
-  - 67.6
-  - 68.7
-  - 69.8
-  - 70.9
-  - 72
-  - 73.1
-  - 74.2
+  - 46.90909
+  - 48
+  - 49.09091
+  - 50.18182
+  - 51.27273
+  - 52.36364
+  - 53.45454
   beatRadiusVisualHint: 1.1
   beatInputLead: 0.5
   beatInputLag: 0.2
   wipeoutBuffer: 0.2
-  songSegmentStartTime: 65.75
-  songSegmentEndTime: 75
+  songSegmentStartTime: 46
+  songSegmentEndTime: 55
   success: {fileID: 596141229}
   mistake: {fileID: 1916536828}
   wipeout: {fileID: 2011031857}
   hurdle: {fileID: 4664501907278042870, guid: aa73be3d1c1415c4396515e781f0abb4, type: 3}
   leftEdge: {fileID: 1805978561827544637}
   rightEdge: {fileID: 1805978560742531091}
-  a: {fileID: 4664501907278042870, guid: dd4af9c8302e18f4ba44593111845e63, type: 3}
+  a: {fileID: 7433912759367851544, guid: dd4af9c8302e18f4ba44593111845e63, type: 3}
   aStart: {fileID: 356527766}
   aEnd: {fileID: 274906239}
   aDisappearSpot: {fileID: 0}
@@ -535,6 +535,7 @@ MonoBehaviour:
   - bummer...
   - dang yo...
   - aw man...
+  fishEatSpot: {fileID: 318448637}
 --- !u!1 &274906238
 GameObject:
   m_ObjectHideFlags: 0
@@ -793,6 +794,85 @@ MonoBehaviour:
   cloud: {fileID: 310424836}
   startingPercent: 0
   dontLoop: 1
+--- !u!1 &318448636
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 318448637}
+  - component: {fileID: 318448639}
+  - component: {fileID: 318448638}
+  m_Layer: 0
+  m_Name: fisheatspot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &318448637
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 318448636}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 2.22, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1060886005}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!23 &318448638
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 318448636}
+  m_Enabled: 0
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &318448639
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 318448636}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &337925781
 GameObject:
   m_ObjectHideFlags: 0
@@ -2058,7 +2138,7 @@ MonoBehaviour:
   downSprite: {fileID: 1554438455}
   upSprite: {fileID: 1622344657}
   hangTime: 0.2
-  baseController: {fileID: 204721350}
+  baseController: {fileID: 204721351}
 --- !u!4 &1060886005
 Transform:
   m_ObjectHideFlags: 0
@@ -2072,6 +2152,7 @@ Transform:
   m_Children:
   - {fileID: 1622344658}
   - {fileID: 1554438456}
+  - {fileID: 318448637}
   m_Father: {fileID: 0}
   m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3993,8 +4074,8 @@ Camera:
   m_GameObject: {fileID: 2057442804}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -4203,7 +4284,7 @@ PrefabInstance:
     - target: {fileID: 33864986438214496, guid: 7abcb46e4fc4dfe41bb353e5e6456483,
         type: 3}
       propertyPath: m_SortingLayer
-      value: 38
+      value: 47
       objectReference: {fileID: 0}
     - target: {fileID: 33864986438214496, guid: 7abcb46e4fc4dfe41bb353e5e6456483,
         type: 3}

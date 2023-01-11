@@ -534,7 +534,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -542086105
-  m_SortingLayer: 28
+  m_SortingLayer: 35
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 03dcc843a1a65184fb495a9fc3bbc0c5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -813,7 +813,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -542086105
-  m_SortingLayer: 28
+  m_SortingLayer: 35
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: d2c0751b94d35bc4c91ec5ada65dbd19, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1125,7 +1125,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -542086105
-  m_SortingLayer: 28
+  m_SortingLayer: 35
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: a80c6ccd41ab071448819257b8d0ba09, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1247,8 +1247,8 @@ Camera:
   m_GameObject: {fileID: 586310460}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -1377,7 +1377,7 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -251907803
-  m_SortingLayer: 41
+  m_SortingLayer: 48
   m_SortingOrder: 0
 --- !u!114 &651802883
 MonoBehaviour:
@@ -1939,7 +1939,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -103148893
-  m_SortingLayer: 24
+  m_SortingLayer: 31
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 613f96c96813786448870cc14d68f4a4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -2541,7 +2541,7 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -251907803
-  m_SortingLayer: 41
+  m_SortingLayer: 48
   m_SortingOrder: 0
 --- !u!114 &1305802788
 MonoBehaviour:
@@ -3018,8 +3018,8 @@ Camera:
   m_GameObject: {fileID: 1540311990}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -4010,8 +4010,8 @@ Camera:
   m_GameObject: {fileID: 1815672177}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -4093,8 +4093,8 @@ Camera:
   m_GameObject: {fileID: 1834884501}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -4346,7 +4346,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 445570527
-  m_SortingLayer: 27
+  m_SortingLayer: 34
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: d2ac3a52711a0464192bad74212b398f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -4576,7 +4576,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 445570527
-  m_SortingLayer: 27
+  m_SortingLayer: 34
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: c2f83eca73980034eaca5131af4be11c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

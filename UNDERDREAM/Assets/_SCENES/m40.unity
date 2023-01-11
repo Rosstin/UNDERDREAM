@@ -456,33 +456,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Data: {fileID: 11400000, guid: 030ba6bd61089974fb3f8046db4984fb, type: 2}
   beatTimes:
-  - 9.7
-  - 10.8
-  - 11.2
-  - 11.6
-  - 12.95
-  - 13.3
-  - 13.75
-  - 15.1
-  - 15.6
-  - 15.9
-  - 18.5
-  - 19.6
-  - 20
-  - 20.4
-  - 22.07
-  - 22.5
-  - 22.9
-  - 23.95
-  - 24.4
-  - 24.8
+  - 11.454545
+  - 12
+  - 12.545455
+  - 13.090909
+  - 13.636364
+  - 14.181818
+  - 14.727273
+  - 15.272727
+  - 15.818182
+  - 16.363636
+  - 16.90909
+  - 17.454546
+  - 18
+  - 18.545454
+  - 19.09091
   aTimes: []
-  beatRadiusVisualHint: 0.5
+  beatRadiusVisualHint: 0.4
   beatInputLead: 0.3
   beatInputLag: 0.1
   wipeoutBuffer: 0.2
   songSegmentStartTime: 0
-  songSegmentEndTime: 26
+  songSegmentEndTime: 19.2
   success: {fileID: 596141229}
   mistake: {fileID: 1916536828}
   wipeout: {fileID: 2011031857}
@@ -3145,8 +3140,8 @@ Camera:
   m_GameObject: {fileID: 1673269131}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -3863,8 +3858,8 @@ Camera:
   m_GameObject: {fileID: 2057442804}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -4047,8 +4042,8 @@ Camera:
   m_GameObject: {fileID: 2123723482}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0

@@ -535,21 +535,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Data: {fileID: 11400000, guid: 030ba6bd61089974fb3f8046db4984fb, type: 2}
   beatTimes:
-  - 77
-  - 78.1
-  - 79.2
-  - 80.3
-  - 81.4
-  - 82.5
-  - 83.6
+  - 55.090908
+  - 56.18182
+  - 57.27273
+  - 58.363636
+  - 59.454544
+  - 60.545456
+  - 61.636364
+  - 62.727272
   aTimes:
   - 98.5
   beatRadiusVisualHint: 0.2
-  beatInputLead: 0.5
-  beatInputLag: 0.2
+  beatInputLead: 1.2
+  beatInputLag: 0.6
   wipeoutBuffer: 0.2
-  songSegmentStartTime: 75
-  songSegmentEndTime: 84
+  songSegmentStartTime: 55
+  songSegmentEndTime: 63
   success: {fileID: 596141229}
   mistake: {fileID: 1916536828}
   wipeout: {fileID: 2011031857}
@@ -3345,6 +3346,38 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1406701549 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7108740083400417665, guid: ce9603785fdc4df4a9b738a2b4613d1c,
+    type: 3}
+  m_PrefabInstance: {fileID: 6515265715780673113}
+  m_PrefabAsset: {fileID: 0}
+--- !u!61 &1406701550
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1406701549}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 6.28, y: 10.48}
+    newSize: {x: 6.28, y: 10.48}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 6.28, y: 10.48}
+  m_EdgeRadius: 0
 --- !u!1001 &1416170252
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5186,8 +5219,8 @@ Camera:
   m_GameObject: {fileID: 2057442804}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -5535,7 +5568,7 @@ PrefabInstance:
     - target: {fileID: 7108740083400417665, guid: ce9603785fdc4df4a9b738a2b4613d1c,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7619579993842216507, guid: ce9603785fdc4df4a9b738a2b4613d1c,
         type: 3}

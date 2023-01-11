@@ -456,25 +456,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Data: {fileID: 11400000, guid: 030ba6bd61089974fb3f8046db4984fb, type: 2}
   beatTimes:
-  - 59.36
-  - 60.46
-  - 61.56
-  - 62.66
-  - 63.76
-  - 64.86
+  - 38.18182
+  - 39.272728
+  - 40.363636
+  - 41.454544
+  - 42.545456
+  - 43.636364
+  - 44.727272
   aTimes:
-  - 58.82
-  - 59.92
-  - 61.02
-  - 62.12
-  - 63.22
-  - 64.32
+  - 37.636364
+  - 38.727272
+  - 39.81818
+  - 40.909092
+  - 42
+  - 43.090908
+  - 44.18182
   beatRadiusVisualHint: 1.5
-  beatInputLead: 0.5
+  beatInputLead: 0.6
   beatInputLag: 0.2
   wipeoutBuffer: 0.2
-  songSegmentStartTime: 57
-  songSegmentEndTime: 65.75
+  songSegmentStartTime: 36.3
+  songSegmentEndTime: 46
   success: {fileID: 596141229}
   mistake: {fileID: 1916536828}
   wipeout: {fileID: 2011031857}
@@ -5037,8 +5039,8 @@ Camera:
   m_GameObject: {fileID: 2057442804}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0

@@ -3,16 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class BeatkeeperM42 : Beatkeeper
+public class BeatkeeperM44 : BeatkeeperM42
 {
+    [SerializeField] private Transform fishEatSpot;
+
     /// <summary>
     /// Kick off something the player needs to interact with
     /// </summary>
     /// <param name="myHurdleIndex"></param>
     /// <param name="myHurdle"></param>
     /// <returns></returns>
-    private IEnumerator KickOffHurdle(int myHurdleIndex, Hurdle myHurdle, List<float> times, Transform start, Transform end, Transform disappearSpot = null, bool isFish = false)
+    private IEnumerator KickOffHurdle(int myHurdleIndex, Hurdle myHurdle, List<float> times, Transform start, Transform end, bool isFish)
     {
+        Hurdle mirrorHurdle = Instantiate(myHurdle.gameObject).GetComponent<Hurdle>();
+        Vector3 mirrorStart = new Vector3(-start.position.x, start.position.y, start.position.z);
+        Vector3 mirrorEnd = new Vector3(-end.position.x, end.position.y, end.position.z);
+        mirrorHurdle.transform.localScale = new Vector3(-1, 1, 1);
+
         bool madeYellow = false;
 
         float visualStartTime = times[myHurdleIndex] - beatRadiusVisualHint;
@@ -29,13 +36,13 @@ public class BeatkeeperM42 : Beatkeeper
         {
             correctCode = Command.Up;
         }
-        else if(myHurdle.CorrectCommand == "down")
+        else if (myHurdle.CorrectCommand == "down")
         {
             correctCode = Command.Down;
         }
         else
         {
-            Debug.LogError("unhandled direction!");
+            Debug.LogError("unhandled code!");
         }
 
         while (currentTime < visualEndTime)
@@ -44,6 +51,7 @@ public class BeatkeeperM42 : Beatkeeper
             {
                 madeYellow = true;
                 myHurdle.MakeReady();
+                mirrorHurdle.MakeReady();
             }
 
             // success
@@ -53,7 +61,20 @@ public class BeatkeeperM42 : Beatkeeper
                 success.Play();
                 inputSuccess = true;
 
-                myHurdle.MakeCorrect();
+                // make the hurdle green
+                if (isFish)
+                {
+                    // they do the fish flippy thing instead of just disappearing, flying into moxie's mouth 
+                    ((FishHurdle)myHurdle).SetGoSpot(fishEatSpot.transform.position);
+                    ((FishHurdle)myHurdle).MakeCorrect();
+                    ((FishHurdle)mirrorHurdle).SetGoSpot(fishEatSpot.transform.position);
+                    ((FishHurdle)mirrorHurdle).MakeCorrect();
+                }
+                else
+                {
+                    myHurdle.MakeCorrect();
+                    mirrorHurdle.MakeCorrect();
+                }
 
                 // shout a success shout
                 int successShoutIndex = Random.Range(0, successShouts.Count);
@@ -74,8 +95,8 @@ public class BeatkeeperM42 : Beatkeeper
             {
                 missed = true;
 
-                // todo toss the hurdle
                 myHurdle.MakeWrong();
+                mirrorHurdle.MakeWrong();
 
                 // shout a miss shout
                 int missShoutIndex = Random.Range(0, missShouts.Count);
@@ -94,30 +115,17 @@ public class BeatkeeperM42 : Beatkeeper
                 mistake.Play();
             }
 
-            float hurdleProgress = (currentTime - visualStartTime) / (visualEndTime - visualStartTime);
-            myHurdle.transform.position = Vector3.Lerp(start.position, end.position, hurdleProgress);
 
-            // disappear when you move past the spot and you're successful
-            if(disappearSpot != null && myHurdle.GetState() == Hurdle.HurdleState.Correct)
+            if(isFish && myHurdle.GetState() == Hurdle.HurdleState.Correct)
             {
-                // objects moving right
-                if (disappearSpot.position.x > start.position.x)
-                {
-                    if(myHurdle.transform.position.x > disappearSpot.position.x)
-                    {
-                        // disappear
-                        myHurdle.SetVisible(false);
-                    }
-                }
-                else
-                {
-                    if (myHurdle.transform.position.x < disappearSpot.position.x)
-                    {
-                        // disappear
-                        myHurdle.SetVisible(false);
-                    }
-                }
-
+                // if you're a fish and you're correctly answered, do nothing
+            }
+            else
+            {
+                // move the hurdle
+                float hurdleProgress = (currentTime - visualStartTime) / (visualEndTime - visualStartTime);
+                myHurdle.transform.position = Vector3.Lerp(start.position, end.position, hurdleProgress);
+                mirrorHurdle.transform.position = Vector3.Lerp(mirrorStart, mirrorEnd, hurdleProgress);
             }
 
             yield return 0;
@@ -130,6 +138,7 @@ public class BeatkeeperM42 : Beatkeeper
 
         yield return new WaitForSeconds(0.2f);
         Destroy(myHurdle.gameObject);
+        Destroy(mirrorHurdle.gameObject);
     }
 
     // Update is called once per frame
@@ -157,7 +166,7 @@ public class BeatkeeperM42 : Beatkeeper
                 if (currentTime > startTime)
                 {
                     Hurdle newHurdle = Instantiate(hurdle.gameObject).GetComponent<Hurdle>();
-                    StartCoroutine(KickOffHurdle(beatIndexPlayer, newHurdle, beatTimes, rightEdge.transform, leftEdge.transform));
+                    StartCoroutine(KickOffHurdle(beatIndexPlayer, newHurdle, beatTimes, rightEdge.transform, leftEdge.transform, false));
                     beatIndexPlayer++;
                 }
             }
@@ -172,11 +181,12 @@ public class BeatkeeperM42 : Beatkeeper
                 if (currentTime > startTime)
                 {
                     Hurdle newHurdle = Instantiate(a.gameObject).GetComponent<Hurdle>();
-                    StartCoroutine(KickOffHurdle(aIndex, newHurdle, aTimes, aStart, aEnd, aDisappearSpot, true));
+                    StartCoroutine(KickOffHurdle(aIndex, newHurdle, aTimes, aStart, aEnd, true));
                     aIndex++;
                 }
             }
 
         }
+
     }
 }

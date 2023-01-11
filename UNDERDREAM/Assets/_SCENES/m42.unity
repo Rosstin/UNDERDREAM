@@ -121,6 +121,36 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &32436002
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 32436003}
+  m_Layer: 0
+  m_Name: fishdisappearpoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &32436003
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 32436002}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.75, y: 1.24, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1365415783}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &36179642
 GameObject:
   m_ObjectHideFlags: 0
@@ -487,33 +517,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Data: {fileID: 11400000, guid: 030ba6bd61089974fb3f8046db4984fb, type: 2}
   beatTimes:
-  - 50.54
-  - 51.64
-  - 52.74
-  - 53.84
-  - 54.94
-  - 56.04
+  - 29.454546
+  - 30.545454
+  - 31.636364
+  - 32.727272
+  - 33.81818
+  - 34.909092
   aTimes:
-  - 50
-  - 51.1
-  - 52.2
-  - 53.3
-  - 54.4
-  - 55.5
-  - 56.6
+  - 28.90909
+  - 30
+  - 31.09091
+  - 32.18182
+  - 33.272728
+  - 34.363636
+  - 35.454544
   beatRadiusVisualHint: 1.5
   beatInputLead: 0.5
   beatInputLag: 0.2
   wipeoutBuffer: 0.2
-  songSegmentStartTime: 45
-  songSegmentEndTime: 57
+  songSegmentStartTime: 27
+  songSegmentEndTime: 36.3
   success: {fileID: 596141229}
   mistake: {fileID: 1916536828}
   wipeout: {fileID: 2011031857}
   hurdle: {fileID: 4664501907278042870, guid: aa73be3d1c1415c4396515e781f0abb4, type: 3}
   leftEdge: {fileID: 1805978561827544637}
   rightEdge: {fileID: 1805978560742531091}
-  a: {fileID: 4664501907278042870, guid: dd4af9c8302e18f4ba44593111845e63, type: 3}
+  a: {fileID: 8056462145252407711, guid: 3afb9b3a34769e647b8322c9522d1bba, type: 3}
   aStart: {fileID: 356527766}
   aEnd: {fileID: 274906239}
   aDisappearSpot: {fileID: 212227834}
@@ -559,7 +589,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 212227833}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -12.13, y: -1.5, z: 0}
+  m_LocalPosition: {x: -11.68, y: -1.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 204721349}
@@ -2739,7 +2769,8 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 32436003}
   m_Father: {fileID: 1060886005}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4070,8 +4101,8 @@ Camera:
   m_GameObject: {fileID: 2057442804}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -4280,7 +4311,7 @@ PrefabInstance:
     - target: {fileID: 33864986438214496, guid: 7abcb46e4fc4dfe41bb353e5e6456483,
         type: 3}
       propertyPath: m_SortingLayer
-      value: 38
+      value: 47
       objectReference: {fileID: 0}
     - target: {fileID: 33864986438214496, guid: 7abcb46e4fc4dfe41bb353e5e6456483,
         type: 3}

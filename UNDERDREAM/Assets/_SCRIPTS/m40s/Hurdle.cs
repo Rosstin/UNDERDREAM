@@ -12,7 +12,7 @@ public class Hurdle : MonoBehaviour
     [SerializeField] protected Color readyColor;
     [SerializeField] protected SpriteRenderer spriteRenderer;
 
-    private HurdleState myState;
+    protected HurdleState myState;
 
     public enum HurdleState
     {
@@ -20,6 +20,11 @@ public class Hurdle : MonoBehaviour
         Ready,
         Correct,
         Wrong
+    }
+
+    public void SetPosition(Vector3 newPosition)
+    {
+        this.transform.position = newPosition;
     }
 
     public void SetVisible(bool visible)
@@ -37,25 +42,25 @@ public class Hurdle : MonoBehaviour
         return myState;
     }
 
-    public void MakeNormal()
+    virtual public void MakeNormal()
     {
         myState = HurdleState.Init;
         spriteRenderer.color= normalColor;
     }
 
-    public void MakeCorrect()
+    virtual public void MakeCorrect()
     {
         myState = HurdleState.Correct;
         spriteRenderer.color = correctColor;
     }
 
-    public void MakeWrong()
+    virtual public void MakeWrong()
     {
         myState = HurdleState.Wrong;
         spriteRenderer.color = wrongColor;
     }
 
-    public void MakeReady()
+    virtual public void MakeReady()
     {
         myState = HurdleState.Ready;
         spriteRenderer.color = readyColor;
