@@ -10,9 +10,11 @@ BUILD AND NOTARIZE MOXIE'S LEMON FOR MAC
 3. Set development team to “Rosstin Murphy”
 4. add app sandbox
 5. add hardened runtime
-6. For hardened runtime, allow unsigned executable memory
-7. For hardened runtime, allow dyld environment variables
-8. For hardened runtime, disable library validation
+5a. For hardened runtime, allow unsigned executable memory
+5b. For hardened runtime, allow dyld environment variables
+5c. For hardened runtime, disable library validation
+6. copy libsteam_api.dylib
+7. copy info.plist
 9. Product -> Archive it
 10. open organizer
 11. validate app
