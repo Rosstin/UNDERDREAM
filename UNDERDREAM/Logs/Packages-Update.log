@@ -61,3 +61,15 @@ The following packages were updated:
   com.unity.textmeshpro from version 2.0.1 to 3.0.6
   com.unity.timeline from version 1.2.6 to 1.4.8
   com.unity.xr.legacyinputhelpers from version 2.1.7 to 2.1.10
+
+=== Sat Jan 14 11:56:25 2023
+
+Packages were changed.
+Update Mode: updateDependencies
+
+The following packages were added:
+  com.unity.ai.navigation@1.1.1
+The following packages were updated:
+  com.unity.timeline from version 1.4.8 to 1.7.2
+The following packages were removed:
+  com.unity.multiplayer-hlapi@1.0.8
