@@ -34,7 +34,6 @@ public class BaseController : MonoBehaviour
             }
         }
 
-
         // TODO(Rosstin): currentscene should work differently to force the actual right scene?
         Debug.Log("currentScene: " + Data.Scenes[Data.CurrentScene] + ".. password: " + Data.Passwords[Data.CurrentScene]);
     }
@@ -44,7 +43,8 @@ public class BaseController : MonoBehaviour
         Data.TimeSinceLoadedLastScene += Time.deltaTime;
         UpdateKeycodesToCommands();
 
-        if (Input.GetKeyDown(KeyCode.F9)){
+        if (Input.GetKeyDown(KeyCode.F9) && Input.GetKey(KeyCode.LeftControl))
+        {
             LoadNextScene();
         }
 
@@ -85,8 +85,6 @@ public class BaseController : MonoBehaviour
 
     public void LoadHintScene()
     {
-
-
         Debug.LogWarning("loading hint scene.. Data.Scenes[Data.CurrentScene]: " + Data.Scenes[Data.CurrentScene]);
         if (Data.Scenes[Data.CurrentScene] == "m17")
         {

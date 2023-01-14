@@ -107,4 +107,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_SCENES/tbc.unity
     guid: a0731d6f6e9dbf2439acd93372e2f6f1
+  - enabled: 1
+    path: Assets/_SCENES/m93.unity
+    guid: 07459592b64c2434ab2e2071c6eeb946
   m_configObjects: {}

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameMasterM92 : BaseController
+public class GameMasterM93 : BaseController
 {
     [SerializeField] private float restartTime;
     [SerializeField] private float holdInputTime;
@@ -18,7 +18,7 @@ public class GameMasterM92 : BaseController
             ||
             (elapsed > holdInputTime && CommandsStartedThisFrame.ContainsKey(Command.Fire)))
         {
-            LoadNextScene();
+            Application.Quit();
         }
     }
 }

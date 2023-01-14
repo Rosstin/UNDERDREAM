@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 4890085278179872738, guid: 7a435b379b67a6942af4b0442a8f512c,
+  m_LightingSettings: {fileID: 4890085278179872738, guid: 5c95ef636b4029643a7ed72944626b1d,
     type: 2}
 --- !u!196 &4
 NavMeshSettings:
@@ -267,12 +267,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 860442801}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d97bafa4b259b3b4c8010176269562d9, type: 3}
+  m_Script: {fileID: 11500000, guid: 6d79ee6408e45ef428c54e0a771b426d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Data: {fileID: 11400000, guid: 030ba6bd61089974fb3f8046db4984fb, type: 2}
-  restartTime: 15
-  holdInputTime: 3
+  restartTime: 60
+  holdInputTime: 7
 --- !u!1 &969642876
 GameObject:
   m_ObjectHideFlags: 0
@@ -653,7 +653,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 99
+    m_FontSize: 33
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -664,7 +664,13 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: MOXIE'S LEMON
+  m_Text: 'Game - Rosstin Murphy
+
+    Montage Song - Andrew Morgan Smith
+
+
+    for
+    my friend Maoxun'
 --- !u!222 &2014203578
 CanvasRenderer:
   m_ObjectHideFlags: 0
