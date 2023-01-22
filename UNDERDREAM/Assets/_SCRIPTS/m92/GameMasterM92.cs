@@ -9,11 +9,6 @@ public class GameMasterM92 : BaseController
 
     private float elapsed;
 
-    new void Start()
-    {
-        Steamworks.SteamUserStats.SetAchievement("EAT_THE_LEMON");
-    }
-
     private void Update()
     {
         elapsed += Time.deltaTime;
