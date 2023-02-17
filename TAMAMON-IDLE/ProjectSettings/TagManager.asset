@@ -1,0 +1,190 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags: []
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - PostProcessing
+  - Maoxun
+  - Grounds
+  - FlyingLemon
+  - Boat
+  - SternM20
+  - Coconut
+  - Bounds
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: DistantBG
+    uniqueID: 3552879709
+    locked: 0
+  - name: Sunrise-10
+    uniqueID: 268149097
+    locked: 0
+  - name: Sunrise-20
+    uniqueID: 2171550375
+    locked: 0
+  - name: Sunrise-30
+    uniqueID: 1904811537
+    locked: 0
+  - name: Sunrise-40
+    uniqueID: 1163903809
+    locked: 0
+  - name: Sunrise-50
+    uniqueID: 1149075449
+    locked: 0
+  - name: Sunrise-60
+    uniqueID: 2270532531
+    locked: 0
+  - name: Sunrise-70
+    uniqueID: 1390807071
+    locked: 0
+  - name: Sunrise-80
+    uniqueID: 689600331
+    locked: 0
+  - name: Sunrise-90
+    uniqueID: 4218548125
+    locked: 0
+  - name: MoonGlow
+    uniqueID: 143052211
+    locked: 0
+  - name: Moon
+    uniqueID: 1121820411
+    locked: 0
+  - name: LessDistantBG
+    uniqueID: 4087333275
+    locked: 0
+  - name: BG
+    uniqueID: 3316468167
+    locked: 0
+  - name: NearBG
+    uniqueID: 2506738249
+    locked: 0
+  - name: SmallWaves1
+    uniqueID: 3292104359
+    locked: 0
+  - name: SmallWaves2
+    uniqueID: 2033202551
+    locked: 0
+  - name: SmallWaves3
+    uniqueID: 3823256413
+    locked: 0
+  - name: SmallWaves4
+    uniqueID: 369567773
+    locked: 0
+  - name: Island
+    uniqueID: 2321952647
+    locked: 0
+  - name: Trunk
+    uniqueID: 3512749095
+    locked: 0
+  - name: MLPiston
+    uniqueID: 2299111853
+    locked: 0
+  - name: MLFoot
+    uniqueID: 3899537887
+    locked: 0
+  - name: MLCable
+    uniqueID: 621605623
+    locked: 0
+  - name: MLCannon
+    uniqueID: 214795553
+    locked: 0
+  - name: MLBox
+    uniqueID: 3950015933
+    locked: 0
+  - name: MLHousing
+    uniqueID: 977066141
+    locked: 0
+  - name: M70SternShipBody
+    uniqueID: 3848308741
+    locked: 0
+  - name: SmallBoat
+    uniqueID: 4265013295
+    locked: 0
+  - name: Maoxun-Scarf
+    uniqueID: 4127634303
+    locked: 0
+  - name: Maoxun-Body
+    uniqueID: 4191818403
+    locked: 0
+  - name: Maoxun-Head
+    uniqueID: 3821682575
+    locked: 0
+  - name: Maoxun-Hair
+    uniqueID: 3690816657
+    locked: 0
+  - name: Coconuts
+    uniqueID: 445570527
+    locked: 0
+  - name: Forward
+    uniqueID: 3752881191
+    locked: 0
+  - name: ForwardPlus
+    uniqueID: 1377502611
+    locked: 0
+  - name: ForwardLeaves
+    uniqueID: 2185052993
+    locked: 0
+  - name: AlmostTop
+    uniqueID: 1175885057
+    locked: 0
+  - name: Top
+    uniqueID: 728374803
+    locked: 0
+  - name: CannonBall
+    uniqueID: 2835923335
+    locked: 0
+  - name: Cannon
+    uniqueID: 4114302389
+    locked: 0
+  - name: CannonSmoke
+    uniqueID: 2200801977
+    locked: 0
+  - name: Waves1
+    uniqueID: 2018767227
+    locked: 0
+  - name: Waves2
+    uniqueID: 1753314737
+    locked: 0
+  - name: Waves3
+    uniqueID: 302602873
+    locked: 0
+  - name: Waves4
+    uniqueID: 861876205
+    locked: 0
+  - name: BlackBorder
+    uniqueID: 3324099951
+    locked: 0
+  - name: OverBorder
+    uniqueID: 4043059493
+    locked: 0
+  - name: OverOverBorder
+    uniqueID: 3914287929
+    locked: 0
