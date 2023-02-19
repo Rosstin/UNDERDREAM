@@ -128,16 +128,16 @@ TagManager:
   - name: SmallBoat
     uniqueID: 4265013295
     locked: 0
-  - name: Maoxun-Scarf
+  - name: MC-Scarf
     uniqueID: 4127634303
     locked: 0
-  - name: Maoxun-Body
+  - name: MC-Body
     uniqueID: 4191818403
     locked: 0
-  - name: Maoxun-Head
+  - name: MC-Head
     uniqueID: 3821682575
     locked: 0
-  - name: Maoxun-Hair
+  - name: MC-Hair
     uniqueID: 3690816657
     locked: 0
   - name: Coconuts
