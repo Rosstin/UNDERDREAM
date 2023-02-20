@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class TimedMovement : MonoBehaviour
 {
-    [SerializeField] private Transform leftEdge;
-    [SerializeField] private Transform rightEdge;
+    [SerializeField] private Transform startPoint;
+    [SerializeField] private Transform endPoint;
     [SerializeField] private float travelTime;
     [SerializeField] AnimationCurve moveCurve;
     [SerializeField] GameObject movingObject;
@@ -16,8 +16,8 @@ public class TimedMovement : MonoBehaviour
 
     private void Start()
     {
-        leftEdge.gameObject.SetActive(false);
-        rightEdge.gameObject.SetActive(false);
+        startPoint.gameObject.SetActive(false);
+        endPoint.gameObject.SetActive(false);
 
         elapsedTime = (startingPercent / 100f) * travelTime;
     }
@@ -28,7 +28,7 @@ public class TimedMovement : MonoBehaviour
 
         float progress = moveCurve.Evaluate(elapsedTime / travelTime);
 
-        movingObject.transform.position = Vector3.Lerp(leftEdge.transform.position, rightEdge.transform.position, progress);
+        movingObject.transform.position = Vector3.Lerp(startPoint.transform.position, endPoint.transform.position, progress);
 
 
         if (!dontLoop && elapsedTime >= travelTime)
