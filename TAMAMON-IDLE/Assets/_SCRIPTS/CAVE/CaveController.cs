@@ -14,6 +14,9 @@ public class CaveController : MonoBehaviour
     [Header("Tama Outlet")]
     [SerializeField] private GameObject tama;
 
+    [Header("Events")]
+    public List<TamaEvent> events;
+
     private void Awake()
     {
         Debug.LogWarning("current courage " + PlayerPrefs.GetInt(COURAGE_KEY));
@@ -23,6 +26,13 @@ public class CaveController : MonoBehaviour
         tama.SetActive(true);
 
 
+        PlayRandomEvent();
+
     }
 
+    private void PlayRandomEvent()
+    {
+        int randomEventIndex = Random.Range(0, events.Count-1);
+        events[randomEventIndex].Play();
+    }
 }
