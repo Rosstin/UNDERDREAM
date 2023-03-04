@@ -5,8 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class BootTama : MonoBehaviour
 {
+    // LOCATIONS
     private const string PLAYER_LOCATION_KEY = "PLAYER_LOCATION_KEY";
-
     private const string CAVE_LOC_KEY = "CAVE_LOC_KEY";
 
 
