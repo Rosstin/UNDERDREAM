@@ -5,10 +5,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/TamaDataSO", order = 1)]
 public class TamaDataSO : ScriptableObject
 {
-
-
-
-
 }
 
 
