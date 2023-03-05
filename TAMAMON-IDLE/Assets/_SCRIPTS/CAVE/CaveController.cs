@@ -15,7 +15,7 @@ public class CaveController : MonoBehaviour
     [SerializeField] private BackgroundScroller backgroundScroller;
 
     [Header("Tama Outlet")]
-    [SerializeField] private GameObject tama;
+    [SerializeField] private Tama01 tama;
 
     [Header("Event Outlets")]
     public List<TamaEvent> events;
@@ -24,11 +24,12 @@ public class CaveController : MonoBehaviour
 
     private void Awake()
     {
-        Debug.LogWarning("current courage " + PlayerPrefs.GetInt(COURAGE_KEY));
-        Debug.LogWarning("current venom " + PlayerPrefs.GetInt(VENOM_KEY));
+        //Debug.LogWarning("current courage " + PlayerPrefs.GetInt(COURAGE_KEY));
+        //Debug.LogWarning("current venom " + PlayerPrefs.GetInt(VENOM_KEY));
 
-        backgroundScroller.enabled = true;
-        tama.SetActive(true);
+        backgroundScroller.EnableScrolling(true);
+        tama.gameObject.SetActive(true);
+        tama.StartAnimation(Tama01.Tama01AnimationState.WALK);
 
         elapsed = 0f;
 

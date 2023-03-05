@@ -11,6 +11,13 @@ public class BackgroundScroller : MonoBehaviour
 
     private float X_MARGIN = 0.02f;
 
+    private bool scrollingEnabled = false;
+
+    public void EnableScrolling(bool enabled)
+    {
+        scrollingEnabled = enabled;
+    }
+
     private void Start()
     {
         // todo shuffle list
@@ -39,6 +46,12 @@ public class BackgroundScroller : MonoBehaviour
 
     void Update()
     {
+
+        if (!scrollingEnabled)
+        {
+            return;
+        }
+
         // when the panel goes off screen, place it at the back of the current last panel
         for (int i = 0; i < BgPanels.Count; i++)
         {
