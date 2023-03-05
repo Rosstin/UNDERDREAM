@@ -8,14 +8,19 @@ public class CaveController : MonoBehaviour
     private const string COURAGE_KEY = "COURAGE_KEY";
     private const string VENOM_KEY = "VENOM_KEY";
 
+    [Header("Timing")]
+    [SerializeField] private float EventPeriod;
+
     [Header("Background Scroller Outlet")]
     [SerializeField] private BackgroundScroller backgroundScroller;
 
     [Header("Tama Outlet")]
     [SerializeField] private GameObject tama;
 
-    [Header("Events")]
+    [Header("Event Outlets")]
     public List<TamaEvent> events;
+
+    private float elapsed = 0f;
 
     private void Awake()
     {
@@ -25,14 +30,27 @@ public class CaveController : MonoBehaviour
         backgroundScroller.enabled = true;
         tama.SetActive(true);
 
+        elapsed = 0f;
 
-        PlayRandomEvent();
 
+    }
+
+    private void Update()
+    {
+        elapsed += Time.deltaTime;
+        if(elapsed > EventPeriod)
+        {
+            elapsed = 0f;
+            PlayRandomEvent();
+        }
     }
 
     private void PlayRandomEvent()
     {
         int randomEventIndex = Random.Range(0, events.Count-1);
-        events[randomEventIndex].Play();
+        if (events[randomEventIndex].EventCanFire())
+        {
+            events[randomEventIndex].Play();
+        }
     }
 }
