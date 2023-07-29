@@ -11,7 +11,9 @@ TODO
  3. Bars self-order 
  4. Bars move smoothly, not instantly
  5. IMoveable interface
- 6. Bar includes index and value numbers
+ 6. Bar includes index and value numbers 
+ 
+ DONE
  7. Bars display given data (see pdf)
 
 

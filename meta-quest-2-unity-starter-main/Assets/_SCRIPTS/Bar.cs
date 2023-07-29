@@ -20,6 +20,8 @@ public class Bar :  MonoBehaviour, IMoveable
     [Header("Component References")]
     [SerializeField] private GameObject myBody;
     [SerializeField] private MeshRenderer myRenderer;
+    [SerializeField] private TMPro.TextMeshProUGUI myIndexText;
+    [SerializeField] private TMPro.TextMeshProUGUI myValueText;
 
     private BarData myData;
 
