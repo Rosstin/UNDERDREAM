@@ -3,7 +3,12 @@ MEAN-MEDIAN-MODE GRAPH
 stated purpose: 
  - Interactable bar graph to help students calculate mean/median/mode.
  - Students can click/drag specific bars and move them around, changing their order
- 
+
+
+HOW TO MOVE THE BAR
+ 1. When you gripdown on a bar, it's selected
+ 2. Now the position of your beam determines the bar's X
+ 3. When you gripup, your beam stops determining the bar's X 
  
 TODO
  1. Click and drag bar object

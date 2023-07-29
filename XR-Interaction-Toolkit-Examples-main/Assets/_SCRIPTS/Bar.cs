@@ -25,6 +25,8 @@ public class Bar :  MonoBehaviour, IMoveable
 
     private BarData myData;
 
+
+
     public void Init(BarData myData)
     {
         this.myData = myData;

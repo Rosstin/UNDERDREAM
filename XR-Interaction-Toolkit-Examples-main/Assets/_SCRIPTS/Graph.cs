@@ -14,12 +14,50 @@ public class Graph : MonoBehaviour
     [Header("Prefabs")]
     [SerializeField] private Bar barPrefab;
 
+    [Header("Test Output Text")]
+    [SerializeField] private TMPro.TextMeshPro outputText;
+
+    [Header("Reset Button")]
+    [SerializeField] private UnityEngine.UI.Button resetButton;
 
     private List<Bar> bars = new List<Bar>();
 
+    private void Awake()
+    {
+        resetButton.onClick.AddListener(Reset);
+    }
+
+    private void Reset()
+    {
+        Debug.Log("Reset");
+        MakeBars();
+    }
+
+    private void Update()
+    {
+
+        var inputDevices = new List<UnityEngine.XR.InputDevice>();
+        UnityEngine.XR.InputDevices.GetDevices(inputDevices);
+
+        string output = "";
+        foreach (var device in inputDevices)
+        {
+            bool gripValue;
+
+
+            if (device.TryGetFeatureValue(UnityEngine.XR.CommonUsages.gripButton, out gripValue))
+            {
+                output += "" + device.serialNumber + " grip " + gripValue + ". ";
+            }
+        }
+
+        outputText.text = output;
+
+    }
+
     private void Start()
     {
-        MakeBars();
+        Reset();
     }
 
     private void MakeBars()
