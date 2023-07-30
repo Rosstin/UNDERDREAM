@@ -48,16 +48,27 @@ public class Bar : XRSimpleInteractable, IXRHoverInteractable, IMoveable
     }
 
     /// <summary>
-    /// The bar was selected - todo it should move with the ray now
+    /// The bar was selected 
     /// </summary>
     public void OnSelect()
     {
         EnterSelectState();
     }
 
+    /// <summary>
+    /// Update the displayed value of Index based on current X
+    /// </summary>
+    public void UpdateIndex(float newX)
+    {
+        int integerizedX = (int) newX;
+
+        myData.Index = integerizedX;
+        myIndexText.text = integerizedX+"";
+    }
+
+
     public void OnUnselect()
     {
-        myParentGraph.BarSelected(null);
         EnterUnselectState();
     }
 
@@ -77,6 +88,7 @@ public class Bar : XRSimpleInteractable, IXRHoverInteractable, IMoveable
     private void UpdateSelectedState(){}
 
     private void UpdateUnselectedState(){}
+
 
 
     public void Init(BarData myData, PrimaryButtonWatcher primaryButtonWatcher, Graph myParentGraph, int myListIndex)
@@ -101,14 +113,15 @@ public class Bar : XRSimpleInteractable, IXRHoverInteractable, IMoveable
     }
     private void EnterSelectState()
     {
+        myParentGraph.BarSelected(this);
         currentState = IMoveable.MoveableState.Selected;
         myRenderer.material = SelectedColor; // set color to selected color
         selectSfx.Play();
-        myParentGraph.BarSelected(this);
     }
 
     private void EnterUnselectState()
     {
+        myParentGraph.BarSelected(null);
         currentState = IMoveable.MoveableState.Unselected;
         SetColor(); // set color to appropriate color
         unselectSfx.Play();

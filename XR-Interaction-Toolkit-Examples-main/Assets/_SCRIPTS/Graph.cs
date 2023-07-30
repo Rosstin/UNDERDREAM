@@ -81,6 +81,7 @@ public class Graph : MonoBehaviour
             {
                 // move bar only in X
                 selectedBar.transform.position = new Vector3( RightHandHitPosition.x, selectedBar.transform.position.y, selectedBar.transform.position.z);
+                selectedBar.UpdateIndex(RightHandHitPosition.x);
             }
         }
     }
