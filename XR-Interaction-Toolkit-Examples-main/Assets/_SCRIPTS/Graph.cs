@@ -70,9 +70,29 @@ public class Graph : MonoBehaviour
 
     private void UpdateSelectedBar()
     {
+        bool isEditor = false;
+        // are we in the editor instead of in VR? if so, rely on mouse instead of controller
+        if (Application.isEditor)
+        {
+            isEditor = true;
+        }
+
+        bool relevantButtonDown = false;
+        if (isEditor)
+        {
+            if (Input.GetMouseButton(0))
+            {
+                relevantButtonDown = true;
+            }
+        }
+        else
+        {
+            relevantButtonDown = rightGripDown;
+        }
+
         if(selectedBar != null)
         {
-            if (!rightGripDown)
+            if (!relevantButtonDown)
             {
                 // drop it
                 selectedBar.OnUnselect();

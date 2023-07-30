@@ -48,7 +48,7 @@ public class Bar : XRSimpleInteractable, IXRHoverInteractable, IMoveable
     }
 
     /// <summary>
-    /// The bar was selected 
+    /// The bar was selected. This method is called via an in-editor script on the Bar parent object. (OnSelectInteractible for the VR controller, Button for the mouse)
     /// </summary>
     public void OnSelect()
     {
