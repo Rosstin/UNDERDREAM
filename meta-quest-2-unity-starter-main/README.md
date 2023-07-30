@@ -18,8 +18,12 @@ TODO
  5. IMoveable interface
  6. Bar includes index and value numbers 
  
- DONE
+DONE
  7. Bars display given data (see pdf)
+ 
+EXTRA
+ 1. display mean/median/mode 
+ 2. You can change the values of the bars and see the changes reflected
 
 
 

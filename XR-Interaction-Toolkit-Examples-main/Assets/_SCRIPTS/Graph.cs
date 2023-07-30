@@ -76,6 +76,7 @@ public class Graph : MonoBehaviour
             bars.Add(Instantiate(barPrefab));
 
             bars[i].transform.parent = this.transform;
+            bars[i].transform.localScale = new Vector3(1f, 1f, 1f);
 
             // initialize it
             bars[i].Init(BarsData[i]);

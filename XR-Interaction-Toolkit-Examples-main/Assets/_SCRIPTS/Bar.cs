@@ -24,6 +24,10 @@ public class Bar : XRSimpleInteractable, IXRHoverInteractable, IMoveable
     [SerializeField] private TMPro.TextMeshPro myIndexText;
     [SerializeField] private TMPro.TextMeshPro myValueText;
 
+    [Header("Configurable Scale")]
+    [SerializeField] [Range(0f, 2f)] private float widthScaleFactor; // 1 is 1 Unity meter wide
+    [SerializeField] [Range(0f, 2f)] private float depthScaleFactor; // 1 is 1 Unity meter wide
+
     private BarData myData;
 
     /// <summary>
@@ -44,8 +48,8 @@ public class Bar : XRSimpleInteractable, IXRHoverInteractable, IMoveable
     {
         this.myData = myData;
 
-        // your height is equal to your value
-        myBody.transform.localScale = new Vector3(1f, myData.Value, 1f);
+        // your height is equal to your value. width/depth determined by configurable scale factor
+        myBody.transform.localScale = new Vector3(widthScaleFactor, myData.Value, depthScaleFactor);
 
         // your body should rest such that the bottom of the mesh is at this parent's origin
         myBody.transform.localPosition = new Vector3(0f, myData.Value / 2f, 0f);

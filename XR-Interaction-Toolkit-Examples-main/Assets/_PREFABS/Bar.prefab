@@ -246,6 +246,8 @@ MonoBehaviour:
   myRenderer: {fileID: 607555467993906998}
   myIndexText: {fileID: 7439771547927245970}
   myValueText: {fileID: 4042703893723330132}
+  widthScaleFactor: 0.25
+  depthScaleFactor: 0.1
 --- !u!114 &398513538018571563
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -309,7 +311,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 6}
+  m_AnchoredPosition: {x: 0, y: 4}
   m_SizeDelta: {x: 1, y: 0.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &1284973577902623532
@@ -481,7 +483,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -1}
+  m_AnchoredPosition: {x: 0, y: -0.75}
   m_SizeDelta: {x: 1, y: 0.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &3343979664499613551
