@@ -24,18 +24,18 @@ public class Graph : MonoBehaviour
     [Header("Hand References For Raycasting")]
     [SerializeField] private GameObject leftHand;
     [SerializeField] private GameObject rightHand;
-    [SerializeField] private GameObject leftHandMarker;
-    [SerializeField] private GameObject rightHandMarker;
+    [SerializeField] private GameObject hitMarker;
 
     [Header("Primary Button Watcher")]
     [SerializeField] private PrimaryButtonWatcher primaryButtonWatcher;
+    public Vector3 hitPos { get; set; } // records the current hit pos 
 
     private List<Bar> bars = new List<Bar>();
 
+    // private vars for interaction
     private bool validHitThisFrame = false;
-    public Vector3 RightHandHitPosition { get; set; } // records the current hit pos 
     private bool rightGripDown = false;
-
+    private Ray relevantRay = new();
     private Bar selectedBar = null; // null means no bar selected
 
     public void BarSelected(Bar selectedBar)
@@ -63,11 +63,14 @@ public class Graph : MonoBehaviour
     {
         RecordGripButtonState();
 
-        RaycastFromRightHand();
+        RaycastForAppropriatePlatform();
 
         UpdateSelectedBar();
     }
 
+    /// <summary>
+    /// Get the appropriate input device and update a bar that's been selected
+    /// </summary>
     private void UpdateSelectedBar()
     {
         bool isEditor = false;
@@ -100,37 +103,48 @@ public class Graph : MonoBehaviour
             else if (validHitThisFrame)
             {
                 // move bar only in X
-                selectedBar.transform.position = new Vector3( RightHandHitPosition.x, selectedBar.transform.position.y, selectedBar.transform.position.z);
-                selectedBar.UpdateIndex(RightHandHitPosition.x);
+                selectedBar.transform.position = new Vector3( hitPos.x, selectedBar.transform.position.y, selectedBar.transform.position.z);
+                selectedBar.UpdateIndex(hitPos.x);
             }
         }
     }
 
-    private void RaycastFromRightHand()
+    private void RaycastForAppropriatePlatform()
     {
-        // RAYCAST FROM RIGHT HAND
-
         validHitThisFrame = false;
 
         // build the ray
         RaycastHit hit = new RaycastHit(); // this object will collect data about the collision each frame
 
+        Ray ray;
+
         // mask layer 7, where the backing object is
         int layer = 7;
         int layerMask = 1 << layer;
 
-        // we will shoot a ray out based on the righthand, masking so that we can only hit the "backing" object
-        if (Physics.Raycast(ray: new Ray(rightHand.transform.position, rightHand.transform.forward), out hit, maxDistance: 100f, layerMask: layerMask)) // do the raycast, based on the camera's position and orientation, and store the hit for our reference
+        // use mouse since we're in editor
+        if (Application.isEditor)
         {
-            rightHandMarker.transform.position = hit.point;
-            rightHandMarker.gameObject.SetActive(true);
-            RightHandHitPosition = hit.point;
+            ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        }
+        // assume RH controller otherwise
+        else
+        {
+            ray = new Ray(rightHand.transform.position, rightHand.transform.forward);
+        }
+
+        // we will shoot a ray out, masking so that we can only hit the "backing" object
+        if (Physics.Raycast(ray: ray, out hit, maxDistance: 100f, layerMask: layerMask)) // do the raycast, based on the camera's position and orientation, and store the hit for our reference
+        {
+            hitMarker.transform.position = hit.point;
+            hitMarker.gameObject.SetActive(true);
+            hitPos = hit.point;
             validHitThisFrame = true;
         }
         else // there wasn't any collision
         {
-            rightHandMarker.gameObject.SetActive(false);
-            RightHandHitPosition = Vector3.one;
+            hitMarker.gameObject.SetActive(false);
+            hitPos = Vector3.one;
             validHitThisFrame = false;
         }
 
