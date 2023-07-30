@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 7623244798266087841}
   - component: {fileID: 6264210204203037799}
   m_Layer: 0
-  m_Name: 0,0
+  m_Name: XYMin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -466,7 +466,7 @@ GameObject:
   - component: {fileID: 1449451783702405769}
   - component: {fileID: 847181198633472270}
   m_Layer: 0
-  m_Name: 10,0
+  m_Name: XMax
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -549,7 +549,7 @@ GameObject:
   - component: {fileID: 8820948685352048519}
   - component: {fileID: 740863324162515789}
   m_Layer: 0
-  m_Name: 0,10
+  m_Name: YMax
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -942,13 +942,14 @@ MonoBehaviour:
     Value: 4
   - Index: 50
     Value: 1
-  XScaleFactor: 0.1
+  XMax: {fileID: 1482872277063097357}
+  XMin: {fileID: 5175094890964281861}
+  MaxIndexValue: 60
   barPrefab: {fileID: -2188942105008278212, guid: d50cabdce921b0f45a7a9fdd0db6968a, type: 3}
   outputText: {fileID: 5824394875126033403}
   resetButton: {fileID: 7299628226219618413}
   leftHand: {fileID: 0}
   rightHand: {fileID: 0}
-  leftHandMarker: {fileID: 0}
   hitMarker: {fileID: 1198747713560139019}
   primaryButtonWatcher: {fileID: 9125026980850075136}
 --- !u!114 &9125026980850075136

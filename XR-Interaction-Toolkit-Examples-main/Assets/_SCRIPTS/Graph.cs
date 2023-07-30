@@ -10,7 +10,9 @@ public class Graph : MonoBehaviour
 {
     [Header("Configurable Graph Data")]
     public List<BarData> BarsData;
-    public float XScaleFactor; // convert between unity meters and the graph's units - 0.1 would mean that 1 unity meter is 10 graph units in the X
+    [SerializeField] private Transform XMax; // an object transform representing the bar's max X (probably 60f)
+    [SerializeField] private Transform XMin; // an object transform representing min X (0f)
+    [SerializeField] [Range(0f, 100f)] private float MaxIndexValue; // this value represents the right side of the graph's X extent. Should be 60f.
 
     [Header("Prefabs")]
     [SerializeField] private Bar barPrefab;
@@ -154,18 +156,6 @@ public class Graph : MonoBehaviour
 
     }
 
-    /// <summary>
-    /// Convert raw position into something more relevant to this graph 
-    /// Return the correct "x" and/or the object's index
-    /// </summary>
-    /// <param name="pos"></param>
-    private int ConvertHitPos(Vector3 pos)
-    {
-        //todo
-        return -1;
-    }
-
-
     private void RecordGripButtonState()
     {
         // RECORD STATE OF GRIP BUTTON
@@ -230,8 +220,29 @@ public class Graph : MonoBehaviour
         bars[barListIndex].Init(BarsData[barListIndex], primaryButtonWatcher, this, barListIndex);
 
         // place it
-        bars[barListIndex].transform.localPosition = new Vector3(BarsData[barListIndex].Index * XScaleFactor, 0f, 0f);
+        var indexVal = BarsData[barListIndex].Index;
+
+        // calculate how far in the X this item should appear
+        // here we assume that 0 is the min
+        float relPos = indexVal / MaxIndexValue;
+
+        float realXPos = Mathf.Lerp(a: XMin.localPosition.x, b:XMax.localPosition.x, t: relPos);
+
+        // really place the bar
+        bars[barListIndex].transform.localPosition = new Vector3(realXPos, 0f, 0f);
     }
+
+    /// <summary>
+    /// Convert raw position into something more relevant to this graph 
+    /// Return the correct "x" and/or the object's index
+    /// </summary>
+    /// <param name="pos"></param>
+    private int ConvertHitPos(Vector3 pos)
+    {
+        //todo
+        return -1;
+    }
+
 
 
 }
