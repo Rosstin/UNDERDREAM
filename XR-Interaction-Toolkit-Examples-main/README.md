@@ -11,6 +11,9 @@ TODO
  3. Bars self-order 
  4. Bars move smoothly, not instantly
  5. IMoveable interface
+
+LOW-PRI
+ Q. Only right hand is supported. Support left hand.
  
 DONE
  1. Click and drag bar object
