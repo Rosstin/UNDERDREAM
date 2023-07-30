@@ -104,12 +104,16 @@ public class Graph : MonoBehaviour
             }
             else if (validHitThisFrame)
             {
-                int newIndex = GetIndexValueFromXLocalPos(hitPos.x);
+                // must convert hitpos to be local
+                var localHitPos = this.transform.InverseTransformPoint(hitPos);
+
+                // now get the new index calc
+                int newIndex = GetIndexValueFromXLocalPos(localHitPos.x);
                 selectedBar.UpdateIndex(newIndex);
 
                 // move bar only in X
                 // reconvert back to grainify 
-                selectedBar.transform.position = new Vector3( GetXLocalPosFromIndexValue(newIndex), selectedBar.transform.position.y, selectedBar.transform.position.z);
+                selectedBar.transform.localPosition = new Vector3( GetXLocalPosFromIndexValue(newIndex), selectedBar.transform.localPosition.y, selectedBar.transform.localPosition.z);
             }
         }
     }
