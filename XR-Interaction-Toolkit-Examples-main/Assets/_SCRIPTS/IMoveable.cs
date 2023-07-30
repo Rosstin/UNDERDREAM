@@ -12,5 +12,6 @@
 
 public interface IMoveable
 {
+    
     // todo: events for picking up and dragging the object - look at the example package
 }

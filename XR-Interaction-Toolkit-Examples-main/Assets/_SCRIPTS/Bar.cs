@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.XR.Content.Interaction;
+using UnityEngine.XR.Interaction.Toolkit;
 
 /// <summary>
 /// A bar in the bar graph that can be moved by the player
 /// </summary>
-public class Bar :  MonoBehaviour, IMoveable
+public class Bar : XRSimpleInteractable, IXRHoverInteractable, IMoveable
 {
     [Header("Color Prefabs")]
     public Material Color0Minus;
@@ -25,7 +26,19 @@ public class Bar :  MonoBehaviour, IMoveable
 
     private BarData myData;
 
+    /// <summary>
+    /// The bar was selected - it should move with the ray now
+    /// </summary>
+    public void OnSelect()
+    {
+        myRenderer.material = Color6Plus;
+    }
 
+    // the bar was hovered, it should glow
+    public void OnHover()
+    {
+
+    }
 
     public void Init(BarData myData)
     {

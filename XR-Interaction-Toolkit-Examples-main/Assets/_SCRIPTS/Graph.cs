@@ -35,7 +35,6 @@ public class Graph : MonoBehaviour
 
     private void Update()
     {
-
         var inputDevices = new List<UnityEngine.XR.InputDevice>();
         UnityEngine.XR.InputDevices.GetDevices(inputDevices);
 
@@ -52,7 +51,6 @@ public class Graph : MonoBehaviour
         }
 
         outputText.text = output;
-
     }
 
     private void Start()
