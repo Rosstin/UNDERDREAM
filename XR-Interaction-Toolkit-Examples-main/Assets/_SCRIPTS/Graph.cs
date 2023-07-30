@@ -32,6 +32,14 @@ public class Graph : MonoBehaviour
 
     private List<Bar> bars = new List<Bar>();
 
+    public Vector3 RightHandHitPosition { get; set; } // records the current hit pos. NegativeInfinity means no hit
+
+    private Bar selectedBar = null; // null means no bar selected
+
+    public void BarSelected(Bar selectedBar)
+    {
+        this.selectedBar = selectedBar;
+    }
 
     private void Awake()
     {
@@ -46,20 +54,24 @@ public class Graph : MonoBehaviour
 
     private void Update()
     {
-        var inputDevices = new List<UnityEngine.XR.InputDevice>();
-        UnityEngine.XR.InputDevices.GetDevices(inputDevices);
+        RecordGripButtonState();
 
-        string output = "";
-        foreach (var device in inputDevices)
+        RaycastFromRightHand();
+
+        UpdateSelectedBar();
+    }
+
+    private void UpdateSelectedBar()
+    {
+        if(selectedBar != null)
         {
-            bool gripValue;
-
-
-            if (device.TryGetFeatureValue(UnityEngine.XR.CommonUsages.gripButton, out gripValue))
-            {
-                //output += "" + device.serialNumber + " grip " + gripValue + ". ";
-            }
+            selectedBar.transform.position = RightHandHitPosition;
         }
+    }
+
+    private void RaycastFromRightHand()
+    {
+        // RAYCAST FROM RIGHT HAND
 
         // build the ray
         RaycastHit hit = new RaycastHit(); // this object will collect data about the collision each frame
@@ -71,17 +83,35 @@ public class Graph : MonoBehaviour
         // we will shoot a ray out based on the righthand, masking so that we can only hit the "backing" object
         if (Physics.Raycast(ray: new Ray(rightHand.transform.position, rightHand.transform.forward), out hit, maxDistance: 100f, layerMask: layerMask)) // do the raycast, based on the camera's position and orientation, and store the hit for our reference
         {
-            Debug.Log("We are hitting something!"); // the raycast collided with an object
             rightHandMarker.transform.position = hit.point;
             rightHandMarker.gameObject.SetActive(true);
+            RightHandHitPosition = hit.point;
         }
         else // there wasn't any collision
         {
-            Debug.Log("Not hitting anything.");
             rightHandMarker.gameObject.SetActive(false);
+            RightHandHitPosition = Vector3.negativeInfinity;
         }
 
+    }
+
+    private void RecordGripButtonState()
+    {
+        // RECORD STATE OF GRIP BUTTON
+        var inputDevices = new List<UnityEngine.XR.InputDevice>();
+        UnityEngine.XR.InputDevices.GetDevices(inputDevices);
+        string output = "";
+        foreach (var device in inputDevices)
+        {
+            bool gripValue;
+
+            if (device.TryGetFeatureValue(UnityEngine.XR.CommonUsages.gripButton, out gripValue))
+            {
+                //output += "" + device.serialNumber + " grip " + gripValue + ". ";
+            }
+        }
         outputText.text = output;
+
     }
 
     private void Start()
@@ -91,8 +121,10 @@ public class Graph : MonoBehaviour
 
     private void MakeBars()
     {
+        selectedBar = null;
+
         // wipe existing bars
-        foreach(var bar in bars)
+        foreach (var bar in bars)
         {
             Destroy(bar.gameObject);
         }
@@ -110,7 +142,7 @@ public class Graph : MonoBehaviour
             bars[i].transform.localScale = new Vector3(1f, 1f, 1f);
 
             // initialize it
-            bars[i].Init(BarsData[i], primaryButtonWatcher);
+            bars[i].Init(BarsData[i], primaryButtonWatcher, this);
 
             // place it
             bars[i].transform.localPosition = new Vector3(BarsData[i].Index * XScaleFactor, 0f, 0f);

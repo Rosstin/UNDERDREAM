@@ -37,6 +37,7 @@ public class Bar : XRSimpleInteractable, IXRHoverInteractable, IMoveable
     private BarData myData;
     private PrimaryButtonWatcher primaryButtonWatcherReference;
     private IMoveable.MoveableState currentState;
+    private Graph myParentGraph;
 
     public IMoveable.MoveableState CurrentState { get => currentState; set => currentState = value; }
 
@@ -68,15 +69,17 @@ public class Bar : XRSimpleInteractable, IXRHoverInteractable, IMoveable
     /// </summary>
     public void OnSelect()
     {
+        myParentGraph.BarSelected(this);
         myRenderer.material = Color6Plus;
         ToggleState();
     }
 
-    public void Init(BarData myData, PrimaryButtonWatcher primaryButtonWatcher)
+    public void Init(BarData myData, PrimaryButtonWatcher primaryButtonWatcher, Graph myParentGraph)
     {
         currentState = IMoveable.MoveableState.Unselected;
         this.primaryButtonWatcherReference = primaryButtonWatcher;
         this.myData = myData;
+        this.myParentGraph = myParentGraph;
 
         // your height is equal to your value. width/depth determined by configurable scale factor
         myBody.transform.localScale = new Vector3(widthScaleFactor, myData.Value, depthScaleFactor);
