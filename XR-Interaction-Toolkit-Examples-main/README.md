@@ -11,6 +11,7 @@ HOW TO MOVE THE BAR
 
 TODO
  A. Gripup event unselects bar
+ B. Fix bar in Y
  2. Bar object is free in horiz, locked in vert
  3. Bars self-order 
  4. Bars move smoothly, not instantly

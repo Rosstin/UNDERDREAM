@@ -32,13 +32,20 @@ public class Graph : MonoBehaviour
 
     private List<Bar> bars = new List<Bar>();
 
-    public Vector3 RightHandHitPosition { get; set; } // records the current hit pos. NegativeInfinity means no hit
+    private bool validHitThisFrame = false;
+    public Vector3 RightHandHitPosition { get; set; } // records the current hit pos 
+    private bool rightGripDown = false;
 
     private Bar selectedBar = null; // null means no bar selected
 
     public void BarSelected(Bar selectedBar)
     {
         this.selectedBar = selectedBar;
+    }
+
+    public void ResetBarPos(int barListIndex)
+    {
+        InitAndPlaceBar(bars, barListIndex);
     }
 
     private void Awake()
@@ -65,13 +72,24 @@ public class Graph : MonoBehaviour
     {
         if(selectedBar != null)
         {
-            selectedBar.transform.position = RightHandHitPosition;
+            if (!rightGripDown)
+            {
+                // drop it
+                selectedBar.OnUnselect();
+            }
+            else if (validHitThisFrame)
+            {
+                // move bar only in X
+                selectedBar.transform.position = new Vector3( RightHandHitPosition.x, selectedBar.transform.position.y, selectedBar.transform.position.z);
+            }
         }
     }
 
     private void RaycastFromRightHand()
     {
         // RAYCAST FROM RIGHT HAND
+
+        validHitThisFrame = false;
 
         // build the ray
         RaycastHit hit = new RaycastHit(); // this object will collect data about the collision each frame
@@ -86,11 +104,13 @@ public class Graph : MonoBehaviour
             rightHandMarker.transform.position = hit.point;
             rightHandMarker.gameObject.SetActive(true);
             RightHandHitPosition = hit.point;
+            validHitThisFrame = true;
         }
         else // there wasn't any collision
         {
             rightHandMarker.gameObject.SetActive(false);
-            RightHandHitPosition = Vector3.negativeInfinity;
+            RightHandHitPosition = Vector3.one;
+            validHitThisFrame = false;
         }
 
     }
@@ -98,19 +118,27 @@ public class Graph : MonoBehaviour
     private void RecordGripButtonState()
     {
         // RECORD STATE OF GRIP BUTTON
-        var inputDevices = new List<UnityEngine.XR.InputDevice>();
-        UnityEngine.XR.InputDevices.GetDevices(inputDevices);
+        var rightHandedDevices = new List<UnityEngine.XR.InputDevice>();
+        UnityEngine.XR.InputDevices.GetDevicesWithCharacteristics(UnityEngine.XR.InputDeviceCharacteristics.Right, rightHandedDevices);
         string output = "";
-        foreach (var device in inputDevices)
-        {
-            bool gripValue;
 
-            if (device.TryGetFeatureValue(UnityEngine.XR.CommonUsages.gripButton, out gripValue))
-            {
-                //output += "" + device.serialNumber + " grip " + gripValue + ". ";
-            }
+        if(rightHandedDevices.Count > 1)
+        {
+            Debug.LogError("Only one right handed device is currently supported - strange behavior may result");
         }
-        outputText.text = output;
+
+        if(rightHandedDevices.Count > 0)
+        {
+            if (rightHandedDevices[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.gripButton, out rightGripDown))
+            {
+                output += "" + rightHandedDevices[0].serialNumber + " grip " + rightGripDown + ". ";
+            }
+            outputText.text = output;
+        }
+        else
+        {
+            //Debug.LogError("No right-handed device detected..");
+        }
 
     }
 
@@ -141,12 +169,17 @@ public class Graph : MonoBehaviour
             bars[i].transform.parent = this.transform;
             bars[i].transform.localScale = new Vector3(1f, 1f, 1f);
 
-            // initialize it
-            bars[i].Init(BarsData[i], primaryButtonWatcher, this);
-
-            // place it
-            bars[i].transform.localPosition = new Vector3(BarsData[i].Index * XScaleFactor, 0f, 0f);
+            InitAndPlaceBar(bars, i);
         }
+    }
+
+    private void InitAndPlaceBar(List<Bar> bars, int barListIndex)
+    {
+        // initialize it
+        bars[barListIndex].Init(BarsData[barListIndex], primaryButtonWatcher, this, barListIndex);
+
+        // place it
+        bars[barListIndex].transform.localPosition = new Vector3(BarsData[barListIndex].Index * XScaleFactor, 0f, 0f);
     }
 
 

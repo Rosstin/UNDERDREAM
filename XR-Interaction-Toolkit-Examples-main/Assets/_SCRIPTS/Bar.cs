@@ -38,8 +38,28 @@ public class Bar : XRSimpleInteractable, IXRHoverInteractable, IMoveable
     private PrimaryButtonWatcher primaryButtonWatcherReference;
     private IMoveable.MoveableState currentState;
     private Graph myParentGraph;
+    private int myListIndex; // where the bar would be in its parent array
 
     public IMoveable.MoveableState CurrentState { get => currentState; set => currentState = value; }
+
+    public int GetListIndex()
+    {
+        return myListIndex;
+    }
+
+    /// <summary>
+    /// The bar was selected - todo it should move with the ray now
+    /// </summary>
+    public void OnSelect()
+    {
+        EnterSelectState();
+    }
+
+    public void OnUnselect()
+    {
+        myParentGraph.BarSelected(null);
+        EnterUnselectState();
+    }
 
     private void Update()
     {
@@ -54,32 +74,18 @@ public class Bar : XRSimpleInteractable, IXRHoverInteractable, IMoveable
         }
     }
 
-    private void UpdateSelectedState()
-    {
-        // if ur selected, your x should be determined by the controller ray
-    }
+    private void UpdateSelectedState(){}
 
-    private void UpdateUnselectedState()
-    {
+    private void UpdateUnselectedState(){}
 
-    }
 
-    /// <summary>
-    /// The bar was selected - todo it should move with the ray now
-    /// </summary>
-    public void OnSelect()
-    {
-        myParentGraph.BarSelected(this);
-        myRenderer.material = Color6Plus;
-        ToggleState();
-    }
-
-    public void Init(BarData myData, PrimaryButtonWatcher primaryButtonWatcher, Graph myParentGraph)
+    public void Init(BarData myData, PrimaryButtonWatcher primaryButtonWatcher, Graph myParentGraph, int myListIndex)
     {
         currentState = IMoveable.MoveableState.Unselected;
         this.primaryButtonWatcherReference = primaryButtonWatcher;
         this.myData = myData;
         this.myParentGraph = myParentGraph;
+        this.myListIndex = myListIndex;
 
         // your height is equal to your value. width/depth determined by configurable scale factor
         myBody.transform.localScale = new Vector3(widthScaleFactor, myData.Value, depthScaleFactor);
@@ -92,6 +98,20 @@ public class Bar : XRSimpleInteractable, IXRHoverInteractable, IMoveable
 
         myIndexText.text = myData.Index+"";
         myValueText.text = myData.Value+"";
+    }
+    private void EnterSelectState()
+    {
+        currentState = IMoveable.MoveableState.Selected;
+        myRenderer.material = SelectedColor; // set color to selected color
+        selectSfx.Play();
+        myParentGraph.BarSelected(this);
+    }
+
+    private void EnterUnselectState()
+    {
+        currentState = IMoveable.MoveableState.Unselected;
+        SetColor(); // set color to appropriate color
+        unselectSfx.Play();
     }
 
     /// <summary>
@@ -130,31 +150,4 @@ public class Bar : XRSimpleInteractable, IXRHoverInteractable, IMoveable
             myRenderer.material = Color6Plus;
         }
     }
-
-    public void ToggleState()
-    {
-        if (currentState == IMoveable.MoveableState.Unselected)
-        {
-            EnterSelectState();
-        }
-        else if(currentState == IMoveable.MoveableState.Selected)
-        {
-            EnterUnselectState();
-        }
-    }
-
-    public void EnterSelectState()
-    {
-        currentState = IMoveable.MoveableState.Selected;
-        myRenderer.material = SelectedColor; // set color to selected color
-        selectSfx.Play();
-    }
-
-    public void EnterUnselectState()
-    {
-        currentState = IMoveable.MoveableState.Unselected;
-        SetColor(); // set color to appropriate color
-        unselectSfx.Play();
-    }
-
 }
