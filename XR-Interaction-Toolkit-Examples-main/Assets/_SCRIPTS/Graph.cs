@@ -104,9 +104,12 @@ public class Graph : MonoBehaviour
             }
             else if (validHitThisFrame)
             {
+                int newIndex = GetIndexValueFromXLocalPos(hitPos.x);
+                selectedBar.UpdateIndex(newIndex);
+
                 // move bar only in X
-                selectedBar.transform.position = new Vector3( hitPos.x, selectedBar.transform.position.y, selectedBar.transform.position.z);
-                selectedBar.UpdateIndex(hitPos.x);
+                // reconvert back to grainify 
+                selectedBar.transform.position = new Vector3( GetXLocalPosFromIndexValue(newIndex), selectedBar.transform.position.y, selectedBar.transform.position.z);
             }
         }
     }
@@ -222,25 +225,51 @@ public class Graph : MonoBehaviour
         // place it
         var indexVal = BarsData[barListIndex].Index;
 
-        // calculate how far in the X this item should appear
-        // here we assume that 0 is the min
-        float relPos = indexVal / MaxIndexValue;
-
-        float realXPos = Mathf.Lerp(a: XMin.localPosition.x, b:XMax.localPosition.x, t: relPos);
+        float localXPos = GetXLocalPosFromIndexValue(indexVal);
 
         // really place the bar
-        bars[barListIndex].transform.localPosition = new Vector3(realXPos, 0f, 0f);
+        bars[barListIndex].transform.localPosition = new Vector3(localXPos, 0f, 0f);
+
+        // convert back to validate
+
+        var validationIndexVal = GetIndexValueFromXLocalPos(localXPos); // todo should be unit test instead
+
+        Debug.Log("Orig index val: " + indexVal + ".. localxpos: " + localXPos + " .. reconverted index (should match first val): " + validationIndexVal);
+        if(validationIndexVal != indexVal)
+        {
+            Debug.LogError("indexVal: " + indexVal + " does not match " + validationIndexVal + "! A logical error - these methods should be inverses");
+        }
+
     }
 
     /// <summary>
-    /// Convert raw position into something more relevant to this graph 
-    /// Return the correct "x" and/or the object's index
+    /// Given the index value, calculate relative X pos.
+    /// Must be the logical inverse of GetIndexValueFromXLocalPos or strange behavior will result [todo: unit test this]
+    /// NOTE: GetIndexValueFromXLocalPos converts to an int, so it is not a strict inverse.
     /// </summary>
     /// <param name="pos"></param>
-    private int ConvertHitPos(Vector3 pos)
+    private float GetXLocalPosFromIndexValue(int indexVal)
     {
-        //todo
-        return -1;
+        float relPos = indexVal / MaxIndexValue;
+
+        return Mathf.Lerp(a: XMin.localPosition.x, b: XMax.localPosition.x, t: relPos);
+    }
+
+    /// <summary>
+    /// Given the relative X pos, calculate index val
+    /// Must be logical inverse of GetXLocalPosFromIndexValue or strange behavior will result [todo: unit test this]
+    /// NOTE: this method converts to an int, so it is not a strict inverse.
+    /// </summary>
+    /// <param name="localPositionX"></param>
+    /// <returns></returns>
+    private int GetIndexValueFromXLocalPos(float localPositionX)
+    {
+        float relPos = Mathf.InverseLerp(XMin.localPosition.x, XMax.localPosition.x, localPositionX);
+
+        // calculate it and floor it to int value
+        int indexVal = (int) (relPos * MaxIndexValue);
+
+        return indexVal;
     }
 
 

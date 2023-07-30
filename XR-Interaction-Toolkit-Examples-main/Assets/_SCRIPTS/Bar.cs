@@ -57,13 +57,12 @@ public class Bar : XRSimpleInteractable, IXRHoverInteractable, IMoveable
 
     /// <summary>
     /// Update the displayed value of Index based on current X
+    /// Also update our data
     /// </summary>
-    public void UpdateIndex(float newX)
+    public void UpdateIndex(int newX)
     {
-        int integerizedX = (int) newX;
-
-        myData.Index = integerizedX;
-        myIndexText.text = integerizedX+"";
+        myData.Index = newX;
+        myIndexText.text = newX + "";
     }
 
 
