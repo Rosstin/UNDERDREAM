@@ -33,14 +33,38 @@ public class Bar : XRSimpleInteractable, IXRHoverInteractable, IMoveable
     [SerializeField] private AudioSource selectSfx;
     [SerializeField] private AudioSource unselectSfx;
 
+    // private data to use for self operation
     private BarData myData;
-
+    private PrimaryButtonWatcher primaryButtonWatcherReference;
     private IMoveable.MoveableState currentState;
 
     public IMoveable.MoveableState CurrentState { get => currentState; set => currentState = value; }
 
+    private void Update()
+    {
+        switch (currentState)
+        {
+            case IMoveable.MoveableState.Selected:
+                UpdateSelectedState();
+                break;
+            case IMoveable.MoveableState.Unselected:
+                UpdateUnselectedState();
+                break;
+        }
+    }
+
+    private void UpdateSelectedState()
+    {
+        // if ur selected, your x should be determined by the controller ray
+    }
+
+    private void UpdateUnselectedState()
+    {
+
+    }
+
     /// <summary>
-    /// The bar was selected - it should move with the ray now
+    /// The bar was selected - todo it should move with the ray now
     /// </summary>
     public void OnSelect()
     {
@@ -48,12 +72,10 @@ public class Bar : XRSimpleInteractable, IXRHoverInteractable, IMoveable
         ToggleState();
     }
 
-    // the bar was hovered, it should glow //   public void OnHover(){}
-
-    public void Init(BarData myData)
+    public void Init(BarData myData, PrimaryButtonWatcher primaryButtonWatcher)
     {
         currentState = IMoveable.MoveableState.Unselected;
-
+        this.primaryButtonWatcherReference = primaryButtonWatcher;
         this.myData = myData;
 
         // your height is equal to your value. width/depth determined by configurable scale factor

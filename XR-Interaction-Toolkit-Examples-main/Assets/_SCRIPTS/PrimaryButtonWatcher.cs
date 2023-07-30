@@ -8,7 +8,9 @@ public class PrimaryButtonEvent : UnityEvent<bool> { }
 
 public class PrimaryButtonWatcher : MonoBehaviour
 {
-    public PrimaryButtonEvent primaryButtonPress;
+    public PrimaryButtonEvent primaryButtonPress; // true means the button went down, false means it went up
+
+    public bool IsButtonCurrentlyDown = false;
 
     private bool lastButtonState = false;
     private List<UnityEngine.XR.InputDevice> allDevices;
@@ -51,6 +53,8 @@ public class PrimaryButtonWatcher : MonoBehaviour
             primaryButtonPress.Invoke(tempState);
             lastButtonState = tempState;
         }
+
+        IsButtonCurrentlyDown = tempState;
 
         if (invalidDeviceFound || devicesWithPrimaryButton.Count == 0) // refresh device lists
             updateInputDevices();
