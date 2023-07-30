@@ -9,7 +9,11 @@ using UnityEngine.XR.Interaction.Toolkit;
 /// </summary>
 public class Bar : XRSimpleInteractable, IXRHoverInteractable, IMoveable
 {
-    [Header("Color Prefabs")]
+    [Header("Configurable Scale")]
+    [SerializeField] [Range(0f, 2f)] private float widthScaleFactor; // 1 is 1 Unity meter wide
+    [SerializeField] [Range(0f, 2f)] private float depthScaleFactor; // 1 is 1 Unity meter wide
+
+    [Header("Color Material Outlets")]
     public Material Color0Minus;
     public Material Color1;
     public Material Color2;
@@ -17,6 +21,7 @@ public class Bar : XRSimpleInteractable, IXRHoverInteractable, IMoveable
     public Material Color4;
     public Material Color5;
     public Material Color6Plus;
+    public Material SelectedColor;
 
     [Header("Component References")]
     [SerializeField] private GameObject myBody;
@@ -24,11 +29,15 @@ public class Bar : XRSimpleInteractable, IXRHoverInteractable, IMoveable
     [SerializeField] private TMPro.TextMeshPro myIndexText;
     [SerializeField] private TMPro.TextMeshPro myValueText;
 
-    [Header("Configurable Scale")]
-    [SerializeField] [Range(0f, 2f)] private float widthScaleFactor; // 1 is 1 Unity meter wide
-    [SerializeField] [Range(0f, 2f)] private float depthScaleFactor; // 1 is 1 Unity meter wide
+    [Header("SFX")]
+    [SerializeField] private AudioSource selectSfx;
+    [SerializeField] private AudioSource unselectSfx;
 
     private BarData myData;
+
+    private IMoveable.MoveableState currentState;
+
+    public IMoveable.MoveableState CurrentState { get => currentState; set => currentState = value; }
 
     /// <summary>
     /// The bar was selected - it should move with the ray now
@@ -36,16 +45,15 @@ public class Bar : XRSimpleInteractable, IXRHoverInteractable, IMoveable
     public void OnSelect()
     {
         myRenderer.material = Color6Plus;
+        ToggleState();
     }
 
-    // the bar was hovered, it should glow
-    public void OnHover()
-    {
-
-    }
+    // the bar was hovered, it should glow //   public void OnHover(){}
 
     public void Init(BarData myData)
     {
+        currentState = IMoveable.MoveableState.Unselected;
+
         this.myData = myData;
 
         // your height is equal to your value. width/depth determined by configurable scale factor
@@ -61,6 +69,9 @@ public class Bar : XRSimpleInteractable, IXRHoverInteractable, IMoveable
         myValueText.text = myData.Value+"";
     }
 
+    /// <summary>
+    /// Set color to the appropriate color for your value
+    /// </summary>
     private void SetColor()
     {
         if (myData.Value < 1)
@@ -84,12 +95,10 @@ public class Bar : XRSimpleInteractable, IXRHoverInteractable, IMoveable
         else if (myData.Value >= 4 && myData.Value < 5)
         {
             myRenderer.material = Color4;
-
         }
         else if (myData.Value >= 5 && myData.Value < 6)
         {
             myRenderer.material = Color5;
-
         }
         else if (myData.Value >= 6)
         {
@@ -97,9 +106,30 @@ public class Bar : XRSimpleInteractable, IXRHoverInteractable, IMoveable
         }
     }
 
+    public void ToggleState()
+    {
+        if (currentState == IMoveable.MoveableState.Unselected)
+        {
+            EnterSelectState();
+        }
+        else if(currentState == IMoveable.MoveableState.Selected)
+        {
+            EnterUnselectState();
+        }
+    }
 
+    public void EnterSelectState()
+    {
+        currentState = IMoveable.MoveableState.Selected;
+        myRenderer.material = SelectedColor; // set color to selected color
+        selectSfx.Play();
+    }
 
-
-
+    public void EnterUnselectState()
+    {
+        currentState = IMoveable.MoveableState.Unselected;
+        SetColor(); // set color to appropriate color
+        unselectSfx.Play();
+    }
 
 }

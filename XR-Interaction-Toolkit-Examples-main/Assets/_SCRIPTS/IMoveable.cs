@@ -12,6 +12,27 @@
 
 public interface IMoveable
 {
-    
     // todo: events for picking up and dragging the object - look at the example package
+
+    /// <summary>
+    /// States for object movement
+    /// 1. Unselected: the moveable is normal and fixed in position
+    /// 2. Selected: the moveable has been selected and it can be moved left/right
+    /// </summary>
+    public enum MoveableState
+    {
+        Unselected, // the moveable is normal and sitting down
+        Selected // the bar has been gripped
+    }
+
+    /// <summary>
+    /// The current state of the moveable
+    /// </summary>
+    public MoveableState CurrentState { get; set; }
+
+    /// <summary>
+    /// Toggle between selected and unselected
+    /// </summary>
+    public void ToggleState();
+
 }
