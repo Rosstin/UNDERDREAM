@@ -6,6 +6,9 @@ stated purpose:
 
 TODO
  3. Bars instantly self-order (todo smoothly self-order)
+   3a. need to consider approach - how to order the bars?
+   3b. For starters, we can make the bar position "grainy" - linked directly to its X
+   3c. Calculate X by using the graph's span assuming that the right edge of the graph is, say, 60 index units
  4. Bars move smoothly, not instantly
  G. Bar's index is represented by graph index, not Unity X Pos
  5. IMoveable interface
