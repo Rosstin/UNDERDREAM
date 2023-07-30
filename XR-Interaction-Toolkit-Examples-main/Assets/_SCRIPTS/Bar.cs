@@ -89,8 +89,13 @@ public class Bar : XRSimpleInteractable, IXRHoverInteractable, IMoveable
 
     private void UpdateUnselectedState(){}
 
-
-
+    /// <summary>
+    /// Inflate the bar from its data
+    /// </summary>
+    /// <param name="myData"></param>
+    /// <param name="primaryButtonWatcher"></param>
+    /// <param name="myParentGraph"></param>
+    /// <param name="myListIndex"></param>
     public void Init(BarData myData, PrimaryButtonWatcher primaryButtonWatcher, Graph myParentGraph, int myListIndex)
     {
         currentState = IMoveable.MoveableState.Unselected;
@@ -101,6 +106,9 @@ public class Bar : XRSimpleInteractable, IXRHoverInteractable, IMoveable
 
         // your height is equal to your value. width/depth determined by configurable scale factor
         myBody.transform.localScale = new Vector3(widthScaleFactor, myData.Value, depthScaleFactor);
+
+
+        // todo calculate your appropriate position by assuming that the span of the graph has certain values
 
         // your body should rest such that the bottom of the mesh is at this parent's origin
         myBody.transform.localPosition = new Vector3(0f, myData.Value / 2f, 0f);
@@ -143,12 +151,10 @@ public class Bar : XRSimpleInteractable, IXRHoverInteractable, IMoveable
         else if (myData.Value >= 2 && myData.Value < 3)
         {
             myRenderer.material = Color2;
-
         }
         else if (myData.Value >= 3 && myData.Value < 4)
         {
             myRenderer.material = Color3;
-
         }
         else if (myData.Value >= 4 && myData.Value < 5)
         {

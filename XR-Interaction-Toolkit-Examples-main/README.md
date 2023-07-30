@@ -5,11 +5,9 @@ stated purpose:
  - Students can click/drag specific bars and move them around, changing their order
 
 TODO
- C. Unselect isn't clean - glitch - something about unselect state doesnt clean up
- F. Bars instantly self-order (todo smoothly self-order)
- G. Bar's index is represented by graph index, not Unity X Pos
- 3. Bars self-order 
+ 3. Bars instantly self-order (todo smoothly self-order)
  4. Bars move smoothly, not instantly
+ G. Bar's index is represented by graph index, not Unity X Pos
  5. IMoveable interface
 
 LOW-PRI

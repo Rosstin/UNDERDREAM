@@ -148,7 +148,23 @@ public class Graph : MonoBehaviour
             validHitThisFrame = false;
         }
 
+        //hitPos
+
+
+
     }
+
+    /// <summary>
+    /// Convert raw position into something more relevant to this graph 
+    /// Return the correct "x" and/or the object's index
+    /// </summary>
+    /// <param name="pos"></param>
+    private int ConvertHitPos(Vector3 pos)
+    {
+        //todo
+        return -1;
+    }
+
 
     private void RecordGripButtonState()
     {
