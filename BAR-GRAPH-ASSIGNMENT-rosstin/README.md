@@ -5,10 +5,9 @@ stated purpose:
  - Students can click/drag specific bars and move them around, changing their order
 
 TODO
- J. The other bars should reorder AS THE USER IS MOVING THEIR SELECTED BAR 
-   Ja. An issue with index sorting causes no gap for the currently moving bar
-   Jb. Bars moving slowly probably because they're getting triggered too often
  5. IMoveable interface
+ M. Cleanup
+ N. The IMoveable interface should "hide" the Bar class from the graph better such that the Graph doesn't know so much about Bar
 
 LOW-PRI
  I. Fix in-headset interaction issue
@@ -16,6 +15,7 @@ LOW-PRI
  R. Replace updates with coroutines on Bar object to improve perf
  S. Sorts can be improved
  T. Unit tests for calculations in util class
+ X. Should move interaction stuff out of Graph.cs
  
 EXTRA
  1. display mean/median/mode 
@@ -37,6 +37,10 @@ DONE
  D. Bar knows her new index based on X
  G. Bar's index is represented by graph index, not Unity X Pos
  H. Fix reset button
+ J. The other bars should reorder AS THE USER IS MOVING THEIR SELECTED BAR 
+   Ja. An issue with index sorting causes no gap for the currently moving bar
+   Jb. Bars moving slowly probably because they're getting triggered too often
+   Jc. It was because of the grainy movement - there was often an equality. Changing to float fixes this.
  K. the graph doesn’t ever rest with missing or OVERLAPPING bars on any given spot
    Ka. done - selected bar pops forward enuff to prevent them touching
  L. the selected bar could move forward smoothly when selected to avoid overlaps - i can do this by modifying local mesh

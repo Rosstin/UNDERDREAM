@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using BarGraphAssignment;
 
 namespace BarGraphAssignment { 
 
@@ -75,8 +74,6 @@ public class Graph : MonoBehaviour
 
     private void Reset()
     {
-        Debug.Log("Reset");
-
         // wipe the modified data and copy the original data back in
         ModifiedBarsData = new List<BarData>();
 
@@ -251,10 +248,6 @@ public class Graph : MonoBehaviour
             if (selectedBar == null || bar.GetOriginalIndexValue() != selectedBar.GetOriginalIndexValue())
             {
                 bar.OnUnselect();
-            }
-            else
-            {
-                //Debug.Log("selectedbar is: " + selectedBar + " and shouldnt be moved");
             }
         }
     }
