@@ -6,11 +6,16 @@ stated purpose:
 
 TODO
  J. The other bars should reorder AS THE USER IS MOVING THEIR SELECTED BAR 
+   Ja. An issue with index sorting causes no gap for the currently moving bar
+   Jb. Bars moving slowly probably because they're getting triggered too often
  5. IMoveable interface
 
 LOW-PRI
  I. Fix in-headset interaction issue
  Q. Only right hand is supported. Support left hand.
+ R. Replace updates with coroutines on Bar object to improve perf
+ S. Sorts can be improved
+ T. Unit tests for calculations in util class
  
 EXTRA
  1. display mean/median/mode 

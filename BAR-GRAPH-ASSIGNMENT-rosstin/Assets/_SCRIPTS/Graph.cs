@@ -1,8 +1,9 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem.XR;
+using BarGraphAssignment;
+
+namespace BarGraphAssignment { 
 
 /// <summary>
 /// The graph, which contains the bars
@@ -84,7 +85,13 @@ public class Graph : MonoBehaviour
         for (int i = 0; i < BarsData.Count; i++)
         {
             ModifiedBarsData.Add(new BarData(BarsData[i]));
+
+            // set positional data for barsdata. initially, the position is based on the data from the inspector
+            ModifiedBarsData[i].PositionalIndex = ModifiedBarsData[i].OriginalIndex;
         }
+
+        // sort it by PositionalIndex
+        ModifiedBarsData.Sort();
 
         MakeBars();
     }
@@ -105,9 +112,6 @@ public class Graph : MonoBehaviour
         // inflate bars from data
         for (int i = 0; i < ModifiedBarsData.Count; i++)
         {
-            // set positional data for barsdata. initially, the position is based on the data from the inspector
-            ModifiedBarsData[i].PositionalIndex = ModifiedBarsData[i].OriginalIndex;
-
             // create the bar 
             Bar newBar = Instantiate(barPrefab);
 
@@ -177,12 +181,12 @@ public class Graph : MonoBehaviour
             // must convert hitpos to be local
             var localHitPos = this.transform.InverseTransformPoint(hitPos);
             // now get the new index calc
-            int newIndex = GetIndexValueFromXLocalPos(localHitPos.x);
+            int newIndex = GraphCalculationUtility.GetIndexValueFromXLocalPos(localHitPos.x, XMin.localPosition.x, XMax.localPosition.x, MaxIndexValue);
 
             if (validHitThisFrame)
             {
                 // move bar only in X
-                var xLocalPos = GetXLocalPosFromIndexValue(newIndex);
+                var xLocalPos = GraphCalculationUtility.GetXLocalPosFromIndexValue(newIndex, XMin.localPosition.x, XMax.localPosition.x, MaxIndexValue);
                 selectedBar.SetCurrentPosInstantly(
                     new Vector3(xLocalPos, selectedBar.transform.localPosition.y, selectedBar.transform.localPosition.z));
             }
@@ -233,12 +237,12 @@ public class Graph : MonoBehaviour
     {
         // sort the bars based on their list index position, not actual stated Index Value
         // a fake index val based only on list order, 
-        int virtualIndexVal = (barListIndex + 1) * 10; // todo parameterize magic numbers
+        int virtualIndexVal = GraphCalculationUtility.GetPositionalIndexFromListIndex(barListIndex);
 
         // update the bar's positional data with this index val
         ModifiedBarsData[barListIndex].PositionalIndex = virtualIndexVal;
 
-        float localXPos = GetXLocalPosFromIndexValue(virtualIndexVal);
+        float localXPos = GraphCalculationUtility.GetXLocalPosFromIndexValue(virtualIndexVal, XMin.localPosition.x, XMax.localPosition.x, MaxIndexValue);
 
         // really place the bar
         bars[barListIndex].SetDestinationLocalPos(new Vector3(localXPos, 0f, 0f));
@@ -252,7 +256,7 @@ public class Graph : MonoBehaviour
             }
             else
             {
-                Debug.Log("selectedbar is: " + selectedBar + " and shouldnt be moved");
+                //Debug.Log("selectedbar is: " + selectedBar + " and shouldnt be moved");
             }
         }
     }
@@ -326,71 +330,9 @@ public class Graph : MonoBehaviour
 
 
 
-    /// <summary>
-    /// Given the index value, calculate relative X pos.
-    /// Must be the logical inverse of GetIndexValueFromXLocalPos or strange behavior will result [todo: unit test this]
-    /// NOTE: GetIndexValueFromXLocalPos converts to an int, so it is not a strict inverse.
-    /// </summary>
-    /// <param name="pos"></param>
-    private float GetXLocalPosFromIndexValue(int indexVal)
-    {
-        float relPos = indexVal / MaxIndexValue;
-
-        return Mathf.Lerp(a: XMin.localPosition.x, b: XMax.localPosition.x, t: relPos);
-    }
-
-    /// <summary>
-    /// Given the relative X pos, calculate index val
-    /// Must be logical inverse of GetXLocalPosFromIndexValue or strange behavior will result [todo: unit test this]
-    /// NOTE: this method converts to an int, so it is not a strict inverse.
-    /// </summary>
-    /// <param name="localPositionX"></param>
-    /// <returns></returns>
-    private int GetIndexValueFromXLocalPos(float localPositionX)
-    {
-        float relPos = Mathf.InverseLerp(XMin.localPosition.x, XMax.localPosition.x, localPositionX);
-
-        // calculate it and floor it to int value
-        int indexVal = (int) (relPos * MaxIndexValue);
-
-        return indexVal;
-    }
-
 
 
 }
 
-[System.Serializable]
-public class BarData : IEquatable<BarData>, IComparable<BarData>
-{
-    [HideInInspector] public int PositionalIndex; // where it currently is // used for positioning, shouldnt be configured
-    public int OriginalIndex; // sets initial position, can be configured in inspector
-    public int Value; // height, can be configured in inspector
-
-    public BarData(BarData sourceBarData)
-    {
-        this.PositionalIndex= sourceBarData.PositionalIndex;
-        this.OriginalIndex = sourceBarData.OriginalIndex;
-        this.Value = sourceBarData.Value;
-    }
-
-    public bool Equals(BarData other)
-    {
-        if (other == null) return false;
-        return (this.PositionalIndex.Equals(other.PositionalIndex));
-    }
-
-    public int CompareTo(BarData other)
-    {
-        if (other == null)
-        {
-            return 1;
-        }
-        else
-        {
-            return this.PositionalIndex.CompareTo(other.PositionalIndex);
-        }
-    }
 
 }
-

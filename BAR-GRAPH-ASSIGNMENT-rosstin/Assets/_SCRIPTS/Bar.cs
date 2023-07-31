@@ -5,6 +5,10 @@ using UnityEngine;
 using UnityEngine.XR.Content.Interaction;
 using UnityEngine.XR.Interaction.Toolkit;
 
+namespace BarGraphAssignment
+{
+
+
 /// <summary>
 /// A bar in the bar graph that can be moved by the player
 /// </summary>
@@ -42,6 +46,7 @@ public class Bar : XRSimpleInteractable, IMoveable, IEquatable<Bar>, IComparable
     [SerializeField] private Transform selectedZ;
     [SerializeField] private Transform unselectedZ;
 
+    private bool currentlyMoving = false;
     private Vector3 startPos;
     private Vector3 destinationPos;
 
@@ -54,17 +59,28 @@ public class Bar : XRSimpleInteractable, IMoveable, IEquatable<Bar>, IComparable
     private Graph myParentGraph;
     private int myListIndex; // where the bar would be in its parent array
 
-    private int initialPositionalIndex; // where the bar started when it was first selected
+    private int initListIndex; // where the bar started when it was first selected
 
     public IMoveable.MoveableState CurrentState { get => currentState; set => currentState = value; }
 
     public void SetDestinationLocalPos(Vector3 destination)
     {
-        destinationPos = destination;
+        //Debug.Log("Set Dest for " + this + "");
+        if (!currentlyMoving)
+        {
+            //Debug.Log("" + this + " isn't currently moving so let's do it");
+            currentlyMoving = true;
+            destinationPos = destination;
+        }
+        else
+        {
+            //Debug.Log("" + this + " is currently moving so no-op.");
+        }
     }
 
     public void SetCurrentPosInstantly(Vector3 newPos)
     {
+        currentlyMoving = false;
         this.transform.localPosition = newPos;
     }
 
@@ -121,13 +137,21 @@ public class Bar : XRSimpleInteractable, IMoveable, IEquatable<Bar>, IComparable
     {
         myData.PositionalIndex = newX;
 
-        int positionalDifference = newX - initialPositionalIndex;
+        // convert index to list order and trigger a re-sort if your list order changes
 
-        if (Mathf.Abs(positionalDifference) >= 10)
-        {
-            // todo work on dynamic bar reorder
-            myParentGraph.TriggerBarReorder();
-        }
+        // if your new index is a multiple of ten, trigger a re-order
+//        if(initListIndex != Graph.GetLi)
+ //       {
+
+//        }
+
+  //      int positionalDifference = newX - initialPositionalIndex;
+
+    //    if (Mathf.Abs(positionalDifference) >= 10)
+      //  {
+          //  initialPositionalIndex = newX; // todo this is really imperfect and won't work if you immediately double back for instance
+            //myParentGraph.TriggerBarReorder();
+        //}
     }
 
     public void OnUnselect()
@@ -152,6 +176,7 @@ public class Bar : XRSimpleInteractable, IMoveable, IEquatable<Bar>, IComparable
 
     /// <summary>
     /// If not selected, approach destination pos
+    /// todo you can coroutine this to save some processing. esp relevant if we increase the number of bars
     /// </summary>
     private void UpdateUnselectedState(){
         elapsedTime += Time.deltaTime;
@@ -161,6 +186,11 @@ public class Bar : XRSimpleInteractable, IMoveable, IEquatable<Bar>, IComparable
         // move nicely in X
         this.transform.localPosition =
             new Vector3(Mathf.Lerp(startPos.x, destinationPos.x, progress), this.transform.localPosition.y, this.transform.localPosition.z);
+
+        if(progress >= 1f)
+        {
+            currentlyMoving = false;
+        }
     }
 
     /// <summary>
@@ -194,7 +224,7 @@ public class Bar : XRSimpleInteractable, IMoveable, IEquatable<Bar>, IComparable
     private void EnterSelectState()
     {
 
-        initialPositionalIndex = this.myData.PositionalIndex;
+        // todo initialPositionalIndex = this.myData.PositionalIndex;
 
         myBody.transform.position =
             new Vector3(
@@ -287,4 +317,6 @@ public class Bar : XRSimpleInteractable, IMoveable, IEquatable<Bar>, IComparable
             return this.myData.PositionalIndex.CompareTo(other.myData.PositionalIndex);
         }
     }
+}
+
 }
