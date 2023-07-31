@@ -10,7 +10,7 @@ using UnityEngine.InputSystem.XR;
 public class Graph : MonoBehaviour
 {
     [Header("Configurable Graph Data")]
-    public List<BarData> BarsData;
+    public List<BarData> BarsData; // data for bar init conditions. copied on start so it can be modified and reset to initial conditions
     [SerializeField] private Transform XMax; // an object transform representing the bar's max X (probably 60f)
     [SerializeField] private Transform XMin; // an object transform representing min X (0f)
     [SerializeField] [Range(0f, 100f)] private float MaxIndexValue; // this value represents the right side of the graph's X extent. Should be 60f.
@@ -33,6 +33,8 @@ public class Graph : MonoBehaviour
     public Vector3 hitPos { get; set; } // records the current hit pos 
 
     private List<Bar> bars = new List<Bar>();
+
+    private List<BarData> ModifiedBarsData;
 
     // private vars for interaction
     private bool validHitThisFrame = false;
@@ -57,8 +59,57 @@ public class Graph : MonoBehaviour
     private void Reset()
     {
         Debug.Log("Reset");
-        // todo reset button doesnt work RN
+
+        // wipe the modified data and copy the original data back in
+        ModifiedBarsData = new List<BarData>();
+
+        // copy the bars data so that you only modify a copy - this way you can reset more easily
+        for (int i = 0; i < BarsData.Count; i++)
+        {
+            ModifiedBarsData.Add(new BarData(BarsData[i]));
+        }
+
         MakeBars();
+    }
+
+    private void MakeBars()
+    {
+        selectedBar = null;
+
+        // wipe existing bars
+        foreach (var bar in bars)
+        {
+            Destroy(bar.gameObject);
+        }
+
+        // initialize the list of bars
+        bars = new List<Bar>();
+
+        // inflate bars from data
+        for (int i = 0; i < ModifiedBarsData.Count; i++)
+        {
+            // set positional data for barsdata. initially, the position is based on the data from the inspector
+            ModifiedBarsData[i].PositionalIndex = ModifiedBarsData[i].OriginalIndex;
+
+            // create the bar 
+            Bar newBar = Instantiate(barPrefab);
+
+            // parent it
+            newBar.transform.parent = this.transform;
+            newBar.transform.localScale = new Vector3(1f, 1f, 1f);
+
+            // and position it correctly in Z (at the z origin)
+            newBar.transform.localPosition = new Vector3(0f, 0f, 0f);
+
+            // add to list
+            bars.Add(newBar);
+
+            // initialize it
+            bars[i].Init(ModifiedBarsData[i], this, i);
+
+        }
+
+        PlaceBars();
     }
 
     private void Update()
@@ -122,11 +173,11 @@ public class Graph : MonoBehaviour
         bar.OnUnselect();
 
         // update barsdata object with current data
-        BarsData[bar.GetListIndex()].PositionalIndex = bar.GetPositionalIndex();
+        ModifiedBarsData[bar.GetListIndex()].PositionalIndex = bar.GetPositionalIndex();
 
         // re-sort the bars based on their new index values, then place the bars in the correct order
         bars.Sort();
-        BarsData.Sort();
+        ModifiedBarsData.Sort();
 
         // update what you know about your own position to be accurate again
         for (int i = 0; i < bars.Count; i++)
@@ -205,50 +256,10 @@ public class Graph : MonoBehaviour
 
     }
 
-    private void MakeBars()
-    {
-        selectedBar = null;
-
-        // wipe existing bars
-        foreach (var bar in bars)
-        {
-            Destroy(bar.gameObject);
-        }
-
-        // initialize the list of bars
-        bars = new List<Bar>();
-
-        // inflate bars from data
-        for(int i = 0; i < BarsData.Count; i++)
-        {
-            // set positional data for barsdata. initially, the position is based on the data from the inspector
-            BarsData[i].PositionalIndex = BarsData[i].OriginalIndex;
-
-            // create the bar 
-            Bar newBar = Instantiate(barPrefab);
-
-            // parent it
-            newBar.transform.parent = this.transform;
-            newBar.transform.localScale = new Vector3(1f, 1f, 1f);
-
-            // and position it correctly in Z (at the z origin)
-            newBar.transform.localPosition = new Vector3(0f, 0f, 0f);
-
-            // add to list
-            bars.Add(newBar);
-
-            // initialize it
-            bars[i].Init(BarsData[i], this, i);
-
-        }
-
-        PlaceBars();
-    }
-
     private void PlaceBars()
     {
         // place based on data
-        for (int i = 0; i < BarsData.Count; i++) {
+        for (int i = 0; i < ModifiedBarsData.Count; i++) {
             PlaceBar(bars, i);
         }
     }
@@ -260,7 +271,7 @@ public class Graph : MonoBehaviour
         int virtualIndexVal = (barListIndex+1) * 10; // todo parameterize magic numbers
 
         // update the bar's positional data with this index val
-        BarsData[barListIndex].PositionalIndex = virtualIndexVal;
+        ModifiedBarsData[barListIndex].PositionalIndex = virtualIndexVal;
 
         float localXPos = GetXLocalPosFromIndexValue(virtualIndexVal);
 
@@ -310,9 +321,16 @@ public class Graph : MonoBehaviour
 [System.Serializable]
 public class BarData : IEquatable<BarData>, IComparable<BarData>
 {
-    /*[HideInInspector]*/ public int PositionalIndex; // where it currently is // used for positioning, shouldnt be configured
+    [HideInInspector] public int PositionalIndex; // where it currently is // used for positioning, shouldnt be configured
     public int OriginalIndex; // sets initial position, can be configured in inspector
     public int Value; // height, can be configured in inspector
+
+    public BarData(BarData sourceBarData)
+    {
+        this.PositionalIndex= sourceBarData.PositionalIndex;
+        this.OriginalIndex = sourceBarData.OriginalIndex;
+        this.Value = sourceBarData.Value;
+    }
 
     public bool Equals(BarData other)
     {
