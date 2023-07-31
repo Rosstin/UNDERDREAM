@@ -5,12 +5,10 @@ stated purpose:
  - Students can click/drag specific bars and move them around, changing their order
 
 TODO
- 3. Bars instantly self-order (todo smoothly self-order)
-   3a. Actually reorder bars now
-   3d. Bars are always ordered by index - when you let go of a bar, check if it's in the correct place still
  4. Bars move smoothly, not instantly
  G. Bar's index is represented by graph index, not Unity X Pos
  5. IMoveable interface
+ H. Fix reset button
 
 LOW-PRI
  Q. Only right hand is supported. Support left hand.
@@ -18,8 +16,11 @@ LOW-PRI
 DONE
  1. Click and drag bar object
  2. Bar object is free in horiz, locked in vert
+ 3. Bars instantly self-order (todo smoothly self-order)
+   3a. Actually reorder bars now
    3b. For starters, we can make the bar position "grainy" - linked directly to its X
    3c. Calculate X by using the graph's span assuming that the right edge of the graph is, say, 60 index units
+   3d. Bars are always ordered by index - when you let go of a bar, check if it's in the correct place still
  6. Bar includes index and value numbers 
  7. Bars display given data (see pdf)
  A. Gripup event unselects bar 

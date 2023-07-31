@@ -87,7 +87,6 @@ public class Bar : XRSimpleInteractable, IMoveable, IEquatable<Bar>, IComparable
         myData.PositionalIndex = newX;
     }
 
-
     public void OnUnselect()
     {
         EnterUnselectState();

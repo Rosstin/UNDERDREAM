@@ -61,6 +61,7 @@ public class Graph : MonoBehaviour
     private void Reset()
     {
         Debug.Log("Reset");
+        // todo reset button doesnt work RN
         MakeBars();
     }
 
@@ -140,11 +141,6 @@ public class Graph : MonoBehaviour
 
         // reposition
         PlaceBars();
-    }
-
-    private void SortBarsOnIndexData()
-    {
-        
     }
 
     private void RaycastForAppropriatePlatform()
@@ -227,9 +223,13 @@ public class Graph : MonoBehaviour
         // initialize the list of bars
         bars = new List<Bar>();
 
+
         // inflate bars from data
         for(int i = 0; i < BarsData.Count; i++)
         {
+            // set positional data for barsdata. initially, the position is based on the data from the inspector
+            BarsData[i].PositionalIndex = BarsData[i].OriginalIndex;
+
             // create the bar
             bars.Add(Instantiate(barPrefab));
 
@@ -242,7 +242,7 @@ public class Graph : MonoBehaviour
 
     private void PlaceBars()
     {
-        // inflate bars from data
+        // place based on data
         for (int i = 0; i < BarsData.Count; i++) {
             InitAndPlaceBar(bars, i);
         }
@@ -258,13 +258,17 @@ public class Graph : MonoBehaviour
         // a fake index val based only on list order, 
         int virtualIndexVal = (barListIndex+1) * 10; // todo parameterize magic numbers
 
+        // update the bar's positional data with this index val
+        BarsData[barListIndex].PositionalIndex = virtualIndexVal;
+
         float localXPos = GetXLocalPosFromIndexValue(virtualIndexVal);
 
         // really place the bar
         bars[barListIndex].transform.localPosition = new Vector3(localXPos, 0f, 0f);
 
+        // validate the methods are inverses of eachother - todo convert to unit test
+        /*
         // convert back to validate
-
         var validationIndexVal = GetIndexValueFromXLocalPos(localXPos); // todo should be unit test instead
 
         //Debug.Log("Orig index val: " + virtualIndexVal + ".. localxpos: " + localXPos + " .. reconverted index (should match first val): " + validationIndexVal);
@@ -272,6 +276,7 @@ public class Graph : MonoBehaviour
         {
             //Debug.LogError("indexVal: " + virtualIndexVal + " does not match " + validationIndexVal + "! A logical error - these methods should be inverses");
         }
+        */
 
     }
 
@@ -312,7 +317,7 @@ public class Graph : MonoBehaviour
 [System.Serializable]
 public class BarData : IEquatable<BarData>, IComparable<BarData>
 {
-    [HideInInspector] public int PositionalIndex; // where it currently is // used for positioning, shouldnt be configured
+    /*[HideInInspector]*/ public int PositionalIndex; // where it currently is // used for positioning, shouldnt be configured
     public int OriginalIndex; // sets initial position, can be configured in inspector
     public int Value; // height, can be configured in inspector
 
