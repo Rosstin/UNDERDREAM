@@ -28,6 +28,7 @@ public class Graph : MonoBehaviour
     [SerializeField] private GameObject leftHand;
     [SerializeField] private GameObject rightHand;
     [SerializeField] private GameObject hitMarker;
+    [SerializeField] private GameObject xrParent;
 
     public Vector3 hitPos { get; set; } // records the current hit pos 
 
@@ -41,11 +42,6 @@ public class Graph : MonoBehaviour
     public void BarSelected(Bar selectedBar)
     {
         this.selectedBar = selectedBar;
-    }
-
-    public void ResetBarPos(int barListIndex)
-    {
-        InitAndPlaceBar(bars, barListIndex);
     }
 
     private void Awake()
@@ -241,6 +237,9 @@ public class Graph : MonoBehaviour
             // add to list
             bars.Add(newBar);
 
+            // initialize it
+            bars[i].Init(BarsData[i], this, i);
+
         }
 
         PlaceBars();
@@ -250,15 +249,12 @@ public class Graph : MonoBehaviour
     {
         // place based on data
         for (int i = 0; i < BarsData.Count; i++) {
-            InitAndPlaceBar(bars, i);
+            PlaceBar(bars, i);
         }
     }
 
-    private void InitAndPlaceBar(List<Bar> bars, int barListIndex)
+    private void PlaceBar(List<Bar> bars, int barListIndex)
     {
-        // initialize it
-        bars[barListIndex].Init(BarsData[barListIndex], this, barListIndex);
-
         // sort the bars based on their list index position, not actual stated Index Value
         // a fake index val based only on list order, 
         int virtualIndexVal = (barListIndex+1) * 10; // todo parameterize magic numbers
@@ -270,6 +266,11 @@ public class Graph : MonoBehaviour
 
         // really place the bar
         bars[barListIndex].SetDestinationLocalPos(new Vector3(localXPos, 0f, 0f));
+
+        foreach(Bar bar in bars)
+        {
+            bar.OnUnselect();
+        }
     }
 
     /// <summary>

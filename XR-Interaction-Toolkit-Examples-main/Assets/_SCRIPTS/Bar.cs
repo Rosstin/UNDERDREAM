@@ -142,6 +142,7 @@ public class Bar : XRSimpleInteractable, IMoveable, IEquatable<Bar>, IComparable
 
     /// <summary>
     /// Inflate the bar from its data
+    /// Store various data, scale yourself, and display the right text
     /// </summary>
     /// <param name="myData"></param>
     /// <param name="primaryButtonWatcher"></param>
@@ -162,7 +163,7 @@ public class Bar : XRSimpleInteractable, IMoveable, IEquatable<Bar>, IComparable
         myBody.transform.localPosition = new Vector3(myBody.transform.localPosition.x, myData.Value / 2f, myBody.transform.localPosition.z);
 
         // start pos for smooth movement
-        this.startPos = this.transform.localPosition;
+        //this.startPos = this.transform.localPosition;
 
         // your color is correlated to your value
         SetColor();
@@ -181,10 +182,10 @@ public class Bar : XRSimpleInteractable, IMoveable, IEquatable<Bar>, IComparable
     private void EnterUnselectState()
     {
         elapsedTime = 0f;
+        this.startPos = this.transform.localPosition;
         myParentGraph.BarSelected(null);
         currentState = IMoveable.MoveableState.Unselected;
         SetColor(); // set color to appropriate color
-        unselectSfx.Play();
     }
 
     /// <summary>

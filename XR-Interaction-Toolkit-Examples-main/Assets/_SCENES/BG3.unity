@@ -247,6 +247,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8650654346158448396}
     - target: {fileID: 7237357055164257194, guid: 758bda16d6cb9424586739e510add6c3, type: 3}
+      propertyPath: xrParent
+      value: 
+      objectReference: {fileID: 6947604103991097833}
+    - target: {fileID: 7237357055164257194, guid: 758bda16d6cb9424586739e510add6c3, type: 3}
       propertyPath: rightHand
       value: 
       objectReference: {fileID: 8650654344774377459}
