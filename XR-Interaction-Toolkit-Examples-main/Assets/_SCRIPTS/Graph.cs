@@ -228,11 +228,19 @@ public class Graph : MonoBehaviour
             // set positional data for barsdata. initially, the position is based on the data from the inspector
             BarsData[i].PositionalIndex = BarsData[i].OriginalIndex;
 
-            // create the bar
-            bars.Add(Instantiate(barPrefab));
+            // create the bar 
+            Bar newBar = Instantiate(barPrefab);
 
-            bars[i].transform.parent = this.transform;
-            bars[i].transform.localScale = new Vector3(1f, 1f, 1f);
+            // parent it
+            newBar.transform.parent = this.transform;
+            newBar.transform.localScale = new Vector3(1f, 1f, 1f);
+
+            // and position it correctly in Z (at the z origin)
+            newBar.transform.localPosition = new Vector3(0f, 0f, 0f);
+
+            // add to list
+            bars.Add(newBar);
+
         }
 
         PlaceBars();

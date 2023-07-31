@@ -135,7 +135,9 @@ public class Bar : XRSimpleInteractable, IMoveable, IEquatable<Bar>, IComparable
 
         float progress = moveCurve.Evaluate(elapsedTime / travelTime);
 
-        this.transform.localPosition = Vector3.Lerp(startPos, destinationPos, progress);
+        // move nicely in X
+        this.transform.localPosition =
+            new Vector3(Mathf.Lerp(startPos.x, destinationPos.x, progress), this.transform.localPosition.y, this.transform.localPosition.z);
     }
 
     /// <summary>
@@ -155,11 +157,9 @@ public class Bar : XRSimpleInteractable, IMoveable, IEquatable<Bar>, IComparable
         // your height is equal to your value. width/depth determined by configurable scale factor
         myBody.transform.localScale = new Vector3(widthScaleFactor, myData.Value, depthScaleFactor);
 
-
-        // todo calculate your appropriate position by assuming that the span of the graph has certain values
-
         // your body should rest such that the bottom of the mesh is at this parent's origin
-        myBody.transform.localPosition = new Vector3(0f, myData.Value / 2f, 0f);
+        // we divide myData.Value by two so that the bar rests in the correct Y position
+        myBody.transform.localPosition = new Vector3(myBody.transform.localPosition.x, myData.Value / 2f, myBody.transform.localPosition.z);
 
         // start pos for smooth movement
         this.startPos = this.transform.localPosition;
