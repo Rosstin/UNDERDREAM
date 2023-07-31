@@ -566,8 +566,7 @@ MonoBehaviour:
   myIndexText: {fileID: 7439771547927245970}
   myValueText: {fileID: 4042703893723330132}
   selectSfx: {fileID: 6645697123221820734}
-  unselectSfx: {fileID: 7993971655211053231}
-  travelTime: 0.5
+  travelTime: 0.05
   moveCurve:
     serializedVersion: 2
     m_Curve:

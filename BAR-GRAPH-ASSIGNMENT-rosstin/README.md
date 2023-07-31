@@ -18,8 +18,7 @@ LOW-PRI
  X. Should move interaction stuff out of Graph.cs
  
 EXTRA
- 1. display mean/median/mode 
- 2. You can change the values of the bars and see the changes reflected
+ e2. You can change the values of the bars and see the changes reflected
 
 DONE
  1. Click and drag bar object
@@ -44,6 +43,9 @@ DONE
  K. the graph doesn’t ever rest with missing or OVERLAPPING bars on any given spot
    Ka. done - selected bar pops forward enuff to prevent them touching
  L. the selected bar could move forward smoothly when selected to avoid overlaps - i can do this by modifying local mesh
+ e1. display mean/median/mode 
+ z1. Occasional glitch with dynamic positioning - investigate
+ z2. increasing the movement speed mostly gets rid of this, so its an issue of something relating to starting and stopping movement perhaps, and states locking while things are in motion. will simply increase the speed for now and investigate later
  
 
 

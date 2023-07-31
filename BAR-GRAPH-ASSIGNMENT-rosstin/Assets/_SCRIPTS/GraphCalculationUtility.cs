@@ -1,4 +1,8 @@
+using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
+
+
 namespace BarGraphAssignment
 {
 
@@ -52,6 +56,30 @@ namespace BarGraphAssignment
 
             return indexVal;
         }
+
+        /// <summary>
+        /// Returns mean, median, and mode as elements in a vector
+        /// 
+        /// todo calc median and mode
+        /// </summary>
+        /// <returns></returns>
+        public static Vector3 CalculateMeanMedianMode(List<BarData> bars)
+        {
+            float mean = 0f;
+            float median = 0f;
+            float mode = 0f;
+
+            float sum = 0f;
+            for(int i = 0; i < bars.Count; i++)
+            {
+                sum += bars[i].Value; 
+            }
+
+            mean = sum / bars.Count;
+
+            return new Vector3(mean, median, mode);
+        }
+
 
     }
 }
