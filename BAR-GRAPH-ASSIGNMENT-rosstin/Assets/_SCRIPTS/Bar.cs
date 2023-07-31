@@ -117,7 +117,7 @@ public class Bar : XRSimpleInteractable, IMoveable, IEquatable<Bar>, IComparable
     /// <summary>
     /// Update the positional index used for positioning the bar
     /// </summary>
-    public void UpdatePositionalIndex(int newX)
+    public void UpdatePositionalIndexAndReorderBarsIfNecessary(int newX)
     {
         myData.PositionalIndex = newX;
 
@@ -126,7 +126,7 @@ public class Bar : XRSimpleInteractable, IMoveable, IEquatable<Bar>, IComparable
         if (Mathf.Abs(positionalDifference) >= 10)
         {
             // todo work on dynamic bar reorder
-            //myParentGraph.TriggerBarReorder();
+            myParentGraph.TriggerBarReorder();
         }
     }
 
@@ -185,9 +185,6 @@ public class Bar : XRSimpleInteractable, IMoveable, IEquatable<Bar>, IComparable
         // we divide myData.Value by two so that the bar rests in the correct Y position
         myBody.transform.localPosition = new Vector3(myBody.transform.localPosition.x, myData.Value / 2f, myBody.transform.localPosition.z);
 
-        // start pos for smooth movement
-        //this.startPos = this.transform.localPosition;
-
         // your color is correlated to your value
         SetColor();
 
@@ -196,10 +193,6 @@ public class Bar : XRSimpleInteractable, IMoveable, IEquatable<Bar>, IComparable
     }
     private void EnterSelectState()
     {
-        //if (myData.OriginalIndex == 50)
-        //{
-        //    Debug.Log("" + myData.OriginalIndex + " enter SELECT state");
-        //} 
 
         initialPositionalIndex = this.myData.PositionalIndex;
 
@@ -209,7 +202,7 @@ public class Bar : XRSimpleInteractable, IMoveable, IEquatable<Bar>, IComparable
                 myBody.transform.position.y,
                 selectedZ.transform.position.z);
 
-        myParentGraph.BarSelected(this);
+        myParentGraph.SetSelectedBar(this);
         currentState = IMoveable.MoveableState.Selected;
         myRenderer.material = SelectedColor; // set color to selected color
         selectSfx.Play();
@@ -217,11 +210,6 @@ public class Bar : XRSimpleInteractable, IMoveable, IEquatable<Bar>, IComparable
 
     private void EnterUnselectState()
     {
-        //if (myData.OriginalIndex == 50)
-        //{
-        //    Debug.Log("" + myData.OriginalIndex + " EnterUnselectState");
-        //}
-
         myBody.transform.position = 
             new Vector3(
                 myBody.transform.position.x, 
@@ -230,9 +218,16 @@ public class Bar : XRSimpleInteractable, IMoveable, IEquatable<Bar>, IComparable
 
         elapsedTime = 0f;
         this.startPos = this.transform.localPosition;
-        myParentGraph.BarSelected(null);
         currentState = IMoveable.MoveableState.Unselected;
         SetColor(); // set color to appropriate color
+
+        // set the selected bar to null if this bar is currently selected - otherwise we're just using this to trigger a reorder
+        if (myParentGraph.IsThisSelectedBar(this))
+        {
+            myParentGraph.SetSelectedBar(null);
+        }
+
+
     }
 
     /// <summary>
@@ -268,6 +263,11 @@ public class Bar : XRSimpleInteractable, IMoveable, IEquatable<Bar>, IComparable
         {
             myRenderer.material = Color6Plus;
         }
+    }
+
+    public override string ToString()
+    {
+        return "bar" + myData.OriginalIndex + " ";
     }
 
     public bool Equals(Bar other)

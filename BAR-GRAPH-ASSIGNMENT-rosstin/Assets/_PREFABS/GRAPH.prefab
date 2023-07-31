@@ -885,7 +885,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7237357055164257197}
   - component: {fileID: 7237357055164257194}
-  - component: {fileID: 9125026980850075136}
   m_Layer: 0
   m_Name: GRAPH
   m_TagString: Untagged
@@ -955,22 +954,7 @@ MonoBehaviour:
   leftHand: {fileID: 0}
   rightHand: {fileID: 0}
   hitMarker: {fileID: 1198747713560139019}
---- !u!114 &9125026980850075136
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7237357055164257195}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d832def08de8414db9baa2a8f9cdb06, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  primaryButtonPress:
-    m_PersistentCalls:
-      m_Calls: []
-  IsButtonCurrentlyDown: 0
+  xrParent: {fileID: 0}
 --- !u!1 &8342151771847212905
 GameObject:
   m_ObjectHideFlags: 0

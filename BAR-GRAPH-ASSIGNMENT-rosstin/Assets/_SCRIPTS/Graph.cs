@@ -41,9 +41,26 @@ public class Graph : MonoBehaviour
     private bool rightGripDown = false;
     private Bar selectedBar = null; // null means no bar selected
 
-    public void BarSelected(Bar selectedBar)
+    /// <summary>
+    /// Set the selected bar. This can be null to represent no bar selected.
+    /// </summary>
+    /// <param name="newSelectedBar"></param>
+    public void SetSelectedBar(Bar selectedBar)
     {
+        Debug.Log("SetSelectedBar new selected bar is " + selectedBar);
         this.selectedBar = selectedBar;
+    }
+
+    /// <summary>
+    /// Using the OriginalIndex as ID, check if passed-in bar is the selected bar
+    /// </summary>
+    /// <param name="bar"></param>
+    public bool IsThisSelectedBar(Bar bar)
+    {
+        // if no bar is selected, always false
+        if (selectedBar == null) return false;
+        // otherwise, check the original index val. if they match, the passed in bar is the selected bar
+        return bar.GetOriginalIndexValue() == selectedBar.GetOriginalIndexValue();
     }
 
     private void Awake()
@@ -148,26 +165,43 @@ public class Graph : MonoBehaviour
 
         if(selectedBar != null)
         {
+            // 1. If the bar is getting dropped, drop it
             if (!relevantButtonDown)
             {
                 DropBar(selectedBar);
+                return;
             }
-            else if (validHitThisFrame)
+
+
+            // 2. CALCULATE WHERE BAR SHOULD BE
+            // must convert hitpos to be local
+            var localHitPos = this.transform.InverseTransformPoint(hitPos);
+            // now get the new index calc
+            int newIndex = GetIndexValueFromXLocalPos(localHitPos.x);
+
+            if (validHitThisFrame)
             {
-                // must convert hitpos to be local
-                var localHitPos = this.transform.InverseTransformPoint(hitPos);
-
-                // now get the new index calc
-                int newIndex = GetIndexValueFromXLocalPos(localHitPos.x);
-                selectedBar.UpdatePositionalIndex(newIndex);
-
-                var xLocalPos = GetXLocalPosFromIndexValue(newIndex);
-
                 // move bar only in X
+                var xLocalPos = GetXLocalPosFromIndexValue(newIndex);
                 selectedBar.SetCurrentPosInstantly(
                     new Vector3(xLocalPos, selectedBar.transform.localPosition.y, selectedBar.transform.localPosition.z));
             }
+
+            // update your positional index
+            // this may trigger the other bars to reorder
+            selectedBar.UpdatePositionalIndexAndReorderBarsIfNecessary(newIndex);
         }
+    }
+
+    private void DropBar(Bar bar)
+    {
+        // drop it
+        bar.OnUnselect();
+
+        // update barsdata object with current data
+        ModifiedBarsData[bar.GetListIndex()].PositionalIndex = bar.GetPositionalIndex();
+
+        TriggerBarReorder();
     }
 
     public void TriggerBarReorder()
@@ -186,15 +220,41 @@ public class Graph : MonoBehaviour
         PlaceBars();
     }
 
-    private void DropBar(Bar bar)
+    private void PlaceBars()
     {
-        // drop it
-        bar.OnUnselect();
+        // place based on data
+        for (int i = 0; i < ModifiedBarsData.Count; i++)
+        {
+            PlaceBar(bars, i);
+        }
+    }
 
-        // update barsdata object with current data
-        ModifiedBarsData[bar.GetListIndex()].PositionalIndex = bar.GetPositionalIndex();
+    private void PlaceBar(List<Bar> bars, int barListIndex)
+    {
+        // sort the bars based on their list index position, not actual stated Index Value
+        // a fake index val based only on list order, 
+        int virtualIndexVal = (barListIndex + 1) * 10; // todo parameterize magic numbers
 
-        TriggerBarReorder();
+        // update the bar's positional data with this index val
+        ModifiedBarsData[barListIndex].PositionalIndex = virtualIndexVal;
+
+        float localXPos = GetXLocalPosFromIndexValue(virtualIndexVal);
+
+        // really place the bar
+        bars[barListIndex].SetDestinationLocalPos(new Vector3(localXPos, 0f, 0f));
+
+        foreach (Bar bar in bars)
+        {
+            // if this isnt the currently selected bar trigger unselect to start moving
+            if (selectedBar == null || bar.GetOriginalIndexValue() != selectedBar.GetOriginalIndexValue())
+            {
+                bar.OnUnselect();
+            }
+            else
+            {
+                Debug.Log("selectedbar is: " + selectedBar + " and shouldnt be moved");
+            }
+        }
     }
 
     private void RaycastForAppropriatePlatform()
@@ -264,37 +324,7 @@ public class Graph : MonoBehaviour
 
     }
 
-    private void PlaceBars()
-    {
-        // place based on data
-        for (int i = 0; i < ModifiedBarsData.Count; i++) {
-            PlaceBar(bars, i);
-        }
-    }
 
-    private void PlaceBar(List<Bar> bars, int barListIndex)
-    {
-        // sort the bars based on their list index position, not actual stated Index Value
-        // a fake index val based only on list order, 
-        int virtualIndexVal = (barListIndex+1) * 10; // todo parameterize magic numbers
-
-        // update the bar's positional data with this index val
-        ModifiedBarsData[barListIndex].PositionalIndex = virtualIndexVal;
-
-        float localXPos = GetXLocalPosFromIndexValue(virtualIndexVal);
-
-        // really place the bar
-        bars[barListIndex].SetDestinationLocalPos(new Vector3(localXPos, 0f, 0f));
-
-        foreach(Bar bar in bars)
-        {
-            // if this isnt the currently selected bar trigger unselect to start moving
-            if(selectedBar == null || bar.GetOriginalIndexValue() != selectedBar.GetOriginalIndexValue())
-            {
-                bar.OnUnselect();
-            }
-        }
-    }
 
     /// <summary>
     /// Given the index value, calculate relative X pos.
