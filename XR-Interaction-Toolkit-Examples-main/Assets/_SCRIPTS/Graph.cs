@@ -116,7 +116,7 @@ public class Graph : MonoBehaviour
 
                 // move bar only in X
                 // reconvert back to grainify 
-                selectedBar.transform.localPosition = new Vector3( GetXLocalPosFromIndexValue(newIndex), selectedBar.transform.localPosition.y, selectedBar.transform.localPosition.z);
+                selectedBar.SetDestinationLocalPos(new Vector3(GetXLocalPosFromIndexValue(newIndex), selectedBar.transform.localPosition.y, selectedBar.transform.localPosition.z));
             }
         }
     }
@@ -264,7 +264,8 @@ public class Graph : MonoBehaviour
         float localXPos = GetXLocalPosFromIndexValue(virtualIndexVal);
 
         // really place the bar
-        bars[barListIndex].transform.localPosition = new Vector3(localXPos, 0f, 0f);
+
+        bars[barListIndex].SetDestinationLocalPos(new Vector3(localXPos, 0f, 0f));
 
         // validate the methods are inverses of eachother - todo convert to unit test
         /*

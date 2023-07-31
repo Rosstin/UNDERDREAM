@@ -42,6 +42,12 @@ public class Bar : XRSimpleInteractable, IMoveable, IEquatable<Bar>, IComparable
 
     public IMoveable.MoveableState CurrentState { get => currentState; set => currentState = value; }
 
+    public void SetDestinationLocalPos(Vector3 destination)
+    {
+        transform.localPosition = destination;
+    }
+
+
     /// <summary>
     /// The bar's position in the list of bars
     /// </summary>
