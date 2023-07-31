@@ -1,7 +1,8 @@
 
 using UnityEngine;
+
 /// <summary>
-/// An interface for objects that can be moved by the player
+/// An interface for graph objects that can be moved by the player
 /// </summary>
 public interface IMoveable
 {
@@ -35,5 +36,17 @@ public interface IMoveable
     /// <param name="newPos"></param>
     public void SetCurrentPosInstantly(Vector3 newPos);
 
+    /// <summary>
+    /// Every moveable should be selectable and moveable while its selected
+    /// The mesh for the moveable should pop forward so it won't intersect with other meshes lying flat on the graph
+    /// </summary>
+    public void OnSelect();
+
+    /// <summary>
+    /// Every moveable should be unselectable and not moveable while unselected
+    /// The mesh for the moveable should move back to lie on the graph in its original position
+    /// The moveable should begin approaching its destination if it has one
+    /// </summary>
+    public void OnUnselect();
 
 }

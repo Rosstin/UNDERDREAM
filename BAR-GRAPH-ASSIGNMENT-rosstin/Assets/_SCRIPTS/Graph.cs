@@ -5,7 +5,8 @@ using UnityEngine;
 namespace BarGraphAssignment { 
 
     /// <summary>
-    /// The graph, which contains the bars
+    /// The graph, which contains the bars.
+    /// Also handles some mouse/controller interaction logic. Todo: move interaction logic into own class so we can have multiple graphs
     /// </summary>
     public class Graph : MonoBehaviour
     {
@@ -61,6 +62,28 @@ namespace BarGraphAssignment {
             // otherwise, check the original index val. if they match, the passed in bar is the selected bar
             return bar.GetOriginalIndexValue() == selectedBar.GetOriginalIndexValue();
         }
+
+        /// <summary>
+        /// Trigger all the bars to reorder themselves. Called when the selected bar's computed index would change
+        /// </summary>
+        public void TriggerBarReorder()
+        {
+            // re-sort the bars based on their new index values, then place the bars in the correct order
+            bars.Sort();
+            ModifiedBarsData.Sort();
+
+            // update what you know about your own position to be accurate again
+            for (int i = 0; i < bars.Count; i++)
+            {
+                bars[i].UpdateListIndex(i);
+            }
+
+            // reposition
+            PlaceBars();
+
+            RecalculateAndDisplayMeanMedianMode();
+        }
+
 
         private void Awake()
         {
@@ -198,30 +221,12 @@ namespace BarGraphAssignment {
         private void DropBar(Bar bar)
         {
             // drop it
-            bar.OnUnselect();
+            ((IMoveable) bar).OnUnselect();
 
             // update barsdata object with current data
             ModifiedBarsData[bar.GetListIndex()].PositionalIndex = bar.GetPositionalIndex();
 
             TriggerBarReorder();
-        }
-
-        public void TriggerBarReorder()
-        {
-            // re-sort the bars based on their new index values, then place the bars in the correct order
-            bars.Sort();
-            ModifiedBarsData.Sort();
-
-            // update what you know about your own position to be accurate again
-            for (int i = 0; i < bars.Count; i++)
-            {
-                bars[i].UpdateListIndex(i);
-            }
-
-            // reposition
-            PlaceBars();
-
-            RecalculateAndDisplayMeanMedianMode();
         }
 
         private void RecalculateAndDisplayMeanMedianMode()
@@ -261,7 +266,7 @@ namespace BarGraphAssignment {
                 // if this isnt the currently selected bar trigger unselect to start moving
                 if (selectedBar == null || bar.GetOriginalIndexValue() != selectedBar.GetOriginalIndexValue())
                 {
-                    bar.OnUnselect();
+                    ((IMoveable) bar).OnUnselect();
                 }
             }
         }

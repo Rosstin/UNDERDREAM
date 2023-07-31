@@ -1,11 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
-
 
 namespace BarGraphAssignment
 {
 
+    /// <summary>
+    /// Provides various utility consensus calculations for the graph
+    /// Math and logic should go here - anything that is an algo or requires a calculation 
+    /// </summary>
     public static class GraphCalculationUtility
     {
         /// <summary>
@@ -65,7 +67,7 @@ namespace BarGraphAssignment
         /// <returns></returns>
         public static Vector3 CalculateMeanMedianMode(List<BarData> bars)
         {
-            float mean = 0f;
+            float mean;
             float median = 0f;
             float mode = 0f;
 
