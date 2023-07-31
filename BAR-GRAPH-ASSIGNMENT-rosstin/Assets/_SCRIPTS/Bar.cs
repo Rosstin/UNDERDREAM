@@ -139,9 +139,9 @@ public class Bar : XRSimpleInteractable, IMoveable, IEquatable<Bar>, IComparable
 
         int newListIndex = GraphCalculationUtility.GetListIndexFromPositionalIndex(newX);
 
-        if(newListIndex != initListIndex)
+        if(newListIndex >= 0 && newListIndex != initListIndex)
         {
-            Debug.Log("You've moved! We should trigger reorder");
+            Debug.Log("newListIndex: " + newListIndex + " initListIndex: " + initListIndex);
             initListIndex = newListIndex;
             myParentGraph.TriggerBarReorder();
         }
