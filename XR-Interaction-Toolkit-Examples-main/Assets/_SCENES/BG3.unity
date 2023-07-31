@@ -254,6 +254,26 @@ PrefabInstance:
       propertyPath: primaryButtonWatcher
       value: 
       objectReference: {fileID: 1520969685}
+    - target: {fileID: 7237357055164257194, guid: 758bda16d6cb9424586739e510add6c3, type: 3}
+      propertyPath: BarsData.Array.data[0].OriginalIndex
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7237357055164257194, guid: 758bda16d6cb9424586739e510add6c3, type: 3}
+      propertyPath: BarsData.Array.data[1].OriginalIndex
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7237357055164257194, guid: 758bda16d6cb9424586739e510add6c3, type: 3}
+      propertyPath: BarsData.Array.data[2].OriginalIndex
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 7237357055164257194, guid: 758bda16d6cb9424586739e510add6c3, type: 3}
+      propertyPath: BarsData.Array.data[3].OriginalIndex
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 7237357055164257194, guid: 758bda16d6cb9424586739e510add6c3, type: 3}
+      propertyPath: BarsData.Array.data[4].OriginalIndex
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 7237357055164257195, guid: 758bda16d6cb9424586739e510add6c3, type: 3}
       propertyPath: m_Name
       value: GRAPH

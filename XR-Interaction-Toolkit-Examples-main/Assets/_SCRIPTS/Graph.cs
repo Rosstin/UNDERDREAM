@@ -53,6 +53,11 @@ public class Graph : MonoBehaviour
         resetButton.onClick.AddListener(Reset);
     }
 
+    private void Start()
+    {
+        Reset();
+    }
+
     private void Reset()
     {
         Debug.Log("Reset");
@@ -106,7 +111,7 @@ public class Graph : MonoBehaviour
 
                 // now get the new index calc
                 int newIndex = GetIndexValueFromXLocalPos(localHitPos.x);
-                selectedBar.UpdateIndex(newIndex);
+                selectedBar.UpdatePositionalIndex(newIndex);
 
                 // move bar only in X
                 // reconvert back to grainify 
@@ -120,19 +125,12 @@ public class Graph : MonoBehaviour
         // drop it
         bar.OnUnselect();
 
-        Debug.Log("dropping bar w/ index value " + bar.GetIndexValue() 
-            + " .. BarsData[bar.GetListIndex()].Index: " + BarsData[bar.GetListIndex()].Index
-            + " .. ");
-
         // update barsdata object with current data
-        BarsData[bar.GetListIndex()].Index = bar.GetIndexValue();
+        BarsData[bar.GetListIndex()].PositionalIndex = bar.GetPositionalIndex();
 
         // re-sort the bars based on their new index values, then place the bars in the correct order
         bars.Sort();
         BarsData.Sort();
-
-        Debug.Log("BarsData[bar.GetListIndex()].Index after update: " + BarsData[bar.GetListIndex()].Index
-    + " .. ");
 
         // update what you know about your own position to be accurate again
         for (int i = 0; i < bars.Count; i++)
@@ -214,11 +212,6 @@ public class Graph : MonoBehaviour
             //Debug.LogError("No right-handed device detected..");
         }
 
-    }
-
-    private void Start()
-    {
-        Reset();
     }
 
     private void MakeBars()
@@ -319,13 +312,14 @@ public class Graph : MonoBehaviour
 [System.Serializable]
 public class BarData : IEquatable<BarData>, IComparable<BarData>
 {
-    public int Index;
-    public int Value;
+    [HideInInspector] public int PositionalIndex; // where it currently is // used for positioning, shouldnt be configured
+    public int OriginalIndex; // sets initial position, can be configured in inspector
+    public int Value; // height, can be configured in inspector
 
     public bool Equals(BarData other)
     {
         if (other == null) return false;
-        return (this.Index.Equals(other.Index));
+        return (this.PositionalIndex.Equals(other.PositionalIndex));
     }
 
     public int CompareTo(BarData other)
@@ -336,7 +330,7 @@ public class BarData : IEquatable<BarData>, IComparable<BarData>
         }
         else
         {
-            return this.Index.CompareTo(other.Index);
+            return this.PositionalIndex.CompareTo(other.PositionalIndex);
         }
     }
 

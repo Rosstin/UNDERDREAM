@@ -931,15 +931,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BarsData:
-  - Index: 10
+  - PositionalIndex: 0
+    OriginalIndex: 10
     Value: 2
-  - Index: 20
+  - PositionalIndex: 0
+    OriginalIndex: 20
     Value: 3
-  - Index: 30
+  - PositionalIndex: 0
+    OriginalIndex: 30
     Value: 2
-  - Index: 40
+  - PositionalIndex: 0
+    OriginalIndex: 40
     Value: 4
-  - Index: 50
+  - PositionalIndex: 0
+    OriginalIndex: 50
     Value: 1
   XMax: {fileID: 1482872277063097357}
   XMin: {fileID: 5175094890964281861}

@@ -61,13 +61,13 @@ public class Bar : XRSimpleInteractable, IMoveable, IEquatable<Bar>, IComparable
     }
 
     /// <summary>
-    /// The value of the bar's "index" field - distinct from its position in the list
+    /// The value of the bar's positional "index" field that's used for movement - distinct from its orig pos
     /// This changes when you move the bar around
     /// </summary>
     /// <returns></returns>
-    public int GetIndexValue()
+    public int GetPositionalIndex()
     {
-        return myData.Index;
+        return myData.PositionalIndex;
     }
 
     /// <summary>
@@ -80,13 +80,11 @@ public class Bar : XRSimpleInteractable, IMoveable, IEquatable<Bar>, IComparable
 
 
     /// <summary>
-    /// Update the displayed value of Index based on current X
-    /// Also update our data
+    /// Update the positional index used for positioning the bar
     /// </summary>
-    public void UpdateIndex(int newX)
+    public void UpdatePositionalIndex(int newX)
     {
-        myData.Index = newX;
-        myIndexText.text = newX + "";
+        myData.PositionalIndex = newX;
     }
 
 
@@ -138,7 +136,7 @@ public class Bar : XRSimpleInteractable, IMoveable, IEquatable<Bar>, IComparable
         // your color is correlated to your value
         SetColor();
 
-        myIndexText.text = myData.Index+"";
+        myIndexText.text = myData.OriginalIndex+"";
         myValueText.text = myData.Value+"";
     }
     private void EnterSelectState()
@@ -195,7 +193,7 @@ public class Bar : XRSimpleInteractable, IMoveable, IEquatable<Bar>, IComparable
     public bool Equals(Bar other)
     {
         if(other == null) return false;
-        return (this.myData.Index.Equals(other.myData.Index));
+        return (this.myData.PositionalIndex.Equals(other.myData.PositionalIndex));
     }
 
     public int CompareTo(Bar other)
@@ -206,7 +204,7 @@ public class Bar : XRSimpleInteractable, IMoveable, IEquatable<Bar>, IComparable
         }
         else
         {
-            return this.myData.Index.CompareTo(other.myData.Index);
+            return this.myData.PositionalIndex.CompareTo(other.myData.PositionalIndex);
         }
     }
 }
