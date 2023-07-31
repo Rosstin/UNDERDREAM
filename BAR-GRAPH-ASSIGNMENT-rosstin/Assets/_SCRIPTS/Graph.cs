@@ -252,7 +252,8 @@ namespace BarGraphAssignment {
             float localXPos = GraphCalculationUtility.GetXLocalPosFromPositionalIndexValue(virtualIndexVal, XMin.localPosition.x, XMax.localPosition.x, MaxIndexValue);
 
             // really place the bar
-            bars[barListIndex].SetDestinationLocalPos(new Vector3(localXPos, 0f, 0f));
+            // cast to moveable to demonstrate the interface
+            ((IMoveable) bars[barListIndex]).SetDestinationLocalPos(new Vector3(localXPos, 0f, 0f));
 
             foreach (Bar bar in bars)
             {

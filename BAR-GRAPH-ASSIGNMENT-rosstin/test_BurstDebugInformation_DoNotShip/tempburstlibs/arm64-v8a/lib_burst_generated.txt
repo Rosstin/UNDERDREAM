@@ -1,4 +1,4 @@
-Library: C:\Users\rosst\Documents\GitHub\UNDERDREAM\XR-Interaction-Toolkit-Examples-main\Temp\StagingArea\tempburstlibs\arm64-v8a\lib_burst_generated
+Library: C:\Users\rosst\Documents\GitHub\UNDERDREAM\BAR-GRAPH-ASSIGNMENT-rosstin\Temp\StagingArea\tempburstlibs\arm64-v8a\lib_burst_generated
 --platform=Android
 --backend=burst-llvm-14
 --target=ARMV8A_AARCH64
@@ -142,10 +142,10 @@ Library: C:\Users\rosst\Documents\GitHub\UNDERDREAM\XR-Interaction-Toolkit-Examp
 --compilation-defines=INCLUDE_INPUT_SYSTEM
 --compilation-defines=INCLUDE_LEGACY_INPUT_HELPERS
 --generate-link-xml=Temp\burst.link.xml
---temp-folder=C:\Users\rosst\Documents\GitHub\UNDERDREAM\XR-Interaction-Toolkit-Examples-main\Temp\Burst
+--temp-folder=C:\Users\rosst\Documents\GitHub\UNDERDREAM\BAR-GRAPH-ASSIGNMENT-rosstin\Temp\Burst
 --key-folder=C:/Program Files/Unity/Hub/Editor/2021.3.29f1/Editor/Data/PlaybackEngines/AndroidPlayer
---decode-folder=C:\Users\rosst\Documents\GitHub\UNDERDREAM\XR-Interaction-Toolkit-Examples-main\Library\Burst
---output=C:\Users\rosst\Documents\GitHub\UNDERDREAM\XR-Interaction-Toolkit-Examples-main\Temp\StagingArea\tempburstlibs\arm64-v8a\lib_burst_generated
+--decode-folder=C:\Users\rosst\Documents\GitHub\UNDERDREAM\BAR-GRAPH-ASSIGNMENT-rosstin\Library\Burst
+--output=C:\Users\rosst\Documents\GitHub\UNDERDREAM\BAR-GRAPH-ASSIGNMENT-rosstin\Temp\StagingArea\tempburstlibs\arm64-v8a\lib_burst_generated
 --pdb-search-paths=Temp/ManagedSymbols/
 
 --method=UnityEngine.XR.Interaction.Toolkit.Utilities.BurstMathUtility, Unity.XR.Interaction.Toolkit, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null::ProjectOnPlane(Unity.Mathematics.float3&, Unity.Mathematics, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null|Unity.Mathematics.float3&, Unity.Mathematics, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null|Unity.Mathematics.float3&, Unity.Mathematics, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null)--1819bc9925667b008fd6c3e6019ccf71
