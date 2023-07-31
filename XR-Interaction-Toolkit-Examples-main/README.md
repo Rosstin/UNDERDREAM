@@ -5,12 +5,18 @@ stated purpose:
  - Students can click/drag specific bars and move them around, changing their order
 
 TODO
- 5. IMoveable interface
  H. Fix reset button
+ J. Bars move dynamically, not when you let go 'The other bars should reorder as the user is moving their selected bar so the graph doesn’t ever rest with missing or overlapping bars on any given spot.'
+ 5. IMoveable interface
 
 LOW-PRI
+ I. Fix in-headset interaction issue
  Q. Only right hand is supported. Support left hand.
  
+EXTRA
+ 1. display mean/median/mode 
+ 2. You can change the values of the bars and see the changes reflected
+
 DONE
  1. Click and drag bar object
  2. Bar object is free in horiz, locked in vert
@@ -27,9 +33,6 @@ DONE
  D. Bar knows her new index based on X
  G. Bar's index is represented by graph index, not Unity X Pos
  
-EXTRA
- 1. display mean/median/mode 
- 2. You can change the values of the bars and see the changes reflected
 
 
 
