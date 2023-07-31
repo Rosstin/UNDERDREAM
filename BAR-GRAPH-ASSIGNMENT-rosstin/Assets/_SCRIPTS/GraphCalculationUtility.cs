@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 namespace BarGraphAssignment
 {
@@ -21,9 +19,9 @@ namespace BarGraphAssignment
         /// </summary>
         /// <param name="listIndex"></param>
         /// <returns></returns>
-        public static int GetListIndexFromPositionalIndex(int posIndex)
+        public static int GetListIndexFromPositionalIndex(float posIndex)
         {
-            return (posIndex / 10) - 1;
+            return (int) (posIndex / 10) - 1;
         }
 
         /// <summary>
@@ -32,7 +30,7 @@ namespace BarGraphAssignment
         /// NOTE: GetIndexValueFromXLocalPos converts to an int, so it is not a strict inverse.
         /// </summary>
         /// <param name="pos"></param>
-        public static float GetXLocalPosFromIndexValue(float indexVal, float minX, float maxX, float MaxIndexValue)
+        public static float GetXLocalPosFromPositionalIndexValue(float indexVal, float minX, float maxX, float MaxIndexValue)
         {
             float relPos = indexVal / MaxIndexValue;
 
@@ -42,16 +40,15 @@ namespace BarGraphAssignment
         /// <summary>
         /// Given the relative X pos, calculate index val
         /// Must be logical inverse of GetXLocalPosFromIndexValue or strange behavior will result [todo: unit test this]
-        /// NOTE: this method converts to an int, so it is not a strict inverse.
         /// </summary>
         /// <param name="localPositionX"></param>
         /// <returns></returns>
-        public static int GetIndexValueFromXLocalPos(float localPositionX, float minX, float maxX, float MaxIndexValue)
+        public static float GetPositionalIndexValueFromXLocalPos(float localPositionX, float minX, float maxX, float MaxIndexValue)
         {
             float relPos = Mathf.InverseLerp(minX, maxX, localPositionX);
 
-            // calculate it and floor it to int value
-            int indexVal = (int)(relPos * MaxIndexValue);
+            // calculate it it to int value
+            float indexVal = (relPos * MaxIndexValue);
 
             return indexVal;
         }

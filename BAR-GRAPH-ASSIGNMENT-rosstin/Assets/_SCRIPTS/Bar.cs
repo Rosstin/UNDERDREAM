@@ -107,7 +107,7 @@ public class Bar : XRSimpleInteractable, IMoveable, IEquatable<Bar>, IComparable
     /// This changes when you move the bar around
     /// </summary>
     /// <returns></returns>
-    public int GetPositionalIndex()
+    public float GetPositionalIndex()
     {
         return myData.PositionalIndex;
     }
@@ -133,13 +133,13 @@ public class Bar : XRSimpleInteractable, IMoveable, IEquatable<Bar>, IComparable
     /// <summary>
     /// Update the positional index used for positioning the bar
     /// </summary>
-    public void UpdatePositionalIndexAndReorderBarsIfNecessary(int newX)
+    public void UpdatePositionalIndexAndReorderBarsIfNecessary(float newX)
     {
         myData.PositionalIndex = newX;
 
         int newListIndex = GraphCalculationUtility.GetListIndexFromPositionalIndex(newX);
 
-        if(newListIndex >= 0 && newListIndex != initListIndex)
+        if(newListIndex != initListIndex)
         {
             Debug.Log("newListIndex: " + newListIndex + " initListIndex: " + initListIndex);
             initListIndex = newListIndex;
@@ -217,7 +217,6 @@ public class Bar : XRSimpleInteractable, IMoveable, IEquatable<Bar>, IComparable
     }
     private void EnterSelectState()
     {
-
         initListIndex = myListIndex;
 
         myBody.transform.position =

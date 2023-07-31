@@ -48,7 +48,6 @@ public class Graph : MonoBehaviour
     /// <param name="newSelectedBar"></param>
     public void SetSelectedBar(Bar selectedBar)
     {
-        Debug.Log("SetSelectedBar new selected bar is " + selectedBar);
         this.selectedBar = selectedBar;
     }
 
@@ -176,24 +175,23 @@ public class Graph : MonoBehaviour
                 return;
             }
 
-
             // 2. CALCULATE WHERE BAR SHOULD BE
             // must convert hitpos to be local
             var localHitPos = this.transform.InverseTransformPoint(hitPos);
             // now get the new index calc
-            int newIndex = GraphCalculationUtility.GetIndexValueFromXLocalPos(localHitPos.x, XMin.localPosition.x, XMax.localPosition.x, MaxIndexValue);
+            float newPosIndex = GraphCalculationUtility.GetPositionalIndexValueFromXLocalPos(localHitPos.x, XMin.localPosition.x, XMax.localPosition.x, MaxIndexValue);
 
             if (validHitThisFrame)
             {
                 // move bar only in X
-                var xLocalPos = GraphCalculationUtility.GetXLocalPosFromIndexValue(newIndex, XMin.localPosition.x, XMax.localPosition.x, MaxIndexValue);
+                var xLocalPos = GraphCalculationUtility.GetXLocalPosFromPositionalIndexValue(newPosIndex, XMin.localPosition.x, XMax.localPosition.x, MaxIndexValue);
                 selectedBar.SetCurrentPosInstantly(
                     new Vector3(xLocalPos, selectedBar.transform.localPosition.y, selectedBar.transform.localPosition.z));
             }
 
             // update your positional index
             // this may trigger the other bars to reorder
-            selectedBar.UpdatePositionalIndexAndReorderBarsIfNecessary(newIndex);
+            selectedBar.UpdatePositionalIndexAndReorderBarsIfNecessary(newPosIndex);
         }
     }
 
@@ -242,7 +240,7 @@ public class Graph : MonoBehaviour
         // update the bar's positional data with this index val
         ModifiedBarsData[barListIndex].PositionalIndex = virtualIndexVal;
 
-        float localXPos = GraphCalculationUtility.GetXLocalPosFromIndexValue(virtualIndexVal, XMin.localPosition.x, XMax.localPosition.x, MaxIndexValue);
+        float localXPos = GraphCalculationUtility.GetXLocalPosFromPositionalIndexValue(virtualIndexVal, XMin.localPosition.x, XMax.localPosition.x, MaxIndexValue);
 
         // really place the bar
         bars[barListIndex].SetDestinationLocalPos(new Vector3(localXPos, 0f, 0f));

@@ -6,7 +6,7 @@ namespace BarGraphAssignment
     [System.Serializable]
     public class BarData : IEquatable<BarData>, IComparable<BarData>
     {
-        [HideInInspector] public int PositionalIndex; // where it currently is // used for positioning, shouldnt be configured
+        [HideInInspector] public float PositionalIndex; // where it currently is // used for positioning, shouldnt be configured
         public int OriginalIndex; // sets initial position, can be configured in inspector
         public int Value; // height, can be configured in inspector
 
