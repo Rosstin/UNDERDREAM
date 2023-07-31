@@ -20,6 +20,7 @@ FUTURE WORK
  S.  Sorts can be improved
  T.  Unit tests for calculations in util class
  X.  Should move interaction stuff out of Graph.cs
+ z7. Add median/mode calcs
 
 EXTRA
  e2. You can change the values of the bars and see the changes reflected

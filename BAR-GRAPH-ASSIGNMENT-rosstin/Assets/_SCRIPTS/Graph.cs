@@ -184,7 +184,8 @@ namespace BarGraphAssignment {
                 {
                     // move bar only in X
                     var xLocalPos = GraphCalculationUtility.GetXLocalPosFromPositionalIndexValue(newPosIndex, XMin.localPosition.x, XMax.localPosition.x, MaxIndexValue);
-                    selectedBar.SetCurrentPosInstantly(
+                    // cast to imoveable to demonstrate interface
+                    ((IMoveable)selectedBar).SetCurrentPosInstantly(
                         new Vector3(xLocalPos, selectedBar.transform.localPosition.y, selectedBar.transform.localPosition.z));
                 }
 

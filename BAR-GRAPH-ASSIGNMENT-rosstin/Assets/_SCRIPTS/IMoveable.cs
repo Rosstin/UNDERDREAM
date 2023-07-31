@@ -28,4 +28,12 @@ public interface IMoveable
     /// <param name="destination"></param>
     public void SetDestinationLocalPos(Vector3 destination);
 
+    /// <summary>
+    /// Move instantly
+    /// This should cancel and wipe any other current movement
+    /// </summary>
+    /// <param name="newPos"></param>
+    public void SetCurrentPosInstantly(Vector3 newPos);
+
+
 }

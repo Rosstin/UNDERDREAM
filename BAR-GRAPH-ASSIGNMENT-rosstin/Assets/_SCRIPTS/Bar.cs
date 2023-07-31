@@ -129,7 +129,6 @@ namespace BarGraphAssignment
             EnterSelectState();
         }
 
-
         /// <summary>
         /// Update the positional index used for positioning the bar
         /// </summary>
@@ -144,7 +143,6 @@ namespace BarGraphAssignment
                 initListIndex = newListIndex;
                 myParentGraph.TriggerBarReorder();
             }
-
         }
 
         /// <summary>
