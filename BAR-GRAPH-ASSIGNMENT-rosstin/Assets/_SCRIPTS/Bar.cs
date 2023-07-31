@@ -137,21 +137,15 @@ public class Bar : XRSimpleInteractable, IMoveable, IEquatable<Bar>, IComparable
     {
         myData.PositionalIndex = newX;
 
-        // convert index to list order and trigger a re-sort if your list order changes
+        int newListIndex = GraphCalculationUtility.GetListIndexFromPositionalIndex(newX);
 
-        // if your new index is a multiple of ten, trigger a re-order
-//        if(initListIndex != Graph.GetLi)
- //       {
+        if(newListIndex != initListIndex)
+        {
+            Debug.Log("You've moved! We should trigger reorder");
+            initListIndex = newListIndex;
+            myParentGraph.TriggerBarReorder();
+        }
 
-//        }
-
-  //      int positionalDifference = newX - initialPositionalIndex;
-
-    //    if (Mathf.Abs(positionalDifference) >= 10)
-      //  {
-          //  initialPositionalIndex = newX; // todo this is really imperfect and won't work if you immediately double back for instance
-            //myParentGraph.TriggerBarReorder();
-        //}
     }
 
     public void OnUnselect()
@@ -224,7 +218,7 @@ public class Bar : XRSimpleInteractable, IMoveable, IEquatable<Bar>, IComparable
     private void EnterSelectState()
     {
 
-        // todo initialPositionalIndex = this.myData.PositionalIndex;
+        initListIndex = myListIndex;
 
         myBody.transform.position =
             new Vector3(
