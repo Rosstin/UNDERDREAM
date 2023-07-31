@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -119,20 +120,33 @@ public class Graph : MonoBehaviour
         // drop it
         bar.OnUnselect();
 
+        Debug.Log("dropping bar w/ index value " + bar.GetIndexValue() 
+            + " .. BarsData[bar.GetListIndex()].Index: " + BarsData[bar.GetListIndex()].Index
+            + " .. ");
+
         // update barsdata object with current data
         BarsData[bar.GetListIndex()].Index = bar.GetIndexValue();
 
         // re-sort the bars based on their new index values, then place the bars in the correct order
         bars.Sort();
+        BarsData.Sort();
+
+        Debug.Log("BarsData[bar.GetListIndex()].Index after update: " + BarsData[bar.GetListIndex()].Index
+    + " .. ");
 
         // update what you know about your own position to be accurate again
-        for(int i = 0; i < bars.Count; i++)
+        for (int i = 0; i < bars.Count; i++)
         {
             bars[i].UpdateListIndex(i);
         }
 
         // reposition
         PlaceBars();
+    }
+
+    private void SortBarsOnIndexData()
+    {
+        
     }
 
     private void RaycastForAppropriatePlatform()
@@ -173,10 +187,6 @@ public class Graph : MonoBehaviour
             hitPos = Vector3.one;
             validHitThisFrame = false;
         }
-
-
-
-
     }
 
     private void RecordGripButtonState()
@@ -264,10 +274,10 @@ public class Graph : MonoBehaviour
 
         var validationIndexVal = GetIndexValueFromXLocalPos(localXPos); // todo should be unit test instead
 
-        Debug.Log("Orig index val: " + virtualIndexVal + ".. localxpos: " + localXPos + " .. reconverted index (should match first val): " + validationIndexVal);
+        //Debug.Log("Orig index val: " + virtualIndexVal + ".. localxpos: " + localXPos + " .. reconverted index (should match first val): " + validationIndexVal);
         if(validationIndexVal != virtualIndexVal)
         {
-            Debug.LogError("indexVal: " + virtualIndexVal + " does not match " + validationIndexVal + "! A logical error - these methods should be inverses");
+            //Debug.LogError("indexVal: " + virtualIndexVal + " does not match " + validationIndexVal + "! A logical error - these methods should be inverses");
         }
 
     }
@@ -307,9 +317,28 @@ public class Graph : MonoBehaviour
 }
 
 [System.Serializable]
-public class BarData
+public class BarData : IEquatable<BarData>, IComparable<BarData>
 {
     public int Index;
     public int Value;
+
+    public bool Equals(BarData other)
+    {
+        if (other == null) return false;
+        return (this.Index.Equals(other.Index));
+    }
+
+    public int CompareTo(BarData other)
+    {
+        if (other == null)
+        {
+            return 1;
+        }
+        else
+        {
+            return this.Index.CompareTo(other.Index);
+        }
+    }
+
 }
 
