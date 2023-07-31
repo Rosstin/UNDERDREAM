@@ -38,6 +38,10 @@ public class Bar : XRSimpleInteractable, IMoveable, IEquatable<Bar>, IComparable
     [SerializeField] private float travelTime;
     [SerializeField] AnimationCurve moveCurve;
 
+    [Header("Bar Mesh Z Movement")]
+    [SerializeField] private Transform selectedZ;
+    [SerializeField] private Transform unselectedZ;
+
     private Vector3 startPos;
     private Vector3 destinationPos;
 
@@ -173,6 +177,12 @@ public class Bar : XRSimpleInteractable, IMoveable, IEquatable<Bar>, IComparable
     }
     private void EnterSelectState()
     {
+        myBody.transform.position =
+            new Vector3(
+                myBody.transform.position.x,
+                myBody.transform.position.y,
+                selectedZ.transform.position.z);
+
         myParentGraph.BarSelected(this);
         currentState = IMoveable.MoveableState.Selected;
         myRenderer.material = SelectedColor; // set color to selected color
@@ -181,6 +191,12 @@ public class Bar : XRSimpleInteractable, IMoveable, IEquatable<Bar>, IComparable
 
     private void EnterUnselectState()
     {
+        myBody.transform.position = 
+            new Vector3(
+                myBody.transform.position.x, 
+                myBody.transform.position.y,
+                unselectedZ.transform.position.z);
+
         elapsedTime = 0f;
         this.startPos = this.transform.localPosition;
         myParentGraph.BarSelected(null);

@@ -5,8 +5,7 @@ stated purpose:
  - Students can click/drag specific bars and move them around, changing their order
 
 TODO
- H. Fix reset button
- J. Bars move dynamically, not when you let go 'The other bars should reorder as the user is moving their selected bar so the graph doesn’t ever rest with missing or overlapping bars on any given spot.'
+ J. The other bars should reorder AS THE USER IS MOVING THEIR SELECTED BAR 
  5. IMoveable interface
 
 LOW-PRI
@@ -32,6 +31,10 @@ DONE
  B. Fix bar in Y
  D. Bar knows her new index based on X
  G. Bar's index is represented by graph index, not Unity X Pos
+ H. Fix reset button
+ K. the graph doesn’t ever rest with missing or OVERLAPPING bars on any given spot
+   Ka. done - selected bar pops forward enuff to prevent them touching
+ L. the selected bar could move forward smoothly when selected to avoid overlaps - i can do this by modifying local mesh
  
 
 

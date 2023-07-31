@@ -167,14 +167,8 @@ public class Graph : MonoBehaviour
         }
     }
 
-    private void DropBar(Bar bar)
+    private void TriggerBarReorder()
     {
-        // drop it
-        bar.OnUnselect();
-
-        // update barsdata object with current data
-        ModifiedBarsData[bar.GetListIndex()].PositionalIndex = bar.GetPositionalIndex();
-
         // re-sort the bars based on their new index values, then place the bars in the correct order
         bars.Sort();
         ModifiedBarsData.Sort();
@@ -187,6 +181,17 @@ public class Graph : MonoBehaviour
 
         // reposition
         PlaceBars();
+    }
+
+    private void DropBar(Bar bar)
+    {
+        // drop it
+        bar.OnUnselect();
+
+        // update barsdata object with current data
+        ModifiedBarsData[bar.GetListIndex()].PositionalIndex = bar.GetPositionalIndex();
+
+        TriggerBarReorder();
     }
 
     private void RaycastForAppropriatePlatform()
