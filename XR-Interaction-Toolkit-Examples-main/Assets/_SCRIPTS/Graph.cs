@@ -115,8 +115,7 @@ public class Graph : MonoBehaviour
                 selectedBar.UpdatePositionalIndex(newIndex);
 
                 // move bar only in X
-                // reconvert back to grainify 
-                selectedBar.SetDestinationLocalPos(new Vector3(GetXLocalPosFromIndexValue(newIndex), selectedBar.transform.localPosition.y, selectedBar.transform.localPosition.z));
+                selectedBar.SetCurrentPosInstantly(new Vector3(GetXLocalPosFromIndexValue(newIndex), selectedBar.transform.localPosition.y, selectedBar.transform.localPosition.z));
             }
         }
     }
@@ -223,7 +222,6 @@ public class Graph : MonoBehaviour
         // initialize the list of bars
         bars = new List<Bar>();
 
-
         // inflate bars from data
         for(int i = 0; i < BarsData.Count; i++)
         {
@@ -254,7 +252,6 @@ public class Graph : MonoBehaviour
         bars[barListIndex].Init(BarsData[barListIndex], this, barListIndex);
 
         // sort the bars based on their list index position, not actual stated Index Value
-
         // a fake index val based only on list order, 
         int virtualIndexVal = (barListIndex+1) * 10; // todo parameterize magic numbers
 
@@ -264,21 +261,7 @@ public class Graph : MonoBehaviour
         float localXPos = GetXLocalPosFromIndexValue(virtualIndexVal);
 
         // really place the bar
-
         bars[barListIndex].SetDestinationLocalPos(new Vector3(localXPos, 0f, 0f));
-
-        // validate the methods are inverses of eachother - todo convert to unit test
-        /*
-        // convert back to validate
-        var validationIndexVal = GetIndexValueFromXLocalPos(localXPos); // todo should be unit test instead
-
-        //Debug.Log("Orig index val: " + virtualIndexVal + ".. localxpos: " + localXPos + " .. reconverted index (should match first val): " + validationIndexVal);
-        if(validationIndexVal != virtualIndexVal)
-        {
-            //Debug.LogError("indexVal: " + virtualIndexVal + " does not match " + validationIndexVal + "! A logical error - these methods should be inverses");
-        }
-        */
-
     }
 
     /// <summary>

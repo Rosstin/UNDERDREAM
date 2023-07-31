@@ -565,6 +565,31 @@ MonoBehaviour:
   myValueText: {fileID: 4042703893723330132}
   selectSfx: {fileID: 6645697123221820734}
   unselectSfx: {fileID: 7993971655211053231}
+  travelTime: 0.5
+  moveCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!114 &398513538018571563
 MonoBehaviour:
   m_ObjectHideFlags: 0

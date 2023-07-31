@@ -34,6 +34,16 @@ public class Bar : XRSimpleInteractable, IMoveable, IEquatable<Bar>, IComparable
     [SerializeField] private AudioSource selectSfx;
     [SerializeField] private AudioSource unselectSfx;
 
+    [Header("Movement")]
+    [SerializeField] private float travelTime;
+    [SerializeField] AnimationCurve moveCurve;
+
+    private Vector3 startPos;
+    private Vector3 destinationPos;
+
+    // for move anim
+    private float elapsedTime = 0;
+
     // private data to use for self operation
     private BarData myData;
     private IMoveable.MoveableState currentState;
@@ -44,9 +54,13 @@ public class Bar : XRSimpleInteractable, IMoveable, IEquatable<Bar>, IComparable
 
     public void SetDestinationLocalPos(Vector3 destination)
     {
-        transform.localPosition = destination;
+        destinationPos = destination;
     }
 
+    public void SetCurrentPosInstantly(Vector3 newPos)
+    {
+        this.transform.localPosition = newPos;
+    }
 
     /// <summary>
     /// The bar's position in the list of bars
@@ -113,7 +127,16 @@ public class Bar : XRSimpleInteractable, IMoveable, IEquatable<Bar>, IComparable
 
     private void UpdateSelectedState(){}
 
-    private void UpdateUnselectedState(){}
+    /// <summary>
+    /// If not selected, approach destination pos
+    /// </summary>
+    private void UpdateUnselectedState(){
+        elapsedTime += Time.deltaTime;
+
+        float progress = moveCurve.Evaluate(elapsedTime / travelTime);
+
+        this.transform.localPosition = Vector3.Lerp(startPos, destinationPos, progress);
+    }
 
     /// <summary>
     /// Inflate the bar from its data
@@ -138,6 +161,9 @@ public class Bar : XRSimpleInteractable, IMoveable, IEquatable<Bar>, IComparable
         // your body should rest such that the bottom of the mesh is at this parent's origin
         myBody.transform.localPosition = new Vector3(0f, myData.Value / 2f, 0f);
 
+        // start pos for smooth movement
+        this.startPos = this.transform.localPosition;
+
         // your color is correlated to your value
         SetColor();
 
@@ -154,6 +180,7 @@ public class Bar : XRSimpleInteractable, IMoveable, IEquatable<Bar>, IComparable
 
     private void EnterUnselectState()
     {
+        elapsedTime = 0f;
         myParentGraph.BarSelected(null);
         currentState = IMoveable.MoveableState.Unselected;
         SetColor(); // set color to appropriate color
