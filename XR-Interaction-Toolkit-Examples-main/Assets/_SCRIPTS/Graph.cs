@@ -28,8 +28,6 @@ public class Graph : MonoBehaviour
     [SerializeField] private GameObject rightHand;
     [SerializeField] private GameObject hitMarker;
 
-    [Header("Primary Button Watcher")]
-    [SerializeField] private PrimaryButtonWatcher primaryButtonWatcher;
     public Vector3 hitPos { get; set; } // records the current hit pos 
 
     private List<Bar> bars = new List<Bar>();
@@ -37,7 +35,6 @@ public class Graph : MonoBehaviour
     // private vars for interaction
     private bool validHitThisFrame = false;
     private bool rightGripDown = false;
-    private Ray relevantRay = new();
     private Bar selectedBar = null; // null means no bar selected
 
     public void BarSelected(Bar selectedBar)
@@ -99,8 +96,7 @@ public class Graph : MonoBehaviour
         {
             if (!relevantButtonDown)
             {
-                // drop it
-                selectedBar.OnUnselect();
+                DropBar(selectedBar);
             }
             else if (validHitThisFrame)
             {
@@ -116,6 +112,27 @@ public class Graph : MonoBehaviour
                 selectedBar.transform.localPosition = new Vector3( GetXLocalPosFromIndexValue(newIndex), selectedBar.transform.localPosition.y, selectedBar.transform.localPosition.z);
             }
         }
+    }
+
+    private void DropBar(Bar bar)
+    {
+        // drop it
+        bar.OnUnselect();
+
+        // update barsdata object with current data
+        BarsData[bar.GetListIndex()].Index = bar.GetIndexValue();
+
+        // re-sort the bars based on their new index values, then place the bars in the correct order
+        bars.Sort();
+
+        // update what you know about your own position to be accurate again
+        for(int i = 0; i < bars.Count; i++)
+        {
+            bars[i].UpdateListIndex(i);
+        }
+
+        // reposition
+        PlaceBars();
     }
 
     private void RaycastForAppropriatePlatform()
@@ -157,7 +174,6 @@ public class Graph : MonoBehaviour
             validHitThisFrame = false;
         }
 
-        //hitPos
 
 
 
@@ -216,7 +232,15 @@ public class Graph : MonoBehaviour
 
             bars[i].transform.parent = this.transform;
             bars[i].transform.localScale = new Vector3(1f, 1f, 1f);
+        }
 
+        PlaceBars();
+    }
+
+    private void PlaceBars()
+    {
+        // inflate bars from data
+        for (int i = 0; i < BarsData.Count; i++) {
             InitAndPlaceBar(bars, i);
         }
     }
@@ -224,12 +248,14 @@ public class Graph : MonoBehaviour
     private void InitAndPlaceBar(List<Bar> bars, int barListIndex)
     {
         // initialize it
-        bars[barListIndex].Init(BarsData[barListIndex], primaryButtonWatcher, this, barListIndex);
+        bars[barListIndex].Init(BarsData[barListIndex], this, barListIndex);
 
-        // place it
-        var indexVal = BarsData[barListIndex].Index;
+        // sort the bars based on their list index position, not actual stated Index Value
 
-        float localXPos = GetXLocalPosFromIndexValue(indexVal);
+        // a fake index val based only on list order, 
+        int virtualIndexVal = (barListIndex+1) * 10; // todo parameterize magic numbers
+
+        float localXPos = GetXLocalPosFromIndexValue(virtualIndexVal);
 
         // really place the bar
         bars[barListIndex].transform.localPosition = new Vector3(localXPos, 0f, 0f);
@@ -238,10 +264,10 @@ public class Graph : MonoBehaviour
 
         var validationIndexVal = GetIndexValueFromXLocalPos(localXPos); // todo should be unit test instead
 
-        Debug.Log("Orig index val: " + indexVal + ".. localxpos: " + localXPos + " .. reconverted index (should match first val): " + validationIndexVal);
-        if(validationIndexVal != indexVal)
+        Debug.Log("Orig index val: " + virtualIndexVal + ".. localxpos: " + localXPos + " .. reconverted index (should match first val): " + validationIndexVal);
+        if(validationIndexVal != virtualIndexVal)
         {
-            Debug.LogError("indexVal: " + indexVal + " does not match " + validationIndexVal + "! A logical error - these methods should be inverses");
+            Debug.LogError("indexVal: " + virtualIndexVal + " does not match " + validationIndexVal + "! A logical error - these methods should be inverses");
         }
 
     }

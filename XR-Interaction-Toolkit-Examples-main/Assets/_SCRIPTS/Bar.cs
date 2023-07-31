@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,7 +8,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 /// <summary>
 /// A bar in the bar graph that can be moved by the player
 /// </summary>
-public class Bar : XRSimpleInteractable, IXRHoverInteractable, IMoveable
+public class Bar : XRSimpleInteractable, IMoveable, IEquatable<Bar>, IComparable<Bar>
 {
     [Header("Configurable Scale")]
     [SerializeField] [Range(0f, 2f)] private float widthScaleFactor; // 1 is 1 Unity meter wide
@@ -35,16 +36,38 @@ public class Bar : XRSimpleInteractable, IXRHoverInteractable, IMoveable
 
     // private data to use for self operation
     private BarData myData;
-    private PrimaryButtonWatcher primaryButtonWatcherReference;
     private IMoveable.MoveableState currentState;
     private Graph myParentGraph;
     private int myListIndex; // where the bar would be in its parent array
 
     public IMoveable.MoveableState CurrentState { get => currentState; set => currentState = value; }
 
+    /// <summary>
+    /// The bar's position in the list of bars
+    /// </summary>
+    /// <returns></returns>
     public int GetListIndex()
     {
         return myListIndex;
+    }
+
+    /// <summary>
+    /// Your position in your parent list changed. Update it
+    /// </summary>
+    /// <param name="newListIndex"></param>
+    public void UpdateListIndex(int newListIndex)
+    {
+        this.myListIndex = newListIndex;
+    }
+
+    /// <summary>
+    /// The value of the bar's "index" field - distinct from its position in the list
+    /// This changes when you move the bar around
+    /// </summary>
+    /// <returns></returns>
+    public int GetIndexValue()
+    {
+        return myData.Index;
     }
 
     /// <summary>
@@ -54,6 +77,7 @@ public class Bar : XRSimpleInteractable, IXRHoverInteractable, IMoveable
     {
         EnterSelectState();
     }
+
 
     /// <summary>
     /// Update the displayed value of Index based on current X
@@ -95,10 +119,9 @@ public class Bar : XRSimpleInteractable, IXRHoverInteractable, IMoveable
     /// <param name="primaryButtonWatcher"></param>
     /// <param name="myParentGraph"></param>
     /// <param name="myListIndex"></param>
-    public void Init(BarData myData, PrimaryButtonWatcher primaryButtonWatcher, Graph myParentGraph, int myListIndex)
+    public void Init(BarData myData, Graph myParentGraph, int myListIndex)
     {
         currentState = IMoveable.MoveableState.Unselected;
-        this.primaryButtonWatcherReference = primaryButtonWatcher;
         this.myData = myData;
         this.myParentGraph = myParentGraph;
         this.myListIndex = myListIndex;
@@ -166,6 +189,24 @@ public class Bar : XRSimpleInteractable, IXRHoverInteractable, IMoveable
         else if (myData.Value >= 6)
         {
             myRenderer.material = Color6Plus;
+        }
+    }
+
+    public bool Equals(Bar other)
+    {
+        if(other == null) return false;
+        return (this.myData.Index.Equals(other.myData.Index));
+    }
+
+    public int CompareTo(Bar other)
+    {
+        if (other == null)
+        {
+            return 1;
+        }
+        else
+        {
+            return this.myData.Index.CompareTo(other.myData.Index);
         }
     }
 }
