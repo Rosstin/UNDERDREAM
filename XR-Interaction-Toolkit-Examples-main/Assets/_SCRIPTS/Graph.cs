@@ -161,13 +161,16 @@ public class Graph : MonoBehaviour
                 int newIndex = GetIndexValueFromXLocalPos(localHitPos.x);
                 selectedBar.UpdatePositionalIndex(newIndex);
 
+                var xLocalPos = GetXLocalPosFromIndexValue(newIndex);
+
                 // move bar only in X
-                selectedBar.SetCurrentPosInstantly(new Vector3(GetXLocalPosFromIndexValue(newIndex), selectedBar.transform.localPosition.y, selectedBar.transform.localPosition.z));
+                selectedBar.SetCurrentPosInstantly(
+                    new Vector3(xLocalPos, selectedBar.transform.localPosition.y, selectedBar.transform.localPosition.z));
             }
         }
     }
 
-    private void TriggerBarReorder()
+    public void TriggerBarReorder()
     {
         // re-sort the bars based on their new index values, then place the bars in the correct order
         bars.Sort();
@@ -285,7 +288,11 @@ public class Graph : MonoBehaviour
 
         foreach(Bar bar in bars)
         {
-            bar.OnUnselect();
+            // if this isnt the currently selected bar trigger unselect to start moving
+            if(selectedBar == null || bar.GetOriginalIndexValue() != selectedBar.GetOriginalIndexValue())
+            {
+                bar.OnUnselect();
+            }
         }
     }
 

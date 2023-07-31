@@ -54,6 +54,8 @@ public class Bar : XRSimpleInteractable, IMoveable, IEquatable<Bar>, IComparable
     private Graph myParentGraph;
     private int myListIndex; // where the bar would be in its parent array
 
+    private int initialPositionalIndex; // where the bar started when it was first selected
+
     public IMoveable.MoveableState CurrentState { get => currentState; set => currentState = value; }
 
     public void SetDestinationLocalPos(Vector3 destination)
@@ -95,6 +97,15 @@ public class Bar : XRSimpleInteractable, IMoveable, IEquatable<Bar>, IComparable
     }
 
     /// <summary>
+    /// The orig index value that we can use as if it's an ID
+    /// </summary>
+    /// <returns></returns>
+    public int GetOriginalIndexValue()
+    {
+        return myData.OriginalIndex;
+    }
+
+    /// <summary>
     /// The bar was selected. This method is called via an in-editor script on the Bar parent object. (OnSelectInteractible for the VR controller, Button for the mouse)
     /// </summary>
     public void OnSelect()
@@ -109,6 +120,14 @@ public class Bar : XRSimpleInteractable, IMoveable, IEquatable<Bar>, IComparable
     public void UpdatePositionalIndex(int newX)
     {
         myData.PositionalIndex = newX;
+
+        int positionalDifference = newX - initialPositionalIndex;
+
+        if (Mathf.Abs(positionalDifference) >= 10)
+        {
+            // todo work on dynamic bar reorder
+            //myParentGraph.TriggerBarReorder();
+        }
     }
 
     public void OnUnselect()
@@ -177,6 +196,13 @@ public class Bar : XRSimpleInteractable, IMoveable, IEquatable<Bar>, IComparable
     }
     private void EnterSelectState()
     {
+        //if (myData.OriginalIndex == 50)
+        //{
+        //    Debug.Log("" + myData.OriginalIndex + " enter SELECT state");
+        //} 
+
+        initialPositionalIndex = this.myData.PositionalIndex;
+
         myBody.transform.position =
             new Vector3(
                 myBody.transform.position.x,
@@ -191,6 +217,11 @@ public class Bar : XRSimpleInteractable, IMoveable, IEquatable<Bar>, IComparable
 
     private void EnterUnselectState()
     {
+        //if (myData.OriginalIndex == 50)
+        //{
+        //    Debug.Log("" + myData.OriginalIndex + " EnterUnselectState");
+        //}
+
         myBody.transform.position = 
             new Vector3(
                 myBody.transform.position.x, 
