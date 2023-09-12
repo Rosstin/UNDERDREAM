@@ -48,7 +48,7 @@ public class CaveController : MonoBehaviour
 
     private void PlayRandomEvent()
     {
-        int randomEventIndex = Random.Range(0, events.Count-1);
+        int randomEventIndex = Random.Range(0, events.Count);
         if (events[randomEventIndex].EventCanFire())
         {
             events[randomEventIndex].Play();

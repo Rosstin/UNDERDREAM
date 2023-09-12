@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_SCENES/cave/CAVE_LOC_KEY.unity
     guid: 433a321fc67df49e6976a20c97920546
+  - enabled: 1
+    path: Assets/_SCENES/cave/T01-cave-reflection.unity
+    guid: 2c122138afa6c874c9550c9376dd9674
   m_configObjects: {}

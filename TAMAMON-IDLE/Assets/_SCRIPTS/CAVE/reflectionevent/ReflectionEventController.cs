@@ -1,21 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class ReflectionEventController : MonoBehaviour
+public class ReflectionEventController : BaseCutsceneController
 {
 
     [Header("Timing")]
     public float Blink1Time;
     public float Blink2Time;
     public float BlinkDurationSeconds;
+    public float AfterDurationSeconds;
 
     [Header("Outlets")]
     public AudioSource BlinkSFX;
     public GameObject ReflectionOpenEyeSprite;
     public GameObject ReflectionClosedEyeSprite;
-
-
 
     private bool blinked1 = false;
     private bool blinked2 = false;
@@ -54,6 +52,11 @@ public class ReflectionEventController : MonoBehaviour
         if(blinked2 && elapsed > Blink2Time && elapsed < Blink2Time + BlinkDurationSeconds)
         {
             eyesOpen = false;
+        }
+
+        if(elapsed > Blink2Time + BlinkDurationSeconds + AfterDurationSeconds)
+        {
+            SceneManager.LoadScene("Boot", LoadSceneMode.Single);
         }
 
         ReflectionOpenEyeSprite.gameObject.SetActive(eyesOpen);

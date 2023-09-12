@@ -575,6 +575,7 @@ MonoBehaviour:
   Blink1Time: 6
   Blink2Time: 6.5
   BlinkDurationSeconds: 0.1
+  AfterDurationSeconds: 2
   BlinkSFX: {fileID: 1152364836}
   ReflectionOpenEyeSprite: {fileID: 1078504949}
   ReflectionClosedEyeSprite: {fileID: 835986035}

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public abstract class TamaEvent : MonoBehaviour
 {
@@ -16,8 +17,11 @@ public abstract class TamaEvent : MonoBehaviour
     public virtual GameObject PreviewObjectStartPos { get; }
     public virtual GameObject PreviewObjectEndPos { get; }
 
-
     public abstract bool EventCanFire();
+
+    [Header("Cutscene")]
+    public bool HasCutscene;
+    public string CutsceneName;
 
     public enum PreviewObjectState
     {
@@ -102,7 +106,16 @@ public abstract class TamaEvent : MonoBehaviour
         Debug.LogWarning("StartCutsceneState");
 
         previewObjectState = PreviewObjectState.CUTSCENE;
-        EndPreview();
+
+        if (HasCutscene)
+        {
+            SceneManager.LoadScene(CutsceneName, LoadSceneMode.Single);
+        }
+        else
+        {
+            EndPreview();
+        }
+
     }
 
     private void EndPreview()

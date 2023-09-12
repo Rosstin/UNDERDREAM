@@ -14,6 +14,11 @@ public class BootTama : MonoBehaviour
     {
         Debug.LogWarning("PlayerPrefs.GetString(PLAYER_LOCATION_KEY): " + PlayerPrefs.GetString(PLAYER_LOCATION_KEY));
 
+        LoadAppropriateScene();
+    }
+
+    public void LoadAppropriateScene()
+    {
         var currentLoc = PlayerPrefs.GetString(PLAYER_LOCATION_KEY);
 
         switch (currentLoc)
@@ -26,9 +31,9 @@ public class BootTama : MonoBehaviour
                 Debug.LogWarning("player in cave!");
                 LoadScene(CAVE_LOC_KEY);
                 break;
-
         }
     }
+
 
     private void LoadScene(string sceneName)
     {
