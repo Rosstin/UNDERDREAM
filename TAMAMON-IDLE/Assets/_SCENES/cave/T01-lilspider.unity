@@ -698,6 +698,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TotalDuration: 4
+  data: {fileID: 11400000, guid: b645e42850fd8f948889f00e8b240e7f, type: 2}
 --- !u!1 &974188726
 GameObject:
   m_ObjectHideFlags: 0

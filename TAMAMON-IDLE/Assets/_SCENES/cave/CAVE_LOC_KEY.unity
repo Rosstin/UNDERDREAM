@@ -504,7 +504,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &310708526
 Transform:
   m_ObjectHideFlags: 0
@@ -841,8 +841,6 @@ MonoBehaviour:
   backgroundScroller: {fileID: 1699791873}
   tama: {fileID: 1601094271}
   events:
-  - {fileID: 310708527}
-  - {fileID: 1116948684}
   - {fileID: 2112147775}
 --- !u!1 &600808071
 GameObject:
@@ -1292,7 +1290,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1116948683
 Transform:
   m_ObjectHideFlags: 0

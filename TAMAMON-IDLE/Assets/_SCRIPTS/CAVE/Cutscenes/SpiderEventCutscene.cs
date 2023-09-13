@@ -10,12 +10,15 @@ public class SpiderEventCutscene : BaseCutsceneController
     [Header("Timing")]
     public float TotalDuration;
 
+    public TamaDataSO data;
+
     void Update()
     {
         elapsed += Time.deltaTime;
 
         if(elapsed > TotalDuration)
         {
+            data.AddCourageDelta(1);
             SceneManager.LoadScene("Boot", LoadSceneMode.Single);
         }
     }
