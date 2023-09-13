@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PuddleEvent : TamaEvent
+public class SimpleEventTrigger : TamaEvent
 {
-    [Header("Puddle Event Outlets")]
+    [Header("Event Outlets")]
     [SerializeField] private GameObject previewObject;
     [SerializeField] private GameObject previewObjectStartPos;
     [SerializeField] private GameObject previewObjectEndPos;

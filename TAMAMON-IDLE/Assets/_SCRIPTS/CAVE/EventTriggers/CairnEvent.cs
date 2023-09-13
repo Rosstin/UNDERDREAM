@@ -13,10 +13,9 @@ public class CairnEvent : TamaEvent
     public override GameObject PreviewObjectStartPos => previewObjectStartPos;
     public override GameObject PreviewObjectEndPos => previewObjectEndPos;
 
-
     public override bool EventCanFire()
     {
-        return true;
+        return false;
     }
 
 }
