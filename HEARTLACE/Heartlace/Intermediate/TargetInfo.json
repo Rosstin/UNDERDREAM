@@ -1,0 +1,14 @@
+{
+	"Targets": [
+		{
+			"Name": "Heartlace",
+			"Path": "..\\Source\\Heartlace.Target.cs",
+			"Type": "Game"
+		},
+		{
+			"Name": "HeartlaceEditor",
+			"Path": "..\\Source\\HeartlaceEditor.Target.cs",
+			"Type": "Editor"
+		}
+	]
+}

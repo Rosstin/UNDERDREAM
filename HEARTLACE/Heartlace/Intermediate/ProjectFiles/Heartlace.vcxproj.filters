@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <None Include="..\..\Heartlace.uproject" />
+    <Filter Include="Source">
+      <UniqueIdentifier>{F31BBDD1-B3E8-3BCC-9652-680E16935819}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Source\Heartlace.Target.cs">
+      <Filter>Source</Filter>
+    </None>
+    <None Include="..\..\Source\HeartlaceEditor.Target.cs">
+      <Filter>Source</Filter>
+    </None>
+    <Filter Include="Config">
+      <UniqueIdentifier>{FA535FFB-25E1-3D20-B416-52F9BE21E06E}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Config\DefaultEditor.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultEditorPerProjectUserSettings.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultEngine.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultGame.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultInput.ini">
+      <Filter>Config</Filter>
+    </None>
+    <Filter Include="Source\Heartlace">
+      <UniqueIdentifier>{EDEAEFB9-9BAC-3929-A404-109A99D2CB1E}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Source\Heartlace\Heartlace.Build.cs">
+      <Filter>Source\Heartlace</Filter>
+    </None>
+    <ClCompile Include="..\..\Source\Heartlace\Heartlace.cpp">
+      <Filter>Source\Heartlace</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\Heartlace\Heartlace.h">
+      <Filter>Source\Heartlace</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\Heartlace\HeartlaceCharacter.cpp">
+      <Filter>Source\Heartlace</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\Heartlace\HeartlaceCharacter.h">
+      <Filter>Source\Heartlace</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\Heartlace\HeartlaceGameMode.cpp">
+      <Filter>Source\Heartlace</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\Heartlace\HeartlaceGameMode.h">
+      <Filter>Source\Heartlace</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\Heartlace\HeartlacePlayerController.cpp">
+      <Filter>Source\Heartlace</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\Heartlace\HeartlacePlayerController.h">
+      <Filter>Source\Heartlace</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\Heartlace\HeartlaceProjectile.cpp">
+      <Filter>Source\Heartlace</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\Heartlace\HeartlaceProjectile.h">
+      <Filter>Source\Heartlace</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\Heartlace\TP_PickUpComponent.cpp">
+      <Filter>Source\Heartlace</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\Heartlace\TP_PickUpComponent.h">
+      <Filter>Source\Heartlace</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\Heartlace\TP_WeaponComponent.cpp">
+      <Filter>Source\Heartlace</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\Heartlace\TP_WeaponComponent.h">
+      <Filter>Source\Heartlace</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
