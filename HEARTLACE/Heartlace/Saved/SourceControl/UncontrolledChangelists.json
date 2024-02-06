@@ -5,7 +5,20 @@
 			"guid": "00000000000000000000000000000000",
 			"description": "Default Uncontrolled Changelist",
 			"files": [
-				"C:/Users/rosst/GIT-PROJECTS/UNDERDREAM/HEARTLACE/Heartlace/Content/StarterContent/HDRI/HDRI_Epic_Courtyard_Daylight.uasset"
+				"C:/Users/rosst/GIT-PROJECTS/UNDERDREAM/HEARTLACE/Heartlace/Content/StarterContent/HDRI/HDRI_Epic_Courtyard_Daylight.uasset",
+				"C:/Users/rosst/GIT-PROJECTS/UNDERDREAM/HEARTLACE/Heartlace/Content/HeartlaceLevel/Main.umap",
+				"C:/Users/rosst/GIT-PROJECTS/UNDERDREAM/HEARTLACE/Heartlace/Content/HeartlaceBlueprint/HeartlaceBlueprint.uasset",
+				"C:/Users/rosst/GIT-PROJECTS/UNDERDREAM/HEARTLACE/Heartlace/Content/HeartlaceUI/TextOutput.uasset",
+				"C:/Users/rosst/GIT-PROJECTS/UNDERDREAM/HEARTLACE/Heartlace/Content/HeartlaceLevel/HeartlaceLevelBP.uasset",
+				"C:/Users/rosst/GIT-PROJECTS/UNDERDREAM/HEARTLACE/Heartlace/Content/FirstPerson/Blueprints/BP_FirstPersonCharacter.uasset",
+				"C:/Users/rosst/GIT-PROJECTS/UNDERDREAM/HEARTLACE/Heartlace/Content/FirstPerson/Blueprints/BP_PickUp_Rifle.uasset",
+				"C:/Users/rosst/GIT-PROJECTS/UNDERDREAM/HEARTLACE/Heartlace/Content/HUD.uasset",
+				"C:/Users/rosst/GIT-PROJECTS/UNDERDREAM/HEARTLACE/Heartlace/Content/Main.umap",
+				"C:/Users/rosst/GIT-PROJECTS/UNDERDREAM/HEARTLACE/Heartlace/Content/HUD1.uasset",
+				"C:/Users/rosst/GIT-PROJECTS/UNDERDREAM/HEARTLACE/Heartlace/Content/HUD_AmmoCount.uasset",
+				"C:/Users/rosst/GIT-PROJECTS/UNDERDREAM/HEARTLACE/Heartlace/Content/MainMenu.uasset",
+				"C:/Users/rosst/GIT-PROJECTS/UNDERDREAM/HEARTLACE/Heartlace/Content/PauseMenu.uasset",
+				"C:/Users/rosst/GIT-PROJECTS/UNDERDREAM/HEARTLACE/Heartlace/Content/FirstPerson/Blueprints/HeartlaceBlueprint.uasset"
 			]
 		}
 	]
