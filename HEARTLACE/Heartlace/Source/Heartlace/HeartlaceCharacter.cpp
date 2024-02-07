@@ -18,6 +18,8 @@ DEFINE_LOG_CATEGORY(LogTemplateCharacter);
 
 AHeartlaceCharacter::AHeartlaceCharacter()
 {
+	UE_LOG(LogTemplateCharacter, Warning, TEXT("AHeartlaceCharacter is created"));
+
 	// Character doesnt have a rifle at start
 	bHasRifle = false;
 	
@@ -43,6 +45,8 @@ AHeartlaceCharacter::AHeartlaceCharacter()
 
 void AHeartlaceCharacter::BeginPlay()
 {
+	UE_LOG(LogTemplateCharacter, Warning, TEXT("BEGIN PLAY"));
+
 	// Call the base class  
 	Super::BeginPlay();
 
