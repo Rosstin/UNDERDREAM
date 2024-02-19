@@ -12,6 +12,7 @@
       <Filter>Source</Filter>
     </None>
     <None Include="..\..\.vsconfig" />
+    <None Include="..\..\UpgradeLog.htm" />
     <Filter Include="Config">
       <UniqueIdentifier>{FA535FFB-25E1-3D20-B416-52F9BE21E06E}</UniqueIdentifier>
     </Filter>
@@ -81,13 +82,13 @@
     <Filter Include="Source\Heartlace\Private">
       <UniqueIdentifier>{152FAD7E-3920-3F8D-AE1C-CF12D7884A8A}</UniqueIdentifier>
     </Filter>
-    <ClCompile Include="..\..\Source\Heartlace\Private\HeartlaceViewmodel.cpp">
+    <ClCompile Include="..\..\Source\Heartlace\Private\UVMHeartlaceTextOutput.cpp">
       <Filter>Source\Heartlace\Private</Filter>
     </ClCompile>
     <Filter Include="Source\Heartlace\Public">
       <UniqueIdentifier>{15787E43-4A79-353A-A164-87032BD44C85}</UniqueIdentifier>
     </Filter>
-    <ClInclude Include="..\..\Source\Heartlace\Public\HeartlaceViewmodel.h">
+    <ClInclude Include="..\..\Source\Heartlace\Public\UVMHeartlaceTextOutput.h">
       <Filter>Source\Heartlace\Public</Filter>
     </ClInclude>
   </ItemGroup>
