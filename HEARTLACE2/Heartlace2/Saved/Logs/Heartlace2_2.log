@@ -977,3 +977,158 @@ LogConfig: CVar [[con.DebugLateCheat:1]] deferred - dummy variable created
 [2024.02.20-18.44.03:460][  0]LogUdpMessaging: Display: Added local interface '192.168.1.40' to multicast group '230.0.0.1:6666'
 [2024.02.20-18.44.03:490][  0]LogNiagaraDebuggerClient: Niagara Debugger Client Initialized | Session: 1355D1CA4F46B3EC419CE1A9C38AAB83 | Instance: 6DEA197348096F7398E3E08198337F1F (DESKTOP-2MKRQ21-16640).
 [2024.02.20-18.44.03:550][  0]LogTcpMessaging: Initializing TcpMessaging bridge
+[2024.02.20-18.44.03:885][  0]LogAudio: Display: Registering Engine Module Parameter Interfaces...
+[2024.02.20-18.44.03:905][  0]LogMetasoundEngine: MetaSound Engine Initialized
+[2024.02.20-18.44.04:345][  0]LogDeviceProfileManager: Going up to parent DeviceProfile []
+[2024.02.20-18.44.04:538][  0]LogOpenImageDenoise: OIDN starting up
+[2024.02.20-18.44.04:619][  0]LogAndroidPermission: UAndroidPermissionCallbackProxy::GetInstance
+[2024.02.20-18.44.04:630][  0]LogAudioCaptureCore: Display: No Audio Capture implementations found. Audio input will be silent.
+[2024.02.20-18.44.04:630][  0]LogAudioCaptureCore: Display: No Audio Capture implementations found. Audio input will be silent.
+[2024.02.20-18.44.04:709][  0]SourceControl: Revision control is disabled
+[2024.02.20-18.44.04:711][  0]LogUProjectInfo: Found projects:
+[2024.02.20-18.44.04:715][  0]SourceControl: Revision control is disabled
+[2024.02.20-18.44.04:936][  0]LogCollectionManager: Loaded 0 collections in 0.001785 seconds
+[2024.02.20-18.44.04:938][  0]LogFileCache: Scanning file cache for directory 'C:/Users/rosst/Documents/GitHub/UNDERDREAM/HEARTLACE2/Heartlace2/Saved/Collections/' took 0.00s
+[2024.02.20-18.44.04:940][  0]LogFileCache: Scanning file cache for directory 'C:/Users/rosst/Documents/GitHub/UNDERDREAM/HEARTLACE2/Heartlace2/Content/Developers/rosst/Collections/' took 0.00s
+[2024.02.20-18.44.04:941][  0]LogFileCache: Scanning file cache for directory 'C:/Users/rosst/Documents/GitHub/UNDERDREAM/HEARTLACE2/Heartlace2/Content/Collections/' took 0.00s
+[2024.02.20-18.44.05:271][  0]LogEngine: Initializing Engine...
+[2024.02.20-18.44.05:276][  0]LogStats: UGameplayTagsManager::InitializeManager -  0.000 s
+[2024.02.20-18.44.05:590][  0]LogInit: Initializing FReadOnlyCVARCache
+[2024.02.20-18.44.05:595][  0]LogWorldSubsystemInput: UEnhancedInputDeveloperSettings::bEnableWorldSubsystem is false, the world subsystem will not be created!
+[2024.02.20-18.44.05:595][  0]LogChaos: FPhysicsSolverBase::AsyncDt:-1.000000
+[2024.02.20-18.44.05:601][  0]LogAIModule: Creating AISystem for world Untitled
+[2024.02.20-18.44.05:601][  0]LogNetVersion: Set ProjectVersion to 1.0.0.0. Version Checksum will be recalculated on next use.
+[2024.02.20-18.44.05:601][  0]LogInit: Texture streaming: Enabled
+[2024.02.20-18.44.05:612][  0]LogAnalytics: Display: [UEEditor.Rocket.Release] APIServer = https://datarouter.ol.epicgames.com/. AppVersion = 5.3.2-29314046+++UE5+Release-5.3
+[2024.02.20-18.44.05:618][  0]LogAudio: Display: Initializing Audio Device Manager...
+[2024.02.20-18.44.05:625][  0]LogAudio: Display: Loading Default Audio Settings Objects...
+[2024.02.20-18.44.05:629][  0]LogAudio: Display: No default SoundConcurrencyObject specified (or failed to load).
+[2024.02.20-18.44.05:629][  0]LogAudio: Display: AudioInfo: 'BINKA' Registered
+[2024.02.20-18.44.05:630][  0]LogAudio: Display: AudioInfo: 'PCM' Registered
+[2024.02.20-18.44.05:630][  0]LogAudio: Display: AudioInfo: 'ADPCM' Registered
+[2024.02.20-18.44.05:630][  0]LogAudio: Display: AudioInfo: 'OGG' Registered
+[2024.02.20-18.44.05:630][  0]LogAudio: Display: AudioInfo: 'OPUS' Registered
+[2024.02.20-18.44.05:631][  0]LogAudio: Display: Audio Device Manager Initialized
+[2024.02.20-18.44.05:631][  0]LogAudio: Display: Creating Audio Device:                 Id: 1, Scope: Shared, Realtime: True
+[2024.02.20-18.44.05:631][  0]LogAudioMixer: Display: Audio Mixer Platform Settings:
+[2024.02.20-18.44.05:631][  0]LogAudioMixer: Display: 	Sample Rate:						  48000
+[2024.02.20-18.44.05:631][  0]LogAudioMixer: Display: 	Callback Buffer Frame Size Requested: 1024
+[2024.02.20-18.44.05:631][  0]LogAudioMixer: Display: 	Callback Buffer Frame Size To Use:	  1024
+[2024.02.20-18.44.05:631][  0]LogAudioMixer: Display: 	Number of buffers to queue:			  1
+[2024.02.20-18.44.05:631][  0]LogAudioMixer: Display: 	Max Channels (voices):				  32
+[2024.02.20-18.44.05:631][  0]LogAudioMixer: Display: 	Number of Async Source Workers:		  4
+[2024.02.20-18.44.05:631][  0]LogAudio: Display: AudioDevice MaxSources: 32
+[2024.02.20-18.44.05:631][  0]LogAudio: Display: Audio Spatialization Plugin: None (built-in).
+[2024.02.20-18.44.05:631][  0]LogAudio: Display: Audio Reverb Plugin: None (built-in).
+[2024.02.20-18.44.05:631][  0]LogAudio: Display: Audio Occlusion Plugin: None (built-in).
+[2024.02.20-18.44.05:635][  0]LogAudioMixer: Display: Initializing audio mixer using platform API: 'XAudio2'
+[2024.02.20-18.44.05:673][  0]LogAudioMixer: Display: Using Audio Hardware Device Headphones (High Definition Audio Device)
+[2024.02.20-18.44.05:674][  0]LogAudioMixer: Display: Initializing Sound Submixes...
+[2024.02.20-18.44.05:691][  0]LogAudioMixer: Display: Creating Master Submix 'MasterSubmixDefault'
+[2024.02.20-18.44.05:691][  0]LogAudioMixer: Display: Creating Master Submix 'MasterReverbSubmixDefault'
+[2024.02.20-18.44.05:692][  0]LogAudioMixer: FMixerPlatformXAudio2::StartAudioStream() called. InstanceID=1
+[2024.02.20-18.44.05:692][  0]LogAudioMixer: Display: Output buffers initialized: Frames=1024, Channels=2, Samples=2048, InstanceID=1
+[2024.02.20-18.44.05:693][  0]LogAudioMixer: Display: Starting AudioMixerPlatformInterface::RunInternal(), InstanceID=1
+[2024.02.20-18.44.05:693][  0]LogAudioMixer: Display: FMixerPlatformXAudio2::SubmitBuffer() called for the first time. InstanceID=1
+[2024.02.20-18.44.05:693][  0]LogInit: FAudioDevice initialized with ID 1.
+[2024.02.20-18.44.05:694][  0]LogAudio: Display: Audio Device (ID: 1) registered with world 'Untitled'.
+[2024.02.20-18.44.05:694][  0]LogAudioMixer: Initializing Audio Bus Subsystem for audio device with ID 1
+[2024.02.20-18.44.05:704][  0]LogCsvProfiler: Display: Metadata set : largeworldcoordinates="1"
+[2024.02.20-18.44.05:710][  0]LogInit: Undo buffer set to 32 MB
+[2024.02.20-18.44.05:710][  0]LogInit: Transaction tracking system initialized
+[2024.02.20-18.44.05:731][  0]LogSourceControl: Display: Uncontrolled Changelist persistency file loaded ../../../../../../Users/rosst/Documents/GitHub/UNDERDREAM/HEARTLACE2/Heartlace2/Saved/SourceControl/UncontrolledChangelists.json
+[2024.02.20-18.44.05:731][  0]LogSourceControl: Uncontrolled asset enumeration started...
+[2024.02.20-18.44.05:738][  0]BlueprintLog: New page: Editor Load
+[2024.02.20-18.44.05:738][  0]LogSourceControl: Uncontrolled asset enumeration finished in 0.007327 seconds (Found 150 uncontrolled assets)
+[2024.02.20-18.44.05:814][  0]LocalizationService: Localization service is disabled
+[2024.02.20-18.44.05:830][  0]TimingProfiler: Initialize
+[2024.02.20-18.44.05:831][  0]TimingProfiler: OnSessionChanged
+[2024.02.20-18.44.05:831][  0]LoadingProfiler: Initialize
+[2024.02.20-18.44.05:831][  0]LoadingProfiler: OnSessionChanged
+[2024.02.20-18.44.05:831][  0]NetworkingProfiler: Initialize
+[2024.02.20-18.44.05:831][  0]NetworkingProfiler: OnSessionChanged
+[2024.02.20-18.44.05:831][  0]MemoryProfiler: Initialize
+[2024.02.20-18.44.05:831][  0]MemoryProfiler: OnSessionChanged
+[2024.02.20-18.44.06:144][  0]LogFileCache: Scanning file cache for directory 'C:/Users/rosst/Documents/GitHub/UNDERDREAM/HEARTLACE2/Heartlace2/Content/' took 0.01s
+[2024.02.20-18.44.06:235][  0]LogLevelSequenceEditor: LevelSequenceEditor subsystem initialized.
+[2024.02.20-18.44.06:328][  0]LogInit: Display: Engine is initialized. Leaving FEngineLoop::Init()
+[2024.02.20-18.44.06:330][  0]SourceControl: Revision control is disabled
+[2024.02.20-18.44.06:330][  0]LogUnrealEdMisc: Loading editor; pre map load, took 14.640
+[2024.02.20-18.44.06:330][  0]Cmd: MAP LOAD FILE="../../../../../../Users/rosst/Documents/GitHub/UNDERDREAM/HEARTLACE2/Heartlace2/Content/FirstPerson/Maps/FirstPersonMap.umap" TEMPLATE=0 SHOWPROGRESS=1 FEATURELEVEL=4
+[2024.02.20-18.44.06:334][  0]LightingResults: New page: Lighting Build
+[2024.02.20-18.44.06:336][  0]LogWorld: UWorld::CleanupWorld for Untitled, bSessionEnded=true, bCleanupResources=true
+[2024.02.20-18.44.06:336][  0]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2024.02.20-18.44.06:336][  0]MapCheck: New page: Map Check
+[2024.02.20-18.44.06:336][  0]LightingResults: New page: Lighting Build
+[2024.02.20-18.44.06:340][  0]LogAudio: Display: Audio Device unregistered from world 'None'.
+[2024.02.20-18.44.06:343][  0]LogUObjectHash: Compacting FUObjectHashTables data took   0.48ms
+[2024.02.20-18.44.06:346][  0]LogAssetRegistry: Display: Triggering cache save on discovery complete
+[2024.02.20-18.44.06:426][  0]LogAudio: Display: Audio Device (ID: 1) registered with world 'FirstPersonMap'.
+[2024.02.20-18.44.06:426][  0]LogWorldSubsystemInput: UEnhancedInputDeveloperSettings::bEnableWorldSubsystem is false, the world subsystem will not be created!
+[2024.02.20-18.44.06:426][  0]LogChaos: FPhysicsSolverBase::AsyncDt:-1.000000
+[2024.02.20-18.44.06:427][  0]LogAIModule: Creating AISystem for world FirstPersonMap
+[2024.02.20-18.44.06:427][  0]LogWorldPartition: ULevel::OnLevelLoaded(FirstPersonMap)(bIsOwningWorldGameWorld=0, bIsOwningWorldPartitioned=1, InitializeForMainWorld=1, InitializeForEditor=1, InitializeForGame=0)
+[2024.02.20-18.44.06:428][  0]LogWorldPartition: Display: WorldPartition initialize started...
+[2024.02.20-18.44.06:428][  0]LogWorldPartition: UWorldPartition::Initialize : World = FirstPersonMap, World Type = Editor, IsMainWorldPartition = 1, Location = V(0), Rotation = R(0), IsEditor = 1, IsGame = 0, IsPIEWorldTravel = 0, IsCooking = 0
+[2024.02.20-18.44.06:854][  0]LogContentBundle: [FirstPersonMap(Standalone)] Creating new contrainer.
+[2024.02.20-18.44.06:854][  0]LogWorldPartition: Display: WorldPartition initialize took 426 ms
+[2024.02.20-18.44.06:862][  0]LogEditorServer: Finished looking for orphan Actors (0.000 secs)
+[2024.02.20-18.44.06:867][  0]LogUObjectHash: Compacting FUObjectHashTables data took   0.53ms
+[2024.02.20-18.44.06:867][  0]Cmd: MAP CHECKDEP NOCLEARLOG
+[2024.02.20-18.44.06:867][  0]MapCheck: Map check complete: 0 Error(s), 0 Warning(s), took 0.306ms to complete.
+[2024.02.20-18.44.06:882][  0]LogUnrealEdMisc: Total Editor Startup Time, took 15.193
+[2024.02.20-18.44.06:882][  0]LogShaderCompilers: Display: ================================================
+[2024.02.20-18.44.06:882][  0]LogShaderCompilers: Display: === FShaderJobCache stats ===
+[2024.02.20-18.44.06:882][  0]LogShaderCompilers: Display: Total job queries 0, among them cache hits 0 (0.00%)
+[2024.02.20-18.44.06:882][  0]LogShaderCompilers: Display: Tracking 0 distinct input hashes that result in 0 distinct outputs (0.00%)
+[2024.02.20-18.44.06:882][  0]LogShaderCompilers: Display: RAM used: 240.00 B of 3.20 GiB budget. Usage: 0.00%
+[2024.02.20-18.44.06:882][  0]LogShaderCompilers: Display: === Shader Compilation stats ===
+[2024.02.20-18.44.06:882][  0]LogShaderCompilers: Display: Shaders Compiled: 0
+[2024.02.20-18.44.06:882][  0]LogShaderCompilers: Display: Jobs assigned 0, completed 0 (0%)
+[2024.02.20-18.44.06:882][  0]LogShaderCompilers: Display: Time at least one job was in flight (either pending or executed): 0.00 s
+[2024.02.20-18.44.06:882][  0]LogShaderCompilers: Display: ================================================
+[2024.02.20-18.44.06:929][  0]LogAssetRegistry: Display: Asset registry cache written as 16.6 MiB to ../../../../../../Users/rosst/Documents/GitHub/UNDERDREAM/HEARTLACE2/Heartlace2/Intermediate/CachedAssetRegistry_*.bin
+[2024.02.20-18.44.07:010][  0]LogPakFile: Initializing PakPlatformFile
+[2024.02.20-18.44.07:015][  0]LogPakFile: Display: Mounted Pak file 'C:/Program Files/Epic Games/UE_5.3/FeaturePacks/StarterContent.upack', mount point: 'root:/'
+[2024.02.20-18.44.07:015][  0]LogPakFile: Initializing PakPlatformFile
+[2024.02.20-18.44.07:020][  0]LogPakFile: Display: Mounted Pak file 'C:/Program Files/Epic Games/UE_5.3/FeaturePacks/TP_FirstPerson.upack', mount point: 'root:/'
+[2024.02.20-18.44.07:020][  0]LogPakFile: Initializing PakPlatformFile
+[2024.02.20-18.44.07:026][  0]LogPakFile: Display: Mounted Pak file 'C:/Program Files/Epic Games/UE_5.3/FeaturePacks/TP_FirstPersonBP.upack', mount point: 'root:/'
+[2024.02.20-18.44.07:026][  0]LogPakFile: Initializing PakPlatformFile
+[2024.02.20-18.44.07:030][  0]LogPakFile: Display: Mounted Pak file 'C:/Program Files/Epic Games/UE_5.3/FeaturePacks/TP_HandheldARBP.upack', mount point: 'root:/'
+[2024.02.20-18.44.07:030][  0]LogPakFile: Initializing PakPlatformFile
+[2024.02.20-18.44.07:034][  0]LogPakFile: Display: Mounted Pak file 'C:/Program Files/Epic Games/UE_5.3/FeaturePacks/TP_ThirdPerson.upack', mount point: 'root:/'
+[2024.02.20-18.44.07:035][  0]LogPakFile: Initializing PakPlatformFile
+[2024.02.20-18.44.07:039][  0]LogPakFile: Display: Mounted Pak file 'C:/Program Files/Epic Games/UE_5.3/FeaturePacks/TP_ThirdPersonBP.upack', mount point: 'root:/'
+[2024.02.20-18.44.07:039][  0]LogPakFile: Initializing PakPlatformFile
+[2024.02.20-18.44.07:043][  0]LogPakFile: Display: Mounted Pak file 'C:/Program Files/Epic Games/UE_5.3/FeaturePacks/TP_TopDown.upack', mount point: 'root:/'
+[2024.02.20-18.44.07:043][  0]LogPakFile: Initializing PakPlatformFile
+[2024.02.20-18.44.07:047][  0]LogPakFile: Display: Mounted Pak file 'C:/Program Files/Epic Games/UE_5.3/FeaturePacks/TP_TopDownBP.upack', mount point: 'root:/'
+[2024.02.20-18.44.07:047][  0]LogPakFile: Initializing PakPlatformFile
+[2024.02.20-18.44.07:053][  0]LogPakFile: Display: Mounted Pak file 'C:/Program Files/Epic Games/UE_5.3/FeaturePacks/TP_VehicleAdvBP.upack', mount point: 'root:/'
+[2024.02.20-18.44.07:053][  0]LogPakFile: Initializing PakPlatformFile
+[2024.02.20-18.44.07:057][  0]LogPakFile: Display: Mounted Pak file 'C:/Program Files/Epic Games/UE_5.3/FeaturePacks/TP_VirtualRealityBP.upack', mount point: 'root:/'
+[2024.02.20-18.44.07:308][  0]LogSlate: Updating window title bar state: overlay mode, drag disabled, window buttons hidden, title bar hidden
+[2024.02.20-18.44.07:318][  0]LogSlate: Updating window title bar state: overlay mode, drag disabled, window buttons hidden, title bar hidden
+[2024.02.20-18.44.07:327][  0]LogSlate: Updating window title bar state: overlay mode, drag disabled, window buttons hidden, title bar hidden
+[2024.02.20-18.44.07:337][  0]LogSlate: Updating window title bar state: overlay mode, drag disabled, window buttons hidden, title bar hidden
+[2024.02.20-18.44.07:503][  0]LogSlate: Took 0.003684 seconds to synchronously load lazily loaded font '../../../Engine/Content/Slate/Fonts/Roboto-Regular.ttf' (155K)
+[2024.02.20-18.44.07:509][  0]LogSlate: Took 0.003474 seconds to synchronously load lazily loaded font '../../../Engine/Content/Slate/Fonts/Roboto-Italic.ttf' (157K)
+[2024.02.20-18.44.07:513][  0]LogSlate: Took 0.003613 seconds to synchronously load lazily loaded font '../../../Engine/Content/Slate/Fonts/DroidSansMono.ttf' (77K)
+[2024.02.20-18.44.07:517][  0]LogSlate: Took 0.003036 seconds to synchronously load lazily loaded font '../../../Engine/Content/Slate/Fonts/Roboto-Bold.ttf' (160K)
+[2024.02.20-18.44.07:542][  0]LogViewport: Scene viewport resized to 1467x940, mode Windowed.
+[2024.02.20-18.44.07:634][  0]LogSlate: Took 0.003933 seconds to synchronously load lazily loaded font '../../../Engine/Content/Slate/Fonts/Roboto-Light.ttf' (167K)
+[2024.02.20-18.44.07:869][  0]LogStall: Startup...
+[2024.02.20-18.44.07:871][  0]LogStall: Startup complete.
+[2024.02.20-18.44.07:875][  0]LogLoad: (Engine Initialization) Total time: 16.19 seconds
+[2024.02.20-18.44.07:875][  0]LogLoad: (Engine Initialization) Total Blueprint compile time: 0.00 seconds
+[2024.02.20-18.44.07:935][  0]LogAssetRegistry: AssetRegistryGather time 0.3343s: AssetDataDiscovery 0.0395s, AssetDataGather 0.2595s, StoreResults 0.0352s.
+[2024.02.20-18.44.07:975][  0]LogCollectionManager: Fixed up redirectors for 0 collections in 0.000004 seconds (updated 0 objects)
+[2024.02.20-18.44.07:977][  0]LogContentStreaming: Texture pool size now 1000 MB
+[2024.02.20-18.44.08:186][  1]LogPython: registering <class 'ControlRigWorkflows.workflow_deformation_rig_preset.provider'>
+
+[2024.02.20-18.44.08:192][  1]Running Python start-up script 'C:/Program Files/Epic Games/UE_5.3/Engine/Plugins/Animation/ControlRig/Content/Python/init_unreal.py': 0.166295 secs
+[2024.02.20-18.44.08:239][  1]LogLiveCoding: Display: LiveCodingConsole Arguments: Heartlace2Editor Win64 Development
+[2024.02.20-18.44.08:263][  2]LogD3D12RHI: Cannot end block when stack is empty
+[2024.02.20-18.45.44:957][487]LogDirectoryWatcher: Display: A directory notification failed for 'C:/Users/rosst/Documents/GitHub/UNDERDREAM/HEARTLACE2/Heartlace2/Content/Collections/' because it could not be accessed. Aborting watch request...
+[2024.02.20-18.45.44:957][487]LogDirectoryWatcher: Display: A directory notification failed for 'C:/Users/rosst/Documents/GitHub/UNDERDREAM/HEARTLACE2/Heartlace2/Content/Developers/rosst/Collections/' because it could not be accessed. Aborting watch request...
