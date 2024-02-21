@@ -11,6 +11,8 @@
     <None Include="..\..\Source\Heartlace2Editor.Target.cs">
       <Filter>Source</Filter>
     </None>
+    <None Include="..\..\.gitignore" />
+    <None Include="..\..\.vsconfig" />
     <Filter Include="Config">
       <UniqueIdentifier>{FA535FFB-25E1-3D20-B416-52F9BE21E06E}</UniqueIdentifier>
     </Filter>
@@ -63,6 +65,18 @@
       <Filter>Source\Heartlace2</Filter>
     </ClCompile>
     <ClInclude Include="..\..\Source\Heartlace2\Heartlace2Projectile.h">
+      <Filter>Source\Heartlace2</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\Heartlace2\MyClass.cpp">
+      <Filter>Source\Heartlace2</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\Heartlace2\MyClass.h">
+      <Filter>Source\Heartlace2</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\Heartlace2\MyClass2.cpp">
+      <Filter>Source\Heartlace2</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\Heartlace2\MyClass2.h">
       <Filter>Source\Heartlace2</Filter>
     </ClInclude>
     <ClCompile Include="..\..\Source\Heartlace2\TP_PickUpComponent.cpp">
