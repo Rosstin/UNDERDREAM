@@ -23,19 +23,6 @@ AHeartlace3Character::AHeartlace3Character()
 	// Character doesnt have a rifle at start
 	bHasRifle = false;
 
-	//const TObjectPtr<UMVVMSubsystem> ViewModelSubsystem = GEngine->
-	//	GetEngineSubsystem<UMVVMSubsystem>();
-	//check(ViewModelSubsystem);
-
-	//UHeartlaceViewModel::SetOutputText("text");
-
-	//HeartlaceView
-
-	//HeartlaceViewModel = CreateClass<>(TEXT("CharacterMesh1P"));
-
-
-	//SetOutputText("setting output text from AHeartlace3Character");
-	
 	// Set size for collision capsule
 	GetCapsuleComponent()->InitCapsuleSize(55.f, 96.0f);
 		
