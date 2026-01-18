@@ -1,0 +1,269 @@
+Using pre-set license
+Built from '2021.3/staging' branch; Version is '2021.3.29f1 (204d6dc9ae1c) revision 2116973'; Using compiler version '192829333'; Build Type 'Release'
+OS: 'Windows 10  (10.0.19045) 64bit Core' Language: 'en' Physical Memory: 65470 MB
+BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, IsPro: 1
+
+COMMAND LINE ARGUMENTS:
+C:\Program Files\Unity\Hub\Editor\2021.3.29f1\Editor\Unity.exe
+-adb2
+-batchMode
+-noUpm
+-name
+AssetImportWorker1
+-projectPath
+C:/Users/rosst/Documents/GitHub/UNDERDREAM/PuzzlePig
+-logFile
+Logs/AssetImportWorker1.log
+-srvPort
+6942
+Successfully changed project path to: C:/Users/rosst/Documents/GitHub/UNDERDREAM/PuzzlePig
+C:/Users/rosst/Documents/GitHub/UNDERDREAM/PuzzlePig
+[UnityMemory] Configuration Parameters - Can be set up in boot.config
+    "memorysetup-bucket-allocator-granularity=16"
+    "memorysetup-bucket-allocator-bucket-count=8"
+    "memorysetup-bucket-allocator-block-size=33554432"
+    "memorysetup-bucket-allocator-block-count=8"
+    "memorysetup-main-allocator-block-size=16777216"
+    "memorysetup-thread-allocator-block-size=16777216"
+    "memorysetup-gfx-main-allocator-block-size=16777216"
+    "memorysetup-gfx-thread-allocator-block-size=16777216"
+    "memorysetup-cache-allocator-block-size=4194304"
+    "memorysetup-typetree-allocator-block-size=2097152"
+    "memorysetup-profiler-bucket-allocator-granularity=16"
+    "memorysetup-profiler-bucket-allocator-bucket-count=8"
+    "memorysetup-profiler-bucket-allocator-block-size=33554432"
+    "memorysetup-profiler-bucket-allocator-block-count=8"
+    "memorysetup-profiler-allocator-block-size=16777216"
+    "memorysetup-profiler-editor-allocator-block-size=1048576"
+    "memorysetup-temp-allocator-size-main=16777216"
+    "memorysetup-job-temp-allocator-block-size=2097152"
+    "memorysetup-job-temp-allocator-block-size-background=1048576"
+    "memorysetup-job-temp-allocator-reduction-small-platforms=262144"
+    "memorysetup-temp-allocator-size-background-worker=32768"
+    "memorysetup-temp-allocator-size-job-worker=262144"
+    "memorysetup-temp-allocator-size-preload-manager=33554432"
+    "memorysetup-temp-allocator-size-nav-mesh-worker=65536"
+    "memorysetup-temp-allocator-size-audio-worker=65536"
+    "memorysetup-temp-allocator-size-cloud-worker=32768"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gfx=262144"
+Player connection [17832] Host "[IP] 10.0.0.55 [Port] 0 [Flags] 2 [Guid] 1133971077 [EditorId] 1133971077 [Version] 1048832 [Id] WindowsEditor(7,ALBY) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined multi-casting on [225.0.0.222:54997]...
+
+Player connection [17832] Host "[IP] 10.0.0.55 [Port] 0 [Flags] 2 [Guid] 1133971077 [EditorId] 1133971077 [Version] 1048832 [Id] WindowsEditor(7,ALBY) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined alternative multi-casting on [225.0.0.222:34997]...
+
+Refreshing native plugins compatible for Editor in 61.83 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Initialize engine version: 2021.3.29f1 (204d6dc9ae1c)
+[Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2021.3.29f1/Editor/Data/Resources/UnitySubsystems
+[Subsystems] Discovering subsystems at path C:/Users/rosst/Documents/GitHub/UNDERDREAM/PuzzlePig/Assets
+GfxDevice: creating device client; threaded=0; jobified=0
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.1]
+    Renderer: AMD Radeon RX 6900 XT (ID=0x73bf)
+    Vendor:   ATI
+    VRAM:     16338 MB
+    Driver:   32.0.21037.1004
+Initialize mono
+Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2021.3.29f1/Editor/Data/Managed'
+Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2021.3.29f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32'
+Mono config path = 'C:/Program Files/Unity/Hub/Editor/2021.3.29f1/Editor/Data/MonoBleedingEdge/etc'
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56944
+Begin MonoManager ReloadAssembly
+Registering precompiled unity dll's ...
+Register platform support module: C:/Program Files/Unity/Hub/Editor/2021.3.29f1/Editor/Data/PlaybackEngines/AndroidPlayer/UnityEditor.Android.Extensions.dll
+Register platform support module: C:/Program Files/Unity/Hub/Editor/2021.3.29f1/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.dll
+Register platform support module: C:/Program Files/Unity/Hub/Editor/2021.3.29f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
+Registered in 0.447460 seconds.
+Native extension for WindowsStandalone target not found
+[usbmuxd] Start listen thread
+[usbmuxd] Listen thread started
+[usbmuxd] Send listen message
+Native extension for iOS target not found
+Native extension for Android target not found
+Android Extension - Scanning For ADB Devices 216 ms
+Refreshing native plugins compatible for Editor in 62.20 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  8.137 seconds
+Domain Reload Profiling:
+	ReloadAssembly (8137ms)
+		BeginReloadAssembly (5045ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (0ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (1ms)
+		EndReloadAssembly (2246ms)
+			LoadAssemblies (5050ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (1516ms)
+			ReleaseScriptCaches (0ms)
+			RebuildScriptCaches (23ms)
+			SetupLoadedEditorAssemblies (656ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (481ms)
+				SetLoadedEditorAssemblies (0ms)
+				RefreshPlugins (62ms)
+				BeforeProcessingInitializeOnLoad (1ms)
+				ProcessInitializeOnLoadAttributes (71ms)
+				ProcessInitializeOnLoadMethodAttributes (40ms)
+				AfterProcessingInitializeOnLoad (0ms)
+				EditorAssembliesLoaded (0ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (0ms)
+Platform modules already initialized, skipping
+Registering precompiled user dll's ...
+Registered in 0.004104 seconds.
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory doesn't match image C:\Users\rosst\Documents\GitHub\UNDERDREAM\PuzzlePig\Library\PackageCache\com.unity.visualscripting@1.8.0\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll
+Symbol file LoadedFromMemory doesn't match image C:\Users\rosst\Documents\GitHub\UNDERDREAM\PuzzlePig\Library\PackageCache\com.unity.visualscripting@1.8.0\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll
+Native extension for WindowsStandalone target not found
+Native extension for iOS target not found
+Native extension for Android target not found
+Refreshing native plugins compatible for Editor in 0.49 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  4.983 seconds
+Domain Reload Profiling:
+	ReloadAssembly (4983ms)
+		BeginReloadAssembly (102ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (5ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (17ms)
+		EndReloadAssembly (4721ms)
+			LoadAssemblies (3381ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (963ms)
+			ReleaseScriptCaches (1ms)
+			RebuildScriptCaches (40ms)
+			SetupLoadedEditorAssemblies (296ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (23ms)
+				SetLoadedEditorAssemblies (0ms)
+				RefreshPlugins (1ms)
+				BeforeProcessingInitializeOnLoad (66ms)
+				ProcessInitializeOnLoadAttributes (181ms)
+				ProcessInitializeOnLoadMethodAttributes (17ms)
+				AfterProcessingInitializeOnLoad (7ms)
+				EditorAssembliesLoaded (0ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (6ms)
+Platform modules already initialized, skipping
+========================================================================
+Worker process is ready to serve import requests
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.06 seconds
+Refreshing native plugins compatible for Editor in 0.42 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 3052 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 22 unused Assets / (46.4 KB). Loaded Objects now: 3517.
+Memory consumption went from 112.1 MB to 112.0 MB.
+Total: 2.616800 ms (FindLiveObjects: 0.237000 ms CreateObjectMapping: 0.207700 ms MarkObjects: 2.121700 ms  DeleteObjects: 0.050100 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:video-codec-MediaFoundation-h265: e54d7ab0439102e2317fc1e4b246158d -> 
+  custom:CustomObjectIndexerAttribute: bc11b3a6c3213fcdd17b65e7da85e133 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Import Request.
+  Time since last request: 231612.423363 seconds.
+  path: Assets/Art
+  artifactKey: Guid(6c0d82fe9ebda74438d1651252d45076) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Art using Guid(6c0d82fe9ebda74438d1651252d45076) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0a86f1765f6affc897f6db9d83bf477a') in 0.013732 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 570.360628 seconds.
+  path: Assets/Prefabs/bgtower/horizrow0.prefab
+  artifactKey: Guid(dc3358f84ed3d7846a45d81879f3dde2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/bgtower/horizrow0.prefab using Guid(dc3358f84ed3d7846a45d81879f3dde2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'aeac8edaa57d8ac9bf4b1cbd24ac9ea8') in 0.296443 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.905891 seconds.
+  path: Assets/Prefabs/bgtower/horizrow0.prefab
+  artifactKey: Guid(dc3358f84ed3d7846a45d81879f3dde2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/bgtower/horizrow0.prefab using Guid(dc3358f84ed3d7846a45d81879f3dde2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0e7984efb92b51b3ccda55f268f4b90d') in 0.013102 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 6.038567 seconds.
+  path: Assets/Prefabs/bgtower/horizrow0.prefab
+  artifactKey: Guid(dc3358f84ed3d7846a45d81879f3dde2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/bgtower/horizrow0.prefab using Guid(dc3358f84ed3d7846a45d81879f3dde2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1f7fe338b08fb0af4f176109e353b0af') in 0.012574 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.792139 seconds.
+  path: Assets/Prefabs/bgtower/horizrow0.prefab
+  artifactKey: Guid(dc3358f84ed3d7846a45d81879f3dde2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/bgtower/horizrow0.prefab using Guid(dc3358f84ed3d7846a45d81879f3dde2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cc216cd32c9c8d0854d2e31c30228780') in 0.012641 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 1.701067 seconds.
+  path: Assets/Prefabs/bgtower/horizrow0.prefab
+  artifactKey: Guid(dc3358f84ed3d7846a45d81879f3dde2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/bgtower/horizrow0.prefab using Guid(dc3358f84ed3d7846a45d81879f3dde2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b95d005355c0e4cf8f9e48e5f8a93bf4') in 0.012882 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 15.417533 seconds.
+  path: Assets/Prefabs/bgtower/horizrow0.prefab
+  artifactKey: Guid(dc3358f84ed3d7846a45d81879f3dde2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/bgtower/horizrow0.prefab using Guid(dc3358f84ed3d7846a45d81879f3dde2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '21e850f121dd32c539088bbb11decb33') in 0.012946 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 1.192141 seconds.
+  path: Assets/Prefabs/bgtower/horizrow0.prefab
+  artifactKey: Guid(dc3358f84ed3d7846a45d81879f3dde2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/bgtower/horizrow0.prefab using Guid(dc3358f84ed3d7846a45d81879f3dde2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0ef3cb9709421ccfdbc87958e8f98534') in 0.012215 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 7.250515 seconds.
+  path: Assets/Prefabs/bgtower/horizrow0.prefab
+  artifactKey: Guid(dc3358f84ed3d7846a45d81879f3dde2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/bgtower/horizrow0.prefab using Guid(dc3358f84ed3d7846a45d81879f3dde2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8fdaaddc25ecc5ee9e30ecca9500bed1') in 0.012473 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.789012 seconds.
+  path: Assets/Prefabs/bgtower/horizrow0.prefab
+  artifactKey: Guid(dc3358f84ed3d7846a45d81879f3dde2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/bgtower/horizrow0.prefab using Guid(dc3358f84ed3d7846a45d81879f3dde2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0f0f221442bb0e139a13b7bce931e0e2') in 0.012129 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 22.020999 seconds.
+  path: Assets/Prefabs/bgtower/horizrow0.prefab
+  artifactKey: Guid(dc3358f84ed3d7846a45d81879f3dde2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/bgtower/horizrow0.prefab using Guid(dc3358f84ed3d7846a45d81879f3dde2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6a7619a13ebca8478e31b7919707cf02') in 0.012585 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 352.026069 seconds.
+  path: Assets/New Folder/Red.mat
+  artifactKey: Guid(01973d06649d85543b060a69aafbc2ae) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/New Folder/Red.mat using Guid(01973d06649d85543b060a69aafbc2ae) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '54d4a843febe45478f6d036c62b9c8c3') in 0.133737 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 82.690821 seconds.
+  path: Assets/New Folder/Green.mat
+  artifactKey: Guid(8108977b843a4fe47a918d09b025a888) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/New Folder/Green.mat using Guid(8108977b843a4fe47a918d09b025a888) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd60e0c81a0a0865703fb1585685fb100') in 0.013715 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000016 seconds.
+  path: Assets/New Folder/Red.mat
+  artifactKey: Guid(01973d06649d85543b060a69aafbc2ae) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/New Folder/Red.mat using Guid(01973d06649d85543b060a69aafbc2ae) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '19e687ec30b00de80782edf3f91939d0') in 0.022754 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000016 seconds.
+  path: Assets/New Folder/Orange.mat
+  artifactKey: Guid(4158a237720effa4387bc8723e530ffc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/New Folder/Orange.mat using Guid(4158a237720effa4387bc8723e530ffc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9441d17e07873475886f9689e84e6345') in 0.013416 seconds 
+Editor requested this worker to shutdown with reason: Scaling down because of idle timeout
+AssetImportWorker is now disconnected from the server
+Process exiting
+Exiting without the bug reporter. Application will terminate with return code 0
