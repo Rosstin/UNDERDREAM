@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/SCENES/BurgerBimbo.unity
+    guid: 4e89d26e2b4a1364d871993352ec95cb
   m_configObjects: {}
