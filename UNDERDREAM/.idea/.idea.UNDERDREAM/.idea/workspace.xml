@@ -2,21 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4f084e8a-929b-4fa9-9dd2-8618b446b2ae" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../PuzzlePig/Assets/Prefabs/BurgerBimbo/Ingredient.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/../PuzzlePig/Assets/Prefabs/BurgerBimbo/Ingredient.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PuzzlePig/Assets/SCENES/BurgerBimbo.unity" beforeDir="false" afterPath="$PROJECT_DIR$/../PuzzlePig/Assets/SCENES/BurgerBimbo.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../PuzzlePig/Assets/SCRIPTS/BurgerBimbo/BurgGS.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../PuzzlePig/Assets/SCRIPTS/BurgerBimbo/BurgGS.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../PuzzlePig/Assets/SCRIPTS/BurgerBimbo/Ingredient.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../PuzzlePig/Assets/SCRIPTS/BurgerBimbo/Ingredient.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../PuzzlePig/Assets/SCRIPTS/BurgerBimbo/IngredientSpawner.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../PuzzlePig/Assets/SCRIPTS/BurgerBimbo/IngredientSpawner.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../PuzzlePig/Assets/SCRIPTS/BurgerBimbo/IngredientTray.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../PuzzlePig/Assets/SCRIPTS/BurgerBimbo/IngredientTray.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PuzzlePig/Logs/AssetImportWorker0-prev.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PuzzlePig/Logs/AssetImportWorker1-prev.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PuzzlePig/Logs/shadercompiler-UnityShaderCompiler.exe0.log" beforeDir="false" afterPath="$PROJECT_DIR$/../PuzzlePig/Logs/shadercompiler-UnityShaderCompiler.exe0.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PuzzlePig/UserSettings/Layouts/default-2022.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/../PuzzlePig/UserSettings/Layouts/default-2022.dwlt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PuzzlePig/Logs/AssetImportWorker0.log" beforeDir="false" afterPath="$PROJECT_DIR$/../PuzzlePig/Logs/AssetImportWorker0.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PuzzlePig/Logs/AssetImportWorker1.log" beforeDir="false" afterPath="$PROJECT_DIR$/../PuzzlePig/Logs/AssetImportWorker1.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.UNDERDREAM/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.UNDERDREAM/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logs/AssetImportWorker0-prev.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logs/AssetImportWorker1-prev.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logs/shadercompiler-UnityShaderCompiler.exe0.log" beforeDir="false" afterPath="$PROJECT_DIR$/Logs/shadercompiler-UnityShaderCompiler.exe0.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-2022.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-2022.dwlt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Logs/AssetImportWorker0.log" beforeDir="false" afterPath="$PROJECT_DIR$/Logs/AssetImportWorker0.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Logs/AssetImportWorker1.log" beforeDir="false" afterPath="$PROJECT_DIR$/Logs/AssetImportWorker1.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Logs/shadercompiler-AssetImportWorker0.log" beforeDir="false" afterPath="$PROJECT_DIR$/Logs/shadercompiler-AssetImportWorker0.log" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

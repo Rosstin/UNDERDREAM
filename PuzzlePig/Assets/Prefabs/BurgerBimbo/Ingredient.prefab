@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7151529849711368205}
   - component: {fileID: 7151529849711368202}
   - component: {fileID: 7151529849711368203}
+  - component: {fileID: 2635106719268810621}
   m_Layer: 0
   m_Name: onion
   m_TagString: Untagged
@@ -134,6 +135,19 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 79373629035814992, guid: 9652813af10ecd042b00fe1925aec729, type: 3}
+--- !u!114 &2635106719268810621
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7151529849711368201}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 027a67ea91bc7744a98c477ac9be5517, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Parent: {fileID: 7151529850378516005}
 --- !u!1 &7151529849818799654
 GameObject:
   m_ObjectHideFlags: 0
@@ -147,6 +161,7 @@ GameObject:
   - component: {fileID: 7151529849818799658}
   - component: {fileID: 7151529849818799659}
   - component: {fileID: 7151529849818799656}
+  - component: {fileID: 7623988740061583819}
   m_Layer: 0
   m_Name: meat
   m_TagString: Untagged
@@ -268,6 +283,19 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 7729691090633770737, guid: 9652813af10ecd042b00fe1925aec729, type: 3}
+--- !u!114 &7623988740061583819
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7151529849818799654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 027a67ea91bc7744a98c477ac9be5517, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Parent: {fileID: 7151529850378516005}
 --- !u!1 &7151529850378516002
 GameObject:
   m_ObjectHideFlags: 0
@@ -319,13 +347,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6d54ce93e3732346b368a984c1e05db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BunTop: {fileID: 7151529851675833598}
-  Tomato: {fileID: 7151529851323265033}
-  Onion: {fileID: 7151529849711368201}
-  Lettuce: {fileID: 7151529851282208644}
-  Cheese: {fileID: 7151529851129649009}
-  Meat: {fileID: 7151529849818799654}
-  BunBottom: {fileID: 7151529850553862143}
+  BunTop: {fileID: 4174848039643687399}
+  Tomato: {fileID: 5835025750017249150}
+  Onion: {fileID: 2635106719268810621}
+  Lettuce: {fileID: 779273582839010794}
+  Cheese: {fileID: 8498482175075310982}
+  Meat: {fileID: 7623988740061583819}
+  BunBottom: {fileID: 9121724571833414674}
 --- !u!1 &7151529850553862143
 GameObject:
   m_ObjectHideFlags: 0
@@ -339,6 +367,7 @@ GameObject:
   - component: {fileID: 7151529850553862083}
   - component: {fileID: 7151529850553862080}
   - component: {fileID: 7151529850553862081}
+  - component: {fileID: 9121724571833414674}
   m_Layer: 0
   m_Name: bunbottom
   m_TagString: Untagged
@@ -460,6 +489,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 8
   m_CollisionDetection: 0
+--- !u!114 &9121724571833414674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7151529850553862143}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 027a67ea91bc7744a98c477ac9be5517, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Parent: {fileID: 7151529850378516005}
 --- !u!1 &7151529851129649009
 GameObject:
   m_ObjectHideFlags: 0
@@ -473,6 +515,7 @@ GameObject:
   - component: {fileID: 7151529851129649013}
   - component: {fileID: 7151529851129649010}
   - component: {fileID: 7151529851129649011}
+  - component: {fileID: 8498482175075310982}
   m_Layer: 0
   m_Name: cheese_slice
   m_TagString: Untagged
@@ -594,6 +637,19 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 2871135439365337895, guid: 9652813af10ecd042b00fe1925aec729, type: 3}
+--- !u!114 &8498482175075310982
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7151529851129649009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 027a67ea91bc7744a98c477ac9be5517, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Parent: {fileID: 7151529850378516005}
 --- !u!1 &7151529851282208644
 GameObject:
   m_ObjectHideFlags: 0
@@ -607,6 +663,7 @@ GameObject:
   - component: {fileID: 7151529851282208648}
   - component: {fileID: 7151529851282208649}
   - component: {fileID: 7151529851282208646}
+  - component: {fileID: 779273582839010794}
   m_Layer: 0
   m_Name: lettuce_slice
   m_TagString: Untagged
@@ -728,6 +785,19 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -7522293687311095077, guid: 9652813af10ecd042b00fe1925aec729, type: 3}
+--- !u!114 &779273582839010794
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7151529851282208644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 027a67ea91bc7744a98c477ac9be5517, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Parent: {fileID: 7151529850378516005}
 --- !u!1 &7151529851323265033
 GameObject:
   m_ObjectHideFlags: 0
@@ -741,6 +811,7 @@ GameObject:
   - component: {fileID: 7151529851323265037}
   - component: {fileID: 7151529851323265034}
   - component: {fileID: 7151529851323265035}
+  - component: {fileID: 5835025750017249150}
   m_Layer: 0
   m_Name: tomato
   m_TagString: Untagged
@@ -862,6 +933,19 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -3177037432349238138, guid: 9652813af10ecd042b00fe1925aec729, type: 3}
+--- !u!114 &5835025750017249150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7151529851323265033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 027a67ea91bc7744a98c477ac9be5517, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Parent: {fileID: 7151529850378516005}
 --- !u!1 &7151529851675833598
 GameObject:
   m_ObjectHideFlags: 0
@@ -875,6 +959,7 @@ GameObject:
   - component: {fileID: 7151529851675833538}
   - component: {fileID: 7151529851675833539}
   - component: {fileID: 7151529851675833536}
+  - component: {fileID: 4174848039643687399}
   m_Layer: 0
   m_Name: buntop
   m_TagString: Untagged
@@ -996,3 +1081,16 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -287379027290620770, guid: 9652813af10ecd042b00fe1925aec729, type: 3}
+--- !u!114 &4174848039643687399
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7151529851675833598}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 027a67ea91bc7744a98c477ac9be5517, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Parent: {fileID: 7151529850378516005}

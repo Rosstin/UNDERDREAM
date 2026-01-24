@@ -6,8 +6,15 @@ public class IngredientSpawner : MonoBehaviour
 {
     [Header("Outlets")]
     public GameObject refCube;
-    public BoxCollider myCollider;
+    public AudioSource splatsfx;
+    
+    [Header("Refs for Ingredients")]
     public GameObject fallingIngsParent;
+    public BurgerParent burgerParent;
+    public ServingPlate servingPlate;
+    public BurgGS burgGs;
+    public MissedParent missedParent;
+    public ScoredParent scoredParent;
     
     [Header("Prefabs")]
     public Ingredient ingredientPrefab;
@@ -30,14 +37,16 @@ public class IngredientSpawner : MonoBehaviour
     {
         if (displayedIngredient != null)
         {
-            Debug.LogError("Making new ingredient before releasing!?");
-            return;
+            // chuck it. rosstintodo - funny animation? fling it away?
+            
+            // or -- reuse it?
+        }
+        else
+        {
+            displayedIngredient = GameObject.Instantiate(ingredientPrefab).GetComponent<Ingredient>();
         }
         
-        displayedIngredient = GameObject.Instantiate(ingredientPrefab).GetComponent<Ingredient>();
-
-        displayedIngredient.Initialize(fallingIngsParent);
-        
+        displayedIngredient.Initialize(fallingParent: fallingIngsParent, burgerParent: burgerParent, servingPlate: servingPlate, splatSFX: splatsfx, burggs: burgGs, missedParent: missedParent, scoredParent:scoredParent);
         
         displayedIngredient.transform.SetParent(this.transform);
         displayedIngredient.SetType(ingredient);

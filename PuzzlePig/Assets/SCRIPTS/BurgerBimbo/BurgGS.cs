@@ -9,10 +9,9 @@ public class BurgGS : BaseController
 {
     [Header("Outlets")]
     public IngredientTray IngredientTray;
-
     public Collider CollisionPlane;
-    
     public Camera mainCamera;
+    public BurgerParent burgerParent;
     
     private ShiftData currentShift;
 
@@ -44,6 +43,7 @@ public class BurgGS : BaseController
             {
                 heldIng.SetState(Ingredient.IngredientState.Falling);
                 heldIng = null;
+                //StartNextIngredient();
             }
             else
             {
@@ -73,8 +73,6 @@ public class BurgGS : BaseController
             if (Physics.Raycast(ray, out hit))
             {
                 Transform objectHit = hit.transform;
-
-                Debug.Log("hit:  " + objectHit.name);
                 
                 IngredientSpawner ingSpawner = objectHit.gameObject.GetComponent<IngredientSpawner>();
                 //Ingredient ing = objectHit.gameObject.GetComponent<Ingredient>();
@@ -82,12 +80,8 @@ public class BurgGS : BaseController
                 if (ingSpawner != null)
                 {
                     heldIng = ingSpawner.ReleaseDisplayedIngredient();
-                    Debug.Log("held ing  " + heldIng.GetIngredientType());
                 }
                 
-                // get my class and generate
-
-                //Debug.Log(objectHit.name);
             }
         }
         
@@ -96,17 +90,37 @@ public class BurgGS : BaseController
 
     private void StartNextOrder()
     {
+        
+        
         currentOrderIndex++;
-        currentIngredientIndex = -1;
-        StartNextIngredient();
+
+        if (currentOrderIndex >= currentShift.Orders.Count)
+        {
+            Debug.Log("rosstintodo FINISHED!");
+        }
+        else
+        {
+            currentIngredientIndex = currentShift.Orders[currentOrderIndex].Recipe.Count;
+            StartNextIngredient();
+        }
+        
     }
 
-    private void StartNextIngredient()
+    public void StartNextIngredient()
     {
-        currentIngredientIndex++;
-        var correctIng = currentShift.Orders[currentOrderIndex].Recipe[currentIngredientIndex];
+        currentIngredientIndex--;
 
-        ShowIngredientOptions(GetIngredientTypeForString(correctIng));
+        if (currentIngredientIndex < 0)
+        {
+            burgerParent.ScoreBurger();
+            StartNextOrder();
+        }
+        else
+        {
+            var correctIng = currentShift.Orders[currentOrderIndex].Recipe[currentIngredientIndex];
+            ShowIngredientOptions(GetIngredientTypeForString(correctIng));
+        }
+        
         
     }
 

@@ -13,4 +13,5 @@ public class IngredientTray : MonoBehaviour
         CenterIngredient.MakeAndDisplayNewIngredient(ingredients[1]);
         RightIngredient.MakeAndDisplayNewIngredient(ingredients[2]);
     }
+
 }
