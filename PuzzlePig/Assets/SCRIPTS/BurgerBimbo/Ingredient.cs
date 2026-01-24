@@ -13,9 +13,21 @@ public class Ingredient : MonoBehaviour
     public GameObject Meat;
     public GameObject BunBottom;
     
-    [Header("Parameters")]
+    private GameObject fallingIngsParent;
+    
     private IngredientTypes MyIngredientType;
 
+    private IngredientState myState;
+    
+    public enum IngredientState
+    {
+        Unset,
+        Tray,
+        Held,
+        Falling,
+        Burger
+    }
+    
     public enum IngredientTypes
     {
         Unset,
@@ -44,11 +56,51 @@ public class Ingredient : MonoBehaviour
         BunBottom.SetActive(false);
     }
 
-    public void SetFrozen(bool freeze)
+    private void EnableAllColliders(bool enabled)
     {
-        GetGOForIngredient(MyIngredientType).GetComponent<Rigidbody>().isKinematic = freeze;
+        BunTop.GetComponent<Collider>().enabled = enabled;
+        Tomato.GetComponent<Collider>().enabled = enabled;
+        Onion.GetComponent<Collider>().enabled = enabled;
+        Lettuce.GetComponent<Collider>().enabled = enabled;
+        Cheese.GetComponent<Collider>().enabled = enabled;
+        Meat.GetComponent<Collider>().enabled = enabled;
+        BunBottom.GetComponent<Collider>().enabled = enabled;
     }
-
+    
+    public void SetState(IngredientState newState)
+    {
+        var oldState = myState;
+        
+        switch (newState)
+        {
+            case IngredientState.Unset:
+                myState = IngredientState.Unset;
+                break;
+            case IngredientState.Tray:
+                this.EnableAllColliders(false);
+                GetGOForIngredient(MyIngredientType).GetComponent<Rigidbody>().isKinematic = true;
+                myState = IngredientState.Tray;
+                break;
+            case IngredientState.Held:
+                this.transform.SetParent(fallingIngsParent.transform);
+                this.transform.localRotation = Quaternion.identity;
+                this.EnableAllColliders(false);
+                GetGOForIngredient(MyIngredientType).GetComponent<Rigidbody>().isKinematic = true;
+                myState = IngredientState.Held;
+                break;
+            case IngredientState.Falling:
+                this.EnableAllColliders(true);
+                GetGOForIngredient(MyIngredientType).GetComponent<Rigidbody>().isKinematic = false;
+                myState = IngredientState.Falling;
+                break;
+            case IngredientState.Burger:
+                myState = IngredientState.Burger;
+                break;
+        }
+        
+    }
+    
+    
     private GameObject GetGOForIngredient(IngredientTypes type)
     {
         switch (type)
@@ -111,4 +163,8 @@ public class Ingredient : MonoBehaviour
         
     }
 
+    public void Initialize(GameObject fallingParent)
+    {
+        this.fallingIngsParent = fallingParent;
+    }
 }

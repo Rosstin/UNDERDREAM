@@ -9,8 +9,8 @@ public class IngredientTray : MonoBehaviour
 
     public void SetIngs(List<Ingredient.IngredientTypes> ingredients)
     {
-        LeftIngredient.MakeIngredient(ingredients[0]);
-        CenterIngredient.MakeIngredient(ingredients[1]);
-        RightIngredient.MakeIngredient(ingredients[2]);
+        LeftIngredient.MakeAndDisplayNewIngredient(ingredients[0]);
+        CenterIngredient.MakeAndDisplayNewIngredient(ingredients[1]);
+        RightIngredient.MakeAndDisplayNewIngredient(ingredients[2]);
     }
 }

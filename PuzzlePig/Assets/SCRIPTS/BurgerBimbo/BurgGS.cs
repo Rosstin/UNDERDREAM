@@ -10,15 +10,21 @@ public class BurgGS : BaseController
     [Header("Outlets")]
     public IngredientTray IngredientTray;
 
+    public Collider CollisionPlane;
+    
     public Camera mainCamera;
     
     private ShiftData currentShift;
 
+    private float Z_INTERACTION_ZONE = 0f; // interactions should happen at z 0 
+    
     private int currentOrderIndex = 0;
     private int currentIngredientIndex = 0;
 
     private static System.Random rng = new System.Random();
 
+    private Ingredient heldIng = null;
+    
     void Start()
     {
         base.Start();
@@ -32,10 +38,34 @@ public class BurgGS : BaseController
     {
         BaseUpdate();
 
+        if (heldIng != null)
+        {
+            if (!CommandsHeldThisFrame.ContainsKey(Command.Fire))
+            {
+                heldIng.SetState(Ingredient.IngredientState.Falling);
+                heldIng = null;
+            }
+            else
+            {
+
+                Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+                
+                RaycastHit hit;
+                
+                if(CollisionPlane.Raycast(ray, out hit, 100f))
+                {
+                    heldIng.transform.position = hit.point;
+                }
+
+                
+                
+                
+                
+            }
+        }
+        
         if (CommandsStartedThisFrame.ContainsKey(Command.Fire))
         {
-            var mouseX = Input.mousePosition.x / Screen.width;
-            var mouseY = Input.mousePosition.y / Screen.height;
 
             RaycastHit hit;
             Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
@@ -43,8 +73,21 @@ public class BurgGS : BaseController
             if (Physics.Raycast(ray, out hit))
             {
                 Transform objectHit = hit.transform;
-            
-                Debug.Log(objectHit.name);
+
+                Debug.Log("hit:  " + objectHit.name);
+                
+                IngredientSpawner ingSpawner = objectHit.gameObject.GetComponent<IngredientSpawner>();
+                //Ingredient ing = objectHit.gameObject.GetComponent<Ingredient>();
+
+                if (ingSpawner != null)
+                {
+                    heldIng = ingSpawner.ReleaseDisplayedIngredient();
+                    Debug.Log("held ing  " + heldIng.GetIngredientType());
+                }
+                
+                // get my class and generate
+
+                //Debug.Log(objectHit.name);
             }
         }
         
