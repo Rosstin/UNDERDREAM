@@ -12,6 +12,7 @@ public class BurgGS : BaseController
     public Collider CollisionPlane;
     public Camera mainCamera;
     public BurgerParent burgerParent;
+    public OrderPreviewWindow orderPreviewWindow;
     
     private ShiftData currentShift;
 
@@ -100,7 +101,17 @@ public class BurgGS : BaseController
         }
         else
         {
-            currentIngredientIndex = currentShift.Orders[currentOrderIndex].Recipe.Count;
+
+            orderPreviewWindow.Clear();
+            
+            var curOrd = currentShift.Orders[currentOrderIndex];
+            for(int i = curOrd.Recipe.Count-1; i >= 0; i--)
+            {
+                var type = GetIngredientTypeForString(curOrd.Recipe[i]);
+                orderPreviewWindow.AddIngredient(type);
+            }
+            
+            currentIngredientIndex = curOrd.Recipe.Count;
             StartNextIngredient();
         }
         
@@ -113,7 +124,9 @@ public class BurgGS : BaseController
         if (currentIngredientIndex < 0)
         {
             burgerParent.ScoreBurger();
-            StartNextOrder();
+            
+            
+            
         }
         else
         {
@@ -122,6 +135,11 @@ public class BurgGS : BaseController
         }
         
         
+    }
+
+    public void DoneScoring()
+    {
+        StartNextOrder();
     }
 
     private Ingredient.IngredientTypes GetIngredientTypeForString(string typeAsString)
@@ -185,11 +203,30 @@ public class BurgGS : BaseController
             "BunBottom",
         };
 
+        
+        OrderData o3 = new OrderData();
+        o3.Description = "I want the Big Bimbo!";
+        o3.Recipe = new List<string>
+        {
+            "BunTop",
+            "Cheese",
+            "Meat",
+            "Lettuce",
+            "BunBottom",
+            "Cheese",
+            "Meat",
+            "Lettuce",
+            "Onion",
+            "BunBottom",
+        };
+
+        
         ShiftData shift1 = new ShiftData();
 
         var orders = new List<OrderData>();
         orders.Add(order1);
         orders.Add(order2);
+        orders.Add(o3);
 
         shift1.Orders = orders;
         

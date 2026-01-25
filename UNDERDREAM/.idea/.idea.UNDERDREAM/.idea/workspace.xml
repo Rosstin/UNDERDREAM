@@ -2,16 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4f084e8a-929b-4fa9-9dd2-8618b446b2ae" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../PuzzlePig/Assets/SCENES/BurgerBimbo.unity" beforeDir="false" afterPath="$PROJECT_DIR$/../PuzzlePig/Assets/SCENES/BurgerBimbo.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../PuzzlePig/Assets/SCRIPTS/BurgerBimbo/BurgGS.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../PuzzlePig/Assets/SCRIPTS/BurgerBimbo/BurgGS.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PuzzlePig/Assets/SCRIPTS/BurgerBimbo/Ingredient.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../PuzzlePig/Assets/SCRIPTS/BurgerBimbo/Ingredient.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PuzzlePig/Assets/SCRIPTS/BurgerBimbo/IngredientSpawner.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../PuzzlePig/Assets/SCRIPTS/BurgerBimbo/IngredientSpawner.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PuzzlePig/Assets/SCRIPTS/BurgerBimbo/IngredientTray.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../PuzzlePig/Assets/SCRIPTS/BurgerBimbo/IngredientTray.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PuzzlePig/Logs/AssetImportWorker0.log" beforeDir="false" afterPath="$PROJECT_DIR$/../PuzzlePig/Logs/AssetImportWorker0.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PuzzlePig/Logs/AssetImportWorker1.log" beforeDir="false" afterPath="$PROJECT_DIR$/../PuzzlePig/Logs/AssetImportWorker1.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.UNDERDREAM/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.UNDERDREAM/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logs/AssetImportWorker0.log" beforeDir="false" afterPath="$PROJECT_DIR$/Logs/AssetImportWorker0.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logs/AssetImportWorker1.log" beforeDir="false" afterPath="$PROJECT_DIR$/Logs/AssetImportWorker1.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logs/shadercompiler-AssetImportWorker0.log" beforeDir="false" afterPath="$PROJECT_DIR$/Logs/shadercompiler-AssetImportWorker0.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PuzzlePig/Assets/SCRIPTS/BurgerBimbo/BurgerParent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../PuzzlePig/Assets/SCRIPTS/BurgerBimbo/BurgerParent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PuzzlePig/UserSettings/EditorUserSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/../PuzzlePig/UserSettings/EditorUserSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Logs/AssetImportWorker0-prev.log" beforeDir="false" afterPath="$PROJECT_DIR$/Logs/AssetImportWorker0-prev.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Logs/AssetImportWorker0.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Logs/AssetImportWorker1-prev.log" beforeDir="false" afterPath="$PROJECT_DIR$/Logs/AssetImportWorker1-prev.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Logs/AssetImportWorker1.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Logs/shadercompiler-AssetImportWorker0.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Logs/shadercompiler-UnityShaderCompiler.exe0.log" beforeDir="false" afterPath="$PROJECT_DIR$/Logs/shadercompiler-UnityShaderCompiler.exe0.log" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,23 +31,23 @@
       </list>
     </option>
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 5
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
   <component name="ProjectId" id="1uK86qxHJ7HCqVqnCFtjG38FDDu" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "git-widget-placeholder": "master",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Standalone Player" type="RunUnityExe" factoryName="Unity Executable">
       <option name="EXE_PATH" value="$USER_HOME$/Dropbox (Aqualuft)/_UNDERDREAM-maoxun/_BUILDS4/ML (June 22, Mac)/MoxiesLemonP1.app/Contents/MacOS/Moxie's Lemon" />
@@ -119,6 +119,8 @@
       <updated>1624402752612</updated>
       <workItem from="1624402753220" duration="1914000" />
       <workItem from="1769288402092" duration="651000" />
+      <workItem from="1769294057289" duration="692000" />
+      <workItem from="1769295262790" duration="604000" />
     </task>
     <servers />
   </component>
@@ -127,7 +129,6 @@
   </component>
   <component name="UnityProjectConfiguration" hasMinimizedUI="true" />
   <component name="UnityProjectDiscoverer">
-    <option name="hasUnityReference" value="true" />
     <option name="unityProject" value="true" />
     <option name="unityProjectFolder" value="true" />
   </component>

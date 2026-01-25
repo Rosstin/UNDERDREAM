@@ -38,9 +38,12 @@ TagManager:
   - 
   - 
   m_SortingLayers:
-  - name: PigTop
-    uniqueID: 3444617623
+  - name: BG
+    uniqueID: 2965353345
     locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: PigTop
+    uniqueID: 3444617623
     locked: 0

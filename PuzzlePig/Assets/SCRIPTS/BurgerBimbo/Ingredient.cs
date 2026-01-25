@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = System.Random;
 
 public class Ingredient : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class Ingredient : MonoBehaviour
     public IngredientMesh Meat;
     public IngredientMesh BunBottom;
 
+    private List<IngredientMesh> listOfIngredientMeshes = null;
+    
     private AudioSource splatSFX;
     private ServingPlate myServingPlate;
     private GameObject fallingIngsParent;
@@ -25,6 +28,8 @@ public class Ingredient : MonoBehaviour
     private IngredientTypes MyIngredientType;
 
     private IngredientState myState;
+
+    private Vector3 flingForce = Vector3.negativeInfinity;
     
     public enum IngredientState
     {
@@ -34,7 +39,9 @@ public class Ingredient : MonoBehaviour
         Falling,
         Burger,
         Scored,
-        Missed
+        Missed,
+        Fling,
+        Displayed,
     }
     
     public enum IngredientTypes
@@ -47,6 +54,11 @@ public class Ingredient : MonoBehaviour
         Cheese,
         Meat,
         BunBottom,
+    }
+
+    private void Awake()
+    {
+        listOfIngredientMeshes =  new List<IngredientMesh>(){BunTop, Tomato, Onion, Lettuce, Cheese, Meat, BunBottom};
     }
 
     public IngredientTypes GetIngredientType()
@@ -63,6 +75,23 @@ public class Ingredient : MonoBehaviour
         Cheese.gameObject.SetActive(false);
         Meat.gameObject.SetActive(false);
         BunBottom.gameObject.SetActive(false);
+    }
+
+    private void SetRigidbodyZFrozen(bool frozen)
+    {
+        foreach (var im in listOfIngredientMeshes)
+        {
+            var rb = im.gameObject.GetComponent<Rigidbody>();
+            if (frozen)
+            {
+                rb.constraints = RigidbodyConstraints.FreezePositionZ;
+            }
+            else
+            {
+                rb.constraints = RigidbodyConstraints.None;
+            }
+
+        }
     }
 
     private void EnableAllColliders(bool enabled)
@@ -86,26 +115,31 @@ public class Ingredient : MonoBehaviour
                 myState = IngredientState.Unset;
                 break;
             case IngredientState.Tray:
+                SetRigidbodyZFrozen(true);
+                myState = IngredientState.Tray;
                 this.gameObject.SetActive(true);
                 this.EnableAllColliders(false);
                 GetGOForIngredient(MyIngredientType).GetComponent<Rigidbody>().isKinematic = true;
-                myState = IngredientState.Tray;
                 break;
             case IngredientState.Held:
+                SetRigidbodyZFrozen(true);
+                myState = IngredientState.Held;
                 this.gameObject.SetActive(true);
                 this.transform.SetParent(fallingIngsParent.transform);
                 this.transform.localRotation = Quaternion.identity;
                 this.EnableAllColliders(false);
                 GetGOForIngredient(MyIngredientType).GetComponent<Rigidbody>().isKinematic = true;
-                myState = IngredientState.Held;
                 break;
             case IngredientState.Falling:
+                SetRigidbodyZFrozen(true);
+                myState = IngredientState.Falling;
                 this.gameObject.SetActive(true);
                 this.EnableAllColliders(true);
                 GetGOForIngredient(MyIngredientType).GetComponent<Rigidbody>().isKinematic = false;
-                myState = IngredientState.Falling;
                 break;
             case IngredientState.Burger:
+                SetRigidbodyZFrozen(true);
+                myState = IngredientState.Burger;
                 // make a splat sound
                 this.gameObject.SetActive(true);
                 splatSFX.Play();
@@ -113,25 +147,50 @@ public class Ingredient : MonoBehaviour
                 this.burgerParent.AddIngredient(this);
                 
                 GetGOForIngredient(MyIngredientType).GetComponent<Rigidbody>().isKinematic = true;
-                myState = IngredientState.Burger;
 
                 this.gamestate.StartNextIngredient();
                 
                 break;
             case IngredientState.Missed:
+                SetRigidbodyZFrozen(true);
+                myState = IngredientState.Missed;
                 this.gamestate.StartNextIngredient();
                 this.gameObject.SetActive(false);
                 this.transform.parent = missedParent.transform;
                 break;
+            case IngredientState.Fling:
+                myState = IngredientState.Fling;
+                SetRigidbodyZFrozen(false);
+                var rb = GetGOForIngredient(MyIngredientType).GetComponent<Rigidbody>();
+                rb.isKinematic = false;
+                
+                rb.AddForce(flingForce, ForceMode.Force);
+                break;
             case IngredientState.Scored:
+                myState = IngredientState.Scored;
+                SetRigidbodyZFrozen(true);
                 this.transform.parent = scoredParent.transform;
-                this.gameObject.SetActive(false);
+
+                StartCoroutine(HideAndDestroy());
+                
+                break;
+            case IngredientState.Displayed:
+                myState = IngredientState.Displayed;
+                SetRigidbodyZFrozen(true);
+                GetGOForIngredient(MyIngredientType).GetComponent<Rigidbody>().isKinematic = true;
+                EnableAllColliders(false);
                 break;
         }
         
     }
-    
-    
+
+    private IEnumerator HideAndDestroy()
+    {
+        yield return new WaitForSeconds(4f);
+        DestroySelf();
+    }
+
+
     private GameObject GetGOForIngredient(IngredientTypes type)
     {
         switch (type)
@@ -178,33 +237,6 @@ public class Ingredient : MonoBehaviour
     }
 
 
-    // Update is called once per frame
-    void Update()
-    {
-        switch (myState)
-        {
-            case IngredientState.Unset:
-                break;
-            case IngredientState.Tray:
-                break;
-            case IngredientState.Held:
-                break;
-            case IngredientState.Falling:
-                
-                //if(myServingPlate.GetComponent<Collider>().touc)
-                /*
-                if(myServingPlate.GetComponent<ServingPlate>().isKinematic)
-                
-                if(GetGOForIngredient(MyIngredientType).GetComponent<Collider>()())
-                */
-                break;
-            case IngredientState.Burger:
-                break;
-            case IngredientState.Scored:
-                break;
-        }
-        
-    }
 
     public void Initialize(GameObject fallingParent, BurgerParent burgerParent, ServingPlate servingPlate, AudioSource splatSFX, BurgGS burggs, MissedParent missedParent, ScoredParent scoredParent)
     {
@@ -224,14 +256,13 @@ public class Ingredient : MonoBehaviour
 
         if (ingredientMesh != null || servingPlate != null)
         {
-
-            if (myState == IngredientState.Burger)
+            if(myState == IngredientState.Falling)
             {
-                // ignore
+                SetState(IngredientState.Burger);
             }
             else
             {
-                SetState(IngredientState.Burger);
+                // ignore
             }
             
         }
@@ -241,5 +272,21 @@ public class Ingredient : MonoBehaviour
     public void Score()
     {
         SetState(IngredientState.Scored);
+    }
+
+    public void Fling(Vector3 force)
+    {
+        this.flingForce = force;
+        SetState(IngredientState.Fling);
+    }
+
+    public void DestroySelf()
+    {
+        foreach(Transform child in this.transform)
+        {
+            Destroy(child.gameObject);
+        }
+        
+        Destroy(gameObject);
     }
 }
