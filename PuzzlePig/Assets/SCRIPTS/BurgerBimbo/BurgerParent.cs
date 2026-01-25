@@ -1,6 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class BurgerParent : MonoBehaviour
 {
@@ -11,11 +14,49 @@ public class BurgerParent : MonoBehaviour
     
     private List<Ingredient> myIngredients = new List<Ingredient>();
 
+    
+    private TextMeshProUGUI scoreTextRef;
+    
+    #region scoring
+    private Dictionary<Ingredient.IngredientTypes,int> actualTypesToNumbers = new Dictionary<Ingredient.IngredientTypes,int>();
+    #endregion
+    
     private OrderData correctOrder;
 
-    public void ScoreBurger()
+    public void ScoreBurger(Dictionary<Ingredient.IngredientTypes,int> idealTypesToNumbers, TextMeshProUGUI scoreText)
     {
         // play a triumphant sfx
+        // calculate accuracy score
+        // collection of parts vs what's in the burger
+
+        scoreTextRef = scoreText;
+
+        int idealTotalIngs = 0;
+        int totalCorrectIngs = 0;
+        foreach (var key in idealTypesToNumbers.Keys)
+        {
+            var ingType = key;
+            int idealNumOfType = idealTypesToNumbers[key];
+
+            int actualNumOfType = 0;
+            if (actualTypesToNumbers.ContainsKey(ingType) == false)
+            {
+                // skip - must not have obtained
+            }
+            else
+            {
+                actualNumOfType = actualTypesToNumbers[key];
+            }
+
+            totalCorrectIngs += Mathf.Min(actualNumOfType, idealNumOfType);
+            idealTotalIngs += idealNumOfType;
+        }
+
+        
+        float correctPercent = (((float)totalCorrectIngs / (float)idealTotalIngs));
+        string formattedPercent = String.Format("{0:P0}.", correctPercent);
+
+        scoreTextRef.text = "ACCURACY: " + totalCorrectIngs + " / " + idealTotalIngs + " : " + formattedPercent;
         
         StartCoroutine(ScoreCoroutine());
         
@@ -65,6 +106,9 @@ public class BurgerParent : MonoBehaviour
         }
         
         myIngredients.Clear();
+        actualTypesToNumbers.Clear();
+
+        scoreTextRef.text = "";
 
         gamestate.DoneScoring();
 
@@ -75,6 +119,11 @@ public class BurgerParent : MonoBehaviour
     {
         ingredient.transform.SetParent(this.transform);
         myIngredients.Add(ingredient);
+        
+        if (!actualTypesToNumbers.TryAdd(ingredient.GetIngredientType(), 1))
+        {
+            actualTypesToNumbers[ingredient.GetIngredientType()] += 1;
+        }
     }
     
 }

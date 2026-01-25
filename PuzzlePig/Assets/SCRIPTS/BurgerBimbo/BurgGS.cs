@@ -2,8 +2,17 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using Random = UnityEngine.Random;
+
+/*
+public class TrackedScore
+{
+    private int missedIngredients = 0;
+    private float
+}
+*/
 
 public class BurgGS : BaseController
 {
@@ -13,6 +22,7 @@ public class BurgGS : BaseController
     public Camera mainCamera;
     public BurgerParent burgerParent;
     public OrderPreviewWindow orderPreviewWindow;
+    public TextMeshProUGUI scoreText;
     
     private ShiftData currentShift;
 
@@ -24,12 +34,29 @@ public class BurgGS : BaseController
     private static System.Random rng = new System.Random();
 
     private Ingredient heldIng = null;
+
+    #region scoring
+    private Dictionary<Ingredient.IngredientTypes,int> idealTypesToNumbers = new Dictionary<Ingredient.IngredientTypes,int>();
+    #endregion
+    
+    
     
     void Start()
     {
         base.Start();
+
+        Shift1();
         
-        currentShift = GetSampleShift();
+    }
+
+    void Shift1()
+    {
+        // todo music
+        // todo - customers say the orders they want
+        // todo - scoring system
+        // todo opponent?
+        
+        currentShift = GetShift1();
         currentOrderIndex = -1;
         StartNextOrder();
     }
@@ -93,6 +120,8 @@ public class BurgGS : BaseController
     {
         
         
+        
+        
         currentOrderIndex++;
 
         if (currentOrderIndex >= currentShift.Orders.Count)
@@ -101,18 +130,33 @@ public class BurgGS : BaseController
         }
         else
         {
-
-            orderPreviewWindow.Clear();
-            
+            // set current ingredient index to top 
             var curOrd = currentShift.Orders[currentOrderIndex];
-            for(int i = curOrd.Recipe.Count-1; i >= 0; i--)
-            {
-                var type = GetIngredientTypeForString(curOrd.Recipe[i]);
-                orderPreviewWindow.AddIngredient(type);
-            }
-            
             currentIngredientIndex = curOrd.Recipe.Count;
+
+            // populate the preview window and fill scoring dictionary
+            PopulatePreviewWindowAndFillScoringDictionary();
+
+            // populate the tray at the top of the screen
             StartNextIngredient();
+        }
+        
+    }
+
+    private void PopulatePreviewWindowAndFillScoringDictionary()
+    {
+        orderPreviewWindow.Clear();
+        var curOrd = currentShift.Orders[currentOrderIndex];
+        idealTypesToNumbers.Clear();
+        for(int i = curOrd.Recipe.Count-1; i >= 0; i--)
+        {
+            var type = GetIngredientTypeForString(curOrd.Recipe[i]);
+            orderPreviewWindow.AddIngredient(type);
+
+            if (!idealTypesToNumbers.TryAdd(type, 1))
+            {
+                idealTypesToNumbers[type] += 1;
+            }
         }
         
     }
@@ -123,7 +167,7 @@ public class BurgGS : BaseController
 
         if (currentIngredientIndex < 0)
         {
-            burgerParent.ScoreBurger();
+            burgerParent.ScoreBurger(idealTypesToNumbers: idealTypesToNumbers, scoreText: scoreText);
             
             
             
@@ -179,7 +223,7 @@ public class BurgGS : BaseController
         IngredientTray.SetIngs(shuffledList);
     }
 
-    private ShiftData GetSampleShift()
+    private ShiftData GetShift1()
     {
         OrderData order1 = new OrderData();
         order1.Description = "Just a plain burger, please!";
