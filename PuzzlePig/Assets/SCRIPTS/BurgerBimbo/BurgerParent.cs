@@ -25,6 +25,8 @@ public class BurgerParent : MonoBehaviour
 
     public void ScoreBurger(Dictionary<Ingredient.IngredientTypes,int> idealTypesToNumbers, TextMeshProUGUI scoreText)
     {
+        gamestate.PauseTimer();
+        
         // play a triumphant sfx
         // calculate accuracy score
         // collection of parts vs what's in the burger
@@ -54,9 +56,9 @@ public class BurgerParent : MonoBehaviour
 
         
         float correctPercent = (((float)totalCorrectIngs / (float)idealTotalIngs));
-        string formattedPercent = String.Format("{0:P0}.", correctPercent);
+        string formattedPercent = String.Format("{0:P0}", correctPercent);
 
-        scoreTextRef.text = "ACCURACY: " + totalCorrectIngs + " / " + idealTotalIngs + " : " + formattedPercent;
+        scoreTextRef.text = "" + totalCorrectIngs + " / " + idealTotalIngs + " : " + formattedPercent;
         
         StartCoroutine(ScoreCoroutine());
         

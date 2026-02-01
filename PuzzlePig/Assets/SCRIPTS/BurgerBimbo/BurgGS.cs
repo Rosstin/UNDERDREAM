@@ -23,6 +23,7 @@ public class BurgGS : BaseController
     public BurgerParent burgerParent;
     public OrderPreviewWindow orderPreviewWindow;
     public TextMeshProUGUI scoreText;
+    public TextMeshProUGUI timeText;
     
     private ShiftData currentShift;
 
@@ -35,15 +36,29 @@ public class BurgGS : BaseController
 
     private Ingredient heldIng = null;
 
+    private float timeElapsedSeconds = 0f; // total elapsed time in seconds
+    
+    
+    
     #region scoring
     private Dictionary<Ingredient.IngredientTypes,int> idealTypesToNumbers = new Dictionary<Ingredient.IngredientTypes,int>();
     #endregion
+
+    public enum BurgerGameState
+    {
+        Unset,
+        TimerActive,
+        TimerPaused,
+        ScoreScreen
+    }
     
-    
+    private BurgerGameState currentBurgerGameState = BurgerGameState.Unset;
     
     void Start()
     {
         base.Start();
+
+        scoreText.text = "";
 
         Shift1();
         
@@ -51,19 +66,26 @@ public class BurgGS : BaseController
 
     void Shift1()
     {
-        // todo music
         // todo - customers say the orders they want
-        // todo - scoring system
+        // todo - scoring system incorporates timer
         // todo opponent?
+        // todo a nice font
         
         currentShift = GetShift1();
         currentOrderIndex = -1;
         StartNextOrder();
     }
 
+    
     void Update()
     {
         BaseUpdate();
+
+        if (currentBurgerGameState == BurgerGameState.TimerActive)
+        {
+            timeElapsedSeconds += Time.deltaTime;
+            timeText.text = timeElapsedSeconds.ToString("F0");
+        }
 
         if (heldIng != null)
         {
@@ -71,7 +93,6 @@ public class BurgGS : BaseController
             {
                 heldIng.SetState(Ingredient.IngredientState.Falling);
                 heldIng = null;
-                //StartNextIngredient();
             }
             else
             {
@@ -84,11 +105,6 @@ public class BurgGS : BaseController
                 {
                     heldIng.transform.position = hit.point;
                 }
-
-                
-                
-                
-                
             }
         }
         
@@ -116,17 +132,65 @@ public class BurgGS : BaseController
 
     }
 
+    public void SetGameState(BurgerGameState state)
+    {
+        switch (state)
+        {
+            case BurgerGameState.TimerActive:
+                currentBurgerGameState =  BurgerGameState.TimerActive;
+                break;
+            case BurgerGameState.TimerPaused:
+                currentBurgerGameState =  BurgerGameState.TimerPaused;
+                break;
+            case BurgerGameState.ScoreScreen:
+                currentBurgerGameState =  BurgerGameState.ScoreScreen;
+                // pause timer, show score stuff
+                break;
+            case BurgerGameState.Unset:
+            default:
+                Debug.LogError("setting game state to something invalid - " + state);
+                break;
+            
+        }
+    }
+    
+    private void ResetTimer()
+    {
+        timeElapsedSeconds = 0f;
+        timeText.text = "";
+    }
+    
+    public void PauseTimer()
+    {
+        SetGameState(BurgerGameState.TimerPaused);
+        currentBurgerGameState = BurgerGameState.TimerPaused;
+    }
+
+    public void ResumeTimer()
+    {
+        SetGameState(BurgerGameState.TimerActive);
+        currentBurgerGameState = BurgerGameState.TimerActive;
+    }
+    
     private void StartNextOrder()
     {
-        
-        
-        
-        
+        ResetTimer();
+        currentBurgerGameState = BurgerGameState.TimerActive;
+        scoreText.text = "";
         currentOrderIndex++;
+
+        
 
         if (currentOrderIndex >= currentShift.Orders.Count)
         {
-            Debug.Log("rosstintodo FINISHED!");
+            PauseTimer();
+            
+            //todo score shift 
+
+            scoreText.text = "Shift finished! (Todo)";
+            
+            SetGameState(BurgerGameState.ScoreScreen);
+            
         }
         else
         {
@@ -139,6 +203,7 @@ public class BurgGS : BaseController
 
             // populate the tray at the top of the screen
             StartNextIngredient();
+            
         }
         
     }
@@ -163,6 +228,8 @@ public class BurgGS : BaseController
 
     public void StartNextIngredient()
     {
+        ResumeTimer();
+        
         currentIngredientIndex--;
 
         if (currentIngredientIndex < 0)
