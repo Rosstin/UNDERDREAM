@@ -21,10 +21,13 @@ public class BurgGS : BaseController
     public Collider CollisionPlane;
     public Camera mainCamera;
     public BurgerParent burgerParent;
+    public MissedParent missedParent;
     public OrderPreviewWindow orderPreviewWindow;
     public TextMeshProUGUI scoreText;
+    public TextMeshProUGUI missedText;
     public TextMeshProUGUI timeText;
     public GameObject fallzonePos;
+    public ServingPlate servingPlate;
     
     [Header("SFX Outlets")]
     public AudioSource splat1;
@@ -64,10 +67,14 @@ public class BurgGS : BaseController
     {
         base.Start();
 
-        scoreText.text = "";
-
         Shift1();
         
+    }
+
+    private void ClearScoreText()
+    {
+        scoreText.text = "";
+        missedText.text = "";
     }
 
     void Shift1()
@@ -92,6 +99,19 @@ public class BurgGS : BaseController
 
     }
 
+    private void PlayRandomSplatSfx()
+    {
+        if (UnityEngine.Random.Range(0f, 1f) > 0.5f)
+        {
+            splat1.Play();
+        }
+        else
+        {
+            splat2.Play();
+        }
+
+    }
+
     
     private void UpdateGameState()
     {
@@ -100,6 +120,14 @@ public class BurgGS : BaseController
             case  BurgerGameState.TimerActive:
                 timeElapsedSeconds += Time.deltaTime;
                 timeText.text = timeElapsedSeconds.ToString("F0");
+                
+                // ing falls below screen
+                if (ActiveIng!=null && ActiveIng.IsBelowScreen(fallzonePos))
+                {
+                    PlayRandomSplatSfx();
+                    ActiveIng.SetState(Ingredient.IngredientState.Missed);
+                }
+                
                 #region interactingWithIngredients 
                 if (heldIng != null)
                 {
@@ -123,12 +151,6 @@ public class BurgGS : BaseController
                         }
                     }
                     
-                    //todo hey if it's falling is it held?
-                    // ing falls below screen
-                    if (heldIng.transform.position.y < fallzonePos.transform.position.y)
-                    {
-                        heldIng.SetState(Ingredient.IngredientState.Missed);
-                    }
                 }
         
                 if (CommandsStartedThisFrame.ContainsKey(Command.Fire))
@@ -217,10 +239,8 @@ public class BurgGS : BaseController
     {
         ResetTimer();
         currentBurgerGameState = BurgerGameState.TimerActive;
-        scoreText.text = "";
+        ClearScoreText();
         currentOrderIndex++;
-
-        
 
         if (currentOrderIndex >= currentShift.Orders.Count)
         {
@@ -275,14 +295,14 @@ public class BurgGS : BaseController
 
         if (currentIngredientIndex < 0)
         {
-            burgerParent.ScoreBurger(idealTypesToNumbers: idealTypesToNumbers, scoreText: scoreText);
+            burgerParent.ScoreBurger(idealTypesToNumbers: idealTypesToNumbers, scoreText: scoreText, missedText: missedText);
             
             
             
         }
         else
         {
-            var heldIngredient = currentShift.Orders[currentOrderIndex].Recipe[currentIngredientIndex];
+            var correctIng = currentShift.Orders[currentOrderIndex].Recipe[currentIngredientIndex];
             ShowIngredientOptions(GetIngredientTypeForString(correctIng));
         }
         
@@ -386,6 +406,10 @@ public class BurgGS : BaseController
 
     }
 
+    public void UnsetActiveIngredient()
+    {
+        this.ActiveIng = null;
+    }
 
     public void SetActiveIngredient(Ingredient ing)
     {

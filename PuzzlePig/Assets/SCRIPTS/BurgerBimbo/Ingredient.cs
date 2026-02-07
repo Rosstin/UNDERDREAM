@@ -17,13 +17,10 @@ public class Ingredient : MonoBehaviour
 
     private List<IngredientMesh> listOfIngredientMeshes = null;
     
-    private AudioSource splatSFX;
-    private ServingPlate myServingPlate;
+    private AudioSource popSfx;
     private GameObject fallingIngsParent;
     private BurgGS gamestate;
     private BurgerParent burgerParent;
-    private MissedParent missedParent;
-    private ScoredParent scoredParent;
     
     private IngredientTypes MyIngredientType;
 
@@ -143,8 +140,11 @@ public class Ingredient : MonoBehaviour
                 SetRigidbodyZFrozen(true);
                 myState = IngredientState.Burger;
                 // make a splat sound
+                
+                gamestate.UnsetActiveIngredient();
+
                 this.gameObject.SetActive(true);
-                splatSFX.Play();
+                popSfx.Play();
 
                 this.burgerParent.AddIngredient(this);
                 
@@ -154,12 +154,15 @@ public class Ingredient : MonoBehaviour
                 
                 break;
             case IngredientState.Missed:
-                gamestate.SetActiveIngredient(null);
+                
+                this.burgerParent.MissIngredient(this);
+
+                gamestate.UnsetActiveIngredient();
                 SetRigidbodyZFrozen(true);
                 myState = IngredientState.Missed;
                 this.gamestate.StartNextIngredient();
                 this.gameObject.SetActive(false);
-                this.transform.parent = missedParent.transform;
+                this.transform.parent = gamestate.missedParent.transform;
                 break;
             case IngredientState.Fling:
                 myState = IngredientState.Fling;
@@ -170,10 +173,8 @@ public class Ingredient : MonoBehaviour
                 rb.AddForce(flingForce, ForceMode.Force);
                 break;
             case IngredientState.Scored:
-                gamestate.SetActiveIngredient(null);
                 myState = IngredientState.Scored;
                 SetRigidbodyZFrozen(true);
-                this.transform.parent = scoredParent.transform;
 
                 StartCoroutine(HideAndDestroy());
                 
@@ -242,15 +243,12 @@ public class Ingredient : MonoBehaviour
 
 
 
-    public void Initialize(GameObject fallingParent, BurgerParent burgerParent, ServingPlate servingPlate, AudioSource splatSFX, BurgGS burggs, MissedParent missedParent, ScoredParent scoredParent)
+    public void Initialize(GameObject fallingParent, BurgerParent burgerParent, AudioSource splatSFX, BurgGS burggs, MissedParent missedParent)
     {
         this.gamestate = burggs;
-        this.splatSFX = splatSFX;
+        this.popSfx = splatSFX;
         this.fallingIngsParent = fallingParent;
         this.burgerParent = burgerParent;
-        this.myServingPlate = servingPlate;
-        this.missedParent = missedParent;
-        this.scoredParent = scoredParent;
     }
     
     public void CollidedWith(Collision collision)
@@ -292,5 +290,17 @@ public class Ingredient : MonoBehaviour
         }
         
         Destroy(gameObject);
+    }
+
+    public bool IsBelowScreen(GameObject fallzonePos)
+    {
+        if (GetGOForIngredient(MyIngredientType).transform.position.y < fallzonePos.transform.position.y)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }

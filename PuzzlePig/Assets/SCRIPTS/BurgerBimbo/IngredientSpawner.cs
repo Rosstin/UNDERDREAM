@@ -11,10 +11,8 @@ public class IngredientSpawner : MonoBehaviour
     [Header("Refs for Ingredients")]
     public GameObject fallingIngsParent;
     public BurgerParent burgerParent;
-    public ServingPlate servingPlate;
     public BurgGS burgGs;
     public MissedParent missedParent;
-    public ScoredParent scoredParent;
     
     [Header("Prefabs")]
     public Ingredient ingredientPrefab;
@@ -46,7 +44,7 @@ public class IngredientSpawner : MonoBehaviour
             displayedIngredient = GameObject.Instantiate(ingredientPrefab).GetComponent<Ingredient>();
         }
         
-        displayedIngredient.Initialize(fallingParent: fallingIngsParent, burgerParent: burgerParent, servingPlate: servingPlate, splatSFX: splatsfx, burggs: burgGs, missedParent: missedParent, scoredParent:scoredParent);
+        displayedIngredient.Initialize(fallingParent: fallingIngsParent, burgerParent: burgerParent, splatSFX: splatsfx, burggs: burgGs, missedParent: missedParent);
         
         displayedIngredient.transform.SetParent(this.transform);
         displayedIngredient.SetType(ingredient);

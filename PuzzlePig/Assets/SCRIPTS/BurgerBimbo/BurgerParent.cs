@@ -7,15 +7,17 @@ using Random = UnityEngine.Random;
 
 public class BurgerParent : MonoBehaviour
 {
+    [Header("Outlets")]
     public BurgGS gamestate;
     public AudioSource triumphSfx;
     public AudioSource flingSfx;
     public GameObject confetti;
     
     private List<Ingredient> myIngredients = new List<Ingredient>();
-
+    private List<Ingredient> missedIngs = new List<Ingredient>();
     
     private TextMeshProUGUI scoreTextRef;
+    private TextMeshProUGUI missedTextRef;
     
     #region scoring
     private Dictionary<Ingredient.IngredientTypes,int> actualTypesToNumbers = new Dictionary<Ingredient.IngredientTypes,int>();
@@ -23,7 +25,7 @@ public class BurgerParent : MonoBehaviour
     
     private OrderData correctOrder;
 
-    public void ScoreBurger(Dictionary<Ingredient.IngredientTypes,int> idealTypesToNumbers, TextMeshProUGUI scoreText)
+    public void ScoreBurger(Dictionary<Ingredient.IngredientTypes,int> idealTypesToNumbers, TextMeshProUGUI scoreText, TextMeshProUGUI missedText)
     {
         gamestate.PauseTimer();
         
@@ -32,7 +34,8 @@ public class BurgerParent : MonoBehaviour
         // collection of parts vs what's in the burger
 
         scoreTextRef = scoreText;
-
+        missedTextRef = missedText;
+        
         int idealTotalIngs = 0;
         int totalCorrectIngs = 0;
         foreach (var key in idealTypesToNumbers.Keys)
@@ -59,6 +62,7 @@ public class BurgerParent : MonoBehaviour
         string formattedPercent = String.Format("{0:P0}", correctPercent);
 
         scoreTextRef.text = "" + totalCorrectIngs + " / " + idealTotalIngs + " : " + formattedPercent;
+        missedTextRef.text = "Missed: " + missedIngs.Count.ToString();
         
         StartCoroutine(ScoreCoroutine());
         
@@ -107,19 +111,26 @@ public class BurgerParent : MonoBehaviour
             ingredient.Score();
         }
         
-        myIngredients.Clear();
-        actualTypesToNumbers.Clear();
-
-        scoreTextRef.text = "";
+        
+        ResetState();
 
         gamestate.DoneScoring();
 
+    }
+
+    private void ResetState()
+    {
+        missedIngs.Clear();
+        myIngredients.Clear();
+        actualTypesToNumbers.Clear();
+        scoreTextRef.text = "";
+        missedTextRef.text = "";
     }
     
 
     public void AddIngredient(Ingredient ingredient)
     {
-        ingredient.transform.SetParent(this.transform);
+        ingredient.transform.SetParent(gamestate.servingPlate.transform);
         myIngredients.Add(ingredient);
         
         if (!actualTypesToNumbers.TryAdd(ingredient.GetIngredientType(), 1))
@@ -127,5 +138,9 @@ public class BurgerParent : MonoBehaviour
             actualTypesToNumbers[ingredient.GetIngredientType()] += 1;
         }
     }
-    
+
+    public void MissIngredient(Ingredient ingredient)
+    {
+        missedIngs.Add(ingredient);
+    }
 }
