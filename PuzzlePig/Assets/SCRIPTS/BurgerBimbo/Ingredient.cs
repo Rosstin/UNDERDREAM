@@ -122,6 +122,7 @@ public class Ingredient : MonoBehaviour
                 GetGOForIngredient(MyIngredientType).GetComponent<Rigidbody>().isKinematic = true;
                 break;
             case IngredientState.Held:
+                gamestate.SetActiveIngredient(this);
                 SetRigidbodyZFrozen(true);
                 myState = IngredientState.Held;
                 this.gameObject.SetActive(true);
@@ -133,6 +134,7 @@ public class Ingredient : MonoBehaviour
             case IngredientState.Falling:
                 SetRigidbodyZFrozen(true);
                 myState = IngredientState.Falling;
+                this.transform.SetParent(fallingIngsParent.transform);
                 this.gameObject.SetActive(true);
                 this.EnableAllColliders(true);
                 GetGOForIngredient(MyIngredientType).GetComponent<Rigidbody>().isKinematic = false;
@@ -152,6 +154,7 @@ public class Ingredient : MonoBehaviour
                 
                 break;
             case IngredientState.Missed:
+                gamestate.SetActiveIngredient(null);
                 SetRigidbodyZFrozen(true);
                 myState = IngredientState.Missed;
                 this.gamestate.StartNextIngredient();
@@ -167,6 +170,7 @@ public class Ingredient : MonoBehaviour
                 rb.AddForce(flingForce, ForceMode.Force);
                 break;
             case IngredientState.Scored:
+                gamestate.SetActiveIngredient(null);
                 myState = IngredientState.Scored;
                 SetRigidbodyZFrozen(true);
                 this.transform.parent = scoredParent.transform;

@@ -24,6 +24,11 @@ public class BurgGS : BaseController
     public OrderPreviewWindow orderPreviewWindow;
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI timeText;
+    public GameObject fallzonePos;
+    
+    [Header("SFX Outlets")]
+    public AudioSource splat1;
+    public AudioSource splat2;
     
     private ShiftData currentShift;
 
@@ -34,6 +39,7 @@ public class BurgGS : BaseController
 
     private static System.Random rng = new System.Random();
 
+    private Ingredient ActiveIng = null;
     private Ingredient heldIng = null;
 
     private float timeElapsedSeconds = 0f; // total elapsed time in seconds
@@ -81,55 +87,90 @@ public class BurgGS : BaseController
     {
         BaseUpdate();
 
-        if (currentBurgerGameState == BurgerGameState.TimerActive)
-        {
-            timeElapsedSeconds += Time.deltaTime;
-            timeText.text = timeElapsedSeconds.ToString("F0");
-        }
+        UpdateGameState();
 
-        if (heldIng != null)
-        {
-            if (!CommandsHeldThisFrame.ContainsKey(Command.Fire))
-            {
-                heldIng.SetState(Ingredient.IngredientState.Falling);
-                heldIng = null;
-            }
-            else
-            {
 
-                Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
-                
-                RaycastHit hit;
-                
-                if(CollisionPlane.Raycast(ray, out hit, 100f))
+    }
+
+    
+    private void UpdateGameState()
+    {
+        switch (currentBurgerGameState)
+        {
+            case  BurgerGameState.TimerActive:
+                timeElapsedSeconds += Time.deltaTime;
+                timeText.text = timeElapsedSeconds.ToString("F0");
+                #region interactingWithIngredients 
+                if (heldIng != null)
                 {
-                    heldIng.transform.position = hit.point;
-                }
-            }
-        }
-        
-        if (CommandsStartedThisFrame.ContainsKey(Command.Fire))
-        {
+                    // dropping ing
+                    if (!CommandsHeldThisFrame.ContainsKey(Command.Fire))
+                    {
+                        heldIng.SetState(Ingredient.IngredientState.Falling);
+                        heldIng = null;
+                    }
+                    //holding ing
+                    else
+                    {
 
-            RaycastHit hit;
-            Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
-
-            if (Physics.Raycast(ray, out hit))
-            {
-                Transform objectHit = hit.transform;
+                        Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
                 
-                IngredientSpawner ingSpawner = objectHit.gameObject.GetComponent<IngredientSpawner>();
-                //Ingredient ing = objectHit.gameObject.GetComponent<Ingredient>();
-
-                if (ingSpawner != null)
+                        RaycastHit hit;
+                
+                        if(CollisionPlane.Raycast(ray, out hit, 100f))
+                        {
+                            heldIng.transform.position = hit.point;
+                        }
+                    }
+                    
+                    //todo hey if it's falling is it held?
+                    // ing falls below screen
+                    if (heldIng.transform.position.y < fallzonePos.transform.position.y)
+                    {
+                        heldIng.SetState(Ingredient.IngredientState.Missed);
+                    }
+                }
+        
+                if (CommandsStartedThisFrame.ContainsKey(Command.Fire))
                 {
-                    heldIng = ingSpawner.ReleaseDisplayedIngredient();
-                }
+                    // grabbing ing
+
+                    if (ActiveIng != null)
+                    {
+                        Debug.LogError("already holding/falling ing! cant hold two");
+                    }
+
+                    else
+                    {
+                        RaycastHit hit;
+                        Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+
+                        if (Physics.Raycast(ray, out hit))
+                        {
+                            Transform objectHit = hit.transform;
                 
-            }
+                            IngredientSpawner ingSpawner = objectHit.gameObject.GetComponent<IngredientSpawner>();
+                            //Ingredient ing = objectHit.gameObject.GetComponent<Ingredient>();
+
+                            if (ingSpawner != null)
+                            {
+                                heldIng = ingSpawner.ReleaseDisplayedIngredient();
+                            }
+                
+                        }
+                    }
+                    
+                }
+                #endregion
+                
+            break;
         }
+
+
         
 
+
+        
     }
 
     public void SetGameState(BurgerGameState state)
@@ -241,7 +282,7 @@ public class BurgGS : BaseController
         }
         else
         {
-            var correctIng = currentShift.Orders[currentOrderIndex].Recipe[currentIngredientIndex];
+            var heldIngredient = currentShift.Orders[currentOrderIndex].Recipe[currentIngredientIndex];
             ShowIngredientOptions(GetIngredientTypeForString(correctIng));
         }
         
@@ -344,7 +385,14 @@ public class BurgGS : BaseController
         return shift1;
 
     }
-    
-    
-    
+
+
+    public void SetActiveIngredient(Ingredient ing)
+    {
+        if (this.ActiveIng != null)
+        {
+            Debug.LogError("already have active ingredient " + this.ActiveIng.GetIngredientType());
+        }
+        this.ActiveIng = ing;
+    }
 }
