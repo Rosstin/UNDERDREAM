@@ -13,18 +13,6 @@ public class OrderPreviewWindow : MonoBehaviour
     
     private List<Ingredient> displayedIngredients = new List<Ingredient>();
     
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void Clear()
     {
         foreach (var ing in displayedIngredients)

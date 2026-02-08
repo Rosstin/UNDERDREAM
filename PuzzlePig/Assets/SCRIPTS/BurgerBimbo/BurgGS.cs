@@ -6,13 +6,7 @@ using TMPro;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-/*
-public class TrackedScore
-{
-    private int missedIngredients = 0;
-    private float
-}
-*/
+
 
 public class BurgGS : BaseController
 {
@@ -23,15 +17,18 @@ public class BurgGS : BaseController
     public BurgerParent burgerParent;
     public MissedParent missedParent;
     public OrderPreviewWindow orderPreviewWindow;
-    public TextMeshProUGUI scoreText;
-    public TextMeshProUGUI missedText;
-    public TextMeshProUGUI timeText;
     public GameObject fallzonePos;
     public ServingPlate servingPlate;
+
+    [Header("Text Outlets")]
+    public TextMeshProUGUI scoreText;
+    public TextMeshProUGUI missedText;
+    public TextMeshProUGUI bonusText;
+    public TextMeshProUGUI timeText;
+
     
     [Header("SFX Outlets")]
-    public AudioSource splat1;
-    public AudioSource splat2;
+    public SoundManager soundManager;
     
     private ShiftData currentShift;
 
@@ -71,10 +68,11 @@ public class BurgGS : BaseController
         
     }
 
-    private void ClearScoreText()
+    public void ClearScoreText()
     {
         scoreText.text = "";
         missedText.text = "";
+        bonusText.text = "";
     }
 
     void Shift1()
@@ -99,18 +97,6 @@ public class BurgGS : BaseController
 
     }
 
-    private void PlayRandomSplatSfx()
-    {
-        if (UnityEngine.Random.Range(0f, 1f) > 0.5f)
-        {
-            splat1.Play();
-        }
-        else
-        {
-            splat2.Play();
-        }
-
-    }
 
     
     private void UpdateGameState()
@@ -124,7 +110,7 @@ public class BurgGS : BaseController
                 // ing falls below screen
                 if (ActiveIng!=null && ActiveIng.IsBelowScreen(fallzonePos))
                 {
-                    PlayRandomSplatSfx();
+                    soundManager.PlayRandomSplatSfx();
                     ActiveIng.SetState(Ingredient.IngredientState.Missed);
                 }
                 
@@ -241,14 +227,15 @@ public class BurgGS : BaseController
         currentBurgerGameState = BurgerGameState.TimerActive;
         ClearScoreText();
         currentOrderIndex++;
-
+        
         if (currentOrderIndex >= currentShift.Orders.Count)
         {
             PauseTimer();
             
             //todo score shift 
 
-            scoreText.text = "Shift finished! (Todo)";
+            scoreText.text = "Shift finished!";
+            StartCoroutine(burgerParent.ScoreShift());
             
             SetGameState(BurgerGameState.ScoreScreen);
             
@@ -258,6 +245,34 @@ public class BurgGS : BaseController
             // set current ingredient index to top 
             var curOrd = currentShift.Orders[currentOrderIndex];
             currentIngredientIndex = curOrd.Recipe.Count;
+
+            switch (curOrd.TraySize)
+            {
+                case 0:
+                    // normal tray
+                    servingPlate.transform.localScale = new Vector3(3f, 0.2f, 2f);
+                    break;
+                case 1:
+                    // small tray
+                    servingPlate.transform.localScale = new Vector3(1.4f, 0.2f, 1.4f);
+                    break;
+                default:
+                    Debug.LogError("dont recognize tray size " + curOrd.TraySize);
+                    break;
+            }
+
+            switch (curOrd.TrayMovement)
+            {
+                case 0:
+                    servingPlate.moveBackAndForth = false;
+                    break;
+                case 1:
+                    servingPlate.moveBackAndForth = true;
+                    break;
+                default:
+                    Debug.LogError("dont recognize tray movement " + curOrd.TrayMovement);
+                    break;
+            }
 
             // populate the preview window and fill scoring dictionary
             PopulatePreviewWindowAndFillScoringDictionary();
@@ -295,7 +310,7 @@ public class BurgGS : BaseController
 
         if (currentIngredientIndex < 0)
         {
-            burgerParent.ScoreBurger(idealTypesToNumbers: idealTypesToNumbers, scoreText: scoreText, missedText: missedText);
+            StartCoroutine(burgerParent.ScoreBurger(idealTypesToNumbers: idealTypesToNumbers, scoreText: scoreText, missedText: missedText));
             
             
             
@@ -331,6 +346,17 @@ public class BurgGS : BaseController
         remainingIngs.Add(Ingredient.IngredientTypes.Lettuce);
         remainingIngs.Add(Ingredient.IngredientTypes.Tomato);
         remainingIngs.Add(Ingredient.IngredientTypes.Onion);
+        // lower odds to add buntop or bunbot
+        int bunTopAdded = Random.Range(0, 2);
+        int bunBotAdded = Random.Range(0, 2);
+        if (bunTopAdded == 1)
+        {
+            remainingIngs.Add(Ingredient.IngredientTypes.BunTop);
+        }
+        if (bunBotAdded == 1)
+        {
+            remainingIngs.Add(Ingredient.IngredientTypes.BunBottom);
+        }
         
         remainingIngs.Remove(correctIngredient);
         
@@ -361,6 +387,8 @@ public class BurgGS : BaseController
             "Meat",
             "BunBottom",
         };
+        order1.TrayMovement = 0;
+        order1.TraySize = 0;
 
         OrderData order2 = new OrderData();
         order2.Description = "Gimme da works, toots.";
@@ -374,6 +402,8 @@ public class BurgGS : BaseController
             "Tomato",
             "BunBottom",
         };
+        order2.TrayMovement = 0;
+        order2.TraySize = 1;
 
         
         OrderData o3 = new OrderData();
@@ -391,6 +421,8 @@ public class BurgGS : BaseController
             "Onion",
             "BunBottom",
         };
+        o3.TrayMovement = 1;
+        o3.TraySize = 1;
 
         
         ShiftData shift1 = new ShiftData();

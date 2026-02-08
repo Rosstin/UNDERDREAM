@@ -13,6 +13,9 @@ public class OrderData
     public string Description;
     public List<string> Recipe;
 
+    public int TraySize; // 0 is normal, 1 is small
+    public int TrayMovement; // 0 is none, 1 is moving
+    
     public override string ToString()
     {
         string stringout = "Desc: " + Description + ". {";

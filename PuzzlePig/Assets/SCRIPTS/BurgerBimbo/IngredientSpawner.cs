@@ -24,12 +24,6 @@ public class IngredientSpawner : MonoBehaviour
     {
         refCube.gameObject.SetActive(false);
     }
-
-    void Update()
-    {
-        //if(myCollider)
-    }
-    
     
     public void MakeAndDisplayNewIngredient(Ingredient.IngredientTypes ingredient)
     {
