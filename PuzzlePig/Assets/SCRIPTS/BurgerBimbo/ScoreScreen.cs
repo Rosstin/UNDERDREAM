@@ -22,4 +22,41 @@ public class ScoreScreen : MonoBehaviour
         }
         secretStar.transform.Rotate(rotationSpeed*Time.deltaTime);
     }
+
+    public void HideAllStars()
+    {
+        foreach (ScoreStar star in scoreStars)
+        {
+            star.gameObject.SetActive(false);
+        }
+        
+        secretStar.gameObject.SetActive(false);
+    }
+    
+    public void SetScore(int starsToAward, bool gotSecretStar)
+    {
+        Debug.Log("stars to award: " + starsToAward + " and secret " + gotSecretStar);
+        
+        HideAllStars();
+        
+        if (starsToAward >= 1)
+        {
+            scoreStars[0].gameObject.SetActive(true);
+        }
+        if (starsToAward >= 2)
+        {
+            scoreStars[1].gameObject.SetActive(true);
+        }
+        if (starsToAward >= 3)
+        {
+            scoreStars[2].gameObject.SetActive(true);
+        }
+
+        if (gotSecretStar)
+        {
+            secretStar.gameObject.SetActive(true);
+        }
+        
+        
+    }
 }

@@ -19,7 +19,8 @@ public class BurgGS : BaseController
     public OrderPreviewWindow orderPreviewWindow;
     public GameObject fallzonePos;
     public ServingPlate servingPlate;
-
+    public ScoreScreen scoreScreen;
+    
     [Header("Text Outlets")]
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI missedText;
@@ -63,6 +64,8 @@ public class BurgGS : BaseController
     void Start()
     {
         base.Start();
+        
+        scoreScreen.HideAllStars();
 
         Shift1();
         

@@ -25,7 +25,6 @@ public class BurgerParent : MonoBehaviour
 
     public IEnumerator ScoreShift()
     {
-
         gamestate.missedText.text = "Missed: ";
         
         bool completeBurgerMa = OrganizeMissedIngredients();
@@ -36,19 +35,36 @@ public class BurgerParent : MonoBehaviour
             
             gamestate.orderPreviewWindow.AddIngredient(ing.GetIngredientType());
             gamestate.soundManager.PlayPop();
-
+            
             gamestate.missedText.text = "Missed: " + (i+1);
             
             yield return new WaitForSeconds(0.5f);
         }
 
+        if (shiftMissedIngs.Count == 0)
+        {
+            gamestate.missedText.text = "Perfect Shift!";
+        }
+        
+        int threeMinusMissed = 3 - shiftMissedIngs.Count;
+        int starsToAward = Mathf.Clamp(threeMinusMissed, 1, 3);
+        
+        Debug.Log("threeMinusMissed " + threeMinusMissed);
+        Debug.Log("starsToAward " + starsToAward);
+        
         StartCoroutine(ScoreShiftCoroutine());
         
         if (completeBurgerMa)
         {
             gamestate.bonusText.text = "Bonus!\n  Stole burger!";
+            
+            
         }
 
+        
+        
+        gamestate.scoreScreen.SetScore(starsToAward, completeBurgerMa);
+        
 
     }
 

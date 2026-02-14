@@ -64984,6 +64984,7 @@ MonoBehaviour:
   orderPreviewWindow: {fileID: 1251213389}
   fallzonePos: {fileID: 1441510898}
   servingPlate: {fileID: 1258827727}
+  scoreScreen: {fileID: 1817049116}
   scoreText: {fileID: 1557287030}
   missedText: {fileID: 59572032}
   bonusText: {fileID: 1750811394}
