@@ -4,15 +4,22 @@ using UnityEngine;
 
 public class ScoreScreen : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [Header("Score Stars")]
+    public List<ScoreStar> scoreStars  = new List<ScoreStar>();
+    public ScoreStar secretStar;
 
+    [Header("Star Rotation")]
+    public Vector3 rotationSpeed; 
+
+    
     // Update is called once per frame
     void Update()
     {
-        
+        // rotate the stars
+        foreach (ScoreStar star in scoreStars)
+        {
+            star.transform.Rotate(rotationSpeed*Time.deltaTime);
+        }
+        secretStar.transform.Rotate(rotationSpeed*Time.deltaTime);
     }
 }
