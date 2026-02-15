@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class ShiftData
 {
     public List<OrderData> Orders;
+    public float TargetTime;
 }
 
 [Serializable]

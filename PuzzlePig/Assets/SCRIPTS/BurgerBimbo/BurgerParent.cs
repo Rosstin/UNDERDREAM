@@ -15,7 +15,9 @@ public class BurgerParent : MonoBehaviour
     
     private List<Ingredient> myIngredients = new List<Ingredient>();
     private List<Ingredient> missedIngs = new List<Ingredient>();
+    
     private List<Ingredient> shiftMissedIngs = new List<Ingredient>();
+    private float shiftTotalTime = 0f;
     
     #region scoring
     private Dictionary<Ingredient.IngredientTypes,int> actualTypesToNumbers = new Dictionary<Ingredient.IngredientTypes,int>();
@@ -29,6 +31,7 @@ public class BurgerParent : MonoBehaviour
         
         bool completeBurgerMa = OrganizeMissedIngredients();
         
+        // missed ingredients
         for(int i =0; i < shiftMissedIngs.Count;i++)
         {
             var ing =  shiftMissedIngs[i];
@@ -41,6 +44,20 @@ public class BurgerParent : MonoBehaviour
             yield return new WaitForSeconds(0.5f);
         }
 
+        // time
+        
+        gamestate.timeText.text = ((int)shiftTotalTime) + "s. ";
+
+        bool fastEnough = false;
+        if (shiftTotalTime > gamestate.GetCurrentShift().TargetTime)
+        {
+            gamestate.timeText.text += "Slow!";
+        }else if(shiftTotalTime <= gamestate.GetCurrentShift().TargetTime)
+        {
+            fastEnough = true;
+            gamestate.timeText.text += "Nice!";
+        }
+        
         if (shiftMissedIngs.Count == 0)
         {
             gamestate.missedText.text = "Perfect Shift!";
@@ -48,6 +65,11 @@ public class BurgerParent : MonoBehaviour
         
         int threeMinusMissed = 3 - shiftMissedIngs.Count;
         int starsToAward = Mathf.Clamp(threeMinusMissed, 1, 3);
+
+        if (!fastEnough)
+        {
+            starsToAward--;
+        }
         
         Debug.Log("threeMinusMissed " + threeMinusMissed);
         Debug.Log("starsToAward " + starsToAward);
@@ -243,5 +265,10 @@ public class BurgerParent : MonoBehaviour
     public void MissIngredient(Ingredient ingredient)
     {
         missedIngs.Add(ingredient);
+    }
+
+    public void RegisterOrderTime(float timeElapsedSeconds)
+    {
+        shiftTotalTime += timeElapsedSeconds;
     }
 }

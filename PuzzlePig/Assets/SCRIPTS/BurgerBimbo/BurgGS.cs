@@ -60,6 +60,11 @@ public class BurgGS : BaseController
     }
     
     private BurgerGameState currentBurgerGameState = BurgerGameState.Unset;
+
+    public ShiftData GetCurrentShift()
+    {
+        return currentShift;
+    }
     
     void Start()
     {
@@ -226,6 +231,8 @@ public class BurgGS : BaseController
     
     private void StartNextOrder()
     {
+        burgerParent.RegisterOrderTime(timeElapsedSeconds);
+
         ResetTimer();
         currentBurgerGameState = BurgerGameState.TimerActive;
         ClearScoreText();
@@ -235,7 +242,6 @@ public class BurgGS : BaseController
         {
             PauseTimer();
             
-            //todo score shift 
 
             scoreText.text = "Shift finished!";
             StartCoroutine(burgerParent.ScoreShift());
@@ -430,6 +436,8 @@ public class BurgGS : BaseController
         
         ShiftData shift1 = new ShiftData();
 
+        shift1.TargetTime = 40f;
+        
         var orders = new List<OrderData>();
         orders.Add(order1);
         orders.Add(order2);
