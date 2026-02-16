@@ -129,6 +129,9 @@ public class Ingredient : MonoBehaviour
                 GetGOForIngredient(MyIngredientType).GetComponent<Rigidbody>().isKinematic = true;
                 break;
             case IngredientState.Falling:
+                
+                // todo - start next ingredient early!
+                
                 SetRigidbodyZFrozen(true);
                 myState = IngredientState.Falling;
                 this.transform.SetParent(fallingIngsParent.transform);
@@ -139,7 +142,6 @@ public class Ingredient : MonoBehaviour
             case IngredientState.Burger:
                 SetRigidbodyZFrozen(true);
                 myState = IngredientState.Burger;
-                // make a splat sound
                 
                 gamestate.UnsetActiveIngredient();
 

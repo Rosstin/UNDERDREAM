@@ -154,6 +154,7 @@ public class BurgGS : BaseController
                     if (ActiveIng != null)
                     {
                         Debug.LogError("already holding/falling ing! cant hold two");
+                        // todo allow this
                     }
 
                     else
