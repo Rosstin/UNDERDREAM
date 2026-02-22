@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BobaristaGS : BaseController
@@ -8,17 +9,25 @@ public class BobaristaGS : BaseController
     [Header("Outlets")]
     public Camera mainCamera;
     public Collider CollisionPlane;
-    public GameObject DummyBall;
+    public Projectile DummyBall;
     public BobaReticle heldRet = null;
-
+    
+    [Header("Positional References For Projectile")]
+    public GameObject LeftWall;
+    public GameObject Center;
+    public GameObject RightWall;
+    
+    
     [Header("Configs")]
     public Vector3 startPos;
-    public float fireDist;
+    public float speed;
     
     private void Awake()
     {
-        
+        DummyBall.Init(LeftWall, Center, RightWall);
     }
+    
+    
 
     private void Update()
     {
@@ -58,8 +67,16 @@ public class BobaristaGS : BaseController
                 
                 shootDirection.Normalize();
 
-                DummyBall.transform.position = startPos + shootDirection * fireDist;
+                //DummyBall.transform.position = startPos + shootDirection * fireDist;
                 
+                DummyBall.transform.position = startPos;
+                
+                DummyBall.Shoot(shootDirection, speed);
+                
+                
+                
+                
+                // we want to actually fire the ball, have it bounce from walls, stop when it hits another ball
                 
                 
                 heldRet.transform.position = startPos;
