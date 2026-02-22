@@ -8,10 +8,12 @@ public class BobaristaGS : BaseController
     [Header("Outlets")]
     public Camera mainCamera;
     public Collider CollisionPlane;
-
+    public GameObject DummyBall;
     public BobaReticle heldRet = null;
 
+    [Header("Configs")]
     public Vector3 startPos;
+    public float fireDist;
     
     private void Awake()
     {
@@ -51,7 +53,15 @@ public class BobaristaGS : BaseController
             // dropping ing
             if (!CommandsHeldThisFrame.ContainsKey(Command.Fire))
             {
+                // calculate the direction between the current position and the startpos
+                Vector3 shootDirection = startPos - heldRet.transform.position;
+                
+                shootDirection.Normalize();
 
+                DummyBall.transform.position = startPos + shootDirection * fireDist;
+                
+                
+                
                 heldRet.transform.position = startPos;
                 heldRet = null;
             }
