@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
+    [Header("Rigidbody")]
     public Rigidbody rb;
 
+    [Header("Sfx")]
+    public AudioSource thock;
+    
     private GameObject leftWall;
     private GameObject center;
     private GameObject rightWall;
@@ -17,6 +21,7 @@ public class Projectile : MonoBehaviour
 
     private void Bounce()
     {
+        thock.Play();
         Vector3 vel = new Vector3(-rb.velocity.x, rb.velocity.y, 0);
         rb.velocity = vel;
     }
