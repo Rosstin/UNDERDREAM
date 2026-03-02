@@ -21,6 +21,7 @@ public class Projectile : MonoBehaviour
 
     private void Bounce()
     {
+        thock.pitch = Random.Range(0.5f, 1.5f);
         thock.Play();
         Vector3 vel = new Vector3(-rb.velocity.x, rb.velocity.y, 0);
         rb.velocity = vel;
