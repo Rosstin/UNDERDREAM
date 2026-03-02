@@ -1,5 +1,6 @@
-*.log
-
+PuzzlePig/Logs/
+UNDERDREAM/Logs/
+UNDERDREAM/UserSettings/
 
 [Ll]ibrary/
 [Tt]emp/
