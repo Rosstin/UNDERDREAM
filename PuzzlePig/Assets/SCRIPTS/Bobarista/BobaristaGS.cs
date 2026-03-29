@@ -11,6 +11,7 @@ public class BobaristaGS : BaseController
     public Collider CollisionPlane;
     public Projectile DummyBall;
     public BobaReticle heldRet = null;
+    public GemsContainer gemsContainer;
     
     [Header("Positional References For Projectile")]
     public GameObject LeftWall;
@@ -34,7 +35,10 @@ public class BobaristaGS : BaseController
         BaseUpdate();
         
         
-
+        if (Input.GetKeyDown(KeyCode.F1))
+        {
+            gemsContainer.GenerateRandomGemPattern(UnityEngine.Random.Range(4,8));
+        }
 
         if (CommandsStartedThisFrame.ContainsKey(Command.Fire))
         {

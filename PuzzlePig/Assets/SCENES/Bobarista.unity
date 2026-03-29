@@ -330,11 +330,11 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 1759222476}
+    m_TransformParent: {fileID: 1571120813}
     m_Modifications:
     - target: {fileID: 5463520054497886624, guid: b3b84757b16003847b010c8be5372888, type: 3}
       propertyPath: m_RootOrder
-      value: 10
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5463520054497886624, guid: b3b84757b16003847b010c8be5372888, type: 3}
       propertyPath: m_LocalPosition.x
@@ -379,6 +379,10 @@ PrefabInstance:
     - target: {fileID: 5463520054497886627, guid: b3b84757b16003847b010c8be5372888, type: 3}
       propertyPath: m_Name
       value: GemSapphire (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5463520054497886627, guid: b3b84757b16003847b010c8be5372888, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -538,11 +542,11 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 1759222476}
+    m_TransformParent: {fileID: 1571120813}
     m_Modifications:
     - target: {fileID: 3661629303068864710, guid: 69979f17ce7af7e438cec2d8615dac03, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 3661629303068864710, guid: 69979f17ce7af7e438cec2d8615dac03, type: 3}
       propertyPath: m_LocalPosition.x
@@ -588,6 +592,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GemRuby (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 3661629303068864711, guid: 69979f17ce7af7e438cec2d8615dac03, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -599,15 +607,19 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 1759222476}
+    m_TransformParent: {fileID: 1571120813}
     m_Modifications:
     - target: {fileID: 8834523588513256510, guid: 831dd952e4761474d9995e892f4cfe06, type: 3}
       propertyPath: m_Name
       value: GemEmerald (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 8834523588513256510, guid: 831dd952e4761474d9995e892f4cfe06, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8834523588513256511, guid: 831dd952e4761474d9995e892f4cfe06, type: 3}
       propertyPath: m_RootOrder
-      value: 12
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 8834523588513256511, guid: 831dd952e4761474d9995e892f4cfe06, type: 3}
       propertyPath: m_LocalPosition.x
@@ -693,11 +705,11 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 1759222476}
+    m_TransformParent: {fileID: 1571120813}
     m_Modifications:
     - target: {fileID: 5463520054497886624, guid: b3b84757b16003847b010c8be5372888, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5463520054497886624, guid: b3b84757b16003847b010c8be5372888, type: 3}
       propertyPath: m_LocalPosition.x
@@ -877,11 +889,11 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 1759222476}
+    m_TransformParent: {fileID: 1571120813}
     m_Modifications:
     - target: {fileID: 5463520054497886624, guid: b3b84757b16003847b010c8be5372888, type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5463520054497886624, guid: b3b84757b16003847b010c8be5372888, type: 3}
       propertyPath: m_LocalPosition.x
@@ -942,11 +954,11 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 1759222476}
+    m_TransformParent: {fileID: 1571120813}
     m_Modifications:
     - target: {fileID: 5463520054497886624, guid: b3b84757b16003847b010c8be5372888, type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5463520054497886624, guid: b3b84757b16003847b010c8be5372888, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1243,7 +1255,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8834523588513256510, guid: 831dd952e4761474d9995e892f4cfe06, type: 3}
       propertyPath: m_Name
-      value: GemEmerald (1)
+      value: UpperLeftPos
+      objectReference: {fileID: 0}
+    - target: {fileID: 8834523588513256510, guid: 831dd952e4761474d9995e892f4cfe06, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8834523588513256511, guid: 831dd952e4761474d9995e892f4cfe06, type: 3}
       propertyPath: m_RootOrder
@@ -1618,11 +1634,11 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 1759222476}
+    m_TransformParent: {fileID: 1571120813}
     m_Modifications:
     - target: {fileID: 5463520054497886624, guid: b3b84757b16003847b010c8be5372888, type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5463520054497886624, guid: b3b84757b16003847b010c8be5372888, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1668,6 +1684,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GemSapphire (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 5463520054497886627, guid: b3b84757b16003847b010c8be5372888, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1679,11 +1699,11 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 1759222476}
+    m_TransformParent: {fileID: 1571120813}
     m_Modifications:
     - target: {fileID: 3661629303068864710, guid: 69979f17ce7af7e438cec2d8615dac03, type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 3661629303068864710, guid: 69979f17ce7af7e438cec2d8615dac03, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1728,6 +1748,10 @@ PrefabInstance:
     - target: {fileID: 3661629303068864711, guid: 69979f17ce7af7e438cec2d8615dac03, type: 3}
       propertyPath: m_Name
       value: GemRuby (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3661629303068864711, guid: 69979f17ce7af7e438cec2d8615dac03, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2047,7 +2071,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 1759222476}
+    m_TransformParent: {fileID: 1571120813}
     m_Modifications:
     - target: {fileID: 8834523588513256510, guid: 831dd952e4761474d9995e892f4cfe06, type: 3}
       propertyPath: m_Name
@@ -2059,7 +2083,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8834523588513256511, guid: 831dd952e4761474d9995e892f4cfe06, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 8834523588513256511, guid: 831dd952e4761474d9995e892f4cfe06, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2288,6 +2312,51 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+--- !u!1 &1571120812
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1571120813}
+  m_Layer: 0
+  m_Name: GemsContainerParent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1571120813
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1571120812}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1701099247}
+  - {fileID: 288462653}
+  - {fileID: 856342242}
+  - {fileID: 1165368143}
+  - {fileID: 703337817}
+  - {fileID: 568187812}
+  - {fileID: 1667259205}
+  - {fileID: 1921154769}
+  - {fileID: 27560207}
+  - {fileID: 506627688}
+  - {fileID: 1815187819}
+  - {fileID: 983482500}
+  - {fileID: 1849105753}
+  - {fileID: 1877063085}
+  m_Father: {fileID: 1759222476}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1589941951
 GameObject:
   m_ObjectHideFlags: 0
@@ -2598,21 +2667,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1701099247}
-  - {fileID: 288462653}
-  - {fileID: 856342242}
   - {fileID: 1717217106}
-  - {fileID: 1165368143}
-  - {fileID: 703337817}
-  - {fileID: 568187812}
-  - {fileID: 1667259205}
-  - {fileID: 1921154769}
-  - {fileID: 27560207}
-  - {fileID: 506627688}
-  - {fileID: 1815187819}
-  - {fileID: 983482500}
-  - {fileID: 1849105753}
-  - {fileID: 1877063085}
+  - {fileID: 1571120813}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2628,7 +2684,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a165df2623c9c148a3c20dd75419818, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LONG_WIDTH: 5
   gemDiameter: 1
+  zDistance: 0
+  parent: {fileID: 1571120812}
+  gemPrefabs:
+  - {fileID: 8834523588513256510, guid: 831dd952e4761474d9995e892f4cfe06, type: 3}
+  - {fileID: 3661629303068864711, guid: 69979f17ce7af7e438cec2d8615dac03, type: 3}
+  - {fileID: 5463520054497886627, guid: b3b84757b16003847b010c8be5372888, type: 3}
+  upperLeftPosition: {fileID: 1717217106}
 --- !u!1 &1759972326
 GameObject:
   m_ObjectHideFlags: 0
@@ -2845,11 +2909,11 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 1759222476}
+    m_TransformParent: {fileID: 1571120813}
     m_Modifications:
     - target: {fileID: 3661629303068864710, guid: 69979f17ce7af7e438cec2d8615dac03, type: 3}
       propertyPath: m_RootOrder
-      value: 13
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 3661629303068864710, guid: 69979f17ce7af7e438cec2d8615dac03, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2895,6 +2959,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GemRuby (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 3661629303068864711, guid: 69979f17ce7af7e438cec2d8615dac03, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2938,6 +3006,7 @@ MonoBehaviour:
   CollisionPlane: {fileID: 1656550097}
   DummyBall: {fileID: 1320634459}
   heldRet: {fileID: 34758078}
+  gemsContainer: {fileID: 1759222477}
   LeftWall: {fileID: 728297981}
   Center: {fileID: 872214055}
   RightWall: {fileID: 1589941951}
@@ -2964,11 +3033,11 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 1759222476}
+    m_TransformParent: {fileID: 1571120813}
     m_Modifications:
     - target: {fileID: 3661629303068864710, guid: 69979f17ce7af7e438cec2d8615dac03, type: 3}
       propertyPath: m_RootOrder
-      value: 14
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 3661629303068864710, guid: 69979f17ce7af7e438cec2d8615dac03, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3013,6 +3082,10 @@ PrefabInstance:
     - target: {fileID: 3661629303068864711, guid: 69979f17ce7af7e438cec2d8615dac03, type: 3}
       propertyPath: m_Name
       value: GemRuby (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3661629303068864711, guid: 69979f17ce7af7e438cec2d8615dac03, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3189,11 +3262,11 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 1759222476}
+    m_TransformParent: {fileID: 1571120813}
     m_Modifications:
     - target: {fileID: 3661629303068864710, guid: 69979f17ce7af7e438cec2d8615dac03, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 3661629303068864710, guid: 69979f17ce7af7e438cec2d8615dac03, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3239,6 +3312,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GemRuby
       objectReference: {fileID: 0}
+    - target: {fileID: 3661629303068864711, guid: 69979f17ce7af7e438cec2d8615dac03, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3250,11 +3327,11 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 1759222476}
+    m_TransformParent: {fileID: 1571120813}
     m_Modifications:
     - target: {fileID: 5463520054497886624, guid: b3b84757b16003847b010c8be5372888, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5463520054497886624, guid: b3b84757b16003847b010c8be5372888, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3300,6 +3377,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GemSapphire
       objectReference: {fileID: 0}
+    - target: {fileID: 5463520054497886627, guid: b3b84757b16003847b010c8be5372888, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3311,15 +3392,19 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 1759222476}
+    m_TransformParent: {fileID: 1571120813}
     m_Modifications:
     - target: {fileID: 8834523588513256510, guid: 831dd952e4761474d9995e892f4cfe06, type: 3}
       propertyPath: m_Name
       value: GemEmerald
       objectReference: {fileID: 0}
+    - target: {fileID: 8834523588513256510, guid: 831dd952e4761474d9995e892f4cfe06, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8834523588513256511, guid: 831dd952e4761474d9995e892f4cfe06, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 8834523588513256511, guid: 831dd952e4761474d9995e892f4cfe06, type: 3}
       propertyPath: m_LocalPosition.x
