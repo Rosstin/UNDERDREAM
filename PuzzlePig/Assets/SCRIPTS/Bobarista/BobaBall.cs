@@ -20,7 +20,9 @@ public class BobaBall : MonoBehaviour
 
     [Header("My Renderer")] 
     public MeshRenderer Renderer;
-    
+
+    [Header("My Collider")] 
+    public SphereCollider Collider;
     
     public void SetBobaColor(BobaColor color)
     {
