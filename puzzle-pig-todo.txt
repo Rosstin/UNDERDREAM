@@ -1,0 +1,6 @@
+PUZZLE PIG TODO
+
++ hitboxes for gems
++ collision for gems
+
++ when a gem collides with another gem, it should snap into the nearest place [to the side of it, on corner of it, etc]
