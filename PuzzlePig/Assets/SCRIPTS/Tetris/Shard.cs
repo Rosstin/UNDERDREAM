@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Shard : MonoBehaviour
 {
-    
+    private TetrisGS.ShardColors myColor;
+
     
     
     
