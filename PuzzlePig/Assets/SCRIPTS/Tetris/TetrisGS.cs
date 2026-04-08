@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TetrisGS : MonoBehaviour
 {
-    public enum ShardColors
+    public enum ShardFlavors
     {
         Unset,
         Limon,
@@ -18,7 +18,14 @@ public class TetrisGS : MonoBehaviour
         Tangerine
     }
     
-    
+    public enum ShardSizes
+    {
+        Unset,
+        s33,
+        s50,
+        s66,
+        s100,
+    }
     
     
     

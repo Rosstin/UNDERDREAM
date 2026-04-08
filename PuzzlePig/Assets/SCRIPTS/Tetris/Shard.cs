@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class Shard : MonoBehaviour
 {
-    private TetrisGS.ShardColors myColor;
+    public TetrisGS.ShardFlavors myFlavor;
 
-    
-    
-    
-    
-    
-    
-    
+    public Vector2 TopCornerPosition;
+
+    public Vector2 Dimensions;
+
+
+
+
+
+
 }
