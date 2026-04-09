@@ -4,15 +4,19 @@ using UnityEngine;
 
 public class TetrisRet : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private CompositeBlock myBlock=null;
 
-    // Update is called once per frame
+    public void Init(CompositeBlock block)
+    {
+        this.myBlock = block;
+    }
+    
     void Update()
     {
-        
+        if (myBlock != null)
+        {
+            myBlock.transform.position = this.transform.position;
+        }
+
     }
 }

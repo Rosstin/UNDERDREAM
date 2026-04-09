@@ -32,8 +32,7 @@ public class TetrisGS : BaseController
     
     [Header("Configs")]
     public Vector3 retStartPos;
-
-    private static Vector2Int GRID_DIMENS = new Vector2Int(5, 11);
+    public Vector2Int gridDimens = new Vector2Int(5, 11);
     
     public enum ShardFlavors
     {
@@ -83,7 +82,17 @@ public class TetrisGS : BaseController
 
     public void Start()
     {
+        ClearBlocks();
+            
+        CompositeBlock cb = GameObject.Instantiate(compPrefab).GetComponent<CompositeBlock>();
+        cb.Init(this, blockContainer);
+            
+        cb.Randomize();
+            
+        blocks.Add(cb);
 
+        colorGrid.GenerateGrid(gridDimens, gridTopLeftAnchor);
+        heldRet.Init(cb);
     }
 
     private void Update()
@@ -110,17 +119,6 @@ public class TetrisGS : BaseController
             blocks.Add(cb);
             
         }
-
-        if (Input.GetKeyDown(KeyCode.F2))
-        {
-            Debug.Log("gen cgrid ");
-            
-            colorGrid.GenerateGrid(GRID_DIMENS, gridTopLeftAnchor);
-            
-            
-        }
-
-
 
         if (CommandsStartedThisFrame.ContainsKey(Command.Fire))
         {

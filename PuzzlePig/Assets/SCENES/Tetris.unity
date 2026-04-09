@@ -462,7 +462,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 99951717}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -2697,7 +2697,6 @@ MonoBehaviour:
   rightWall: {fileID: 1589941951}
   bottomWall: {fileID: 1037874643}
   cRowPref: {fileID: 2033866208921923296, guid: c4f71c722ee3b3b4697ffee25dbf6d39, type: 3}
-  dimens: {x: 0, y: 0}
 --- !u!1 &759899541
 GameObject:
   m_ObjectHideFlags: 0
@@ -7219,7 +7218,8 @@ MonoBehaviour:
   heldRet: {fileID: 99951722}
   colorGrid: {fileID: 739033171}
   gridTopLeftAnchor: {fileID: 311599511167334580}
-  retStartPos: {x: 0, y: 0, z: 1}
+  retStartPos: {x: 0, y: 6, z: 1}
+  gridDimens: {x: 6, y: 11}
 --- !u!1 &1880607682
 GameObject:
   m_ObjectHideFlags: 0
