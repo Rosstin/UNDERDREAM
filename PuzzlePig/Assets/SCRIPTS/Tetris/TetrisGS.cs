@@ -27,9 +27,10 @@ public class TetrisGS : BaseController
     public Camera mainCamera;
     public Collider CollisionPlane;
     public TetrisRet heldRet = null;
+    public ColorGrid2 colorGrid;
     
     [Header("Configs")]
-    public Vector3 startPos;
+    public Vector3 retStartPos;
 
     public enum ShardFlavors
     {
@@ -135,25 +136,15 @@ public class TetrisGS : BaseController
             if (!CommandsHeldThisFrame.ContainsKey(Command.Fire))
             {
                 // calculate the direction between the current position and the startpos
-                Vector3 shootDirection = startPos - heldRet.transform.position;
+                Vector3 shootDirection = retStartPos - heldRet.transform.position;
                 
                 shootDirection.Normalize();
 
-                //DummyBall.transform.position = startPos + shootDirection * fireDist;
+                //DummyBlock.transform.position = startPos + shootDirection * fireDist;
+                //DummyBlock.transform.position = startPos;
+                //DummyBlock.Shoot(shootDirection, speed);
                 
-                /*
-                DummyBall.transform.position = startPos;
-                
-                DummyBall.Shoot(shootDirection, speed);
-                */
-                
-                
-                
-                
-                // we want to actually fire the ball, have it bounce from walls, stop when it hits another ball
-                
-                
-                heldRet.transform.position = startPos;
+                heldRet.transform.position = retStartPos;
                 heldRet = null;
             }
             //holding ing
