@@ -28,10 +28,13 @@ public class TetrisGS : BaseController
     public Collider CollisionPlane;
     public TetrisRet heldRet = null;
     public ColorGrid2 colorGrid;
+    public GameObject gridTopLeftAnchor;
     
     [Header("Configs")]
     public Vector3 retStartPos;
 
+    private static Vector2Int GRID_DIMENS = new Vector2Int(5, 11);
+    
     public enum ShardFlavors
     {
         Aqua,
@@ -96,7 +99,6 @@ public class TetrisGS : BaseController
         
         if (Input.GetKeyDown(KeyCode.F1))
         {
-            Debug.Log("random block ");
             
             ClearBlocks();
             
@@ -108,6 +110,17 @@ public class TetrisGS : BaseController
             blocks.Add(cb);
             
         }
+
+        if (Input.GetKeyDown(KeyCode.F2))
+        {
+            Debug.Log("gen cgrid ");
+            
+            colorGrid.GenerateGrid(GRID_DIMENS, gridTopLeftAnchor);
+            
+            
+        }
+
+
 
         if (CommandsStartedThisFrame.ContainsKey(Command.Fire))
         {

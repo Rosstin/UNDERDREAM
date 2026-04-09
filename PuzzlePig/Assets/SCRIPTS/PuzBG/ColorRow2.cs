@@ -8,17 +8,44 @@ public class ColorRow2 : MonoBehaviour
     public List<ColorBlock> ColorBlocks;
     public List<Material> Colors;
 
+    [Header("Prefabs")] 
+    public ColorBlock colorBlockPrefab;
+
     private int startingIndex;
 
-    public void Init(int startingIndex)
+    private int myBlocksInRow;
+
+    public void ClearRow()
     {
+        foreach (var c in ColorBlocks)
+        {
+            GameObject.Destroy(c.gameObject);
+        }
+        ColorBlocks.Clear();
+    }
+    
+    public void Init(int startingIndex, int blocksInRow)
+    {
+        ClearRow();
+        
         this.startingIndex = startingIndex;
 
+        this.myBlocksInRow = blocksInRow;
 
-        for(int i = 0; i < ColorBlocks.Count; i++)
+        for(int i = 0; i < blocksInRow; i++)
         {
 
-            ColorBlocks[i].SetMat(Colors[GetMatIndex(this.startingIndex, i)]);
+            ColorBlock c =GameObject.Instantiate(colorBlockPrefab).GetComponent<ColorBlock>();
+
+            
+            
+            c.SetMat(Colors[GetMatIndex(this.startingIndex, i)]);
+            
+            c.transform.SetParent(this.transform);
+            c.transform.localPosition = new Vector3(1*i,0,0);
+            
+            
+            ColorBlocks.Add(c);
         }
     }
 
