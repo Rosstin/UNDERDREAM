@@ -19,28 +19,35 @@ public class ColorGrid2 : MonoBehaviour
     public ColorRow2 cRowPref;
 
 
+    private BlockContainer myBlockContainer;
     private TetrisGS gamestate;
     private Vector2Int dimens;
     private GameObject topLeftAnchor;
-    private List<CompositeBlock> blocks = new List<CompositeBlock>();
+    private List<CompositeBlock> landedBlocks = new List<CompositeBlock>();
 
-    public void Init(TetrisGS gs)
+    public void Init(TetrisGS gs, BlockContainer bc, Vector2Int gridDimens, GameObject topLeftAnch)
     {
         this.gamestate = gs;
+        this.myBlockContainer = bc;
+        this.myBlockContainer.Init(gs, gridDimens, topLeftAnch, this.backPosRef );
+        
+        this.GenerateGrid(gridDimens, topLeftAnch);
+        
+        this.GenerateLevelBlocks();
+
+
+        
     }
     
     private void ClearBlocks()
     {
-        foreach (var b in blocks)
-        {
-            b.Clear();
-            GameObject.Destroy(b.gameObject);
-        }
-        blocks.Clear();
+        myBlockContainer.ClearBlocks();
     }
 
+    
     public void GenerateGrid(Vector2Int dimens, GameObject topLeftPos)
     {
+        
         this.dimens = dimens;
         this.topLeftAnchor = topLeftPos;
 
@@ -64,19 +71,7 @@ public class ColorGrid2 : MonoBehaviour
 
     public void GenerateLevelBlocks()
     {
-        ClearBlocks();
-
-        // todo generate a random grid of random blocks
-        
-        // for each column, generate a number of blocks between 0 and 4
-        for (int x = 0; x < this.dimens.x; x++)
-        {
-            int numBlocksInCol = UnityEngine.Random.Range(0, 5);
-            for (int y = 0; y < numBlocksInCol; y++)
-            {
-                
-            }
-        }
+        myBlockContainer.GenerateLevelBlocks();
         
     }
 
@@ -115,14 +110,7 @@ public class ColorGrid2 : MonoBehaviour
 
     public CompositeBlock GenerateBlock()
     {
-        CompositeBlock cb = GameObject.Instantiate(this.gamestate.compPrefab).GetComponent<CompositeBlock>();
-        cb.Init(this.gamestate, this.gamestate.blockContainer);
-            
-        cb.Randomize();
-
-        this.blocks.Add(cb);
-
-        return cb;
+        return myBlockContainer.GenerateBlock();
 
     }
 }

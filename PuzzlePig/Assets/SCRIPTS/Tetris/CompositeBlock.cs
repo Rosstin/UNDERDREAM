@@ -37,17 +37,17 @@ public class CompositeBlock : MonoBehaviour
         myShards.Clear();
     }
 
-    private float GetBlockWidth()
+    public static float GetBlockWidth()
     {
-        return botRightRef.transform.position.x- topLeftRef.transform.position.x;
+        return 1f;
     }
 
-    public float GetBlockHeight()
+    public static float GetBlockHeight()
     {
-        return topLeftRef.transform.position.y - botRightRef.transform.position.y;
+        return 1f;
     }
     
-    private Vector3 GetPositionForIndex(int x, int y)
+    public Vector3 GetPositionForIndex(int x, int y)
     {
         Vector3 pos = topLeftRef.transform.position + new Vector3(GetBlockWidth() * (1f/6f), -GetBlockHeight() * (1f/6f), 0);
 
@@ -98,4 +98,5 @@ public class CompositeBlock : MonoBehaviour
 
         return randomFlavor;
     }
+
 }

@@ -82,11 +82,7 @@ public class TetrisGS : BaseController
     public void Start()
     {
             
-        colorGrid.Init(this);
-        colorGrid.GenerateGrid(gridDimens, gridTopLeftAnchor);
-        
-        colorGrid.GenerateLevelBlocks();
-
+        colorGrid.Init(this, this.blockContainer, gridDimens, gridTopLeftAnchor);
         CompositeBlock cb = colorGrid.GenerateBlock();
         
         heldRet.Init(this,cb);
@@ -101,6 +97,11 @@ public class TetrisGS : BaseController
 
     private void UpdateTetrisControls()
     {
+        if (Input.GetKeyDown(KeyCode.F1))
+        {
+            colorGrid.GenerateLevelBlocks();
+        }
+
         if (CommandsStartedThisFrame.ContainsKey(Command.Fire))
         {
             heldRet.GrabBlock();

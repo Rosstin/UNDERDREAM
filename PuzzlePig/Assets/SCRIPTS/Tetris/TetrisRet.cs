@@ -25,6 +25,8 @@ public class TetrisRet : MonoBehaviour
     {
         this.gamestate = gs;
         this.myBlock = block;
+        
+        
     }
     
     public void SetBlockPosition(Vector3 pos)
@@ -92,16 +94,20 @@ public class TetrisRet : MonoBehaviour
                 float moveTime = Time.deltaTime;
                 float moveDistance = DESCEND_SPEED_METERS_PER_SECOND* moveTime;
 
+                
+                
+                
+
                 myBlock.transform.position = myBlock.transform.position + new Vector3(0f,-moveDistance,0f);
 
-                float yPosPlusHalfHeight = gamestate.colorGrid.bottomWall.transform.position.y + (myBlock.GetBlockHeight()/2f);
+                float yRestingPos = GetLowestYForColumn();
                 
-                if (myBlock.transform.position.y <= yPosPlusHalfHeight)
+                if (myBlock.transform.position.y <= yRestingPos)
                 {
                     myBlock.transform.position = 
                         new Vector3(
                             myBlock.transform.position.x,
-                            yPosPlusHalfHeight,
+                            yRestingPos,
                             myBlock.transform.position.z
                             );
                     
@@ -114,4 +120,14 @@ public class TetrisRet : MonoBehaviour
 
     }
 
+    private float GetLowestYForColumn()
+    {
+        // query the block list
+        
+        
+        /*
+        gamestate.colorGrid.bottomWall.transform.position.y + (CompositeBlock.GetBlockHeight()/2f);
+        */
+        return -1.0f;
+    }
 }
