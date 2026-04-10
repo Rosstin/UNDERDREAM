@@ -11,6 +11,8 @@ public class TetrisRet : MonoBehaviour
     private TetrisGS gamestate = null;
     private CompositeBlock myBlock=null;
 
+    private float latestDestY = -1f;
+    
     public enum TetrisRetState
     {
         Unset,
@@ -77,6 +79,7 @@ public class TetrisRet : MonoBehaviour
     private void SetPreviewPos()
     {
         this.preview.transform.position = this.GetRestingPosForBlockFallFrom(this.transform.position);
+        this.latestDestY = this.preview.transform.position.y;
     }
 
     private Vector3 GetRestingPosForBlockFallFrom(Vector3 pos)
@@ -114,24 +117,17 @@ public class TetrisRet : MonoBehaviour
                 float moveTime = Time.deltaTime;
                 float moveDistance = DESCEND_SPEED_METERS_PER_SECOND* moveTime;
 
-                
-                
-                
-
                 myBlock.transform.position = myBlock.transform.position + new Vector3(0f,-moveDistance,0f);
 
+
                 
                 
-                float yRestingPos = GetLowestYForColumn(this.gamestate.blockContainer.GetCoordForPos(myBlock.transform.position).x);
-                
-                Debug.Log("Y RESTING PS " + yRestingPos);
-                
-                if (myBlock.transform.position.y <= yRestingPos)
+                if (myBlock.transform.position.y <= latestDestY)
                 {
                     myBlock.transform.position = 
                         new Vector3(
                             myBlock.transform.position.x,
-                            yRestingPos,
+                            latestDestY,
                             myBlock.transform.position.z
                             );
                     
@@ -143,9 +139,18 @@ public class TetrisRet : MonoBehaviour
         }
 
     }
-
-    private float GetLowestYForColumn(int colX)
+    
+    public bool CanGrab()
     {
-        return this.gamestate.blockContainer.GetLowestYForColumn(colX);
+        if (this.myState == TetrisRetState.Ready)
+        {
+            return true;
+        }
+        if (this.myState == TetrisRetState.Fired || this.myState == TetrisRetState.Scoring)
+        {
+            return false;
+        }
+
+        return true;
     }
 }

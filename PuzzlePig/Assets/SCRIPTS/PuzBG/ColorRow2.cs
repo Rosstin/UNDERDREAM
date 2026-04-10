@@ -39,7 +39,8 @@ public class ColorRow2 : MonoBehaviour
 
             
             
-            c.SetMat(Colors[GetMatIndex(this.startingIndex, i)]);
+            c.SetMyColor(Colors[GetMatIndex(this.startingIndex, i)]);
+            c.Unhighlight();
             
             c.transform.SetParent(this.transform);
             c.transform.localPosition = new Vector3(1*i,0,0);

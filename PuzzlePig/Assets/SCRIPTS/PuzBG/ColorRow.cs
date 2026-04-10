@@ -18,7 +18,8 @@ public class ColorRow : MonoBehaviour
         for(int i = 0; i < ColorBlocks.Count; i++)
         {
 
-            ColorBlocks[i].SetMat(Colors[GetMatIndex(this.startingIndex, i)]);
+            ColorBlocks[i].SetMyColor(Colors[GetMatIndex(this.startingIndex, i)]);
+            ColorBlocks[i].Unhighlight();
         }
     }
 

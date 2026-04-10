@@ -12,11 +12,12 @@ public class BlockContainer : MonoBehaviour
     private Vector2Int dimens;
     
     private GameObject topLeftAnchor;
-
+    private ColorGrid2 colorGrid;
     private GameObject backPosRef;
     private TetrisGS gamestate;
-    public void Init( TetrisGS gs, Vector2Int dimens, GameObject topLeftAnchor, GameObject backPosRef)
+    public void Init( TetrisGS gs, ColorGrid2 cg2, Vector2Int dimens, GameObject topLeftAnchor, GameObject backPosRef)
     {
+        this.colorGrid = cg2;
         this.gamestate = gs;
         this.myLandedBlocks = new List<List<CompositeBlock>>();
         this.backPosRef = backPosRef;
@@ -64,7 +65,7 @@ public class BlockContainer : MonoBehaviour
                 this.myLandedBlocks[x][yCoord] = newBlock;
 
                 // feed an appropriate coord for the block
-                newBlock.transform.localPosition = this.GetPosForCoord(x, yCoord);
+                newBlock.transform.localPosition = this.colorGrid.GetPosForCoord(x, yCoord);
 
 
             }
@@ -72,43 +73,6 @@ public class BlockContainer : MonoBehaviour
 
     }
 
-    public float GetRealYForRow(int y)
-    {
-        return topLeftAnchor.transform.localPosition.y - y * 1f;
-    }
-
-    public int GetRowForRealY(float posy)
-    {
-        float yFloat = (int)(-posy + topLeftAnchor.transform.localPosition.y) / 1f;
-
-        int yInt = (int)(yFloat);
-        return yInt;
-    }
-
-    public float GetRealXForCol(int x)
-    {
-        return topLeftAnchor.transform.localPosition.x + x * 1f;
-    }
-
-    public int GetColForRealX(float posx)
-    {
-        float xFloat = (int)(posx - topLeftAnchor.transform.localPosition.x) / 1f;
-        int xInt = (int)(xFloat);
-        return xInt;
-    }
-
-    public Vector3 GetPosForCoord(int x, int y)
-    {
-        return new Vector3(GetRealXForCol(x), GetRealYForRow(y), backPosRef.transform.localPosition.z);
-    }
-
-
-    public Vector2Int GetCoordForPos(Vector3 pos)
-    {
-
-        return new Vector2Int(GetColForRealX(pos.x), GetRowForRealY(pos.y));
-
-    }
 
     public void ClearBlocks()
     {
@@ -145,31 +109,40 @@ public class BlockContainer : MonoBehaviour
     {
         // given a column, get lowest y as a real position
 
-        var column = myLandedBlocks[colX];
-        
-        // look for the first empty
-
-        int yCand = -1;
-        for (int y = 0; y < column.Count; y++)
+        if (colX >= 0 && colX < myLandedBlocks.Count)
         {
-            CompositeBlock block = column[y];
+            var column = myLandedBlocks[colX];
+        
+            // look for the first empty
 
-            if (block != null)
+            int yCand = column.Count;
+            for (int y = 0; y < column.Count; y++)
             {
-                yCand = y;
-                break;
-            }
-            
-        }
+                CompositeBlock block = column[y];
 
-        return GetRealYForRow(yCand-1);
+                if (block != null)
+                {
+                    yCand = y;
+                    break;
+                }
+            
+            }
+
+            return this.colorGrid.GetRealYForRow(yCand-1);
+        }
+        else
+        {
+            Debug.LogError("attempting to get a Y for a column " + colX + " that is invalid");
+            return -1;
+        }
+        
 
 
     }
 
     public Vector3 GetRestingPosForBlockFallFrom(Vector3 snappedPos)
     {
-        var c=GetCoordForPos(snappedPos);
+        var c=this.colorGrid.GetCoordForPos(snappedPos);
         float lowestY=GetLowestYForColumn(c.x);
 
         return new Vector3(snappedPos.x, lowestY, backPosRef.transform.position.z);

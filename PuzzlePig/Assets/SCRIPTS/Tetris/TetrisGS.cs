@@ -29,6 +29,7 @@ public class TetrisGS : BaseController
     public TetrisRet heldRet;
     public ColorGrid2 colorGrid;
     public GameObject gridTopLeftAnchor;
+    public GameObject refSpot;
     
     [Header("Configs")]
     public Vector3 retStartPos;
@@ -104,7 +105,10 @@ public class TetrisGS : BaseController
 
         if (CommandsStartedThisFrame.ContainsKey(Command.Fire))
         {
-            heldRet.GrabBlock();
+            if (heldRet.CanGrab())
+            {
+                heldRet.GrabBlock();
+            }
         }
         
         if (heldRet.IsRetHeld())
@@ -112,11 +116,6 @@ public class TetrisGS : BaseController
             // dropping ing
             if (!CommandsHeldThisFrame.ContainsKey(Command.Fire))
             {
-                // calculate the direction between the current position and the startpos
-                Vector3 shootDirection = retStartPos - heldRet.transform.position;
-                
-                shootDirection.Normalize();
-
                 UpdateRetPosition(retStartPos);
 
                 heldRet.FireBlock();
@@ -141,6 +140,11 @@ public class TetrisGS : BaseController
 
     private void UpdateRetPosition(Vector3 pos)
     {
+        colorGrid.HighlightBackBlockAtPos(pos);
+        
+        
+        refSpot.transform.position = pos;
+        
         heldRet.transform.position = pos;
     }
     
