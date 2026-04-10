@@ -48,7 +48,6 @@ public class TetrisGS : BaseController
         Unset,
     }
     
-    private List<CompositeBlock> blocks = new List<CompositeBlock>();
 
     public Material GetMatForFlavor(ShardFlavors flavor)
     {
@@ -82,16 +81,14 @@ public class TetrisGS : BaseController
 
     public void Start()
     {
-        ClearBlocks();
             
-        CompositeBlock cb = GameObject.Instantiate(compPrefab).GetComponent<CompositeBlock>();
-        cb.Init(this, blockContainer);
-            
-        cb.Randomize();
-            
-        blocks.Add(cb);
-
+        colorGrid.Init(this);
         colorGrid.GenerateGrid(gridDimens, gridTopLeftAnchor);
+        
+        colorGrid.GenerateLevelBlocks();
+
+        CompositeBlock cb = colorGrid.GenerateBlock();
+        
         heldRet.Init(this,cb);
     }
 
@@ -104,48 +101,9 @@ public class TetrisGS : BaseController
 
     private void UpdateTetrisControls()
     {
-                
-        
-        if (Input.GetKeyDown(KeyCode.F1))
-        {
-            
-            ClearBlocks();
-            
-            CompositeBlock cb = GameObject.Instantiate(compPrefab).GetComponent<CompositeBlock>();
-            cb.Init(this, blockContainer);
-            
-            cb.Randomize();
-            
-            blocks.Add(cb);
-            
-        }
-
         if (CommandsStartedThisFrame.ContainsKey(Command.Fire))
         {
-
-            
-
             heldRet.GrabBlock();
-
-            /*
-            if (Physics.Raycast(ray, out hit))
-            {
-                Transform objectHit = hit.transform;
-            
-                TetrisRet ret = objectHit.gameObject.GetComponent<TetrisRet>();
-
-                if (ret != null)
-                {
-                    */
-            //heldRet = ret;
-            /*
-            ret.GrabBlock();
-        }
-    */
-            //}
-            
-            
-
         }
         
         if (heldRet.IsRetHeld())
@@ -187,23 +145,9 @@ public class TetrisGS : BaseController
     
     public Vector3 SnapToGrid(Vector3 pos)
     {
-        // snap the position to a grid 1/3 the size 
+        // rtodo: snap the position to a grid 1/3 the size 
 
         return this.colorGrid.SnapToGrid(pos);
-
-
-
-
-
     }
 
-    private void ClearBlocks()
-    {
-        foreach (var b in blocks)
-        {
-            b.Clear();
-            GameObject.Destroy(b.gameObject);
-        }
-        blocks.Clear();
-    }
 }

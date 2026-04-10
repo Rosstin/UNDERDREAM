@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
+/// <summary>
+/// Class for the Tetris game that generates the backing grid and makes the tetris blocks
+/// </summary>
 public class ColorGrid2 : MonoBehaviour
 {
     [Header("Outlets")]
@@ -15,9 +18,26 @@ public class ColorGrid2 : MonoBehaviour
     [Header("Prefabs")] 
     public ColorRow2 cRowPref;
 
-    
+
+    private TetrisGS gamestate;
     private Vector2Int dimens;
     private GameObject topLeftAnchor;
+    private List<CompositeBlock> blocks = new List<CompositeBlock>();
+
+    public void Init(TetrisGS gs)
+    {
+        this.gamestate = gs;
+    }
+    
+    private void ClearBlocks()
+    {
+        foreach (var b in blocks)
+        {
+            b.Clear();
+            GameObject.Destroy(b.gameObject);
+        }
+        blocks.Clear();
+    }
 
     public void GenerateGrid(Vector2Int dimens, GameObject topLeftPos)
     {
@@ -39,6 +59,24 @@ public class ColorGrid2 : MonoBehaviour
         
         
         
+        
+    }
+
+    public void GenerateLevelBlocks()
+    {
+        ClearBlocks();
+
+        // todo generate a random grid of random blocks
+        
+        // for each column, generate a number of blocks between 0 and 4
+        for (int x = 0; x < this.dimens.x; x++)
+        {
+            int numBlocksInCol = UnityEngine.Random.Range(0, 5);
+            for (int y = 0; y < numBlocksInCol; y++)
+            {
+                
+            }
+        }
         
     }
 
@@ -69,10 +107,22 @@ public class ColorGrid2 : MonoBehaviour
         
         Vector3 snappedToBack = new Vector3(snappedPosNormed.x, snappedPosNormed.y, backPosRef.transform.position.z);
         
-        //Debug.Log("pos " + pos + ", snappedToBack " + snappedToBack);
         
         
         
         return snappedToBack;
+    }
+
+    public CompositeBlock GenerateBlock()
+    {
+        CompositeBlock cb = GameObject.Instantiate(this.gamestate.compPrefab).GetComponent<CompositeBlock>();
+        cb.Init(this.gamestate, this.gamestate.blockContainer);
+            
+        cb.Randomize();
+
+        this.blocks.Add(cb);
+
+        return cb;
+
     }
 }

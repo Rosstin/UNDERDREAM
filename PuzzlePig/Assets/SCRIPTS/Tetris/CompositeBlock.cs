@@ -17,6 +17,7 @@ public class CompositeBlock : MonoBehaviour
     private List<Shard> myShards = new List<Shard>();
 
     private TetrisGS gamestate = null;
+    private List<CompositeBlock> blocks = new List<CompositeBlock>();
 
     System.Random random = new System.Random();
     
