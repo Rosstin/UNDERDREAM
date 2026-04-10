@@ -3,6 +3,8 @@ using UnityEngine;
 public class TetrisRet : MonoBehaviour
 {
 
+    [Header("Params")]
+    public float DESCEND_SPEED_METERS_PER_SECOND;
 
     private TetrisGS gamestate = null;
     private CompositeBlock myBlock=null;
@@ -72,10 +74,41 @@ public class TetrisRet : MonoBehaviour
         switch (myState)
         {
             case TetrisRetState.Ready:
-            case TetrisRetState.Held:
                 SetBlockPosition(gamestate.SnapToGrid(this.transform.position));
                 break;
+            case TetrisRetState.Held:
+                
+                // add jitter
+                float JITTER_AMOUNT = 0.05f;
+                Vector3 jitter = new Vector3(UnityEngine.Random.Range(-JITTER_AMOUNT, JITTER_AMOUNT),
+                    UnityEngine.Random.Range(-JITTER_AMOUNT, JITTER_AMOUNT), UnityEngine.Random.Range(-JITTER_AMOUNT, JITTER_AMOUNT));
+
+                
+                SetBlockPosition(gamestate.SnapToGrid(this.transform.position) + jitter);
+                
+                break;
             case TetrisRetState.Fired:
+
+                float moveTime = Time.deltaTime;
+                float moveDistance = DESCEND_SPEED_METERS_PER_SECOND* moveTime;
+
+                myBlock.transform.position = myBlock.transform.position + new Vector3(0f,-moveDistance,0f);
+
+                float yPosPlusHalfHeight = gamestate.colorGrid.bottomWall.transform.position.y + (myBlock.GetBlockHeight()/2f);
+                
+                if (myBlock.transform.position.y <= yPosPlusHalfHeight)
+                {
+                    myBlock.transform.position = 
+                        new Vector3(
+                            myBlock.transform.position.x,
+                            yPosPlusHalfHeight,
+                            myBlock.transform.position.z
+                            );
+                    
+                    SetState(TetrisRetState.Landed);
+                }
+                
+                
                 break;
         }
 

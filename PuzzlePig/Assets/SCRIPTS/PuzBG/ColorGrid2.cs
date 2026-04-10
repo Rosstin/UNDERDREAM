@@ -11,7 +11,7 @@ public class ColorGrid2 : MonoBehaviour
     public GameObject rightWall;
     public GameObject bottomWall;
     public GameObject backPosRef;
-    
+
     [Header("Prefabs")] 
     public ColorRow2 cRowPref;
 

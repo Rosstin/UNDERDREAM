@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.3260092, g: 0.2634796, b: 0.37539637, a: 1}
+  m_IndirectSpecularColor: {r: 0.32644928, g: 0.26384902, b: 0.37568521, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &4
 LightmapSettings:
@@ -532,6 +532,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92ddf1fd9ac6e174d9d6af313132fae0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DESCEND_SPEED_METERS_PER_SECOND: 20
 --- !u!1 &125131274
 GameObject:
   m_ObjectHideFlags: 0
@@ -2011,7 +2012,7 @@ GameObject:
   m_Component:
   - component: {fileID: 576835464}
   m_Layer: 0
-  m_Name: BG-parent
+  m_Name: ColorGrid2Parent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

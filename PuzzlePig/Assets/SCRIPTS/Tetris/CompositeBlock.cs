@@ -41,7 +41,7 @@ public class CompositeBlock : MonoBehaviour
         return botRightRef.transform.position.x- topLeftRef.transform.position.x;
     }
 
-    private float GetBlockHeight()
+    public float GetBlockHeight()
     {
         return topLeftRef.transform.position.y - botRightRef.transform.position.y;
     }
