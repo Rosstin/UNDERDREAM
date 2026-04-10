@@ -26,7 +26,7 @@ public class TetrisGS : BaseController
     [Header("Outlets")]
     public Camera mainCamera;
     public Collider CollisionPlane;
-    public TetrisRet heldRet = null;
+    public TetrisRet heldRet;
     public ColorGrid2 colorGrid;
     public GameObject gridTopLeftAnchor;
     
@@ -49,7 +49,7 @@ public class TetrisGS : BaseController
     }
     
     private List<CompositeBlock> blocks = new List<CompositeBlock>();
-
+    
     public Material GetMatForFlavor(ShardFlavors flavor)
     {
         switch (flavor)
@@ -124,9 +124,10 @@ public class TetrisGS : BaseController
         {
 
             
-            RaycastHit hit;
-            Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
 
+            heldRet.GrabBlock();
+
+            /*
             if (Physics.Raycast(ray, out hit))
             {
                 Transform objectHit = hit.transform;
@@ -135,14 +136,19 @@ public class TetrisGS : BaseController
 
                 if (ret != null)
                 {
-                    heldRet = ret;
-                    ret.GrabBlock();
-                }
-            }
-                    
+                    */
+            //heldRet = ret;
+            /*
+            ret.GrabBlock();
+        }
+    */
+            //}
+            
+            
+
         }
         
-        if (heldRet != null)
+        if (heldRet.IsRetHeld())
         {
             // dropping ing
             if (!CommandsHeldThisFrame.ContainsKey(Command.Fire))
@@ -155,8 +161,6 @@ public class TetrisGS : BaseController
                 UpdateRetPosition(retStartPos);
 
                 heldRet.FireBlock();
-
-                heldRet = null;
             }
             //holding ing
             else

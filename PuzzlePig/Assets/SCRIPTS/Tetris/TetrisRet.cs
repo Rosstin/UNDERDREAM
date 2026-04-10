@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class TetrisRet : MonoBehaviour
@@ -44,6 +42,12 @@ public class TetrisRet : MonoBehaviour
     {
         this.SetState(TetrisRetState.Fired);
     }
+    
+    public bool IsRetHeld()
+    {
+        return myState == TetrisRetState.Held;
+    }
+
 
     private void SetState(TetrisRetState state)
     {
@@ -61,6 +65,10 @@ public class TetrisRet : MonoBehaviour
 
     private void Update()
     {
+        UpdateState();
+    }
+
+    private void UpdateState(){
         switch (myState)
         {
             case TetrisRetState.Ready:
@@ -70,10 +78,7 @@ public class TetrisRet : MonoBehaviour
             case TetrisRetState.Fired:
                 break;
         }
+
     }
 
-    private void UpdateState(){
-        
-    }
-    
 }
