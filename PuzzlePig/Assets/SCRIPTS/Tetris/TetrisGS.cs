@@ -92,7 +92,7 @@ public class TetrisGS : BaseController
         blocks.Add(cb);
 
         colorGrid.GenerateGrid(gridDimens, gridTopLeftAnchor);
-        heldRet.Init(cb);
+        heldRet.Init(this,cb);
     }
 
     private void Update()
@@ -131,11 +131,12 @@ public class TetrisGS : BaseController
             {
                 Transform objectHit = hit.transform;
             
-                TetrisRet bobaRet = objectHit.gameObject.GetComponent<TetrisRet>();
+                TetrisRet ret = objectHit.gameObject.GetComponent<TetrisRet>();
 
-                if (bobaRet != null)
+                if (ret != null)
                 {
-                    heldRet = bobaRet;
+                    heldRet = ret;
+                    ret.GrabBlock();
                 }
             }
                     

@@ -35,6 +35,11 @@ public class TetrisRet : MonoBehaviour
         }
     }
 
+    public void GrabBlock()
+    {
+        this.SetState(TetrisRetState.Held);
+    }
+    
     public void FireBlock()
     {
         this.SetState(TetrisRetState.Fired);
@@ -42,10 +47,12 @@ public class TetrisRet : MonoBehaviour
 
     private void SetState(TetrisRetState state)
     {
+
+        this.myState = state;
+
         switch (myState)
         {
             case TetrisRetState.Ready:
-                SetBlockPosition(gamestate.SnapToGrid(this.transform.position));
                 break;
             case TetrisRetState.Fired:
                 break;
@@ -57,6 +64,7 @@ public class TetrisRet : MonoBehaviour
         switch (myState)
         {
             case TetrisRetState.Ready:
+            case TetrisRetState.Held:
                 SetBlockPosition(gamestate.SnapToGrid(this.transform.position));
                 break;
             case TetrisRetState.Fired:
@@ -64,8 +72,7 @@ public class TetrisRet : MonoBehaviour
         }
     }
 
-    private void UpdateState()
-    {
+    private void UpdateState(){
         
     }
     
