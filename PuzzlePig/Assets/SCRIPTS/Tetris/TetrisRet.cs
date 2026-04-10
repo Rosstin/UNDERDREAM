@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class TetrisRet : MonoBehaviour
 {
+    [Header("Outlets")] 
+    public GameObject preview;
 
     [Header("Params")]
     public float DESCEND_SPEED_METERS_PER_SECOND;
@@ -72,6 +74,19 @@ public class TetrisRet : MonoBehaviour
         UpdateState();
     }
 
+    private void SetPreviewPos()
+    {
+        this.preview.transform.position = this.GetRestingPosForBlockFallFrom(this.transform.position);
+    }
+
+    private Vector3 GetRestingPosForBlockFallFrom(Vector3 pos)
+    {
+        Vector3 snappedPos = gamestate.SnapToGrid(pos);
+
+        return this.gamestate.blockContainer.GetRestingPosForBlockFallFrom(snappedPos);
+
+    }
+
     private void UpdateState(){
         switch (myState)
         {
@@ -85,8 +100,13 @@ public class TetrisRet : MonoBehaviour
                 Vector3 jitter = new Vector3(UnityEngine.Random.Range(-JITTER_AMOUNT, JITTER_AMOUNT),
                     UnityEngine.Random.Range(-JITTER_AMOUNT, JITTER_AMOUNT), UnityEngine.Random.Range(-JITTER_AMOUNT, JITTER_AMOUNT));
 
+
+                Vector3 snappedPos = gamestate.SnapToGrid(this.transform.position);
                 
-                SetBlockPosition(gamestate.SnapToGrid(this.transform.position) + jitter);
+                SetBlockPosition(snappedPos + jitter);
+
+                SetPreviewPos();
+                
                 
                 break;
             case TetrisRetState.Fired:
@@ -100,7 +120,11 @@ public class TetrisRet : MonoBehaviour
 
                 myBlock.transform.position = myBlock.transform.position + new Vector3(0f,-moveDistance,0f);
 
-                float yRestingPos = GetLowestYForColumn();
+                
+                
+                float yRestingPos = GetLowestYForColumn(this.gamestate.blockContainer.GetCoordForPos(myBlock.transform.position).x);
+                
+                Debug.Log("Y RESTING PS " + yRestingPos);
                 
                 if (myBlock.transform.position.y <= yRestingPos)
                 {
@@ -120,14 +144,8 @@ public class TetrisRet : MonoBehaviour
 
     }
 
-    private float GetLowestYForColumn()
+    private float GetLowestYForColumn(int colX)
     {
-        // query the block list
-        
-        
-        /*
-        gamestate.colorGrid.bottomWall.transform.position.y + (CompositeBlock.GetBlockHeight()/2f);
-        */
-        return -1.0f;
+        return this.gamestate.blockContainer.GetLowestYForColumn(colX);
     }
 }

@@ -23,7 +23,6 @@ public class ColorGrid2 : MonoBehaviour
     private TetrisGS gamestate;
     private Vector2Int dimens;
     private GameObject topLeftAnchor;
-    private List<CompositeBlock> landedBlocks = new List<CompositeBlock>();
 
     public void Init(TetrisGS gs, BlockContainer bc, Vector2Int gridDimens, GameObject topLeftAnch)
     {
@@ -75,6 +74,7 @@ public class ColorGrid2 : MonoBehaviour
         
     }
 
+    
     public Vector3 SnapToGrid(Vector3 pos)
     {
         // snap the pos to our grid

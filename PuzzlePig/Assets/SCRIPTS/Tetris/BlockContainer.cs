@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class BlockContainer : MonoBehaviour
 {
@@ -70,9 +72,42 @@ public class BlockContainer : MonoBehaviour
 
     }
 
+    public float GetRealYForRow(int y)
+    {
+        return topLeftAnchor.transform.localPosition.y - y * 1f;
+    }
+
+    public int GetRowForRealY(float posy)
+    {
+        float yFloat = (int)(-posy + topLeftAnchor.transform.localPosition.y) / 1f;
+
+        int yInt = (int)(yFloat);
+        return yInt;
+    }
+
+    public float GetRealXForCol(int x)
+    {
+        return topLeftAnchor.transform.localPosition.x + x * 1f;
+    }
+
+    public int GetColForRealX(float posx)
+    {
+        float xFloat = (int)(posx - topLeftAnchor.transform.localPosition.x) / 1f;
+        int xInt = (int)(xFloat);
+        return xInt;
+    }
+
     public Vector3 GetPosForCoord(int x, int y)
     {
-        return new Vector3(topLeftAnchor.transform.localPosition.x + x *1f, topLeftAnchor.transform.localPosition.y - y*1f, backPosRef.transform.localPosition.z);
+        return new Vector3(GetRealXForCol(x), GetRealYForRow(y), backPosRef.transform.localPosition.z);
+    }
+
+
+    public Vector2Int GetCoordForPos(Vector3 pos)
+    {
+
+        return new Vector2Int(GetColForRealX(pos.x), GetRowForRealY(pos.y));
+
     }
 
     public void ClearBlocks()
@@ -104,5 +139,40 @@ public class BlockContainer : MonoBehaviour
 
 
         return cb;
+    }
+
+    public float GetLowestYForColumn(int colX)
+    {
+        // given a column, get lowest y as a real position
+
+        var column = myLandedBlocks[colX];
+        
+        // look for the first empty
+
+        int yCand = -1;
+        for (int y = 0; y < column.Count; y++)
+        {
+            CompositeBlock block = column[y];
+
+            if (block != null)
+            {
+                yCand = y;
+                break;
+            }
+            
+        }
+
+        return GetRealYForRow(yCand-1);
+
+
+    }
+
+    public Vector3 GetRestingPosForBlockFallFrom(Vector3 snappedPos)
+    {
+        var c=GetCoordForPos(snappedPos);
+        float lowestY=GetLowestYForColumn(c.x);
+
+        return new Vector3(snappedPos.x, lowestY, backPosRef.transform.position.z);
+
     }
 }
