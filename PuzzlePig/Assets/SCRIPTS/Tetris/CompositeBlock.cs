@@ -10,6 +10,10 @@ public class CompositeBlock : MonoBehaviour
     [Header("Prefabs")]
     [SerializeField] public Shard shardPrefab;
 
+    [Header("My Bounds")] [SerializeField] 
+    public GameObject topLeftRef;
+    public GameObject botRightRef;
+    
     private List<Shard> myShards = new List<Shard>();
 
     private TetrisGS gamestate = null;
@@ -31,11 +35,34 @@ public class CompositeBlock : MonoBehaviour
         }
         myShards.Clear();
     }
+
+    private float GetBlockWidth()
+    {
+        return botRightRef.transform.position.x- topLeftRef.transform.position.x;
+    }
+
+    private float GetBlockHeight()
+    {
+        return topLeftRef.transform.position.y - botRightRef.transform.position.y;
+    }
+    
+    private Vector3 GetPositionForIndex(int x, int y)
+    {
+        Vector3 pos = topLeftRef.transform.position + new Vector3(GetBlockWidth() * (1f/6f), -GetBlockHeight() * (1f/6f), 0);
+
+        pos += new Vector3(x*(GetBlockWidth()/3f), -y*(GetBlockHeight()/3f), 0);
+
+        return pos;
+    }
     
     public void Randomize()
     {
         Clear();
         // for starters, let's generate a 3x3 grid of colors. Then let's simplify the shards
+        
+        
+        // calculate the center pos and whatnot
+        
         
         // generating a 3x3
         for (int x = 0; x < 3; x++)
@@ -44,7 +71,7 @@ public class CompositeBlock : MonoBehaviour
             {
                 TetrisGS.ShardFlavors randomFlavor = GenerateRandomFlavor();
                 Shard shard = GameObject.Instantiate(shardPrefab).GetComponent<Shard>();
-                shard.Init(gamestate, this, randomFlavor, x, y);
+                shard.Init(gamestate, this, randomFlavor, GetPositionForIndex(x,y));
 
                 myShards.Add(shard);
 

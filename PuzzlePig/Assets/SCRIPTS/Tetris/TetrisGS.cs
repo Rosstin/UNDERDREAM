@@ -146,16 +146,21 @@ public class TetrisGS : BaseController
             // dropping ing
             if (!CommandsHeldThisFrame.ContainsKey(Command.Fire))
             {
+                /*
                 // calculate the direction between the current position and the startpos
                 Vector3 shootDirection = retStartPos - heldRet.transform.position;
                 
                 shootDirection.Normalize();
+                */
 
+                
+                
                 //DummyBlock.transform.position = startPos + shootDirection * fireDist;
                 //DummyBlock.transform.position = startPos;
                 //DummyBlock.Shoot(shootDirection, speed);
+
+                UpdateRetPosition(retStartPos);
                 
-                heldRet.transform.position = retStartPos;
                 heldRet = null;
             }
             //holding ing
@@ -168,12 +173,30 @@ public class TetrisGS : BaseController
                 
                 if(CollisionPlane.Raycast(ray, out hit, 100f))
                 {
+                    UpdateRetPosition(hit.point);
 
-                    heldRet.transform.position = hit.point;
                 }
             }
                     
         }
+    }
+
+    private void UpdateRetPosition(Vector3 pos)
+    {
+        heldRet.SetBlockPosition(SnapToGrid(pos));
+        heldRet.transform.position = pos;
+    }
+    
+    private Vector3 SnapToGrid(Vector3 pos)
+    {
+        // snap the position to a grid 1/3 the size 
+
+        return this.colorGrid.SnapToGrid(pos);
+
+
+
+
+
     }
 
     private void ClearBlocks()

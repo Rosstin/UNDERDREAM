@@ -11,12 +11,12 @@ public class TetrisRet : MonoBehaviour
         this.myBlock = block;
     }
     
-    void Update()
+    public void SetBlockPosition(Vector3 pos)
     {
         if (myBlock != null)
         {
-            myBlock.transform.position = this.transform.position;
+            myBlock.transform.position = pos;
         }
-
     }
+    
 }

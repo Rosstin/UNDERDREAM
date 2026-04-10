@@ -10,7 +10,8 @@ public class ColorGrid2 : MonoBehaviour
     public GameObject leftWall;
     public GameObject rightWall;
     public GameObject bottomWall;
-
+    public GameObject backPosRef;
+    
     [Header("Prefabs")] 
     public ColorRow2 cRowPref;
 
@@ -39,5 +40,39 @@ public class ColorGrid2 : MonoBehaviour
         
         
         
+    }
+
+    public Vector3 SnapToGrid(Vector3 pos)
+    {
+        // snap the pos to our grid
+        
+        // we're basically using ints - if you intify it, it should work perfectly
+
+        Vector3 intOffset = new Vector3(
+            -0.5f,
+            -0.5f,
+            0f);
+
+        Vector3 gridOffset = new Vector3(
+            +0.5f,
+            +1.0f,
+            0f);
+        
+        Vector3Int snappedPos = new Vector3Int(
+            (int)(pos.x+intOffset.x), 
+            (int)(pos.y+intOffset.y), 
+            (int)(pos.z+intOffset.z));
+
+        
+
+        Vector3 snappedPosNormed = snappedPos+gridOffset;
+        
+        Vector3 snappedToBack = new Vector3(snappedPosNormed.x, snappedPosNormed.y, backPosRef.transform.position.z);
+        
+        //Debug.Log("pos " + pos + ", snappedToBack " + snappedToBack);
+        
+        
+        
+        return snappedToBack;
     }
 }
