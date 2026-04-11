@@ -99,7 +99,12 @@ public class ColorGrid2 : MonoBehaviour
         }
     }
 
-    public ColorBlock GetBlockForCoord(Vector2Int coord)
+    public CompositeBlock GetCompositeBlockForCoord(Vector2Int coord)
+    {
+        return this.myBlockContainer.GetCompBlockForCoord(coord);
+    }
+    
+    public ColorBlock GetColorBlockForCoord(Vector2Int coord)
     {
         int xc = coord.x;
         int yc = coord.y;
@@ -112,7 +117,7 @@ public class ColorGrid2 : MonoBehaviour
             }
             else
             {
-                Debug.LogError("xc " + xc + " is out of range colorRows[yc].ColorBlocks.Count " +  colorRows[yc].ColorBlocks.Count);
+                Debug.Log("xc " + xc + " is out of range colorRows[yc].ColorBlocks.Count " +  colorRows[yc].ColorBlocks.Count);
                 return null;
             }
 
@@ -121,7 +126,7 @@ public class ColorGrid2 : MonoBehaviour
         }
         else
         {
-            Debug.LogError("yc " + yc + " is out of range colorRows.Count " +  colorRows.Count);
+            Debug.Log("yc " + yc + " is out of range colorRows.Count " +  colorRows.Count);
             return null;
         }
 
@@ -159,7 +164,7 @@ public class ColorGrid2 : MonoBehaviour
 
         UnhighlightAll();
 
-        var bl=this.GetBlockForCoord(c);
+        var bl=this.GetColorBlockForCoord(c);
         if (bl == null)
         {
             Debug.LogError("block for pos " + pos + " wasnt found. Coord was " + c);
@@ -231,9 +236,9 @@ public class ColorGrid2 : MonoBehaviour
     {
         // given the block and it's position, destroy adjacencies 
 
-        var coord=this.GetCoordForPos(scoringBlock.transform.position);
+        var scoringBlockCoord=this.GetCoordForPos(scoringBlock.transform.position);
 
-        Debug.Log("score block at " +coord);
+        Debug.Log("score block at " +scoringBlockCoord);
 
         if (scoringBlock.GetShardSize() == TetrisGS.ShardSize.x1)
         {
@@ -254,13 +259,49 @@ public class ColorGrid2 : MonoBehaviour
                 for (int y = 0; y < 3; y++)
                 {
 
+                    // 0,0 is the top left corner
+                    // 2,2 is the bot right corner
+                    // corners are adjacent to 2 blocks
+                    
                     if (x == 1 && y == 1)
                     {
                         Debug.Log("center shard can't be scored. it's flavor: " + scoringBlock.GetFlavorForIndex(x,y));
                     }
                     else
                     {
-                        Debug.Log("shard at " + x + "," + y + " has flavor " + scoringBlock.GetFlavorForIndex(x,y));
+                    }
+
+                    // top left corner
+                    if (x == 0 && y == 0)
+                    {
+                        Debug.Log("top left corn shard at " + x + "," + y + " has flavor " + scoringBlock.GetFlavorForIndex(x,y));
+                        
+                        // check above and left blocks
+                        
+                    }
+
+                    // left side
+                    if (x == 0 && y == 1)
+                    {
+                        Debug.Log("left side shard at " + x + "," + y + " has flavor " + scoringBlock.GetFlavorForIndex(x,y));
+                        // check block to my left
+                        
+                        // look at block to the left of me, specifically at the relevant index.
+                        // my index is 0,1. The block to my left, the index would be 2,1
+
+                        Vector2Int coordOfBlockToMyLeft = scoringBlockCoord +  new Vector2Int(-1,0);
+                        
+                        var blockToMyLeft = this.GetCompositeBlockForCoord(coordOfBlockToMyLeft);
+                        if (blockToMyLeft == null)
+                        {
+                            Debug.Log("no block to my left");
+                        }
+                        else
+                        {
+                            var flavorToMyLeft = blockToMyLeft.GetFlavorForIndex(2, y);
+                            Debug.Log("found block to my left. its flavor is  " + flavorToMyLeft);
+                        }
+
                     }
                     
                     

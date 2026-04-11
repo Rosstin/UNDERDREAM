@@ -371,7 +371,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   preview: {fileID: 632597106}
-  DESCEND_SPEED_METERS_PER_SECOND: 20
+  DESCEND_SPEED_METERS_PER_SECOND: 25
 --- !u!1 &249747594
 GameObject:
   m_ObjectHideFlags: 0
@@ -1868,6 +1868,7 @@ MonoBehaviour:
   psh: {fileID: 12936556}
   tink: {fileID: 1454236275}
   rocket: {fileID: 1929233830}
+  canCrunch: {fileID: 0}
 --- !u!1 &1929233828
 GameObject:
   m_ObjectHideFlags: 0

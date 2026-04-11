@@ -145,6 +145,24 @@ public class BlockContainer : MonoBehaviour
         float lowestY=GetLowestYForColumn(c.x);
 
         return new Vector3(snappedPos.x, lowestY, backPosRef.transform.position.z);
-
     }
+    
+    public CompositeBlock GetCompBlockForCoord(Vector2Int coord)
+    {
+        if (
+            coord.x >= 0 
+            && coord.x < myLandedBlocks.Count 
+            && coord.y >= 0 
+            && coord.y < myLandedBlocks[coord.x].Count)
+        {
+            var block = myLandedBlocks[coord.x][coord.y];
+            return block;
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+
 }
