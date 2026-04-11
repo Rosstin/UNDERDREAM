@@ -55,6 +55,12 @@ public class TetrisGS : BaseController
         Unset,
     }
     
+    public enum ShardSize
+    {
+        Unset,
+        x1,
+        x3,
+    }
 
     public Material GetMatForFlavor(ShardFlavors flavor)
     {
@@ -146,12 +152,20 @@ public class TetrisGS : BaseController
 
     private void UpdateRetPosition(Vector3 pos)
     {
-        colorGrid.HighlightBackBlockAtPos(pos);
-        
-        
-        refSpot.transform.position = pos;
-        
-        heldRet.transform.position = pos;
+        // check if position is in range - ignore if not 
+        bool inrange=this.colorGrid.IsInRange(pos);
+
+
+        if (inrange)
+        {
+            colorGrid.HighlightBackBlockAtPos(pos);
+            refSpot.transform.position = pos;
+            heldRet.transform.position = pos;
+        }
+        else
+        {
+            // not in range - ignore
+        }
     }
     
     public Vector3 SnapToGrid(Vector3 pos)

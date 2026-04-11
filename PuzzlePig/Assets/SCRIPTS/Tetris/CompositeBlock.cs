@@ -8,14 +8,18 @@ using Random = UnityEngine.Random;
 public class CompositeBlock : MonoBehaviour
 {
     [Header("Prefabs")]
-    [SerializeField] public Shard shardPrefab;
+    public Shard shardPrefab;
 
     [Header("Outlets")] 
     public GameObject contentParent;
     
-    [Header("My Bounds")] [SerializeField] 
+    [Header("My Bounds")] 
     public GameObject topLeftRef;
     public GameObject botRightRef;
+
+    [Header("Configs")] 
+    public int X1_WEIGHT = 50;
+    public int X3_WEIGHT = 50;
     
     private List<Shard> myShards = new List<Shard>();
 
@@ -63,16 +67,37 @@ public class CompositeBlock : MonoBehaviour
 
         return pos;
     }
-    
+
     public void Randomize()
     {
         Clear();
-        // for starters, let's generate a 3x3 grid of colors. Then let's simplify the shards
+
         
-        
-        // calculate the center pos and whatnot
-        
-        
+        int totWeight = X1_WEIGHT + X3_WEIGHT;
+        int roll = Random.Range(0, totWeight);
+        if (roll < X1_WEIGHT)
+        {
+            GenX1Block();
+        }
+        else
+        {
+            GenX3Block();
+        }
+    }
+
+    public void GenX1Block()
+    {
+        TetrisGS.ShardFlavors randomFlavor = GenerateRandomFlavor();
+
+        Shard shard = GameObject.Instantiate(shardPrefab).GetComponent<Shard>();
+        shard.Init(gamestate, contentParent, randomFlavor, GetPositionForIndex(1,1), TetrisGS.ShardSize.x1);
+                
+        myShards.Add(shard);
+
+    }
+
+    public void GenX3Block()
+    {        
         // generating a 3x3
         for (int x = 0; x < 3; x++)
         {
@@ -80,20 +105,14 @@ public class CompositeBlock : MonoBehaviour
             {
                 TetrisGS.ShardFlavors randomFlavor = GenerateRandomFlavor();
                 Shard shard = GameObject.Instantiate(shardPrefab).GetComponent<Shard>();
-                shard.Init(gamestate, contentParent, randomFlavor, GetPositionForIndex(x,y));
+                shard.Init(gamestate, contentParent, randomFlavor, GetPositionForIndex(x,y), TetrisGS.ShardSize.x3);
                 
                 myShards.Add(shard);
 
             }
         }
-        
-        
-        
-        
-        
-        
     }
-
+    
     /// <summary>
     /// Generate one of 9 random flavors. Todo: more detailed params
     /// </summary>

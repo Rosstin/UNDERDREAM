@@ -134,6 +134,22 @@ public class ColorGrid2 : MonoBehaviour
         
     }
 
+    public bool IsInRange(Vector3 pos)
+    {
+        Vector3 snappedPos = SnapToGrid(pos);
+        var c=GetCoordForPos(snappedPos);
+
+        if (c.x < 0 || c.x >= this.dimens.x || c.y < 0 || c.y >= this.dimens.y)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+        
+    }
+    
     public void HighlightBackBlockAtPos(Vector3 pos)
     {
         // given a collision pos w the backboard, work back to the indexed block
@@ -141,12 +157,24 @@ public class ColorGrid2 : MonoBehaviour
         Vector3 snappedPos = SnapToGrid(pos);
         var c=GetCoordForPos(snappedPos);
 
+        UnhighlightAll();
+
         var bl=this.GetBlockForCoord(c);
         if (bl == null)
         {
             Debug.LogError("block for pos " + pos + " wasnt found. Coord was " + c);
+            return;
         }
+        else
+        {
+            bl.Highlight();
+        }
+        
 
+    }
+
+    private void UnhighlightAll()
+    {
         foreach (var r in colorRows)
         {
             foreach (var b in r.ColorBlocks)
@@ -154,8 +182,6 @@ public class ColorGrid2 : MonoBehaviour
                 b.Unhighlight();
             }
         }
-        
-        bl.Highlight();
 
     }
 

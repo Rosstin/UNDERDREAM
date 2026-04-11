@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Shard : MonoBehaviour
@@ -7,22 +5,40 @@ public class Shard : MonoBehaviour
     [Header("Renderer")]
     public MeshRenderer meshRenderer;
     
-    public TetrisGS.ShardFlavors myFlavor;
+    
+    
+    private TetrisGS.ShardFlavors myFlavor;
+    private TetrisGS.ShardSize mySize;
+    
+    private Vector2 TopCornerPosition;
 
-    public Vector2 TopCornerPosition;
-
-    public Vector2 Dimensions;
+    private Vector2 Dimensions;
 
     private TetrisGS myGamestate = null;
 
-    //private const float oneThird = 1.0f / 3.0f;
     
-    public void Init(TetrisGS gamestate, GameObject parent, TetrisGS.ShardFlavors flav, Vector3 pos)
+    
+    public void Init(TetrisGS gamestate, GameObject parent, TetrisGS.ShardFlavors flav, Vector3 pos, TetrisGS.ShardSize shardSize)
     {
+        this.mySize = shardSize;
         this.myGamestate = gamestate;
         this.SetFlavor(flav);
         this.transform.SetParent(parent.transform);
-        this.transform.localScale = new Vector3((1/3f), (1/3f), (1/3f));
+
+        switch (shardSize)
+        {
+            case TetrisGS.ShardSize.x1:
+                this.transform.localScale = new Vector3((1/1f), (1/1f), (1/1f));
+                break;
+            case TetrisGS.ShardSize.x3:
+                this.transform.localScale = new Vector3((1/3f), (1/3f), (1/3f));
+                break;
+            case TetrisGS.ShardSize.Unset:
+                Debug.LogError("shard size unset!");
+                break;
+            
+        }
+        
         this.transform.position = pos;
     }
 

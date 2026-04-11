@@ -132,7 +132,7 @@ public class BlockContainer : MonoBehaviour
         }
         else
         {
-            Debug.LogError("attempting to get a Y for a column " + colX + " that is invalid");
+            //Debug.LogError("attempting to get a Y for a column " + colX + " that is invalid");
             return -1;
         }
         
