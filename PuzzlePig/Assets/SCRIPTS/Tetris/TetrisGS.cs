@@ -40,7 +40,9 @@ public class TetrisGS : BaseController
     public AudioSource psh;
     public AudioSource tink;
     public AudioSource rocket;
-
+    public AudioSource canCrunch;
+    
+    
     public enum ShardFlavors
     {
         Aqua,
@@ -179,6 +181,11 @@ public class TetrisGS : BaseController
     {
         this.tink.pitch = UnityEngine.Random.Range(0.5f, 1.5f);
         this.tink.Play();
+    }
+    public void PlayCanCrunchSfx()
+    {
+        this.canCrunch.pitch = UnityEngine.Random.Range(0.5f, 1.5f);
+        this.canCrunch.Play();
     }
     
     public void PlayFireSfx()

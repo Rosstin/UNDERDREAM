@@ -48,4 +48,9 @@ public class Shard : MonoBehaviour
         meshRenderer.material = this.myGamestate.GetMatForFlavor(flavor);
 
     }
+
+    public TetrisGS.ShardFlavors GetFlavor()
+    {
+        return myFlavor;
+    }
 }

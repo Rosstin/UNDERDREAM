@@ -227,4 +227,57 @@ public class ColorGrid2 : MonoBehaviour
 
     }
 
+    public void ScoreBlock(CompositeBlock scoringBlock)
+    {
+        // given the block and it's position, destroy adjacencies 
+
+        var coord=this.GetCoordForPos(scoringBlock.transform.position);
+
+        Debug.Log("score block at " +coord);
+
+        if (scoringBlock.GetShardSize() == TetrisGS.ShardSize.x1)
+        {
+            // check if there are any adjacencies 
+
+            TetrisGS.ShardFlavors flavor =scoringBlock.GetFlavorForIndex();
+            Debug.Log("score full block w flavor " + flavor);
+
+
+        }
+        else if (scoringBlock.GetShardSize() == TetrisGS.ShardSize.x3)
+        {
+            Debug.Log("score 3x3 block");
+            // check if there are any adjacencies 
+
+            for (int x = 0; x < 3; x++)
+            {
+                for (int y = 0; y < 3; y++)
+                {
+
+                    if (x == 1 && y == 1)
+                    {
+                        Debug.Log("center shard can't be scored. it's flavor: " + scoringBlock.GetFlavorForIndex(x,y));
+                    }
+                    else
+                    {
+                        Debug.Log("shard at " + x + "," + y + " has flavor " + scoringBlock.GetFlavorForIndex(x,y));
+                    }
+                    
+                    
+                    
+                    
+                }
+            }
+            
+            
+        }
+        else
+        {
+            Debug.LogError("shard size of the block isnt valid ");
+        }
+        
+
+
+
+    }
 }

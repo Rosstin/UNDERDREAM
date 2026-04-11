@@ -19,7 +19,6 @@ public class TetrisRet : MonoBehaviour
         Ready,
         Held,
         Fired,
-        Landed,
         Scoring,
     }
 
@@ -68,6 +67,21 @@ public class TetrisRet : MonoBehaviour
 
         switch (myState)
         {
+            case TetrisRetState.Scoring:
+                // determine which blocks to destroy
+                // need a destroy effect
+
+                // look for adjacencies
+                
+                // look at edges and corners basically
+
+                this.gamestate.colorGrid.ScoreBlock(myBlock);
+                
+                
+                
+                
+                
+                break;
             case TetrisRetState.Ready:
                 break;
             case TetrisRetState.Fired:
@@ -134,7 +148,7 @@ public class TetrisRet : MonoBehaviour
                             myBlock.transform.position.z
                             );
                     
-                    SetState(TetrisRetState.Landed);
+                    SetState(TetrisRetState.Scoring);
                 }
                 
                 

@@ -8,7 +8,6 @@ public class BlockContainer : MonoBehaviour
 {
     private List<List<CompositeBlock>> myLandedBlocks = null;
 
-
     private Vector2Int dimens;
     
     private GameObject topLeftAnchor;
@@ -19,10 +18,10 @@ public class BlockContainer : MonoBehaviour
     {
         this.colorGrid = cg2;
         this.gamestate = gs;
-        this.myLandedBlocks = new List<List<CompositeBlock>>();
         this.backPosRef = backPosRef;
         this.dimens = dimens;
         
+        this.myLandedBlocks = new List<List<CompositeBlock>>();
         for (int x = 0; x < dimens.x; x++)
         {
             this.myLandedBlocks.Add(new List<CompositeBlock>());
