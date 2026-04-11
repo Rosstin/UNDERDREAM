@@ -17,11 +17,11 @@ public class Shard : MonoBehaviour
 
     //private const float oneThird = 1.0f / 3.0f;
     
-    public void Init(TetrisGS gamestate, CompositeBlock compositeBlock, TetrisGS.ShardFlavors flav, Vector3 pos)
+    public void Init(TetrisGS gamestate, GameObject parent, TetrisGS.ShardFlavors flav, Vector3 pos)
     {
         this.myGamestate = gamestate;
         this.SetFlavor(flav);
-        this.transform.SetParent(compositeBlock.transform);
+        this.transform.SetParent(parent.transform);
         this.transform.localScale = new Vector3((1/3f), (1/3f), (1/3f));
         this.transform.position = pos;
     }

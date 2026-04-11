@@ -10,6 +10,9 @@ public class CompositeBlock : MonoBehaviour
     [Header("Prefabs")]
     [SerializeField] public Shard shardPrefab;
 
+    [Header("Outlets")] 
+    public GameObject contentParent;
+    
     [Header("My Bounds")] [SerializeField] 
     public GameObject topLeftRef;
     public GameObject botRightRef;
@@ -20,6 +23,11 @@ public class CompositeBlock : MonoBehaviour
     private List<CompositeBlock> blocks = new List<CompositeBlock>();
 
     System.Random random = new System.Random();
+
+    public void SetJitter(Vector3 jitter)
+    {
+        this.contentParent.transform.localPosition = jitter;
+    }
     
     public void Init(TetrisGS gs, BlockContainer blockCont)
     {
@@ -72,8 +80,8 @@ public class CompositeBlock : MonoBehaviour
             {
                 TetrisGS.ShardFlavors randomFlavor = GenerateRandomFlavor();
                 Shard shard = GameObject.Instantiate(shardPrefab).GetComponent<Shard>();
-                shard.Init(gamestate, this, randomFlavor, GetPositionForIndex(x,y));
-
+                shard.Init(gamestate, contentParent, randomFlavor, GetPositionForIndex(x,y));
+                
                 myShards.Add(shard);
 
             }
@@ -99,4 +107,9 @@ public class CompositeBlock : MonoBehaviour
         return randomFlavor;
     }
 
+    public void SetPos(Vector3 pos, Vector3 jitter)
+    {
+        SetJitter(jitter);
+        this.transform.position = pos;
+    }
 }

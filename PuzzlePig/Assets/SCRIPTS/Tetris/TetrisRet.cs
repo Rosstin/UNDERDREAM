@@ -33,21 +33,25 @@ public class TetrisRet : MonoBehaviour
         
     }
     
-    public void SetBlockPosition(Vector3 pos)
+    public void SetBlockPosition(Vector3 pos, Vector3 jitter)
     {
         if (myBlock != null)
         {
-            myBlock.transform.position = pos;
+            myBlock.SetPos(pos, jitter);
         }
     }
 
     public void GrabBlock()
     {
+        gamestate.PlayTinkSfx();
+        
         this.SetState(TetrisRetState.Held);
     }
     
     public void FireBlock()
     {
+        gamestate.PlayFireSfx();
+        
         this.SetState(TetrisRetState.Fired);
     }
     
@@ -94,7 +98,7 @@ public class TetrisRet : MonoBehaviour
         switch (myState)
         {
             case TetrisRetState.Ready:
-                SetBlockPosition(gamestate.SnapToGrid(this.transform.position));
+                SetBlockPosition(gamestate.SnapToGrid(this.transform.position), Vector3.zero);
                 break;
             case TetrisRetState.Held:
                 
@@ -106,7 +110,7 @@ public class TetrisRet : MonoBehaviour
 
                 Vector3 snappedPos = gamestate.SnapToGrid(this.transform.position);
                 
-                SetBlockPosition(snappedPos + jitter);
+                SetBlockPosition(snappedPos, jitter);
 
                 SetPreviewPos();
                 
@@ -117,13 +121,12 @@ public class TetrisRet : MonoBehaviour
                 float moveTime = Time.deltaTime;
                 float moveDistance = DESCEND_SPEED_METERS_PER_SECOND* moveTime;
 
-                myBlock.transform.position = myBlock.transform.position + new Vector3(0f,-moveDistance,0f);
+                myBlock.SetPos((myBlock.transform.position + new Vector3(0f,-moveDistance,0f)), Vector3.zero);
 
-
-                
-                
                 if (myBlock.transform.position.y <= latestDestY)
                 {
+                    gamestate.PlayTinkSfx();
+
                     myBlock.transform.position = 
                         new Vector3(
                             myBlock.transform.position.x,

@@ -34,7 +34,13 @@ public class TetrisGS : BaseController
     [Header("Configs")]
     public Vector3 retStartPos;
     public Vector2Int gridDimens = new Vector2Int(5, 11);
-    
+
+
+    [Header("Configs")] 
+    public AudioSource psh;
+    public AudioSource tink;
+    public AudioSource rocket;
+
     public enum ShardFlavors
     {
         Aqua,
@@ -153,6 +159,18 @@ public class TetrisGS : BaseController
         // rtodo: snap the position to a grid 1/3 the size 
 
         return this.colorGrid.SnapToGrid(pos);
+    }
+
+    public void PlayTinkSfx()
+    {
+        this.tink.pitch = UnityEngine.Random.Range(0.5f, 1.5f);
+        this.tink.Play();
+    }
+    
+    public void PlayFireSfx()
+    {
+        this.psh.Play();
+        //this.rocket.Play();
     }
 
 }
