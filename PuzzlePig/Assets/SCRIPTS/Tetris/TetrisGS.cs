@@ -46,14 +46,14 @@ public class TetrisGS : BaseController
     public enum ShardFlavors
     {
         Aqua,
-        Diamond,
+        Crystal,
         Emerald,
-        Limon,
-        Obsidian,
-        Raspberry,
-        Ruby,
+        LemonLime,
+        Black,
+        Classic,
+        Cherry,
         Sapphire,
-        Tangerine,
+        Orange,
         Unset,
     }
     
@@ -70,21 +70,21 @@ public class TetrisGS : BaseController
         {
             case ShardFlavors.Aqua:
                 return aquaMat;
-            case ShardFlavors.Diamond:
+            case ShardFlavors.Crystal:
                 return diaMat;
             case ShardFlavors.Emerald:
                 return emMat;
-            case ShardFlavors.Limon:
+            case ShardFlavors.LemonLime:
                 return limMat;
-            case ShardFlavors.Obsidian:
+            case ShardFlavors.Black:
                 return obMat;
-            case ShardFlavors.Raspberry:
+            case ShardFlavors.Classic:
                 return raspMat;
-            case ShardFlavors.Ruby:
+            case ShardFlavors.Cherry:
                 return rubMat;
             case ShardFlavors.Sapphire:
                 return sapMat;
-            case ShardFlavors.Tangerine:
+            case ShardFlavors.Orange:
                 return tangMat;
             case ShardFlavors.Unset:
                 Debug.LogError("Unset shard flavor");

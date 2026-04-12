@@ -232,7 +232,7 @@ public class ColorGrid2 : MonoBehaviour
 
     }
 
-    public void ScoreBlock(CompositeBlock scoringBlock)
+    public IEnumerator ScoreBlock(CompositeBlock scoringBlock)
     {
         // given the block and it's position, destroy adjacencies 
 
@@ -317,8 +317,9 @@ public class ColorGrid2 : MonoBehaviour
             Debug.LogError("shard size of the block isnt valid ");
         }
         
+        yield return new WaitForSeconds(0.75f);
 
-
+        this.gamestate.heldRet.FinishedScoring();
 
     }
 }

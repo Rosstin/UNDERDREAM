@@ -6,7 +6,9 @@ using Random = UnityEngine.Random;
 
 public class BlockContainer : MonoBehaviour
 {
-    private List<List<CompositeBlock>> myLandedBlocks = null;
+    public List<List<CompositeBlock>> blocksByLocation = null; // keep track of blocks by their supergrid/subgrid location
+    public List<List<Shard>> shardsByLocation = null; // keep track of shards by their supergrid/subgrid location
+    public Dictionary<TetrisGS.ShardFlavors, List<Shard>> flavToListOfShards; // keep track of blocks of a given flavor
 
     private Vector2Int dimens;
     
@@ -21,15 +23,23 @@ public class BlockContainer : MonoBehaviour
         this.backPosRef = backPosRef;
         this.dimens = dimens;
         
-        this.myLandedBlocks = new List<List<CompositeBlock>>();
+        this.blocksByLocation = new List<List<CompositeBlock>>();
         for (int x = 0; x < dimens.x; x++)
         {
-            this.myLandedBlocks.Add(new List<CompositeBlock>());
+            this.blocksByLocation.Add(new List<CompositeBlock>());
             for (int y = 0; y < dimens.y; y++)
             {
-                this.myLandedBlocks[x].Add(null);
+                this.blocksByLocation[x].Add(null);
             }
         }
+        
+        
+        flavToListOfShards =  new Dictionary<TetrisGS.ShardFlavors, List<Shard>>();
+        for (int i = 0; i < (int)TetrisGS.ShardFlavors.Unset; i++)
+        {
+            flavToListOfShards.Add((TetrisGS.ShardFlavors)i, new List<Shard>());
+        }
+
         
         this.topLeftAnchor = topLeftAnchor;
     }
@@ -61,11 +71,14 @@ public class BlockContainer : MonoBehaviour
                 
                 CompositeBlock newBlock = this.GenerateBlock();
 
-                this.myLandedBlocks[x][yCoord] = newBlock;
+                this.blocksByLocation[x][yCoord] = newBlock;
+
+                newBlock.SetSuperGridLoc(new Vector2Int(x,yCoord));
 
                 // feed an appropriate coord for the block
                 newBlock.transform.localPosition = this.colorGrid.GetPosForCoord(x, yCoord);
 
+                
 
             }
         }
@@ -75,13 +88,13 @@ public class BlockContainer : MonoBehaviour
 
     public void ClearBlocks()
     {
-        for (int x = 0; x < myLandedBlocks.Count; x++)
+        for (int x = 0; x < blocksByLocation.Count; x++)
         {
-            List<CompositeBlock> col = myLandedBlocks[x];
+            List<CompositeBlock> col = blocksByLocation[x];
             
             for (int y = 0; y < col.Count; y++)
             {
-                CompositeBlock block = myLandedBlocks[x][y];                
+                CompositeBlock block = blocksByLocation[x][y];                
                 
                 if (block != null)
                 {
@@ -96,7 +109,7 @@ public class BlockContainer : MonoBehaviour
     public CompositeBlock GenerateBlock()
     {
         CompositeBlock cb = GameObject.Instantiate(this.gamestate.compPrefab).GetComponent<CompositeBlock>();
-        cb.Init(this.gamestate, this.gamestate.blockContainer);
+        cb.Init(this.gamestate, this.gamestate.blockContainer, new Vector2Int(-1,-1));
 
         cb.Randomize();
 
@@ -108,9 +121,9 @@ public class BlockContainer : MonoBehaviour
     {
         // given a column, get lowest y as a real position
 
-        if (colX >= 0 && colX < myLandedBlocks.Count)
+        if (colX >= 0 && colX < blocksByLocation.Count)
         {
-            var column = myLandedBlocks[colX];
+            var column = blocksByLocation[colX];
         
             // look for the first empty
 
@@ -151,11 +164,11 @@ public class BlockContainer : MonoBehaviour
     {
         if (
             coord.x >= 0 
-            && coord.x < myLandedBlocks.Count 
+            && coord.x < blocksByLocation.Count 
             && coord.y >= 0 
-            && coord.y < myLandedBlocks[coord.x].Count)
+            && coord.y < blocksByLocation[coord.x].Count)
         {
-            var block = myLandedBlocks[coord.x][coord.y];
+            var block = blocksByLocation[coord.x][coord.y];
             return block;
         }
         else

@@ -75,8 +75,7 @@ public class TetrisRet : MonoBehaviour
                 
                 // look at edges and corners basically
 
-                this.gamestate.colorGrid.ScoreBlock(myBlock);
-                
+                StartCoroutine(this.gamestate.colorGrid.ScoreBlock(myBlock));
                 
                 
                 
@@ -169,5 +168,10 @@ public class TetrisRet : MonoBehaviour
         }
 
         return true;
+    }
+
+    public void FinishedScoring()
+    {
+        this.SetState(TetrisRetState.Ready);
     }
 }

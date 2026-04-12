@@ -20,6 +20,8 @@ public class CompositeBlock : MonoBehaviour
     [Header("Configs")] 
     public int X1_WEIGHT = 50;
     public int X3_WEIGHT = 50;
+
+    private Vector2Int mySupergridLocation; // -1,-1 means you're not landed on the grid [being held, moving, etc]
     
     private List<List<Shard>> shards3x3 = null;
     private Shard singleShard=null;
@@ -36,8 +38,9 @@ public class CompositeBlock : MonoBehaviour
         this.contentParent.transform.localPosition = jitter;
     }
     
-    public void Init(TetrisGS gs, BlockContainer blockCont)
+    public void Init(TetrisGS gs, BlockContainer blockCont, Vector2Int superGridLoc)
     {
+        this.mySupergridLocation = superGridLoc;
         this.gamestate = gs;
         this.transform.SetParent(blockCont.transform);
         this.transform.localPosition = Vector3.zero;
@@ -112,16 +115,6 @@ public class CompositeBlock : MonoBehaviour
         }
     }
 
-    public void GenX1Block()
-    {
-        this.sizeOfMyShards = TetrisGS.ShardSize.x1;
-        TetrisGS.ShardFlavors randomFlavor = GenerateRandomFlavor();
-
-        Shard s = GameObject.Instantiate(shardPrefab).GetComponent<Shard>();
-        s.Init(gamestate, contentParent, randomFlavor, GetPositionForIndex(1,1), TetrisGS.ShardSize.x1);
-
-        this.singleShard = s;
-    }
 
     private void Populate3x3WithEmpties()
     {
@@ -135,6 +128,20 @@ public class CompositeBlock : MonoBehaviour
             }
         }
     }
+    public void GenX1Block()
+    {
+        this.sizeOfMyShards = TetrisGS.ShardSize.x1;
+        TetrisGS.ShardFlavors flavForThisBlock = GenerateRandomFlavor();
+
+        Shard s = GameObject.Instantiate(shardPrefab).GetComponent<Shard>();
+        s.Init(gamestate, contentParent, flavForThisBlock, GetPositionForIndex(1,1), TetrisGS.ShardSize.x1, new Vector2Int(-1,-1));
+        
+        List<Shard> shardsOfFlav = this.gamestate.blockContainer.flavToListOfShards[flavForThisBlock];
+        shardsOfFlav.Add(s);
+        this.gamestate.blockContainer.flavToListOfShards[flavForThisBlock] = shardsOfFlav;
+
+        this.singleShard = s;
+    }
 
     public void GenX3Block()
     {        
@@ -146,7 +153,7 @@ public class CompositeBlock : MonoBehaviour
             {
                 TetrisGS.ShardFlavors randomFlavor = GenerateRandomFlavor();
                 Shard shard = GameObject.Instantiate(shardPrefab).GetComponent<Shard>();
-                shard.Init(gamestate, contentParent, randomFlavor, GetPositionForIndex(x,y), TetrisGS.ShardSize.x3);
+                shard.Init(gamestate, contentParent, randomFlavor, GetPositionForIndex(x,y), TetrisGS.ShardSize.x3, new Vector2Int(x,y));
                 
                 shards3x3[x][y] = shard;
             }
@@ -189,5 +196,11 @@ public class CompositeBlock : MonoBehaviour
         }
         
         
+    }
+
+    public void SetSuperGridLoc(Vector2Int sGridLoc)
+    {
+        // rtodo merge assignment here with setting things?
+        this.mySupergridLocation=sGridLoc;
     }
 }

@@ -16,14 +16,15 @@ public class Shard : MonoBehaviour
 
     private TetrisGS myGamestate = null;
 
+    private Vector2Int myLocalSubgridLocation; // if this is -1,-1 it means you're a large shard. otherwise, 1,1 is the center, 0,0 is the top right corn, etc
     
-    
-    public void Init(TetrisGS gamestate, GameObject parent, TetrisGS.ShardFlavors flav, Vector3 pos, TetrisGS.ShardSize shardSize)
+    public void Init(TetrisGS gamestate, GameObject parent, TetrisGS.ShardFlavors flav, Vector3 pos, TetrisGS.ShardSize shardSize, Vector2Int localSubgridLoc)
     {
         this.mySize = shardSize;
         this.myGamestate = gamestate;
         this.SetFlavor(flav);
         this.transform.SetParent(parent.transform);
+        this.myLocalSubgridLocation = localSubgridLoc;
 
         switch (shardSize)
         {
