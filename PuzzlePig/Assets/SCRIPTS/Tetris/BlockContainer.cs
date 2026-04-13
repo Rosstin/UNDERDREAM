@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -57,12 +58,16 @@ public class BlockContainer : MonoBehaviour
     public void GenerateLevelBlocks()
     {
         ClearBlocks();
-        
-        
+
+        List<int> heights = new List<int> {  0,1,2,3,4,5 };
+        var shuffledHeights = heights.OrderBy( x => Random.value ).ToList( );
+
+
+
         // for each column, generate a number of blocks between 0 and 4
         for (int x = 0; x < this.dimens.x; x++)
         {
-            int blocksInC =Random.Range(1, 5);
+            int blocksInC = shuffledHeights[x];
             for (int y = 0; y < blocksInC; y++)
             {
 
