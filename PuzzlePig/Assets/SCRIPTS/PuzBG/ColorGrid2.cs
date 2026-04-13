@@ -295,7 +295,7 @@ public class ColorGrid2 : MonoBehaviour
         newLocation.supergridLoc = pos.supergridLoc;
         newLocation.subgridLoc = pos.subgridLoc + dir;
         
-        if (newLocation.subgridLoc.y >= 2)
+        if (newLocation.subgridLoc.y >= 3)
         {
             newLocation.supergridLoc += UP;
             newLocation.subgridLoc += DOWN*3;
@@ -313,10 +313,10 @@ public class ColorGrid2 : MonoBehaviour
             newLocation.subgridLoc += RIGHT * 3;
         }
 
-        if (newLocation.subgridLoc.x >= 2)
+        if (newLocation.subgridLoc.x >= 3)
         {
             newLocation.supergridLoc += RIGHT;
-            newLocation.supergridLoc += LEFT*3;
+            newLocation.subgridLoc += LEFT*3;
         }
 
         return newLocation;
