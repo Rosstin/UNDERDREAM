@@ -160,11 +160,8 @@ public class CompositeBlock : MonoBehaviour
     /// Generate one of 9 random flavors. Todo: more detailed params
     /// </summary>
     /// <returns></returns>
-    /// <exception cref="System.NotImplementedException"></exception>
     private TetrisGS.ShardFlavors GenerateRandomFlavor()
     {
-
-
         var flav = this.gamestate.GetWeightedRandomFlavor();
 
         return flav;

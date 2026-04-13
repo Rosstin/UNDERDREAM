@@ -92,6 +92,7 @@ public class TetrisRet : MonoBehaviour
                 break;
             case TetrisRetState.Fired:
 
+                this.myBlock.SetJitter(Vector3.zero);
                 this.firedElapsed = 0f;
                 
                 gamestate.PlayFireSfx();
@@ -204,6 +205,7 @@ public class TetrisRet : MonoBehaviour
                 
                 break;
             case TetrisRetState.Fired:
+                SetBlockPosition(gamestate.SnapToGrid(this.transform.position), Vector3.zero);
 
                 firedElapsed += Time.deltaTime;
 
