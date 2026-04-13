@@ -243,6 +243,8 @@ public class ColorGrid2 : MonoBehaviour
 
     }
 
+    //Vector2Int 
+    
     public IEnumerator ScoreBlock(CompositeBlock scoringBlock)
     {
         // given the block and it's position, destroy adjacencies 
@@ -269,30 +271,30 @@ public class ColorGrid2 : MonoBehaviour
             {
                 for (int y = 0; y < 3; y++)
                 {
-
-                    // 0,0 is the top left corner
-                    // 2,2 is the bot right corner
-                    // corners are adjacent to 2 blocks
-                    
                     if (x == 1 && y == 1)
                     {
+                        continue;
                         //Debug.Log("center shard can't be scored. it's flavor: " + scoringBlock.GetFlavorForIndex(x,y));
                     }
-                    else
-                    {
-                    }
+
+                    // look at the shards that you're contiguous with and destroy them if they match
+                    
+                    var myFlav = scoringBlock.GetFlavorForIndex(x, y);
 
                     // top left corner
                     if (x == 0 && y == 0)
                     {
-                        //Debug.Log("top left corn shard at " + x + "," + y + " has flavor " + scoringBlock.GetFlavorForIndex(x,y));
-                        
-                        // check above and left blocks
-                        var flav = scoringBlock.GetFlavorForIndex(x, y);
+                        // check my left and check my above
 
+                        var compToLeft = scoringBlock.GetSupergridLoc()+new Vector2Int(-1,0);
+                        
+                        
+                        
+                        
                         var shardsWithFlav = this.myBlockContainer.flavToListOfShards[flav];
                         foreach (var s in shardsWithFlav)
                         {
+                            s.SetVisible(false);
                             Debug.Log("shard flav " + flav + " at shard positi: " + s.GetSuperAndSubgridLocs().supergridLoc + "");
                         }
 

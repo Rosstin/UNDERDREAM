@@ -66,6 +66,11 @@ public class Shard : MonoBehaviour
         this.transform.position = pos;
     }
 
+    public void SetVisible(bool vis)
+    {
+        this.meshRenderer.gameObject.SetActive(vis);
+    }
+    
     private void SetFlavor(TetrisGS.ShardFlavors flavor)
     {
         this.myFlavor = flavor;
