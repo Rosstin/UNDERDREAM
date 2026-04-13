@@ -26,7 +26,6 @@ public class TetrisGS : BaseController
 
     [Header("Outlets")]
     public Camera mainCamera;
-    public Collider CollisionPlane;
     public TetrisRet heldRet;
     public ColorGrid2 colorGrid;
     public GameObject gridTopLeftAnchor;
@@ -190,19 +189,18 @@ public class TetrisGS : BaseController
 
                 Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
                 
-                //RaycastHit hit;
-
                 Vector2Int xy = this.colorGrid.CheckCoordHit(ray);
-                
-                heldRet.UpdateRetPos(xy);
 
-                /*
-                if(CollisionPlane.Raycast(ray, out hit, 100f))
+                if (xy.x == -1 || xy.y == -1)
                 {
-                    heldRet.UpdateRetPosition(hit.point);
-
+                    // invalid
                 }
-            */
+                else
+                {
+                    heldRet.UpdateRetPos(xy);
+                }
+                
+
             }
                     
         }
