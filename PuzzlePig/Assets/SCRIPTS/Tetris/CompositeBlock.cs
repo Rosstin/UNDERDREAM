@@ -173,6 +173,11 @@ public class CompositeBlock : MonoBehaviour
         this.transform.position = pos;
     }
 
+    public Shard GetShardForIndex(Vector2Int xy)
+    {
+        return GetShardForIndex(xy.x, xy.y);
+    }
+    
     public Shard GetShardForIndex(int x=-1, int y=-1)
     {
         if (this.sizeOfMyShards == TetrisGS.ShardSize.x1)
@@ -181,9 +186,16 @@ public class CompositeBlock : MonoBehaviour
         }
         else if (this.sizeOfMyShards == TetrisGS.ShardSize.x3)
         {
-            //Debug.Log("get shard for index " + x + ", " + y);
-            
-            return shards3x3[x][y];
+
+            if (x >= 3 || x <= -1 || y >= 3 || y <= -1)
+            {
+                Debug.Log("trying to get shard for INVALID index " + x + ", " + y);
+                return null;
+            }
+            else
+            {
+                return shards3x3[x][y];
+            }
         }
         else
         {

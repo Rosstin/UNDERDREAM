@@ -24,6 +24,11 @@ public class Shard : MonoBehaviour
     {
         public Vector2Int supergridLoc;
         public Vector2Int subgridLoc;
+
+        public override string ToString()
+        {
+            return "{"+supergridLoc.x+","+supergridLoc.y+"}{"+subgridLoc.x+","+subgridLoc.y+"}";
+        }
     }
 
 
@@ -35,6 +40,11 @@ public class Shard : MonoBehaviour
         Scoring
     }
 
+    public TetrisGS.ShardSize GetMySize()
+    {
+        return mySize;
+    } 
+    
     public void SetShardState(ShardState s)
     {
         switch (s)

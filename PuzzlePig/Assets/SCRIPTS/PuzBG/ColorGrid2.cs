@@ -25,6 +25,16 @@ public class ColorGrid2 : MonoBehaviour
     private GameObject topLeftAnchor;
 
     private List<ColorRow2> colorRows = new List<ColorRow2>();
+
+    private static Vector2Int UP = new Vector2Int(0, 1);
+    private static Vector2Int DOWN = new Vector2Int(0, -1);
+    private static Vector2Int LEFT = new Vector2Int(-1, 0);
+    private static Vector2Int RIGHT = new Vector2Int(1, 0);
+    
+    private static List<Vector2Int> UP_DOWN_LEFT_RIGHT = new List<Vector2Int>()
+        { UP, DOWN, LEFT, RIGHT };
+
+    
     
     public void Init(TetrisGS gs, BlockContainer bc, Vector2Int gridDimens, GameObject topLeftAnch)
     {
@@ -243,16 +253,117 @@ public class ColorGrid2 : MonoBehaviour
 
     }
 
-    //Vector2Int 
-    
-    public IEnumerator ScoreBlock(CompositeBlock scoringBlock)
+    /// <summary>
+    /// recursive function to score shards
+    /// </summary>
+    /// <param name="s"></param>
+    public void ScoreShard(Shard s)
     {
+        s.SetShardState(Shard.ShardState.Scoring);
+        this.myBlockContainer.currentlyScoringShards.Add(s.GetSuperAndSubgridLocs(),s);
+        
+        if (s.GetMySize() == TetrisGS.ShardSize.x1)
+        {
+            Debug.Log("need handling for x1 size");
+            
+        }else if (s.GetMySize() == TetrisGS.ShardSize.x3)
+        {
+            foreach (var dir in UP_DOWN_LEFT_RIGHT)
+            {
+                var adjacentShard = this.GetShardInDirections(s, dir);
+
+                if (adjacentShard != null)
+                {
+                    if (s.GetFlavor() == adjacentShard.GetFlavor() && !this.myBlockContainer.currentlyScoringShards.ContainsKey(adjacentShard.GetSuperAndSubgridLocs()))
+                    {
+                        ScoreShard(adjacentShard);
+                    }
+                }
+
+            }
+        }
+        else
+        {
+            Debug.LogError("invalid size");
+        }
+    }
+
+    public Shard.ShardPositionData MoveSuperGridPositionOneInDir(Shard.ShardPositionData pos, Vector2Int dir)
+    {
+        Shard.ShardPositionData newLocation = new Shard.ShardPositionData();
+
+        newLocation.supergridLoc = pos.supergridLoc;
+        newLocation.subgridLoc = pos.subgridLoc + dir;
+        
+        if (newLocation.subgridLoc.y >= 2)
+        {
+            newLocation.supergridLoc += UP;
+            newLocation.subgridLoc += DOWN*3;
+        }
+
+        if (newLocation.subgridLoc.y <= -1)
+        {
+            newLocation.supergridLoc += DOWN;
+            newLocation.subgridLoc += UP*3;
+        }
+        
+        if (newLocation.subgridLoc.x <= -1)
+        {
+            newLocation.supergridLoc += LEFT;
+            newLocation.subgridLoc += RIGHT * 3;
+        }
+
+        if (newLocation.subgridLoc.x >= 2)
+        {
+            newLocation.supergridLoc += RIGHT;
+            newLocation.supergridLoc += LEFT*3;
+        }
+
+        return newLocation;
+        
+    }
+    
+    private Shard GetShardInDirections(Shard shard, Vector2Int dir)
+    {
+        var superSubLocs = shard.GetSuperAndSubgridLocs();
+
+        Debug.Log("my super sub locs.. " + superSubLocs);
+
+        var newPos = MoveSuperGridPositionOneInDir(superSubLocs, dir);
+
+        Debug.Log("try to score shard at " + newPos);
+        
+        Shard s =myBlockContainer.getShardAtLocation(newPos);
+        if (s != null)
+        {
+            Debug.Log("found an adj shard " + s.GetFlavor());
+            return s;
+        }
+        else
+        {
+            Debug.Log("no adj shard");
+            return null;
+        }
+
+
+    }
+
+    private void LandScoringBlock(CompositeBlock block,Vector2Int destSuperLoc)
+    {
+        block.SetSuperGridLoc(destSuperLoc);
+    }
+    
+    public IEnumerator ScoreBlock(CompositeBlock scoringBlock, Vector2Int destSuperLoc)
+    {
+        this.myBlockContainer.ClearCurrentlyScoringShards();
         // given the block and it's position, destroy adjacencies 
 
         var scoringBlockCoord=this.WorldToSupergrid(scoringBlock.transform.position);
 
         //Debug.Log("score block at " +scoringBlockCoord);
 
+        LandScoringBlock(scoringBlock, destSuperLoc);
+        
         if (scoringBlock.GetShardSize() == TetrisGS.ShardSize.x1)
         {
             // check if there are any adjacencies 
@@ -264,11 +375,12 @@ public class ColorGrid2 : MonoBehaviour
         }
         else if (scoringBlock.GetShardSize() == TetrisGS.ShardSize.x3)
         {
+            
+            
+            
             //Debug.Log("score 3x3 block");
             // check if there are any adjacencies 
 
-            Dictionary<Shard.ShardPositionData, Shard> scoredShards = new Dictionary<Shard.ShardPositionData, Shard>();
-            
             for (int x = 0; x < 3; x++)
             {
                 for (int y = 0; y < 3; y++)
@@ -280,93 +392,19 @@ public class ColorGrid2 : MonoBehaviour
                     }
 
                     // look at the shards that you're contiguous with and destroy them if they match
-                    
+
                     var shardInQuestion = scoringBlock.GetShardForIndex(x, y);
-
-                    // top left corner
-                    if (x == 0 && y == 0)
-                    {
-                        // check my left and check my above
-
-
-                        // LEFT
-                        bool shardScores = false;
-                        
-                        Vector2Int coordOfBlockToMyLeft = scoringBlockCoord +  new Vector2Int(-1,0);
-                        var blockToMyLeft = this.GetCompositeBlockForCoord(coordOfBlockToMyLeft);
-
-                        if (blockToMyLeft == null)
-                        {
-                            continue;
-                        }
-                        var shardToMyLeft = blockToMyLeft.GetShardForIndex(2,0);
-
-                        if (shardToMyLeft.GetFlavor() == shardInQuestion.GetFlavor())
-                        {
-                            shardScores = true;
-                            
-                            scoredShards.Add(shardToMyLeft.GetSuperAndSubgridLocs(), shardToMyLeft);
-
-                            if (scoredShards.ContainsKey(shardInQuestion.GetSuperAndSubgridLocs()))
-                            {
-                                // already marked as scoring
-                            }
-                            else
-                            {
-                                scoredShards.Add(shardInQuestion.GetSuperAndSubgridLocs(), shardInQuestion);
-                            }
-                        }
-                        
-                        // RIGHT
-
-                        
-                        /*
-                        var shardsWithFlav = this.myBlockContainer.flavToListOfShards[flav];
-                        foreach (var s in shardsWithFlav)
-                        {
-                            s.SetVisible(false);
-                            Debug.Log("shard flav " + flav + " at shard positi: " + s.GetSuperAndSubgridLocs().supergridLoc + "");
-                        }
-                        */
-
-                    }
-
-                    // left side
-                    if (x == 0 && y == 1)
-                    {
-                        //Debug.Log("left side shard at " + x + "," + y + " has flavor " + scoringBlock.GetFlavorForIndex(x,y));
-                        // check block to my left
-                        
-                        // look at block to the left of me, specifically at the relevant index.
-                        // my index is 0,1. The block to my left, the index would be 2,1
-
-                        Vector2Int coordOfBlockToMyLeft = scoringBlockCoord +  new Vector2Int(-1,0);
-                        
-                        var blockToMyLeft = this.GetCompositeBlockForCoord(coordOfBlockToMyLeft);
-                        if (blockToMyLeft == null)
-                        {
-                            //Debug.Log("no block to my left");
-                        }
-                        else
-                        {
-                            var flavorToMyLeft = blockToMyLeft.GetShardForIndex(2,y).GetFlavor();
-                            //Debug.Log("found block to my left. its flavor is  " + flavorToMyLeft);
-                        }
-
-                    }
+                    this.ScoreShard(shardInQuestion);
                 }
             }
 
-            foreach (var s in scoredShards.Values)
-            {
-                s.SetShardState(Shard.ShardState.Scoring);
-            }
-            
-            
+
         }
         else
         {
+            /*
             Debug.LogError("shard size of the block isnt valid ");
+        */
         }
         
         yield return new WaitForSeconds(0.75f);

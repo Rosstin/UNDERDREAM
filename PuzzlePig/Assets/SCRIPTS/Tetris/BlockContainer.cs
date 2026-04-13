@@ -2,15 +2,18 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 public class BlockContainer : MonoBehaviour
 {
     public List<List<CompositeBlock>> blocksByLocation = null; // keep track of blocks by their supergrid/subgrid location
-    public List<List<Shard>> shardsByLocation = null; // keep track of shards by their supergrid/subgrid location
     public Dictionary<TetrisGS.ShardFlavors, List<Shard>> flavToListOfShards; // keep track of blocks of a given flavor
 
+    public Dictionary<Shard.ShardPositionData, Shard> currentlyScoringShards;
+
+    
     private Vector2Int dimens;
     
     private GameObject topLeftAnchor;
@@ -55,6 +58,7 @@ public class BlockContainer : MonoBehaviour
         return this.dimens.y;
     }
 
+    
     public void GenerateLevelBlocks()
     {
         ClearBlocks();
@@ -159,7 +163,21 @@ public class BlockContainer : MonoBehaviour
 
 
     }
-    
+
+    public Shard getShardAtLocation(Shard.ShardPositionData loc)
+    {
+        var block = GetCompBlockForCoord(loc.supergridLoc);
+
+        if (block != null)
+        {
+            return block.GetShardForIndex(loc.subgridLoc);
+        }
+        else
+        {
+            return null;
+        }
+        
+    }
 
     
     public Vector2Int GetRestingCoordForBlockFallFrom(Vector2Int c)
@@ -191,4 +209,8 @@ public class BlockContainer : MonoBehaviour
     }
 
 
+    public void ClearCurrentlyScoringShards()
+    {
+        this.currentlyScoringShards = new Dictionary<Shard.ShardPositionData, Shard>();
+    }
 }
