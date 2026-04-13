@@ -407,7 +407,7 @@ public class ColorGrid2 : MonoBehaviour
         */
         }
         
-        yield return new WaitForSeconds(0.75f);
+        yield return new WaitForSeconds(5f);
 
         this.gamestate.heldRet.FinishedScoring();
 

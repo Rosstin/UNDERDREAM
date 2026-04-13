@@ -7,6 +7,9 @@ public class Shard : MonoBehaviour
     
     private TetrisGS.ShardFlavors myFlavor;
     private TetrisGS.ShardSize mySize;
+
+    private float scoringOpa = 0.1f;
+    private Color normCol;
     
     private Vector2 TopCornerPosition;
 
@@ -50,10 +53,12 @@ public class Shard : MonoBehaviour
         switch (s)
         {
             case ShardState.Scoring:
-                this.SetScoreMat();
+                this.meshRenderer.material.color = new Color(normCol.r,normCol.g,normCol.b,scoringOpa);
+                //this.SetScoreMat();
                 break;
             case ShardState.Normal:
                 this.SetFlavor(myFlavor);
+                this.meshRenderer.material.color = normCol;
                 break;
             case ShardState.Unset:
                 Debug.LogError("shard state unset");
@@ -83,6 +88,8 @@ public class Shard : MonoBehaviour
 
         myPosition.supergridLoc= this.myCompositeBlockParent.GetSupergridLoc();
         myPosition.subgridLoc = localSubgridLoc;
+
+        this.normCol = this.meshRenderer.material.color;
 
         this.SetShardState(Shard.ShardState.Normal);
 
