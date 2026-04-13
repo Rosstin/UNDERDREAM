@@ -355,6 +355,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 632597110}
+  - {fileID: 1947737124}
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -371,7 +372,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   preview: {fileID: 632597106}
-  DESCEND_SPEED_METERS_PER_SECOND: 25
+  refSpot: {fileID: 1947737121}
+  FALL_PERIOD_S: 0.3
 --- !u!1 &249747594
 GameObject:
   m_ObjectHideFlags: 0
@@ -798,7 +800,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7aca53f8d349e2439f072cdcd8ed7f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Rows: []
   leftWall: {fileID: 728297981}
   rightWall: {fileID: 1589941951}
   bottomWall: {fileID: 1037874643}
@@ -1862,8 +1863,6 @@ MonoBehaviour:
   heldRet: {fileID: 99951722}
   colorGrid: {fileID: 739033171}
   gridTopLeftAnchor: {fileID: 311599511167334580}
-  refSpot: {fileID: 1947737121}
-  retStartPos: {x: -0.5, y: 6, z: 1}
   gridDimens: {x: 6, y: 11}
   psh: {fileID: 12936556}
   tink: {fileID: 1454236275}
@@ -2033,7 +2032,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1947737121}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -2083,13 +2082,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1947737121}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.09, y: 0.08, z: 0.09}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_Father: {fileID: 99951721}
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2071802170
 GameObject:

@@ -7,7 +7,7 @@ public class ColorBlock : MonoBehaviour
     [Header("Outlets")]
     public MeshRenderer MyRend;
     public Material highlightColor;
-
+    public BoxCollider collider;
     
     private Material myColor;
     

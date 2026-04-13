@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
@@ -9,7 +10,6 @@ using UnityEngine;
 public class ColorGrid2 : MonoBehaviour
 {
     [Header("Outlets")]
-    public List<ColorRow> Rows;
     public GameObject leftWall;
     public GameObject rightWall;
     public GameObject bottomWall;
@@ -70,17 +70,24 @@ public class ColorGrid2 : MonoBehaviour
         return xInt;
     }
 
-    public Vector3 GetPosForCoord(int x, int y)
+    public Vector3 SnapZToBack(Vector3 pos)
+    {
+        return new Vector3(pos.x, pos.y, backPosRef.transform.position.z);
+    }
+
+    public Vector3 SupergridToWorld(int x, int y)
     {
         return new Vector3(GetRealXForCol(x), GetRealYForRow(y), backPosRef.transform.localPosition.z);
     }
 
-
-    public Vector2Int GetCoordForPos(Vector3 pos)
+    public Vector3 SupergridToWorld(Vector2Int xy)
     {
+        return this.SupergridToWorld(xy.x, xy.y);
+    }
 
+    public Vector2Int WorldToSupergrid(Vector3 pos)
+    {
         return new Vector2Int(GetColForRealX(pos.x), GetRowForRealY(pos.y));
-
     }
 
     public void GenerateGrid(Vector2Int dimens, GameObject topLeftPos)
@@ -139,11 +146,8 @@ public class ColorGrid2 : MonoBehaviour
         
     }
 
-    public bool IsInRange(Vector3 pos)
+    public bool IsInRange(Vector2Int c)
     {
-        Vector3 snappedPos = SnapToGrid(pos);
-        var c=GetCoordForPos(snappedPos);
-
         if (c.x < 0 || c.x >= this.dimens.x || c.y < 0 || c.y >= this.dimens.y)
         {
             return false;
@@ -154,27 +158,33 @@ public class ColorGrid2 : MonoBehaviour
         }
         
     }
-    
-    public void HighlightBackBlockAtPos(Vector3 pos)
+
+    public void HighlightBackBlockAtCoord(Vector2Int c)
     {
-        // given a collision pos w the backboard, work back to the indexed block
-
-        Vector3 snappedPos = SnapToGrid(pos);
-        var c=GetCoordForPos(snappedPos);
-
         UnhighlightAll();
 
         var bl=this.GetColorBlockForCoord(c);
         if (bl == null)
         {
-            Debug.LogError("block for pos " + pos + " wasnt found. Coord was " + c);
+            Debug.LogError("block wasnt found. Coord was " + c);
             return;
         }
         else
         {
             bl.Highlight();
         }
-        
+
+
+    }
+    
+    private void HighlightBackBlockAtPos(Vector3 pos)
+    {
+        // given a collision pos w the backboard, work back to the indexed block
+
+        Vector3 snappedPos = SnapToGrid(pos);
+        var c=WorldToSupergrid(snappedPos);
+
+        HighlightBackBlockAtCoord(c);
 
     }
 
@@ -189,6 +199,7 @@ public class ColorGrid2 : MonoBehaviour
         }
 
     }
+
 
     public Vector3 SnapToGrid(Vector3 pos)
     {
@@ -236,7 +247,7 @@ public class ColorGrid2 : MonoBehaviour
     {
         // given the block and it's position, destroy adjacencies 
 
-        var scoringBlockCoord=this.GetCoordForPos(scoringBlock.transform.position);
+        var scoringBlockCoord=this.WorldToSupergrid(scoringBlock.transform.position);
 
         Debug.Log("score block at " +scoringBlockCoord);
 
@@ -251,7 +262,7 @@ public class ColorGrid2 : MonoBehaviour
         }
         else if (scoringBlock.GetShardSize() == TetrisGS.ShardSize.x3)
         {
-            Debug.Log("score 3x3 block");
+            //Debug.Log("score 3x3 block");
             // check if there are any adjacencies 
 
             for (int x = 0; x < 3; x++)
@@ -265,7 +276,7 @@ public class ColorGrid2 : MonoBehaviour
                     
                     if (x == 1 && y == 1)
                     {
-                        Debug.Log("center shard can't be scored. it's flavor: " + scoringBlock.GetFlavorForIndex(x,y));
+                        //Debug.Log("center shard can't be scored. it's flavor: " + scoringBlock.GetFlavorForIndex(x,y));
                     }
                     else
                     {
@@ -274,7 +285,7 @@ public class ColorGrid2 : MonoBehaviour
                     // top left corner
                     if (x == 0 && y == 0)
                     {
-                        Debug.Log("top left corn shard at " + x + "," + y + " has flavor " + scoringBlock.GetFlavorForIndex(x,y));
+                        //Debug.Log("top left corn shard at " + x + "," + y + " has flavor " + scoringBlock.GetFlavorForIndex(x,y));
                         
                         // check above and left blocks
                         
@@ -283,7 +294,7 @@ public class ColorGrid2 : MonoBehaviour
                     // left side
                     if (x == 0 && y == 1)
                     {
-                        Debug.Log("left side shard at " + x + "," + y + " has flavor " + scoringBlock.GetFlavorForIndex(x,y));
+                        //Debug.Log("left side shard at " + x + "," + y + " has flavor " + scoringBlock.GetFlavorForIndex(x,y));
                         // check block to my left
                         
                         // look at block to the left of me, specifically at the relevant index.
@@ -321,5 +332,29 @@ public class ColorGrid2 : MonoBehaviour
 
         this.gamestate.heldRet.FinishedScoring();
 
+    }
+
+    public Vector2Int CheckCoordHit(Ray ray)
+    {
+        for (int y = 0; y < colorRows.Count; y++)
+        {
+            var row = colorRows[y];
+            for (int x = 0; x < row.ColorBlocks.Count; x++)
+            {
+
+                var block = row.ColorBlocks[x];
+
+                RaycastHit hit;
+                if (block.collider.Raycast(ray, out hit, 100f))
+                {
+                    //Debug.Log("hit at [" + x + ", " + y + "]");
+                    return new Vector2Int(x, y);
+                }
+
+            }
+            
+        }
+
+        return new Vector2Int(-1, -1);
     }
 }

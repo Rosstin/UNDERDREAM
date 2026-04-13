@@ -4,14 +4,21 @@ public class TetrisRet : MonoBehaviour
 {
     [Header("Outlets")] 
     public GameObject preview;
+    public GameObject refSpot;
 
     [Header("Params")]
-    public float DESCEND_SPEED_METERS_PER_SECOND;
+    public float FALL_PERIOD_S;
 
     private TetrisGS gamestate = null;
     private CompositeBlock myBlock=null;
 
-    private float latestDestY = -1f;
+    private Vector2Int lastRetCoord;
+
+    private Vector2Int startFallCoord;
+    private Vector2Int fallingDestCoord;
+
+    private Vector3 fallWorldStartPos;
+    private Vector3 fallWorldEndPos;
     
     public enum TetrisRetState
     {
@@ -23,7 +30,8 @@ public class TetrisRet : MonoBehaviour
     }
 
     private TetrisRetState myState = TetrisRetState.Ready;
-    
+    private float firedElapsed = 0f;
+
     public void Init(TetrisGS gs, CompositeBlock block)
     {
         this.gamestate = gs;
@@ -49,7 +57,6 @@ public class TetrisRet : MonoBehaviour
     
     public void FireBlock()
     {
-        gamestate.PlayFireSfx();
         
         this.SetState(TetrisRetState.Fired);
     }
@@ -84,6 +91,17 @@ public class TetrisRet : MonoBehaviour
             case TetrisRetState.Ready:
                 break;
             case TetrisRetState.Fired:
+
+                this.firedElapsed = 0f;
+                
+                gamestate.PlayFireSfx();
+
+                this.startFallCoord = this.lastRetCoord;
+                
+                this.fallWorldStartPos = this.gamestate.colorGrid.SnapZToBack(this.gamestate.colorGrid.SupergridToWorld(startFallCoord));
+                this.fallWorldEndPos = this.gamestate.colorGrid.SnapZToBack(this.gamestate.colorGrid.SupergridToWorld(fallingDestCoord));
+
+                
                 break;
         }
     }
@@ -93,19 +111,71 @@ public class TetrisRet : MonoBehaviour
         UpdateState();
     }
 
-    private void SetPreviewPos()
+    public void UpdateRetPos(Vector2Int c)
     {
-        this.preview.transform.position = this.GetRestingPosForBlockFallFrom(this.transform.position);
-        this.latestDestY = this.preview.transform.position.y;
+        //Vector3 snappedPos = this.gamestate.SnapToGrid(pos);
+
+        this.lastRetCoord = c;
+        
+        // check if position is in range - ignore if not 
+        bool inrange=this.gamestate.colorGrid.IsInRange(c);
+
+
+        if (inrange)
+        {
+            this.transform.position = this.gamestate.colorGrid.SnapZToBack(this.gamestate.colorGrid.SupergridToWorld(c));
+            this.gamestate.colorGrid.HighlightBackBlockAtCoord(c);
+            this.lastRetCoord = c;
+            //refSpot.transform.position = pos;
+            //this.transform.position = pos;
+        }
+        else
+        {
+            // not in range - ignore
+        }
+    }
+    
+    /*public void UpdateRetPosition(Vector3 pos)
+    {
+        
+        Vector3 snappedPos = this.gamestate.SnapToGrid(pos);
+        var c=this.gamestate.colorGrid.WorldToSupergrid(snappedPos);
+
+        this.lastRetCoord = c;
+        
+        // check if position is in range - ignore if not 
+        bool inrange=this.gamestate.colorGrid.IsInRange(c);
+
+
+        if (inrange)
+        {
+            this.gamestate.colorGrid.HighlightBackBlockAtCoord(c);
+            this.lastRetCoord = c;
+            refSpot.transform.position = pos;
+            this.transform.position = pos;
+        }
+        else
+        {
+            // not in range - ignore
+        }
+    }*/
+
+    private void SetPreviewPos(Vector2Int coord)
+    {
+        this.fallingDestCoord = this.GetRestingCoordForBlockfall(coord);
+
+        var wc = this.gamestate.colorGrid.SupergridToWorld(coord);
+
+        this.preview.transform.position = this.gamestate.colorGrid.SnapZToBack(wc);
+
     }
 
-    private Vector3 GetRestingPosForBlockFallFrom(Vector3 pos)
+    private Vector2Int GetRestingCoordForBlockfall(Vector2Int c)
     {
-        Vector3 snappedPos = gamestate.SnapToGrid(pos);
-
-        return this.gamestate.blockContainer.GetRestingPosForBlockFallFrom(snappedPos);
-
+        return this.gamestate.blockContainer.GetRestingCoordForBlockFallFrom(c);
     }
+
+    
 
     private void UpdateState(){
         switch (myState)
@@ -121,31 +191,32 @@ public class TetrisRet : MonoBehaviour
                     UnityEngine.Random.Range(-JITTER_AMOUNT, JITTER_AMOUNT), UnityEngine.Random.Range(-JITTER_AMOUNT, JITTER_AMOUNT));
 
 
-                Vector3 snappedPos = gamestate.SnapToGrid(this.transform.position);
+                Vector2Int snappedCoord = gamestate.colorGrid.WorldToSupergrid(this.transform.position);
+                Vector3 snapped = gamestate.colorGrid.SupergridToWorld(snappedCoord);
+                snapped = this.gamestate.colorGrid.SnapZToBack(snapped);
                 
-                SetBlockPosition(snappedPos, jitter);
+                SetBlockPosition(snapped, jitter);
 
-                SetPreviewPos();
+                Vector2Int fallCoord =  this.GetRestingCoordForBlockfall(snappedCoord);
+                
+                SetPreviewPos(fallCoord);
                 
                 
                 break;
             case TetrisRetState.Fired:
 
-                float moveTime = Time.deltaTime;
-                float moveDistance = DESCEND_SPEED_METERS_PER_SECOND* moveTime;
+                firedElapsed += Time.deltaTime;
 
-                myBlock.SetPos((myBlock.transform.position + new Vector3(0f,-moveDistance,0f)), Vector3.zero);
-
-                if (myBlock.transform.position.y <= latestDestY)
+                myBlock.transform.position =
+                    Vector3.Lerp(fallWorldStartPos, fallWorldEndPos, firedElapsed / FALL_PERIOD_S);
+                
+                
+                
+                if (firedElapsed >+ FALL_PERIOD_S)
                 {
                     gamestate.PlayTinkSfx();
 
-                    myBlock.transform.position = 
-                        new Vector3(
-                            myBlock.transform.position.x,
-                            latestDestY,
-                            myBlock.transform.position.z
-                            );
+                    myBlock.transform.position = fallWorldEndPos;
                     
                     SetState(TetrisRetState.Scoring);
                 }

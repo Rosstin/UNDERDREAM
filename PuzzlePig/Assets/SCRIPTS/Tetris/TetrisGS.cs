@@ -21,8 +21,8 @@ public class TetrisGS : BaseController
     public Material lemonLime;
     public Material orangeMat;
     public Material grapeMat;
-    [FormerlySerializedAs("diaMat")] public Material newCoke;
-    [FormerlySerializedAs("emMat")] public Material vanillaMat;
+    public Material newCoke;
+    public Material vanillaMat;
 
     [Header("Outlets")]
     public Camera mainCamera;
@@ -30,10 +30,8 @@ public class TetrisGS : BaseController
     public TetrisRet heldRet;
     public ColorGrid2 colorGrid;
     public GameObject gridTopLeftAnchor;
-    public GameObject refSpot;
     
     [Header("Configs")]
-    public Vector3 retStartPos;
     public Vector2Int gridDimens = new Vector2Int(5, 11);
 
 
@@ -57,8 +55,7 @@ public class TetrisGS : BaseController
     public int LEMONLIME_WEIGHT = 10;
     public int ORANGE_WEIGHT = 10;
     public int GRAPE_WEIGHT = 10;
-
-
+    
     private WeightedList<ShardFlavors> weightedShardFlavors = null;
     private WeightedList<ShardSize> weightedShardSizes = null;
     
@@ -164,6 +161,7 @@ public class TetrisGS : BaseController
         UpdateTetrisControls();
     }
 
+    // ReSharper disable Unity.PerformanceAnalysis
     private void UpdateTetrisControls()
     {
         if (Input.GetKeyDown(KeyCode.F1))
@@ -184,8 +182,6 @@ public class TetrisGS : BaseController
             // dropping ing
             if (!CommandsHeldThisFrame.ContainsKey(Command.Fire))
             {
-                UpdateRetPosition(retStartPos);
-
                 heldRet.FireBlock();
             }
             //holding ing
@@ -194,35 +190,24 @@ public class TetrisGS : BaseController
 
                 Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
                 
-                RaycastHit hit;
+                //RaycastHit hit;
+
+                Vector2Int xy = this.colorGrid.CheckCoordHit(ray);
                 
+                heldRet.UpdateRetPos(xy);
+
+                /*
                 if(CollisionPlane.Raycast(ray, out hit, 100f))
                 {
-                    UpdateRetPosition(hit.point);
+                    heldRet.UpdateRetPosition(hit.point);
 
                 }
+            */
             }
                     
         }
     }
 
-    private void UpdateRetPosition(Vector3 pos)
-    {
-        // check if position is in range - ignore if not 
-        bool inrange=this.colorGrid.IsInRange(pos);
-
-
-        if (inrange)
-        {
-            colorGrid.HighlightBackBlockAtPos(pos);
-            refSpot.transform.position = pos;
-            heldRet.transform.position = pos;
-        }
-        else
-        {
-            // not in range - ignore
-        }
-    }
     
     public Vector3 SnapToGrid(Vector3 pos)
     {

@@ -76,7 +76,7 @@ public class BlockContainer : MonoBehaviour
                 newBlock.SetSuperGridLoc(new Vector2Int(x,yCoord));
 
                 // feed an appropriate coord for the block
-                newBlock.transform.localPosition = this.colorGrid.GetPosForCoord(x, yCoord);
+                newBlock.transform.localPosition = this.colorGrid.SupergridToWorld(x, yCoord);
 
                 
 
@@ -117,9 +117,9 @@ public class BlockContainer : MonoBehaviour
         return cb;
     }
 
-    public float GetLowestYForColumn(int colX)
+    public int GetLowestYForColumn(int colX)
     {
-        // given a column, get lowest y as a real position
+        // given a column, get lowest y
 
         if (colX >= 0 && colX < blocksByLocation.Count)
         {
@@ -140,25 +140,28 @@ public class BlockContainer : MonoBehaviour
             
             }
 
-            return this.colorGrid.GetRealYForRow(yCand-1);
+            return yCand-1;
         }
         else
         {
-            //Debug.LogError("attempting to get a Y for a column " + colX + " that is invalid");
             return -1;
         }
-        
 
 
     }
+    
 
-    public Vector3 GetRestingPosForBlockFallFrom(Vector3 snappedPos)
+    
+    public Vector2Int GetRestingCoordForBlockFallFrom(Vector2Int c)
     {
-        var c=this.colorGrid.GetCoordForPos(snappedPos);
-        float lowestY=GetLowestYForColumn(c.x);
+        int lowestY=GetLowestYForColumn(c.x);
 
-        return new Vector3(snappedPos.x, lowestY, backPosRef.transform.position.z);
+        Vector2Int restingCoord = new Vector2Int(c.x, lowestY);
+
+        return restingCoord;
     }
+
+    
     
     public CompositeBlock GetCompBlockForCoord(Vector2Int coord)
     {
