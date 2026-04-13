@@ -1858,6 +1858,7 @@ MonoBehaviour:
   grapeMat: {fileID: 2100000, guid: 04418c870c5943c4282a9d37cf28944f, type: 2}
   newCoke: {fileID: 2100000, guid: 11c0450f0dfde714d99104fa1f6d980f, type: 2}
   vanillaMat: {fileID: 2100000, guid: 286caf924837605428193349ed239102, type: 2}
+  scoreMat: {fileID: 2100000, guid: 9f20ff567d747314380468fd79119017, type: 2}
   mainCamera: {fileID: 1124477149}
   heldRet: {fileID: 99951722}
   colorGrid: {fileID: 739033171}

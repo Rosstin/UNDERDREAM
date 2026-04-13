@@ -251,13 +251,13 @@ public class ColorGrid2 : MonoBehaviour
 
         var scoringBlockCoord=this.WorldToSupergrid(scoringBlock.transform.position);
 
-        Debug.Log("score block at " +scoringBlockCoord);
+        //Debug.Log("score block at " +scoringBlockCoord);
 
         if (scoringBlock.GetShardSize() == TetrisGS.ShardSize.x1)
         {
             // check if there are any adjacencies 
 
-            TetrisGS.ShardFlavors flavor =scoringBlock.GetFlavorForIndex();
+            TetrisGS.ShardFlavors flavor =scoringBlock.GetShardForIndex().GetFlavor();
             Debug.Log("score full block w flavor " + flavor);
 
 
@@ -267,6 +267,8 @@ public class ColorGrid2 : MonoBehaviour
             //Debug.Log("score 3x3 block");
             // check if there are any adjacencies 
 
+            Dictionary<Shard.ShardPositionData, Shard> scoredShards = new Dictionary<Shard.ShardPositionData, Shard>();
+            
             for (int x = 0; x < 3; x++)
             {
                 for (int y = 0; y < 3; y++)
@@ -279,24 +281,53 @@ public class ColorGrid2 : MonoBehaviour
 
                     // look at the shards that you're contiguous with and destroy them if they match
                     
-                    var myFlav = scoringBlock.GetFlavorForIndex(x, y);
+                    var shardInQuestion = scoringBlock.GetShardForIndex(x, y);
 
                     // top left corner
                     if (x == 0 && y == 0)
                     {
                         // check my left and check my above
 
-                        var compToLeft = scoringBlock.GetSupergridLoc()+new Vector2Int(-1,0);
+
+                        // LEFT
+                        bool shardScores = false;
                         
+                        Vector2Int coordOfBlockToMyLeft = scoringBlockCoord +  new Vector2Int(-1,0);
+                        var blockToMyLeft = this.GetCompositeBlockForCoord(coordOfBlockToMyLeft);
+
+                        if (blockToMyLeft == null)
+                        {
+                            continue;
+                        }
+                        var shardToMyLeft = blockToMyLeft.GetShardForIndex(2,0);
+
+                        if (shardToMyLeft.GetFlavor() == shardInQuestion.GetFlavor())
+                        {
+                            shardScores = true;
+                            
+                            scoredShards.Add(shardToMyLeft.GetSuperAndSubgridLocs(), shardToMyLeft);
+
+                            if (scoredShards.ContainsKey(shardInQuestion.GetSuperAndSubgridLocs()))
+                            {
+                                // already marked as scoring
+                            }
+                            else
+                            {
+                                scoredShards.Add(shardInQuestion.GetSuperAndSubgridLocs(), shardInQuestion);
+                            }
+                        }
                         
+                        // RIGHT
+
                         
-                        
+                        /*
                         var shardsWithFlav = this.myBlockContainer.flavToListOfShards[flav];
                         foreach (var s in shardsWithFlav)
                         {
                             s.SetVisible(false);
                             Debug.Log("shard flav " + flav + " at shard positi: " + s.GetSuperAndSubgridLocs().supergridLoc + "");
                         }
+                        */
 
                     }
 
@@ -314,20 +345,21 @@ public class ColorGrid2 : MonoBehaviour
                         var blockToMyLeft = this.GetCompositeBlockForCoord(coordOfBlockToMyLeft);
                         if (blockToMyLeft == null)
                         {
-                            Debug.Log("no block to my left");
+                            //Debug.Log("no block to my left");
                         }
                         else
                         {
-                            var flavorToMyLeft = blockToMyLeft.GetFlavorForIndex(2, y);
-                            Debug.Log("found block to my left. its flavor is  " + flavorToMyLeft);
+                            var flavorToMyLeft = blockToMyLeft.GetShardForIndex(2,y).GetFlavor();
+                            //Debug.Log("found block to my left. its flavor is  " + flavorToMyLeft);
                         }
 
                     }
-                    
-                    
-                    
-                    
                 }
+            }
+
+            foreach (var s in scoredShards.Values)
+            {
+                s.SetShardState(Shard.ShardState.Scoring);
             }
             
             

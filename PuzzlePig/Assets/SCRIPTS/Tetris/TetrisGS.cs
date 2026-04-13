@@ -13,7 +13,7 @@ public class TetrisGS : BaseController
     [Header("Containers")]
     public BlockContainer blockContainer;
     
-    [Header("Materials")]
+    [Header("9 Flavor Materials")]
     public Material classicMat;
     public Material dietMat;
     public Material cherryMat;
@@ -23,6 +23,9 @@ public class TetrisGS : BaseController
     public Material grapeMat;
     public Material newCoke;
     public Material vanillaMat;
+
+    [Header("Scoring Materials")]
+    public Material scoreMat;
 
     [Header("Outlets")]
     public Camera mainCamera;

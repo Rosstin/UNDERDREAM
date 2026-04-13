@@ -5,8 +5,6 @@ public class Shard : MonoBehaviour
     [Header("Renderer")]
     public MeshRenderer meshRenderer;
     
-    
-    
     private TetrisGS.ShardFlavors myFlavor;
     private TetrisGS.ShardSize mySize;
     
@@ -28,6 +26,34 @@ public class Shard : MonoBehaviour
         public Vector2Int subgridLoc;
     }
 
+
+    private ShardState myShardState;
+    public enum ShardState
+    {
+        Unset,
+        Normal,
+        Scoring
+    }
+
+    public void SetShardState(ShardState s)
+    {
+        switch (s)
+        {
+            case ShardState.Scoring:
+                this.SetScoreMat();
+                break;
+            case ShardState.Normal:
+                this.SetFlavor(myFlavor);
+                break;
+            case ShardState.Unset:
+                Debug.LogError("shard state unset");
+                break;
+            
+        }
+    }
+
+
+
     public void SetSuperGridLoc(Vector2Int sgridl)
     {
         this.myPosition.supergridLoc = sgridl;
@@ -47,6 +73,8 @@ public class Shard : MonoBehaviour
 
         myPosition.supergridLoc= this.myCompositeBlockParent.GetSupergridLoc();
         myPosition.subgridLoc = localSubgridLoc;
+
+        this.SetShardState(Shard.ShardState.Normal);
 
         
         switch (shardSize)
@@ -77,6 +105,11 @@ public class Shard : MonoBehaviour
         meshRenderer.material = this.myGamestate.GetMatForFlavor(flavor);
 
     }
+    private void SetScoreMat()
+    {
+        meshRenderer.material = this.myGamestate.scoreMat;
+    }
+
 
     public TetrisGS.ShardFlavors GetFlavor()
     {

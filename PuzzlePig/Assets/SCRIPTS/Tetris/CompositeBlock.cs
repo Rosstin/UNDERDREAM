@@ -173,23 +173,23 @@ public class CompositeBlock : MonoBehaviour
         this.transform.position = pos;
     }
 
-    public TetrisGS.ShardFlavors GetFlavorForIndex(int x=-1, int y=-1)
+    public Shard GetShardForIndex(int x=-1, int y=-1)
     {
         if (this.sizeOfMyShards == TetrisGS.ShardSize.x1)
         {
-            return singleShard.GetFlavor();
+            return singleShard;
         }
         else if (this.sizeOfMyShards == TetrisGS.ShardSize.x3)
         {
-            return shards3x3[x][y].GetFlavor();
+            //Debug.Log("get shard for index " + x + ", " + y);
+            
+            return shards3x3[x][y];
         }
         else
         {
             Debug.LogError("this comp block is invalid");
-            return TetrisGS.ShardFlavors.Unset;
+            return null;
         }
-        
-        
     }
 
     public void SetSuperGridLoc(Vector2Int sGridLoc)
@@ -258,4 +258,5 @@ public class CompositeBlock : MonoBehaviour
     {
         return mySupergridLocation;
     }
+
 }
