@@ -16,16 +16,39 @@ public class Shard : MonoBehaviour
 
     private TetrisGS myGamestate = null;
 
-    private Vector2Int myLocalSubgridLocation; // if this is -1,-1 it means you're a large shard. otherwise, 1,1 is the center, 0,0 is the top right corn, etc
+    private CompositeBlock myCompositeBlockParent;
+
+    private ShardPositionData myPosition = new ShardPositionData();
     
-    public void Init(TetrisGS gamestate, GameObject parent, TetrisGS.ShardFlavors flav, Vector3 pos, TetrisGS.ShardSize shardSize, Vector2Int localSubgridLoc)
+    private Vector2Int myLocalSubgridLocation; // if this is -1,-1 it means you're a large shard. otherwise, 1,1 is the center, 0,0 is the top right corn, etc
+
+    public struct ShardPositionData
+    {
+        public Vector2Int supergridLoc;
+        public Vector2Int subgridLoc;
+    }
+
+    public void SetSuperGridLoc(Vector2Int sgridl)
+    {
+        this.myPosition.supergridLoc = sgridl;
+    }
+    public ShardPositionData GetSuperAndSubgridLocs()
+    {
+        return myPosition;
+    }
+    
+    public void Init(TetrisGS gamestate, GameObject contentParent, CompositeBlock cBlockParent, TetrisGS.ShardFlavors flav, Vector3 pos, TetrisGS.ShardSize shardSize, Vector2Int localSubgridLoc)
     {
         this.mySize = shardSize;
         this.myGamestate = gamestate;
         this.SetFlavor(flav);
-        this.transform.SetParent(parent.transform);
-        this.myLocalSubgridLocation = localSubgridLoc;
+        this.transform.SetParent(contentParent.transform);
+        this.myCompositeBlockParent = cBlockParent;
 
+        myPosition.supergridLoc= this.myCompositeBlockParent.GetSupergridLoc();
+        myPosition.subgridLoc = localSubgridLoc;
+
+        
         switch (shardSize)
         {
             case TetrisGS.ShardSize.x1:

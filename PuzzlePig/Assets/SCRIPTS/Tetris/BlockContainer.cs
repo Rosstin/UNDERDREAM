@@ -58,7 +58,6 @@ public class BlockContainer : MonoBehaviour
     {
         ClearBlocks();
         
-        // todo generate a random grid of random blocks
         
         // for each column, generate a number of blocks between 0 and 4
         for (int x = 0; x < this.dimens.x; x++)
@@ -72,7 +71,10 @@ public class BlockContainer : MonoBehaviour
                 CompositeBlock newBlock = this.GenerateBlock();
 
                 this.blocksByLocation[x][yCoord] = newBlock;
+                this.flavToListOfShards = newBlock.PopulateFlavorList(flavToListOfShards);
 
+                
+                Debug.Log("setting supergrid loc " + x +" , " + y);
                 newBlock.SetSuperGridLoc(new Vector2Int(x,yCoord));
 
                 // feed an appropriate coord for the block
@@ -82,6 +84,9 @@ public class BlockContainer : MonoBehaviour
 
             }
         }
+
+        Debug.Log("flav list " + flavToListOfShards);
+
 
     }
 

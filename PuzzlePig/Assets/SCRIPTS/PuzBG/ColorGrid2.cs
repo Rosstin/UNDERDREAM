@@ -288,7 +288,14 @@ public class ColorGrid2 : MonoBehaviour
                         //Debug.Log("top left corn shard at " + x + "," + y + " has flavor " + scoringBlock.GetFlavorForIndex(x,y));
                         
                         // check above and left blocks
-                        
+                        var flav = scoringBlock.GetFlavorForIndex(x, y);
+
+                        var shardsWithFlav = this.myBlockContainer.flavToListOfShards[flav];
+                        foreach (var s in shardsWithFlav)
+                        {
+                            Debug.Log("shard flav " + flav + " at shard positi: " + s.GetSuperAndSubgridLocs().supergridLoc + "");
+                        }
+
                     }
 
                     // left side

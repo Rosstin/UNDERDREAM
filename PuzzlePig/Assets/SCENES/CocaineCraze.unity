@@ -1859,7 +1859,6 @@ MonoBehaviour:
   newCoke: {fileID: 2100000, guid: 11c0450f0dfde714d99104fa1f6d980f, type: 2}
   vanillaMat: {fileID: 2100000, guid: 286caf924837605428193349ed239102, type: 2}
   mainCamera: {fileID: 1124477149}
-  CollisionPlane: {fileID: 1656550097}
   heldRet: {fileID: 99951722}
   colorGrid: {fileID: 739033171}
   gridTopLeftAnchor: {fileID: 311599511167334580}
@@ -1868,7 +1867,7 @@ MonoBehaviour:
   tink: {fileID: 1454236275}
   rocket: {fileID: 1929233830}
   canCrunch: {fileID: 0}
-  X1_WEIGHT: 50
+  X1_WEIGHT: 0
   X3_WEIGHT: 25
   CLASSIC_WEIGHT: 60
   DIET_WEIGHT: 0

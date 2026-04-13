@@ -63,17 +63,13 @@ public class CompositeBlock : MonoBehaviour
 
             for (int y = 0; y < col.Count; y++)
             {
-                Shard s = col[y];
-
-                if (s != null)
+                if (col[y] != null)
                 {
-                    GameObject.Destroy(s.gameObject);
-                    s = null;
+                    GameObject.Destroy(col[y].gameObject);
+                    col[y] = null;
                 }
-                
             }
         }
-
     }
 
     public static float GetBlockWidth()
@@ -134,7 +130,7 @@ public class CompositeBlock : MonoBehaviour
         TetrisGS.ShardFlavors flavForThisBlock = GenerateRandomFlavor();
 
         Shard s = GameObject.Instantiate(shardPrefab).GetComponent<Shard>();
-        s.Init(gamestate, contentParent, flavForThisBlock, GetPositionForIndex(1,1), TetrisGS.ShardSize.x1, new Vector2Int(-1,-1));
+        s.Init(gamestate, contentParent, this, flavForThisBlock, GetPositionForIndex(1,1), TetrisGS.ShardSize.x1, new Vector2Int(-1,-1));
         
         List<Shard> shardsOfFlav = this.gamestate.blockContainer.flavToListOfShards[flavForThisBlock];
         shardsOfFlav.Add(s);
@@ -153,7 +149,7 @@ public class CompositeBlock : MonoBehaviour
             {
                 TetrisGS.ShardFlavors randomFlavor = GenerateRandomFlavor();
                 Shard shard = GameObject.Instantiate(shardPrefab).GetComponent<Shard>();
-                shard.Init(gamestate, contentParent, randomFlavor, GetPositionForIndex(x,y), TetrisGS.ShardSize.x3, new Vector2Int(x,y));
+                shard.Init(gamestate, contentParent,this, randomFlavor, GetPositionForIndex(x,y), TetrisGS.ShardSize.x3, new Vector2Int(x,y));
                 
                 shards3x3[x][y] = shard;
             }
@@ -202,6 +198,67 @@ public class CompositeBlock : MonoBehaviour
     public void SetSuperGridLoc(Vector2Int sGridLoc)
     {
         // rtodo merge assignment here with setting things?
+
+        foreach (var l in shards3x3)
+        {
+            if (l != null)
+            {
+                foreach (var s in l)
+                {
+                    if (s != null)
+                    {
+                        s.SetSuperGridLoc(sGridLoc);
+                    }
+                }
+            }
+        }
+
+        if (singleShard != null)
+        {
+            this.singleShard.SetSuperGridLoc(sGridLoc);
+        }
+        
         this.mySupergridLocation=sGridLoc;
+    }
+
+    public Dictionary<TetrisGS.ShardFlavors, List<Shard>> PopulateFlavorList(Dictionary<TetrisGS.ShardFlavors, List<Shard>> flavToListOfShards)
+    {
+        if (this.sizeOfMyShards == TetrisGS.ShardSize.x1)
+        {
+            this.AddShardToList(this.singleShard, flavToListOfShards);
+        }else if (this.sizeOfMyShards == TetrisGS.ShardSize.x3)
+        {
+            foreach (var lis in shards3x3)
+            {
+                foreach (var sh in lis)
+                {
+                    flavToListOfShards = this.AddShardToList(sh,flavToListOfShards);
+                }
+            }
+        }
+        else
+        {
+            Debug.LogError("unknown shard size type");
+        }
+
+        return flavToListOfShards;
+    }
+
+    public Dictionary<TetrisGS.ShardFlavors, List<Shard>> AddShardToList(Shard s, Dictionary<TetrisGS.ShardFlavors, List<Shard>> flavToListOfShards)
+    {
+        var flav = s.GetFlavor();
+
+        var list = flavToListOfShards[flav];
+        
+        list.Add(s);
+
+        flavToListOfShards[flav] = list;
+
+        return flavToListOfShards;
+    }
+
+    public Vector2Int GetSupergridLoc()
+    {
+        return mySupergridLocation;
     }
 }
