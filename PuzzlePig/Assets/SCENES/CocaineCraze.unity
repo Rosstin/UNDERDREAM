@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.3260092, g: 0.2634796, b: 0.37539637, a: 1}
+  m_IndirectSpecularColor: {r: 0.32644928, g: 0.26384902, b: 0.37568521, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &4
 LightmapSettings:
@@ -1848,15 +1848,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   compPrefab: {fileID: 8775360333485412447, guid: 5a826c135fc4f9f4c848c7d04ad7dc27, type: 3}
   blockContainer: {fileID: 868069661}
-  aquaMat: {fileID: 2100000, guid: 9f93c95a3857a27469dfc4f55dd2308a, type: 2}
-  diaMat: {fileID: 2100000, guid: 9b3211abc2bf40549a2bd695bdebefb2, type: 2}
-  emMat: {fileID: 2100000, guid: 6157214c568977e4fa825b17af3f75d0, type: 2}
-  limMat: {fileID: 2100000, guid: 1659a7530d1a2204ebffa0a495f8ed10, type: 2}
-  obMat: {fileID: 2100000, guid: 6aa5fd0aa556aff489c879203cabc853, type: 2}
-  raspMat: {fileID: 2100000, guid: 11c0450f0dfde714d99104fa1f6d980f, type: 2}
-  rubMat: {fileID: 2100000, guid: 31628debfd2c065449509efb9c482ace, type: 2}
-  sapMat: {fileID: 2100000, guid: 04418c870c5943c4282a9d37cf28944f, type: 2}
-  tangMat: {fileID: 2100000, guid: d20121e90c736584f8759a8ae6abd90f, type: 2}
+  classicMat: {fileID: 2100000, guid: a345dec15b0562e49884e1952d8802c3, type: 2}
+  dietMat: {fileID: 2100000, guid: 6aa5fd0aa556aff489c879203cabc853, type: 2}
+  cherryMat: {fileID: 2100000, guid: 31628debfd2c065449509efb9c482ace, type: 2}
+  bajaBlastMat: {fileID: 2100000, guid: 9f93c95a3857a27469dfc4f55dd2308a, type: 2}
+  lemonLime: {fileID: 2100000, guid: 6157214c568977e4fa825b17af3f75d0, type: 2}
+  orangeMat: {fileID: 2100000, guid: d20121e90c736584f8759a8ae6abd90f, type: 2}
+  grapeMat: {fileID: 2100000, guid: 04418c870c5943c4282a9d37cf28944f, type: 2}
+  newCoke: {fileID: 2100000, guid: 11c0450f0dfde714d99104fa1f6d980f, type: 2}
+  vanillaMat: {fileID: 2100000, guid: 286caf924837605428193349ed239102, type: 2}
   mainCamera: {fileID: 1124477149}
   CollisionPlane: {fileID: 1656550097}
   heldRet: {fileID: 99951722}
@@ -1869,6 +1869,17 @@ MonoBehaviour:
   tink: {fileID: 1454236275}
   rocket: {fileID: 1929233830}
   canCrunch: {fileID: 0}
+  X1_WEIGHT: 50
+  X3_WEIGHT: 50
+  CLASSIC_WEIGHT: 50
+  DIET_WEIGHT: 10
+  CHERRY_WEIGHT: 50
+  NEW_WEIGHT: 10
+  VANILLA_WEIGHT: 10
+  BAJABLAST_WEIGHT: 10
+  LEMONLIME_WEIGHT: 10
+  ORANGE_WEIGHT: 10
+  GRAPE_WEIGHT: 10
 --- !u!1 &1929233828
 GameObject:
   m_ObjectHideFlags: 0

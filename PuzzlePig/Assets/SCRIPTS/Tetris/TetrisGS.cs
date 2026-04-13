@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using KaimiraGames;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -13,15 +14,15 @@ public class TetrisGS : BaseController
     public BlockContainer blockContainer;
     
     [Header("Materials")]
-    public Material aquaMat;
-    public Material diaMat;
-    public Material emMat;
-    public Material limMat;
-    public Material obMat;
-    public Material raspMat;
-    public Material rubMat;
-    public Material sapMat;
-    public Material tangMat;
+    public Material classicMat;
+    public Material dietMat;
+    public Material cherryMat;
+    public Material bajaBlastMat;
+    public Material lemonLime;
+    public Material orangeMat;
+    public Material grapeMat;
+    [FormerlySerializedAs("diaMat")] public Material newCoke;
+    [FormerlySerializedAs("emMat")] public Material vanillaMat;
 
     [Header("Outlets")]
     public Camera mainCamera;
@@ -42,18 +43,36 @@ public class TetrisGS : BaseController
     public AudioSource rocket;
     public AudioSource canCrunch;
     
+    [Header("Size Weights")] 
+    public int X1_WEIGHT = 50;
+    public int X3_WEIGHT = 50;
+
+    [Header("Flavor Weights")] 
+    public int CLASSIC_WEIGHT = 10;
+    public int DIET_WEIGHT = 10;
+    public int CHERRY_WEIGHT = 10;
+    public int NEW_WEIGHT = 10;
+    public int VANILLA_WEIGHT = 10;
+    public int BAJABLAST_WEIGHT = 10;
+    public int LEMONLIME_WEIGHT = 10;
+    public int ORANGE_WEIGHT = 10;
+    public int GRAPE_WEIGHT = 10;
+
+
+    private WeightedList<ShardFlavors> weightedShardFlavors = null;
+    private WeightedList<ShardSize> weightedShardSizes = null;
     
     public enum ShardFlavors
     {
-        Aqua,
-        Crystal,
-        Emerald,
-        LemonLime,
-        Black,
         Classic,
+        Diet,
         Cherry,
-        Sapphire,
+        New,
+        Vanilla,
+        BajaBlast, 
+        LemonLime,
         Orange,
+        Grape,
         Unset,
     }
     
@@ -68,24 +87,24 @@ public class TetrisGS : BaseController
     {
         switch (flavor)
         {
-            case ShardFlavors.Aqua:
-                return aquaMat;
-            case ShardFlavors.Crystal:
-                return diaMat;
-            case ShardFlavors.Emerald:
-                return emMat;
+            case ShardFlavors.BajaBlast:
+                return bajaBlastMat;
+            case ShardFlavors.New:
+                return newCoke;
+            case ShardFlavors.Vanilla:
+                return vanillaMat;
             case ShardFlavors.LemonLime:
-                return limMat;
-            case ShardFlavors.Black:
-                return obMat;
+                return lemonLime;
+            case ShardFlavors.Diet:
+                return dietMat;
             case ShardFlavors.Classic:
-                return raspMat;
+                return classicMat;
             case ShardFlavors.Cherry:
-                return rubMat;
-            case ShardFlavors.Sapphire:
-                return sapMat;
+                return cherryMat;
+            case ShardFlavors.Grape:
+                return grapeMat;
             case ShardFlavors.Orange:
-                return tangMat;
+                return orangeMat;
             case ShardFlavors.Unset:
                 Debug.LogError("Unset shard flavor");
                 return null;
@@ -96,12 +115,47 @@ public class TetrisGS : BaseController
 
     public void Start()
     {
-            
+
+        GenWeights();
+        
+        
         colorGrid.Init(this, this.blockContainer, gridDimens, gridTopLeftAnchor);
         CompositeBlock cb = colorGrid.GenerateBlock();
         
         heldRet.Init(this,cb);
     }
+
+    private void GenWeights()
+    {
+        weightedShardFlavors = new();
+        weightedShardFlavors.Add(ShardFlavors.Classic,CLASSIC_WEIGHT);
+        weightedShardFlavors.Add(ShardFlavors.Diet,DIET_WEIGHT);
+        weightedShardFlavors.Add(ShardFlavors.Cherry,CHERRY_WEIGHT);
+        weightedShardFlavors.Add(ShardFlavors.New,NEW_WEIGHT);
+        weightedShardFlavors.Add(ShardFlavors.Vanilla,VANILLA_WEIGHT);
+        weightedShardFlavors.Add(ShardFlavors.BajaBlast,BAJABLAST_WEIGHT);
+        weightedShardFlavors.Add(ShardFlavors.LemonLime,LEMONLIME_WEIGHT);
+        weightedShardFlavors.Add(ShardFlavors.Orange,ORANGE_WEIGHT);
+        weightedShardFlavors.Add(ShardFlavors.Grape,GRAPE_WEIGHT);
+
+        weightedShardSizes = new();
+        weightedShardSizes.Add(ShardSize.x1, X1_WEIGHT);
+        weightedShardSizes.Add(ShardSize.x3, X3_WEIGHT);
+
+    }
+    
+    
+
+    public ShardFlavors GetWeightedRandomFlavor()
+    {
+        return weightedShardFlavors.Next();
+    }
+
+    public ShardSize GetWeightedRandomSize()
+    {
+        return weightedShardSizes.Next();
+    }
+
 
     private void Update()
     {

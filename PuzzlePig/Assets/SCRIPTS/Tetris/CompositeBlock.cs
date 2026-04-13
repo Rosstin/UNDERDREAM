@@ -16,11 +16,7 @@ public class CompositeBlock : MonoBehaviour
     [Header("My Bounds")] 
     public GameObject topLeftRef;
     public GameObject botRightRef;
-
-    [Header("Configs")] 
-    public int X1_WEIGHT = 50;
-    public int X3_WEIGHT = 50;
-
+    
     private Vector2Int mySupergridLocation; // -1,-1 means you're not landed on the grid [being held, moving, etc]
     
     private List<List<Shard>> shards3x3 = null;
@@ -102,16 +98,20 @@ public class CompositeBlock : MonoBehaviour
     public void Randomize()
     {
         Clear();
-        
-        int totWeight = X1_WEIGHT + X3_WEIGHT;
-        int roll = Random.Range(0, totWeight);
-        if (roll < X1_WEIGHT)
+
+        var randSize = gamestate.GetWeightedRandomSize();
+
+        switch (randSize)
         {
-            GenX1Block();
-        }
-        else
-        {
-            GenX3Block();
+            case TetrisGS.ShardSize.x1:
+                GenX1Block();
+                break;
+            case TetrisGS.ShardSize.x3:
+                GenX3Block();
+                break;
+            default:
+                Debug.LogError("unknown size");
+                break;
         }
     }
 
@@ -167,10 +167,11 @@ public class CompositeBlock : MonoBehaviour
     /// <exception cref="System.NotImplementedException"></exception>
     private TetrisGS.ShardFlavors GenerateRandomFlavor()
     {
-        Array values = Enum.GetValues(typeof(TetrisGS.ShardFlavors));
-        TetrisGS.ShardFlavors randomFlavor = (TetrisGS.ShardFlavors)values.GetValue(random.Next(values.Length-1));
 
-        return randomFlavor;
+
+        var flav = this.gamestate.GetWeightedRandomFlavor();
+
+        return flav;
     }
 
     public void SetPos(Vector3 pos, Vector3 jitter)
