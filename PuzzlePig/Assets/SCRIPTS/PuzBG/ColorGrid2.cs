@@ -41,6 +41,7 @@ public class ColorGrid2 : MonoBehaviour
         
         this.GenerateLevelBlocks();
 
+        this.myBlockContainer.ConsolidateLandedBlocks();
 
         
     }

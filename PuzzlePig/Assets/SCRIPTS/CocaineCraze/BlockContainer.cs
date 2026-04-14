@@ -47,7 +47,6 @@ public class BlockContainer : MonoBehaviour
         
         this.topLeftAnchor = topLeftAnchor;
 
-        this.ConsolidateLandedBlocks();
     }
 
     public int GetWidth()
