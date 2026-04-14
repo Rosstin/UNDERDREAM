@@ -262,11 +262,11 @@ public class ColorGrid2 : MonoBehaviour
         s.SetShardState(Shard.ShardState.Scoring);
         this.myBlockContainer.currentlyScoringShards.Add(s.GetSuperAndSubgridLocs(),s);
         
-        if (s.GetMySize() == TetrisGS.ShardSize.x1)
+        if (s.GetMySize() == TetrisGS.ShardSize.s1x1)
         {
             Debug.Log("need handling for x1 size");
             
-        }else if (s.GetMySize() == TetrisGS.ShardSize.x3)
+        }else if (s.GetMySize() == TetrisGS.ShardSize.s3x3)
         {
             foreach (var dir in UP_DOWN_LEFT_RIGHT)
             {
@@ -327,21 +327,21 @@ public class ColorGrid2 : MonoBehaviour
     {
         var superSubLocs = shard.GetSuperAndSubgridLocs();
 
-        Debug.Log("my super sub locs.. " + superSubLocs);
+        //Debug.Log("my super sub locs.. " + superSubLocs);
 
         var newPos = MoveSuperGridPositionOneInDir(superSubLocs, dir);
 
-        Debug.Log("try to score shard at " + newPos);
+        //Debug.Log("try to score shard at " + newPos);
         
         Shard s =myBlockContainer.getShardAtLocation(newPos);
         if (s != null)
         {
-            Debug.Log("found an adj shard " + s.GetFlavor());
+            //Debug.Log("found an adj shard " + s.GetFlavor());
             return s;
         }
         else
         {
-            Debug.Log("no adj shard");
+            //Debug.Log("no adj shard");
             return null;
         }
 
@@ -364,7 +364,7 @@ public class ColorGrid2 : MonoBehaviour
 
         LandScoringBlock(scoringBlock, destSuperLoc);
         
-        if (scoringBlock.GetShardSize() == TetrisGS.ShardSize.x1)
+        if (scoringBlock.GetShardSize() == TetrisGS.ShardSize.s1x1)
         {
             // check if there are any adjacencies 
 
@@ -373,7 +373,7 @@ public class ColorGrid2 : MonoBehaviour
 
 
         }
-        else if (scoringBlock.GetShardSize() == TetrisGS.ShardSize.x3)
+        else if (scoringBlock.GetShardSize() == TetrisGS.ShardSize.s3x3)
         {
             
             

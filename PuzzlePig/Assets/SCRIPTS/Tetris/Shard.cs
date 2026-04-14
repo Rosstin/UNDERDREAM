@@ -96,10 +96,10 @@ public class Shard : MonoBehaviour
         
         switch (shardSize)
         {
-            case TetrisGS.ShardSize.x1:
+            case TetrisGS.ShardSize.s1x1:
                 this.transform.localScale = new Vector3((1/1f), (1/1f), (1/1f));
                 break;
-            case TetrisGS.ShardSize.x3:
+            case TetrisGS.ShardSize.s3x3:
                 this.transform.localScale = new Vector3((1/3f), (1/3f), (1/3f));
                 break;
             case TetrisGS.ShardSize.Unset:

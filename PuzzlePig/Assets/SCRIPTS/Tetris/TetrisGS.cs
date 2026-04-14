@@ -78,8 +78,12 @@ public class TetrisGS : BaseController
     public enum ShardSize
     {
         Unset,
-        x1,
-        x3,
+        s1x1,
+        s1x2,
+        s1x3,
+        s2x2,
+        s2x3,
+        s3x3,
     }
 
     public Material GetMatForFlavor(ShardFlavors flavor)
@@ -138,8 +142,8 @@ public class TetrisGS : BaseController
         weightedShardFlavors.Add(ShardFlavors.Grape,GRAPE_WEIGHT);
 
         weightedShardSizes = new();
-        weightedShardSizes.Add(ShardSize.x1, X1_WEIGHT);
-        weightedShardSizes.Add(ShardSize.x3, X3_WEIGHT);
+        weightedShardSizes.Add(ShardSize.s1x1, X1_WEIGHT);
+        weightedShardSizes.Add(ShardSize.s3x3, X3_WEIGHT);
 
     }
     

@@ -99,10 +99,10 @@ public class CompositeBlock : MonoBehaviour
 
         switch (randSize)
         {
-            case TetrisGS.ShardSize.x1:
+            case TetrisGS.ShardSize.s1x1:
                 GenX1Block();
                 break;
-            case TetrisGS.ShardSize.x3:
+            case TetrisGS.ShardSize.s3x3:
                 GenX3Block();
                 break;
             default:
@@ -126,11 +126,11 @@ public class CompositeBlock : MonoBehaviour
     }
     public void GenX1Block()
     {
-        this.sizeOfMyShards = TetrisGS.ShardSize.x1;
+        this.sizeOfMyShards = TetrisGS.ShardSize.s1x1;
         TetrisGS.ShardFlavors flavForThisBlock = GenerateRandomFlavor();
 
         Shard s = GameObject.Instantiate(shardPrefab).GetComponent<Shard>();
-        s.Init(gamestate, contentParent, this, flavForThisBlock, GetPositionForIndex(1,1), TetrisGS.ShardSize.x1, new Vector2Int(-1,-1));
+        s.Init(gamestate, contentParent, this, flavForThisBlock, GetPositionForIndex(1,1), TetrisGS.ShardSize.s1x1, new Vector2Int(-1,-1));
         
         List<Shard> shardsOfFlav = this.gamestate.blockContainer.flavToListOfShards[flavForThisBlock];
         shardsOfFlav.Add(s);
@@ -141,7 +141,7 @@ public class CompositeBlock : MonoBehaviour
 
     public void GenX3Block()
     {        
-        this.sizeOfMyShards = TetrisGS.ShardSize.x3;
+        this.sizeOfMyShards = TetrisGS.ShardSize.s3x3;
 
         for (int x = 0; x < 3; x++)
         {
@@ -149,7 +149,7 @@ public class CompositeBlock : MonoBehaviour
             {
                 TetrisGS.ShardFlavors randomFlavor = GenerateRandomFlavor();
                 Shard shard = GameObject.Instantiate(shardPrefab).GetComponent<Shard>();
-                shard.Init(gamestate, contentParent,this, randomFlavor, GetPositionForIndex(x,y), TetrisGS.ShardSize.x3, new Vector2Int(x,y));
+                shard.Init(gamestate, contentParent,this, randomFlavor, GetPositionForIndex(x,y), TetrisGS.ShardSize.s3x3, new Vector2Int(x,y));
                 
                 shards3x3[x][y] = shard;
             }
@@ -180,11 +180,11 @@ public class CompositeBlock : MonoBehaviour
     
     public Shard GetShardForIndex(int x=-1, int y=-1)
     {
-        if (this.sizeOfMyShards == TetrisGS.ShardSize.x1)
+        if (this.sizeOfMyShards == TetrisGS.ShardSize.s1x1)
         {
             return singleShard;
         }
-        else if (this.sizeOfMyShards == TetrisGS.ShardSize.x3)
+        else if (this.sizeOfMyShards == TetrisGS.ShardSize.s3x3)
         {
 
             if (x >= 3 || x <= -1 || y >= 3 || y <= -1)
@@ -232,10 +232,10 @@ public class CompositeBlock : MonoBehaviour
 
     public Dictionary<TetrisGS.ShardFlavors, List<Shard>> PopulateFlavorList(Dictionary<TetrisGS.ShardFlavors, List<Shard>> flavToListOfShards)
     {
-        if (this.sizeOfMyShards == TetrisGS.ShardSize.x1)
+        if (this.sizeOfMyShards == TetrisGS.ShardSize.s1x1)
         {
             this.AddShardToList(this.singleShard, flavToListOfShards);
-        }else if (this.sizeOfMyShards == TetrisGS.ShardSize.x3)
+        }else if (this.sizeOfMyShards == TetrisGS.ShardSize.s3x3)
         {
             foreach (var lis in shards3x3)
             {
@@ -271,4 +271,32 @@ public class CompositeBlock : MonoBehaviour
         return mySupergridLocation;
     }
 
+    /// <summary>
+    /// For a given block, take all the components and merge them
+    /// </summary>
+    /// <exception cref="NotImplementedException"></exception>
+    public void Consolidate()
+    {
+        for (int x = 0; x < shards3x3.Count; x++)
+        {
+            List<Shard> col = shards3x3[x];
+
+            for (int y = 0; y < col.Count; y++)
+            {
+                if (col[y] != null)
+                {
+                    // grab the shard and check neighbors within myself
+                    
+                    //rtodo
+                    
+                    
+                    
+                    
+                    
+                }
+            }
+        }
+
+        
+    }
 }

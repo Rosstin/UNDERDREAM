@@ -100,6 +100,27 @@ public class BlockContainer : MonoBehaviour
     }
 
 
+    /// <summary>
+    /// Consolidate same-color shards that lie within a block. IE if 2 red shards are next to eachother, merge them into one 2x1 shard
+    /// </summary>
+    public void ConsolidateLandedBlocks()
+    {
+        for (int x = 0; x < blocksByLocation.Count; x++)
+        {
+            List<CompositeBlock> col = blocksByLocation[x];
+            
+            for (int y = 0; y < col.Count; y++)
+            {
+                CompositeBlock block = blocksByLocation[x][y];                
+                
+                if (block != null)
+                {
+                    block.Consolidate();
+                }
+            }
+        }
+    }
+    
     public void ClearBlocks()
     {
         for (int x = 0; x < blocksByLocation.Count; x++)
