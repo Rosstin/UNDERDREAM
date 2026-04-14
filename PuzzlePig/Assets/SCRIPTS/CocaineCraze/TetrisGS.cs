@@ -42,6 +42,7 @@ public class TetrisGS : BaseController
     public AudioSource tink;
     public AudioSource rocket;
     public AudioSource canCrunch;
+    public AudioSource pop;
     
     [FormerlySerializedAs("SOLID_BLOCK")] [FormerlySerializedAs("X1_WEIGHT")] [Header("Size Weights")] 
     public int SOLID_BLOCK_WEIGHT = 50;
@@ -221,11 +222,15 @@ public class TetrisGS : BaseController
         this.canCrunch.pitch = UnityEngine.Random.Range(0.5f, 1.5f);
         this.canCrunch.Play();
     }
+
+    public void PlayGrabSfx()
+    {
+        this.pop.Play();
+    }
     
     public void PlayFireSfx()
     {
         this.psh.Play();
-        //this.rocket.Play();
     }
 
 }

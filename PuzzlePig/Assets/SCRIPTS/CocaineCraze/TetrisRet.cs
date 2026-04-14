@@ -36,8 +36,6 @@ public class TetrisRet : MonoBehaviour
     {
         this.gamestate = gs;
         this.myBlock = block;
-        
-        
     }
     
     public void SetBlockPosition(Vector3 pos, Vector3 jitter)
@@ -50,7 +48,7 @@ public class TetrisRet : MonoBehaviour
 
     public void GrabBlock()
     {
-        gamestate.PlayTinkSfx();
+        gamestate.PlayGrabSfx();
         
         this.SetState(TetrisRetState.Held);
     }
@@ -75,18 +73,7 @@ public class TetrisRet : MonoBehaviour
         switch (myState)
         {
             case TetrisRetState.Scoring:
-                // determine which blocks to destroy
-                // need a destroy effect
-
-                // look for adjacencies
-                
-                // look at edges and corners basically
-
                 StartCoroutine(this.gamestate.colorGrid.ScoreBlock(myBlock, fallingDestCoord));
-                
-                
-                
-                
                 break;
             case TetrisRetState.Ready:
                 break;
@@ -114,7 +101,6 @@ public class TetrisRet : MonoBehaviour
 
     public void UpdateRetPos(Vector2Int c)
     {
-        //Vector3 snappedPos = this.gamestate.SnapToGrid(pos);
 
         this.lastRetCoord = c;
         
@@ -125,10 +111,7 @@ public class TetrisRet : MonoBehaviour
         if (inrange)
         {
             this.transform.position = this.gamestate.colorGrid.SnapZToBack(this.gamestate.colorGrid.SupergridToWorld(c));
-            this.gamestate.colorGrid.HighlightBackBlockAtCoord(c);
             this.lastRetCoord = c;
-            //refSpot.transform.position = pos;
-            //this.transform.position = pos;
         }
         else
         {
@@ -136,31 +119,6 @@ public class TetrisRet : MonoBehaviour
         }
     }
     
-    /*public void UpdateRetPosition(Vector3 pos)
-    {
-        
-        Vector3 snappedPos = this.gamestate.SnapToGrid(pos);
-        var c=this.gamestate.colorGrid.WorldToSupergrid(snappedPos);
-
-        this.lastRetCoord = c;
-        
-        // check if position is in range - ignore if not 
-        bool inrange=this.gamestate.colorGrid.IsInRange(c);
-
-
-        if (inrange)
-        {
-            this.gamestate.colorGrid.HighlightBackBlockAtCoord(c);
-            this.lastRetCoord = c;
-            refSpot.transform.position = pos;
-            this.transform.position = pos;
-        }
-        else
-        {
-            // not in range - ignore
-        }
-    }*/
-
     private void SetPreviewPos(Vector2Int coord)
     {
         this.fallingDestCoord = this.GetRestingCoordForBlockfall(coord);

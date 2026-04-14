@@ -210,11 +210,8 @@ public class ColorGrid2 : MonoBehaviour
     public Vector3 SnapToGrid(Vector3 pos)
     {
         // snap the pos to our grid
-        
         // we're basically using ints - if you intify it, it should work perfectly
-
         // if you're touching a back panel, you should snap to that pos
-        
         
         Vector3 intOffset = new Vector3(
             -0.5f,

@@ -20,9 +20,8 @@ public class CompositeBlock : MonoBehaviour
     private Vector2Int mySupergridLocation; // -1,-1 means you're not landed on the grid [being held, moving, etc]
     
     private List<List<Shard>> shards3x3 = null;
-    private Shard singleShard=null;
     
-    private Vector2Int sizeOfMyShards;
+    //private Vector2Int sizeOfMyShards;
     
     private TetrisGS gamestate = null;
     private List<CompositeBlock> blocks = new List<CompositeBlock>();
@@ -45,18 +44,15 @@ public class CompositeBlock : MonoBehaviour
 
     }
 
+    /*
     public Vector2Int GetShardSize()
     {
         return sizeOfMyShards;
     }
+    */
     
     public void Clear()
     {
-        if (singleShard != null)
-        {
-            GameObject.Destroy(singleShard);
-        }
-
         for (int x = 0; x < shards3x3.Count; x++)
         {
             List<Shard> col = shards3x3[x];
@@ -125,7 +121,7 @@ public class CompositeBlock : MonoBehaviour
     }
     public void GenFullSizeBlock()
     {
-        this.sizeOfMyShards = new Vector2Int(3,3);
+        //this.sizeOfMyShards = new Vector2Int(3,3);
         TetrisGS.ShardFlavors flavForThisBlock = GenerateRandomFlavor();
 
         Shard s = GameObject.Instantiate(shardPrefab).GetComponent<Shard>();
@@ -135,7 +131,13 @@ public class CompositeBlock : MonoBehaviour
         shardsOfFlav.Add(s);
         this.gamestate.blockContainer.flavToListOfShards[flavForThisBlock] = shardsOfFlav;
 
-        this.singleShard = s;
+        for (int x = 0; x < 3; x++)
+        {
+            for (int y = 0; y < 3; y++)
+            {
+                this.shards3x3[x][y] = s;
+            }
+        }
     }
 
     public void GenShardedBlock()
@@ -286,21 +288,16 @@ public class CompositeBlock : MonoBehaviour
                 if (col[y] != null)
                 {
                     // grab the shard and check neighbors within myself
-                    
-                    //rtodo
-
                     Shard shardToConsolidate = col[y];
                     
                     foreach(var dir in CocaineCrazeConstants.UP_DOWN_LEFT_RIGHT)
                     {
                         Shard adjShard = this.gamestate.colorGrid.GetShardInDirection(shardToConsolidate, dir, allowOutsideBlock: false);
                         
-                        Debug.Log("shard in dir " + adjShard.GetFlavor());
+                        //Debug.Log("shard in dir " + adjShard.GetFlavor());
 
                         if (adjShard.GetFlavor() == shardToConsolidate.GetFlavor())
                         {
-                            //Debug.Log("LET'S MERGE SHARDS!");
-
                             this.MergeShards(shardToConsolidate, adjShard);
 
                         }
@@ -322,11 +319,24 @@ public class CompositeBlock : MonoBehaviour
     {
         // get rid of the adjacent shard and expand the consolidated one
 
-        shardToConsolidate.ExpandInDirection(adjShard.GetSuperAndSubgridLocs());
+        if (shardToConsolidate.GetMySize() == new Vector2Int(1, 1) && adjShard.GetMySize() == new Vector2Int(1, 1))
+        {
+            shardToConsolidate.Expand1xNWidthShard(adjShard.GetSuperAndSubgridLocs());
+            
+            //DeleteShardAt(adjShard.GetSuperAndSubgridLocs().subgridLoc);
+            
 
+        }
+    }
+    public void DeleteShardAt(Vector2Int subgridPos)
+    {
+        var shard = shards3x3[subgridPos.x][subgridPos.y];
+        GameObject.Destroy(shard.gameObject);
+        shards3x3[subgridPos.x][subgridPos.y] = null;
+    }
 
-
-
-
+    public void PutShardAt(Vector2Int subgridLoc, Shard shard)
+    {
+        shards3x3[subgridLoc.x][subgridLoc.y] = shard;
     }
 }

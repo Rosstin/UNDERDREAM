@@ -132,11 +132,52 @@ public class Shard : MonoBehaviour
         return myFlavor;
     }
 
-    public void ExpandInDirection(ShardPositionData directionToExpandIn)
+    public Vector2Int GetRelativeDirection(Vector2Int a, Vector2Int b)
     {
-        // double your size in the given direction
+        Vector2Int dir = a-b;
+
+        return dir;
+
+
+    }
+    
+    public void Expand1xNWidthShard(ShardPositionData directionToExpandIn)
+    {
+        Vector2Int dir = GetRelativeDirection(directionToExpandIn.subgridLoc,this.myLocalSubgridLocation);
+
+        if (dir == CocaineCrazeConstants.UP)
+        {
+            this.myShardSize += new Vector2Int(0, 1);
+
+
+            this.myCompositeBlockParent.DeleteShardAt(directionToExpandIn);
+            this.myCompositeBlockParent.PutShardAt(directionToExpandIn, this);
+            
+            this.transform.localScale = new Vector3(this.transform.localScale.x,this.transform.localScale.y*2,this.transform.localScale.z);
+        }
+        else if(dir == CocaineCrazeConstants.DOWN)
+        {
+            this.myShardSize += new Vector2Int(0, 1);
+
+            this.transform.localScale = new Vector3(this.transform.localScale.x,this.transform.localScale.y*2,this.transform.localScale.z);
+        }
+        else if(dir == CocaineCrazeConstants.LEFT)
+        {
+            this.myShardSize += new Vector2Int(1, 0);
+
+            this.transform.localScale = new Vector3(this.transform.localScale.x*2,this.transform.localScale.y,this.transform.localScale.z);
+
+        }
+        else if(dir == CocaineCrazeConstants.RIGHT)
+        {
+            this.myShardSize += new Vector2Int(1, 0);
+
+            this.transform.localScale = new Vector3(this.transform.localScale.x*2,this.transform.localScale.y,this.transform.localScale.z);
+        }
+
         
-        // move position halfway in the dir
+        
+        
         
         
         

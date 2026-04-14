@@ -106,7 +106,6 @@ public class BlockContainer : MonoBehaviour
     /// </summary>
     public void ConsolidateLandedBlocks()
     {
-        Debug.Log("consolidate landed blocks");
         for (int x = 0; x < blocksByLocation.Count; x++)
         {
             List<CompositeBlock> col = blocksByLocation[x];
