@@ -274,9 +274,10 @@ public class CompositeBlock : MonoBehaviour
     /// <summary>
     /// For a given block, take all the components and merge them
     /// </summary>
-    /// <exception cref="NotImplementedException"></exception>
     public void Consolidate()
     {
+        Debug.Log("consolidate block at " + this.mySupergridLocation);
+
         for (int x = 0; x < shards3x3.Count; x++)
         {
             List<Shard> col = shards3x3[x];
@@ -288,9 +289,24 @@ public class CompositeBlock : MonoBehaviour
                     // grab the shard and check neighbors within myself
                     
                     //rtodo
+
+                    Shard shardToConsolidate = col[y];
                     
-                    
-                    
+                    foreach(var dir in CocaineCrazeConstants.UP_DOWN_LEFT_RIGHT)
+                    {
+                        Shard adjShard = this.gamestate.colorGrid.GetShardInDirection(shardToConsolidate, dir, allowOutsideBlock: false);
+                        
+                        Debug.Log("shard in dir " + adjShard.GetFlavor());
+
+                        if (adjShard.GetFlavor() == shardToConsolidate.GetFlavor())
+                        {
+                            Debug.Log("LET'S MERGE SHARDS!");
+                        }
+                        
+                        
+
+                    }
+
                     
                     
                 }

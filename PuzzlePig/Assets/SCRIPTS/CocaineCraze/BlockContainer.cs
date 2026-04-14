@@ -46,6 +46,8 @@ public class BlockContainer : MonoBehaviour
 
         
         this.topLeftAnchor = topLeftAnchor;
+
+        this.ConsolidateLandedBlocks();
     }
 
     public int GetWidth()
@@ -105,6 +107,7 @@ public class BlockContainer : MonoBehaviour
     /// </summary>
     public void ConsolidateLandedBlocks()
     {
+        Debug.Log("consolidate landed blocks");
         for (int x = 0; x < blocksByLocation.Count; x++)
         {
             List<CompositeBlock> col = blocksByLocation[x];
@@ -185,7 +188,7 @@ public class BlockContainer : MonoBehaviour
 
     }
 
-    public Shard getShardAtLocation(Shard.ShardPositionData loc)
+    public Shard GetShardAtAbsoluteLocation(Shard.ShardPositionData loc)
     {
         var block = GetCompBlockForCoord(loc.supergridLoc);
 

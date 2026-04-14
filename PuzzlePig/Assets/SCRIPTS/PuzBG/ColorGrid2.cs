@@ -4,6 +4,8 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
+
+
 /// <summary>
 /// Class for the Tetris game that generates the backing grid and makes the tetris blocks
 /// </summary>
@@ -26,13 +28,6 @@ public class ColorGrid2 : MonoBehaviour
 
     private List<ColorRow2> colorRows = new List<ColorRow2>();
 
-    private static Vector2Int UP = new Vector2Int(0, 1);
-    private static Vector2Int DOWN = new Vector2Int(0, -1);
-    private static Vector2Int LEFT = new Vector2Int(-1, 0);
-    private static Vector2Int RIGHT = new Vector2Int(1, 0);
-    
-    private static List<Vector2Int> UP_DOWN_LEFT_RIGHT = new List<Vector2Int>()
-        { UP, DOWN, LEFT, RIGHT };
 
     
     
@@ -268,9 +263,9 @@ public class ColorGrid2 : MonoBehaviour
             
         }else if (s.GetMySize() == TetrisGS.ShardSize.s3x3)
         {
-            foreach (var dir in UP_DOWN_LEFT_RIGHT)
+            foreach (var dir in CocaineCrazeConstants.UP_DOWN_LEFT_RIGHT)
             {
-                var adjacentShard = this.GetShardInDirections(s, dir);
+                var adjacentShard = this.GetShardInDirection(s, dir, allowOutsideBlock:true);
 
                 if (adjacentShard != null)
                 {
@@ -288,7 +283,7 @@ public class ColorGrid2 : MonoBehaviour
         }
     }
 
-    public Shard.ShardPositionData MoveSuperGridPositionOneInDir(Shard.ShardPositionData pos, Vector2Int dir)
+    public Shard.ShardPositionData MoveLocationInOneSubgridDirection(Shard.ShardPositionData pos, Vector2Int dir, bool allowOutsideBlock)
     {
         Shard.ShardPositionData newLocation = new Shard.ShardPositionData();
 
@@ -297,51 +292,73 @@ public class ColorGrid2 : MonoBehaviour
         
         if (newLocation.subgridLoc.y >= 3)
         {
-            newLocation.supergridLoc += UP;
-            newLocation.subgridLoc += DOWN*3;
+            if (allowOutsideBlock)
+            {
+                newLocation.supergridLoc += CocaineCrazeConstants.UP;
+                newLocation.subgridLoc += CocaineCrazeConstants.DOWN*3;
+            }
+            else
+            {
+                return pos;
+            }
         }
 
         if (newLocation.subgridLoc.y <= -1)
         {
-            newLocation.supergridLoc += DOWN;
-            newLocation.subgridLoc += UP*3;
+            if (allowOutsideBlock)
+            {
+                newLocation.supergridLoc += CocaineCrazeConstants.DOWN;
+                newLocation.subgridLoc += CocaineCrazeConstants.UP * 3;
+            }
+            else
+            {
+                return pos;
+            }
         }
         
         if (newLocation.subgridLoc.x <= -1)
         {
-            newLocation.supergridLoc += LEFT;
-            newLocation.subgridLoc += RIGHT * 3;
+            if (allowOutsideBlock)
+            {
+                newLocation.supergridLoc += CocaineCrazeConstants.LEFT;
+                newLocation.subgridLoc += CocaineCrazeConstants.RIGHT * 3;
+            }
+            else
+            {
+                return pos;
+            }
         }
 
         if (newLocation.subgridLoc.x >= 3)
         {
-            newLocation.supergridLoc += RIGHT;
-            newLocation.subgridLoc += LEFT*3;
+            if (allowOutsideBlock)
+            {
+                newLocation.supergridLoc += CocaineCrazeConstants.RIGHT;
+                newLocation.subgridLoc += CocaineCrazeConstants.LEFT * 3;
+            }
+            else
+            {
+                return pos;
+            }
         }
 
         return newLocation;
         
     }
     
-    private Shard GetShardInDirections(Shard shard, Vector2Int dir)
+    public Shard GetShardInDirection(Shard shard, Vector2Int dir, bool allowOutsideBlock)
     {
         var superSubLocs = shard.GetSuperAndSubgridLocs();
 
-        //Debug.Log("my super sub locs.. " + superSubLocs);
-
-        var newPos = MoveSuperGridPositionOneInDir(superSubLocs, dir);
-
-        //Debug.Log("try to score shard at " + newPos);
+        var newPos = MoveLocationInOneSubgridDirection(superSubLocs, dir, allowOutsideBlock);
         
-        Shard s =myBlockContainer.getShardAtLocation(newPos);
+        Shard s =myBlockContainer.GetShardAtAbsoluteLocation(newPos);
         if (s != null)
         {
-            //Debug.Log("found an adj shard " + s.GetFlavor());
             return s;
         }
         else
         {
-            //Debug.Log("no adj shard");
             return null;
         }
 
