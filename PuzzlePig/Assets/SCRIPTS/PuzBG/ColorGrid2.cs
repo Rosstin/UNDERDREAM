@@ -41,7 +41,7 @@ public class ColorGrid2 : MonoBehaviour
         
         this.GenerateLevelBlocks();
 
-        this.myBlockContainer.ConsolidateLandedBlocks();
+        //this.myBlockContainer.ConsolidateLandedBlocks();
 
         
     }
@@ -258,11 +258,11 @@ public class ColorGrid2 : MonoBehaviour
         s.SetShardState(Shard.ShardState.Scoring);
         this.myBlockContainer.currentlyScoringShards.Add(s.GetSuperAndSubgridLocs(),s);
         
-        if (s.GetMySize() == TetrisGS.ShardSize.s1x1)
+        if (s.GetMySize() == new Vector2Int(3,3))
         {
             Debug.Log("need handling for x1 size");
             
-        }else if (s.GetMySize() == TetrisGS.ShardSize.s3x3)
+        }else if (s.GetMySize() == new Vector2Int(1,1))
         {
             foreach (var dir in CocaineCrazeConstants.UP_DOWN_LEFT_RIGHT)
             {
@@ -382,7 +382,7 @@ public class ColorGrid2 : MonoBehaviour
 
         LandScoringBlock(scoringBlock, destSuperLoc);
         
-        if (scoringBlock.GetShardSize() == TetrisGS.ShardSize.s1x1)
+        if (scoringBlock.GetShardSize() == new Vector2Int(3,3))
         {
             // check if there are any adjacencies 
 
@@ -391,7 +391,7 @@ public class ColorGrid2 : MonoBehaviour
 
 
         }
-        else if (scoringBlock.GetShardSize() == TetrisGS.ShardSize.s3x3)
+        else if (scoringBlock.GetShardSize() == new Vector2Int(1,1))
         {
             
             

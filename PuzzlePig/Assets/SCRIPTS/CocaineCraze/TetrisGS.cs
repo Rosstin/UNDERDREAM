@@ -43,9 +43,9 @@ public class TetrisGS : BaseController
     public AudioSource rocket;
     public AudioSource canCrunch;
     
-    [Header("Size Weights")] 
-    public int X1_WEIGHT = 50;
-    public int X3_WEIGHT = 50;
+    [FormerlySerializedAs("SOLID_BLOCK")] [FormerlySerializedAs("X1_WEIGHT")] [Header("Size Weights")] 
+    public int SOLID_BLOCK_WEIGHT = 50;
+    [FormerlySerializedAs("X3_WEIGHT")] public int SHARDED_BLOCK_WEIGHT = 50;
 
     [Header("Flavor Weights")] 
     public int CLASSIC_WEIGHT = 10;
@@ -59,7 +59,7 @@ public class TetrisGS : BaseController
     public int GRAPE_WEIGHT = 10;
     
     private WeightedList<ShardFlavors> weightedShardFlavors = null;
-    private WeightedList<ShardSize> weightedShardSizes = null;
+    private WeightedList<Vector2Int> weightedShardSizes = null;
     
     public enum ShardFlavors
     {
@@ -74,18 +74,8 @@ public class TetrisGS : BaseController
         Grape,
         Unset,
     }
-    
-    public enum ShardSize
-    {
-        Unset,
-        s1x1,
-        s1x2,
-        s1x3,
-        s2x2,
-        s2x3,
-        s3x3,
-    }
 
+    
     public Material GetMatForFlavor(ShardFlavors flavor)
     {
         switch (flavor)
@@ -142,8 +132,8 @@ public class TetrisGS : BaseController
         weightedShardFlavors.Add(ShardFlavors.Grape,GRAPE_WEIGHT);
 
         weightedShardSizes = new();
-        weightedShardSizes.Add(ShardSize.s1x1, X1_WEIGHT);
-        weightedShardSizes.Add(ShardSize.s3x3, X3_WEIGHT);
+        weightedShardSizes.Add(new Vector2Int(3,3), SOLID_BLOCK_WEIGHT);
+        weightedShardSizes.Add(new Vector2Int(1,1), SHARDED_BLOCK_WEIGHT);
 
     }
     
@@ -154,7 +144,7 @@ public class TetrisGS : BaseController
         return weightedShardFlavors.Next();
     }
 
-    public ShardSize GetWeightedRandomSize()
+    public Vector2Int GetWeightedRandomSize()
     {
         return weightedShardSizes.Next();
     }

@@ -6,7 +6,7 @@ public class Shard : MonoBehaviour
     public MeshRenderer meshRenderer;
     
     private TetrisGS.ShardFlavors myFlavor;
-    private TetrisGS.ShardSize mySize;
+    private Vector2Int myShardSize; // ranges from 1x1 to 3x3
 
     private float scoringOpa = 0.1f;
     private Color normCol;
@@ -22,6 +22,7 @@ public class Shard : MonoBehaviour
     private ShardPositionData myPosition = new ShardPositionData();
     
     private Vector2Int myLocalSubgridLocation; // if this is -1,-1 it means you're a large shard. otherwise, 1,1 is the center, 0,0 is the top right corn, etc
+
 
     public struct ShardPositionData
     {
@@ -43,9 +44,9 @@ public class Shard : MonoBehaviour
         Scoring
     }
 
-    public TetrisGS.ShardSize GetMySize()
+    public Vector2Int GetMySize()
     {
-        return mySize;
+        return this.myShardSize;
     } 
     
     public void SetShardState(ShardState s)
@@ -78,9 +79,9 @@ public class Shard : MonoBehaviour
         return myPosition;
     }
     
-    public void Init(TetrisGS gamestate, GameObject contentParent, CompositeBlock cBlockParent, TetrisGS.ShardFlavors flav, Vector3 pos, TetrisGS.ShardSize shardSize, Vector2Int localSubgridLoc)
+    public void Init(TetrisGS gamestate, GameObject contentParent, CompositeBlock cBlockParent, TetrisGS.ShardFlavors flav, Vector3 pos, Vector2Int shardSize, Vector2Int localSubgridLoc)
     {
-        this.mySize = shardSize;
+        this.myShardSize = shardSize;
         this.myGamestate = gamestate;
         this.SetFlavor(flav);
         this.transform.SetParent(contentParent.transform);
@@ -94,18 +95,16 @@ public class Shard : MonoBehaviour
         this.SetShardState(Shard.ShardState.Normal);
 
         
-        switch (shardSize)
+        if (this.myShardSize == new Vector2Int(3, 3))
         {
-            case TetrisGS.ShardSize.s1x1:
-                this.transform.localScale = new Vector3((1/1f), (1/1f), (1/1f));
-                break;
-            case TetrisGS.ShardSize.s3x3:
-                this.transform.localScale = new Vector3((1/3f), (1/3f), (1/3f));
-                break;
-            case TetrisGS.ShardSize.Unset:
-                Debug.LogError("shard size unset!");
-                break;
-            
+            this.transform.localScale = new Vector3((1/1f), (1/1f), (1/1f));
+        }else if (this.myShardSize == new Vector2Int(1, 1))
+        {
+            this.transform.localScale = new Vector3((1/3f), (1/3f), (1/3f));
+        }
+        else
+        {
+            Debug.Log("need to support other shard sizes! " + shardSize);
         }
         
         this.transform.position = pos;
@@ -131,5 +130,15 @@ public class Shard : MonoBehaviour
     public TetrisGS.ShardFlavors GetFlavor()
     {
         return myFlavor;
+    }
+
+    public void ExpandInDirection(ShardPositionData directionToExpandIn)
+    {
+        // double your size in the given direction
+        
+        // move position halfway in the dir
+        
+        
+        
     }
 }

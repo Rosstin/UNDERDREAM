@@ -22,7 +22,7 @@ public class CompositeBlock : MonoBehaviour
     private List<List<Shard>> shards3x3 = null;
     private Shard singleShard=null;
     
-    private TetrisGS.ShardSize sizeOfMyShards = TetrisGS.ShardSize.Unset;
+    private Vector2Int sizeOfMyShards;
     
     private TetrisGS gamestate = null;
     private List<CompositeBlock> blocks = new List<CompositeBlock>();
@@ -45,7 +45,7 @@ public class CompositeBlock : MonoBehaviour
 
     }
 
-    public TetrisGS.ShardSize GetShardSize()
+    public Vector2Int GetShardSize()
     {
         return sizeOfMyShards;
     }
@@ -97,17 +97,16 @@ public class CompositeBlock : MonoBehaviour
 
         var randSize = gamestate.GetWeightedRandomSize();
 
-        switch (randSize)
+        if (randSize == new Vector2Int(3, 3))
         {
-            case TetrisGS.ShardSize.s1x1:
-                GenX1Block();
-                break;
-            case TetrisGS.ShardSize.s3x3:
-                GenX3Block();
-                break;
-            default:
-                Debug.LogError("unknown size");
-                break;
+            GenFullSizeBlock();
+        }else if (randSize == new Vector2Int(1, 1))
+        {
+            GenShardedBlock();
+        }
+        else
+        {
+            Debug.LogError("unsup shard size");
         }
     }
 
@@ -124,13 +123,13 @@ public class CompositeBlock : MonoBehaviour
             }
         }
     }
-    public void GenX1Block()
+    public void GenFullSizeBlock()
     {
-        this.sizeOfMyShards = TetrisGS.ShardSize.s1x1;
+        this.sizeOfMyShards = new Vector2Int(3,3);
         TetrisGS.ShardFlavors flavForThisBlock = GenerateRandomFlavor();
 
         Shard s = GameObject.Instantiate(shardPrefab).GetComponent<Shard>();
-        s.Init(gamestate, contentParent, this, flavForThisBlock, GetPositionForIndex(1,1), TetrisGS.ShardSize.s1x1, new Vector2Int(-1,-1));
+        s.Init(gamestate, contentParent, this, flavForThisBlock, GetPositionForIndex(1,1), this.sizeOfMyShards, new Vector2Int(-1,-1));
         
         List<Shard> shardsOfFlav = this.gamestate.blockContainer.flavToListOfShards[flavForThisBlock];
         shardsOfFlav.Add(s);
@@ -139,9 +138,9 @@ public class CompositeBlock : MonoBehaviour
         this.singleShard = s;
     }
 
-    public void GenX3Block()
+    public void GenShardedBlock()
     {        
-        this.sizeOfMyShards = TetrisGS.ShardSize.s3x3;
+        this.sizeOfMyShards = new Vector2Int(1,1);
 
         for (int x = 0; x < 3; x++)
         {
@@ -149,7 +148,7 @@ public class CompositeBlock : MonoBehaviour
             {
                 TetrisGS.ShardFlavors randomFlavor = GenerateRandomFlavor();
                 Shard shard = GameObject.Instantiate(shardPrefab).GetComponent<Shard>();
-                shard.Init(gamestate, contentParent,this, randomFlavor, GetPositionForIndex(x,y), TetrisGS.ShardSize.s3x3, new Vector2Int(x,y));
+                shard.Init(gamestate, contentParent,this, randomFlavor, GetPositionForIndex(x,y), this.sizeOfMyShards, new Vector2Int(x,y));
                 
                 shards3x3[x][y] = shard;
             }
@@ -180,11 +179,11 @@ public class CompositeBlock : MonoBehaviour
     
     public Shard GetShardForIndex(int x=-1, int y=-1)
     {
-        if (this.sizeOfMyShards == TetrisGS.ShardSize.s1x1)
+        if (this.sizeOfMyShards == new Vector2Int(3,3))
         {
             return singleShard;
         }
-        else if (this.sizeOfMyShards == TetrisGS.ShardSize.s3x3)
+        else if (this.sizeOfMyShards == new Vector2Int(1,1))
         {
 
             if (x >= 3 || x <= -1 || y >= 3 || y <= -1)
@@ -232,10 +231,10 @@ public class CompositeBlock : MonoBehaviour
 
     public Dictionary<TetrisGS.ShardFlavors, List<Shard>> PopulateFlavorList(Dictionary<TetrisGS.ShardFlavors, List<Shard>> flavToListOfShards)
     {
-        if (this.sizeOfMyShards == TetrisGS.ShardSize.s1x1)
+        if (this.sizeOfMyShards == new Vector2Int(3,3))
         {
             this.AddShardToList(this.singleShard, flavToListOfShards);
-        }else if (this.sizeOfMyShards == TetrisGS.ShardSize.s3x3)
+        }else if (this.sizeOfMyShards == new Vector2Int(1,1))
         {
             foreach (var lis in shards3x3)
             {
@@ -300,19 +299,34 @@ public class CompositeBlock : MonoBehaviour
 
                         if (adjShard.GetFlavor() == shardToConsolidate.GetFlavor())
                         {
-                            Debug.Log("LET'S MERGE SHARDS!");
+                            //Debug.Log("LET'S MERGE SHARDS!");
+
+                            this.MergeShards(shardToConsolidate, adjShard);
+
                         }
-                        
-                        
 
                     }
-
-                    
-                    
                 }
             }
         }
 
         
+    }
+
+    /// <summary>
+    /// Merge two of my client shards
+    /// </summary>
+    /// <param name="shardToConsolidate"></param>
+    /// <param name="adjShard"></param>
+    private void MergeShards(Shard shardToConsolidate, Shard adjShard)
+    {
+        // get rid of the adjacent shard and expand the consolidated one
+
+        shardToConsolidate.ExpandInDirection(adjShard.GetSuperAndSubgridLocs());
+
+
+
+
+
     }
 }
