@@ -150,8 +150,8 @@ public class Shard : MonoBehaviour
             this.myShardSize += new Vector2Int(0, 1);
 
 
-            this.myCompositeBlockParent.DeleteShardAt(directionToExpandIn);
-            this.myCompositeBlockParent.PutShardAt(directionToExpandIn, this);
+            this.myCompositeBlockParent.DeleteShardAt(directionToExpandIn.subgridLoc);
+            this.myCompositeBlockParent.PutShardAt(directionToExpandIn.subgridLoc, this);
             
             this.transform.localScale = new Vector3(this.transform.localScale.x,this.transform.localScale.y*2,this.transform.localScale.z);
         }

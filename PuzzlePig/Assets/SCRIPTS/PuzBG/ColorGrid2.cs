@@ -379,41 +379,17 @@ public class ColorGrid2 : MonoBehaviour
 
         LandScoringBlock(scoringBlock, destSuperLoc);
         
-        if (scoringBlock.GetShardSize() == new Vector2Int(3,3))
+        for (int x = 0; x < 3; x++)
         {
-            // check if there are any adjacencies 
-
-            TetrisGS.ShardFlavors flavor =scoringBlock.GetShardForIndex().GetFlavor();
-            Debug.Log("score full block w flavor " + flavor);
-
-
-        }
-        else if (scoringBlock.GetShardSize() == new Vector2Int(1,1))
-        {
-            
-            
-            
-            //Debug.Log("score 3x3 block");
-            // check if there are any adjacencies 
-
-            for (int x = 0; x < 3; x++)
+            for (int y = 0; y < 3; y++)
             {
-                for (int y = 0; y < 3; y++)
-                {
-                    // look at the shards that you're contiguous with and destroy them if they match
-                    var shardInQuestion = scoringBlock.GetShardForIndex(x, y);
-                    this.ScoreShard(shardInQuestion);
-                }
+                // look at the shards that you're contiguous with and destroy them if they match
+                var shardInQuestion = scoringBlock.GetShardForIndex(x, y);
+                this.ScoreShard(shardInQuestion);
             }
+        }
 
 
-        }
-        else
-        {
-            /*
-            Debug.LogError("shard size of the block isnt valid ");
-        */
-        }
         
         yield return new WaitForSeconds(1f);
 

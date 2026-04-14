@@ -121,11 +121,11 @@ public class CompositeBlock : MonoBehaviour
     }
     public void GenFullSizeBlock()
     {
-        //this.sizeOfMyShards = new Vector2Int(3,3);
+        var shardSize = new Vector2Int(3,3);
         TetrisGS.ShardFlavors flavForThisBlock = GenerateRandomFlavor();
 
         Shard s = GameObject.Instantiate(shardPrefab).GetComponent<Shard>();
-        s.Init(gamestate, contentParent, this, flavForThisBlock, GetPositionForIndex(1,1), this.sizeOfMyShards, new Vector2Int(-1,-1));
+        s.Init(gamestate, contentParent, this, flavForThisBlock, GetPositionForIndex(1,1), shardSize, new Vector2Int(-1,-1));
         
         List<Shard> shardsOfFlav = this.gamestate.blockContainer.flavToListOfShards[flavForThisBlock];
         shardsOfFlav.Add(s);
@@ -142,7 +142,7 @@ public class CompositeBlock : MonoBehaviour
 
     public void GenShardedBlock()
     {        
-        this.sizeOfMyShards = new Vector2Int(1,1);
+        var shardSize = new Vector2Int(1,1);
 
         for (int x = 0; x < 3; x++)
         {
@@ -150,7 +150,7 @@ public class CompositeBlock : MonoBehaviour
             {
                 TetrisGS.ShardFlavors randomFlavor = GenerateRandomFlavor();
                 Shard shard = GameObject.Instantiate(shardPrefab).GetComponent<Shard>();
-                shard.Init(gamestate, contentParent,this, randomFlavor, GetPositionForIndex(x,y), this.sizeOfMyShards, new Vector2Int(x,y));
+                shard.Init(gamestate, contentParent,this, randomFlavor, GetPositionForIndex(x,y), shardSize, new Vector2Int(x,y));
                 
                 shards3x3[x][y] = shard;
             }
@@ -181,27 +181,14 @@ public class CompositeBlock : MonoBehaviour
     
     public Shard GetShardForIndex(int x=-1, int y=-1)
     {
-        if (this.sizeOfMyShards == new Vector2Int(3,3))
+        if (x >= 3 || x <= -1 || y >= 3 || y <= -1)
         {
-            return singleShard;
-        }
-        else if (this.sizeOfMyShards == new Vector2Int(1,1))
-        {
-
-            if (x >= 3 || x <= -1 || y >= 3 || y <= -1)
-            {
-                Debug.Log("trying to get shard for INVALID index " + x + ", " + y);
-                return null;
-            }
-            else
-            {
-                return shards3x3[x][y];
-            }
+            Debug.Log("trying to get shard for INVALID index " + x + ", " + y);
+            return null;
         }
         else
         {
-            Debug.LogError("this comp block is invalid");
-            return null;
+            return shards3x3[x][y];
         }
     }
 
@@ -222,35 +209,21 @@ public class CompositeBlock : MonoBehaviour
                 }
             }
         }
-
-        if (singleShard != null)
-        {
-            this.singleShard.SetSuperGridLoc(sGridLoc);
-        }
         
         this.mySupergridLocation=sGridLoc;
     }
 
     public Dictionary<TetrisGS.ShardFlavors, List<Shard>> PopulateFlavorList(Dictionary<TetrisGS.ShardFlavors, List<Shard>> flavToListOfShards)
     {
-        if (this.sizeOfMyShards == new Vector2Int(3,3))
+        foreach (var lis in shards3x3)
         {
-            this.AddShardToList(this.singleShard, flavToListOfShards);
-        }else if (this.sizeOfMyShards == new Vector2Int(1,1))
-        {
-            foreach (var lis in shards3x3)
+            foreach (var sh in lis)
             {
-                foreach (var sh in lis)
-                {
-                    flavToListOfShards = this.AddShardToList(sh,flavToListOfShards);
-                }
+                flavToListOfShards = this.AddShardToList(sh,flavToListOfShards);
             }
         }
-        else
-        {
-            Debug.LogError("unknown shard size type");
-        }
 
+            
         return flavToListOfShards;
     }
 
