@@ -180,6 +180,7 @@ public class BlockContainer : MonoBehaviour
     }
 
     
+    
     public Vector2Int GetRestingCoordForBlockFallFrom(Vector2Int c)
     {
         int lowestY=GetLowestYForColumn(c.x);
@@ -205,6 +206,14 @@ public class BlockContainer : MonoBehaviour
         else
         {
             return null;
+        }
+    }
+
+    public void RestoreScoringShardsToNormal()
+    {
+        foreach (Shard s in currentlyScoringShards.Values)
+        {
+            s.SetShardState(Shard.ShardState.Normal);
         }
     }
 

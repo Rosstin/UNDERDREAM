@@ -385,14 +385,7 @@ public class ColorGrid2 : MonoBehaviour
             {
                 for (int y = 0; y < 3; y++)
                 {
-                    if (x == 1 && y == 1)
-                    {
-                        continue;
-                        //Debug.Log("center shard can't be scored. it's flavor: " + scoringBlock.GetFlavorForIndex(x,y));
-                    }
-
                     // look at the shards that you're contiguous with and destroy them if they match
-
                     var shardInQuestion = scoringBlock.GetShardForIndex(x, y);
                     this.ScoreShard(shardInQuestion);
                 }
@@ -407,8 +400,9 @@ public class ColorGrid2 : MonoBehaviour
         */
         }
         
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(1f);
 
+        this.myBlockContainer.RestoreScoringShardsToNormal(); // rtodo just for now
         this.gamestate.heldRet.FinishedScoring();
 
     }
