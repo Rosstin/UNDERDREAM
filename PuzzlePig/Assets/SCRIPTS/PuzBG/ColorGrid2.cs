@@ -281,9 +281,9 @@ public class ColorGrid2 : MonoBehaviour
         }
     }
 
-    public Shard.ShardPositionData MoveLocationInOneSubgridDirection(Shard.ShardPositionData pos, Vector2Int dir, bool allowOutsideBlock)
+    public Shard.AbsoluteGridPositionData MoveLocationInOneSubgridDirection(Shard.AbsoluteGridPositionData pos, Vector2Int dir, bool allowOutsideBlock)
     {
-        Shard.ShardPositionData newLocation = new Shard.ShardPositionData();
+        Shard.AbsoluteGridPositionData newLocation = new Shard.AbsoluteGridPositionData();
 
         newLocation.supergridLoc = pos.supergridLoc;
         newLocation.subgridLoc = pos.subgridLoc + dir;
@@ -292,8 +292,8 @@ public class ColorGrid2 : MonoBehaviour
         {
             if (allowOutsideBlock)
             {
-                newLocation.supergridLoc += CocaineCrazeConstants.UP;
-                newLocation.subgridLoc += CocaineCrazeConstants.DOWN*3;
+                newLocation.supergridLoc += Vector2Int.up;
+                newLocation.subgridLoc += -Vector2Int.up*3;
             }
             else
             {
@@ -305,8 +305,8 @@ public class ColorGrid2 : MonoBehaviour
         {
             if (allowOutsideBlock)
             {
-                newLocation.supergridLoc += CocaineCrazeConstants.DOWN;
-                newLocation.subgridLoc += CocaineCrazeConstants.UP * 3;
+                newLocation.supergridLoc += Vector2Int.down;
+                newLocation.subgridLoc += -Vector2Int.down * 3;
             }
             else
             {
@@ -318,8 +318,8 @@ public class ColorGrid2 : MonoBehaviour
         {
             if (allowOutsideBlock)
             {
-                newLocation.supergridLoc += CocaineCrazeConstants.LEFT;
-                newLocation.subgridLoc += CocaineCrazeConstants.RIGHT * 3;
+                newLocation.supergridLoc += Vector2Int.left;
+                newLocation.subgridLoc += -Vector2Int.left * 3;
             }
             else
             {
@@ -331,8 +331,8 @@ public class ColorGrid2 : MonoBehaviour
         {
             if (allowOutsideBlock)
             {
-                newLocation.supergridLoc += CocaineCrazeConstants.RIGHT;
-                newLocation.subgridLoc += CocaineCrazeConstants.LEFT * 3;
+                newLocation.supergridLoc += Vector2Int.right;
+                newLocation.subgridLoc += -Vector2Int.right * 3;
             }
             else
             {
@@ -348,6 +348,43 @@ public class ColorGrid2 : MonoBehaviour
     {
         var superSubLocs = shard.GetSuperAndSubgridLocs();
 
+        // rtodo I need to look at my size, look at my extents, then move one like that
+
+        Shard.AbsoluteGridPositionData locToSearch = new Shard.AbsoluteGridPositionData();
+        locToSearch.supergridLoc = shard.GetSuperAndSubgridLocs().supergridLoc;
+        locToSearch.subgridLoc = shard.GetSuperAndSubgridLocs().subgridLocations[0];
+        
+        if (dir == Vector2Int.up)
+        {
+            var locs = shard.GetSuperAndSubgridLocs();
+            
+            // find the uppermost loc
+
+            int highestY = locs.subgridLocations[0].y;
+            for (int i = 1; i < locs.subgridLocations.Count; i++)
+            {
+                var lo = locs.subgridLocations[i];
+
+                if (lo.y > highestY)
+                {
+                    highestY = lo.y;
+                } 
+            }
+            
+            locs.subgridLocations
+        }
+        else if (dir == Vector2Int.down)
+        {
+            
+        }else if (dir == Vector2Int.left)
+        {
+            
+        }else if (dir == Vector2Int.right)
+        {
+            
+        }
+        
+        
         var newPos = MoveLocationInOneSubgridDirection(superSubLocs, dir, allowOutsideBlock);
         
         Shard s =myBlockContainer.GetShardAtAbsoluteLocation(newPos);

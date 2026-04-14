@@ -91,8 +91,10 @@ public class CompositeBlock : MonoBehaviour
     {
         Clear();
 
-        var randSize = gamestate.GetWeightedRandomSize();
+        GenShardedBlock();
+        //var randSize = gamestate.GetWeightedRandomSize();
 
+        /*
         if (randSize == new Vector2Int(3, 3))
         {
             GenFullSizeBlock();
@@ -104,6 +106,7 @@ public class CompositeBlock : MonoBehaviour
         {
             Debug.LogError("unsup shard size");
         }
+    */
     }
 
 
@@ -267,8 +270,6 @@ public class CompositeBlock : MonoBehaviour
                     {
                         Shard adjShard = this.gamestate.colorGrid.GetShardInDirection(shardToConsolidate, dir, allowOutsideBlock: false);
                         
-                        //Debug.Log("shard in dir " + adjShard.GetFlavor());
-
                         if (adjShard.GetFlavor() == shardToConsolidate.GetFlavor())
                         {
                             this.MergeShards(shardToConsolidate, adjShard);
@@ -311,5 +312,6 @@ public class CompositeBlock : MonoBehaviour
     public void PutShardAt(Vector2Int subgridLoc, Shard shard)
     {
         shards3x3[subgridLoc.x][subgridLoc.y] = shard;
+        shard.SetSuperAndSubgridLocs(shard.GetSuperAndSubgridLocs().subgridLocations.Add(subgridLoc));
     }
 }

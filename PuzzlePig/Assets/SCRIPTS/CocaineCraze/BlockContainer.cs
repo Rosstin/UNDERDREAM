@@ -11,7 +11,7 @@ public class BlockContainer : MonoBehaviour
     public List<List<CompositeBlock>> blocksByLocation = null; // keep track of blocks by their supergrid/subgrid location
     public Dictionary<TetrisGS.ShardFlavors, List<Shard>> flavToListOfShards; // keep track of blocks of a given flavor
 
-    public Dictionary<Shard.ShardPositionData, Shard> currentlyScoringShards;
+    public Dictionary<Shard.ArbitrarySizeShardPositionData, Shard> currentlyScoringShards;
 
     
     private Vector2Int dimens;
@@ -186,7 +186,7 @@ public class BlockContainer : MonoBehaviour
 
     }
 
-    public Shard GetShardAtAbsoluteLocation(Shard.ShardPositionData loc)
+    public Shard GetShardAtAbsoluteLocation(Shard.AbsoluteGridPositionData loc)
     {
         var block = GetCompBlockForCoord(loc.supergridLoc);
 
@@ -242,6 +242,6 @@ public class BlockContainer : MonoBehaviour
 
     public void ClearCurrentlyScoringShards()
     {
-        this.currentlyScoringShards = new Dictionary<Shard.ShardPositionData, Shard>();
+        this.currentlyScoringShards = new Dictionary<Shard.ArbitrarySizeShardPositionData, Shard>();
     }
 }
