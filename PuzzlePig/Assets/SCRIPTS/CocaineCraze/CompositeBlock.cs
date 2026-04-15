@@ -273,15 +273,17 @@ public class CompositeBlock : MonoBehaviour
                                     this.MergeShards(shardToConsolidate, adjShard);
                                 }
                                 // if we're merging a 2,1 and a 1,1, they need to be at the same Y
-                                else if (shardToConsolidate.GetMySize() == new Vector2Int(2, 1) && adjShard.GetMySize() == new Vector2Int(1, 1) )
+                                else if (shardToConsolidate.GetMySize() == new Vector2Int(2, 1) && adjShard.GetMySize() == new Vector2Int(1, 1) && 
+                                         shardToConsolidate.GetTopLeftCorner().y == adjShard.GetTopLeftCorner().y )
                                 {
-                                    Debug.Log("shardToConsolidate.GetTopLeftCorner().y: " + shardToConsolidate.GetTopLeftCorner().y + " adjShard.GetTopLeftCorner().y " + adjShard.GetTopLeftCorner().y);
-                                    if (shardToConsolidate.GetTopLeftCorner().y == adjShard.GetTopLeftCorner().y)
-                                    {
-                                        Debug.Log("merging a 21 and 11");
-                                        this.MergeShards(shardToConsolidate, adjShard);
-                                    }
-                                }                                
+                                    Debug.Log("merging a 21 and 11");
+                                    this.MergeShards(shardToConsolidate, adjShard);
+                                }else if (shardToConsolidate.GetMySize() == new Vector2Int(1, 2) && adjShard.GetMySize() == new Vector2Int(1, 1) && 
+                                          shardToConsolidate.GetTopLeftCorner().x == adjShard.GetTopLeftCorner().x )
+                                {
+                                    Debug.Log("merging a 12 and 11");
+                                    this.MergeShards(shardToConsolidate, adjShard);
+                                }
                             }
                         }
                     }
