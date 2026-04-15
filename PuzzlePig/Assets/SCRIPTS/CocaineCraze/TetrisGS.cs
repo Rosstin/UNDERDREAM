@@ -115,6 +115,8 @@ public class TetrisGS : BaseController
         
         colorGrid.Init(this, this.blockContainer, gridDimens, gridTopLeftAnchor);
         CompositeBlock cb = colorGrid.GenerateBlock();
+        cb.Consolidate();
+        cb.Consolidate();
         
         heldRet.Init(this,cb);
     }

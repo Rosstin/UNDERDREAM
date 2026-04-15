@@ -116,6 +116,8 @@ public class BlockContainer : MonoBehaviour
                 {
                     block.Consolidate();
                     block.Consolidate();
+                    //block.Consolidate();
+                    //block.Consolidate();
                 }
             }
         }
