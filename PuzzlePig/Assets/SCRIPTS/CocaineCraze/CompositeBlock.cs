@@ -77,37 +77,16 @@ public class CompositeBlock : MonoBehaviour
     {
         return 1f;
     }
-    
-    
-    /*
-     *     private void PositionForMyDetails(Vector2Int size, Vector2Int myTopLeftCorner)
-    {
-        // you're tall -- be between your current position and one down
-        if (size.x == 1 && size.y == 2)
-        {
-            this.transform.localPosition
-        }
-        // if you're long, current position and one to the left
-        else if (size.x == 2 && size.y == 1)
-        {
-            
-        }
-        else if(size.x == 1 && size.y == 1)
-        {
-            
-        }
-        else
-        {
-            Debug.Log("unhandled case xy " + size);
-        }
 
-     */
     public Vector3 GetPositionForIndex(int x, int y, Vector2Int size)
     {
-        Vector3 pos = topLeftRef.transform.position + new Vector3(GetBlockWidth() * (1f/6f), -GetBlockHeight() * (1f/6f), 0);
+        
+        // first the overall position of the topleft transform
+        Vector3 pos = topLeftRef.transform.position + new Vector3(GetBlockWidth() * (size.x/6f), -GetBlockHeight() * (size.y/6f), 0);
 
-        pos += new Vector3((x+((size.x-1)/2f))*(GetBlockWidth()/3f), -(y+((size.y-1)/2f))*(GetBlockHeight()/3f), 0);
-
+        // modify that by your local position inside
+        pos += new Vector3(x*(GetBlockWidth()/3f), -y*(GetBlockHeight()/3f), 0);
+        
         return pos;
     }
     
@@ -261,8 +240,9 @@ public class CompositeBlock : MonoBehaviour
     /// For a given block, take all the components and merge them
     /// </summary>
     public void Consolidate()
-    {
-        Debug.Log("consolidate block at " + this.mySupergridLocation);
+    { 
+        
+        //Debug.Log("consolidate block at " + this.mySupergridLocation);
 
         for (int x = 0; x < shards3x3.Count; x++)
         {
@@ -283,7 +263,7 @@ public class CompositeBlock : MonoBehaviour
                                 shardToConsolidate.GetSuperAndSubgridLocs().topLeftCornerSubgridPos,
                                 dir, allowOutsideBlock: false);
 
-                        if (adjShard != null)
+                        if (adjShard != null && adjShard != shardToConsolidate)
                         {
                             if (adjShard.GetFlavor() == shardToConsolidate.GetFlavor())
                             {
@@ -313,8 +293,6 @@ public class CompositeBlock : MonoBehaviour
         if (shardToConsolidate.GetMySize() == new Vector2Int(1, 1) && adjShard.GetMySize() == new Vector2Int(1, 1))
         {
             shardToConsolidate.Expand1xNWidthShard(adjShard.GetSuperAndSubgridLocs());
-            
-            //DeleteShardAt(adjShard.GetSuperAndSubgridLocs().subgridLoc);
             
 
         }

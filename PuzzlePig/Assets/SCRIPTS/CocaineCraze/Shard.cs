@@ -163,7 +163,7 @@ public class Shard : MonoBehaviour
         this.ScaleForMySize(this.myShardSize);
 
         // if you're expanding up or left, your topleft position changes. otherwise it doesnt
-        if (dir == Vector2Int.up || dir == Vector2Int.left)
+        if (dir == Vector2Int.up || dir == Vector2Int.right)
         {
             this.myPosition.topLeftCornerSubgridPos += dir;
         }
