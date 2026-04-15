@@ -290,12 +290,22 @@ public class CompositeBlock : MonoBehaviour
         if (shardToConsolidate.GetMySize() == new Vector2Int(1, 1) && adjShard.GetMySize() == new Vector2Int(1, 1))
         {
             shardToConsolidate.Expand1xNWidthShard(adjShard.GetSuperAndSubgridLocs());
-
-            var adjShardTopLeftCorner = adjShard.GetSuperAndSubgridLocs().topLeftCornerSubgridPos.x;
-            
-            shards3x3[adjShard.GetSuperAndSubgridLocs().topLeftCornerSubgridPos.x]
         }
+        
+        SetSubgridLocsForShard(shardToConsolidate);
     }
+
+    private void SetSubgridLocsForShard(Shard s)
+    {
+        var subgridlocs=s.GetAllSubgridLocations();
+
+        foreach (var loc in subgridlocs)
+        {
+            shards3x3[loc.x][loc.y] = s;
+        }
+        
+    }
+    
     public void DeleteShardAt(Vector2Int subgridPos)
     {
         var shard = shards3x3[subgridPos.x][subgridPos.y];
@@ -303,6 +313,7 @@ public class CompositeBlock : MonoBehaviour
         shards3x3[subgridPos.x][subgridPos.y] = null;
     }
 
+    /*
     public void PutShardAt(Vector2Int subgridLoc, Shard shard)
     {
         shards3x3[subgridLoc.x][subgridLoc.y] = shard;
@@ -312,4 +323,5 @@ public class CompositeBlock : MonoBehaviour
         locs.topLeftCornerSubgridPos = subgridLoc;
         shard.SetSuperAndSubgridLocs(locs);
     }
+*/
 }

@@ -38,7 +38,16 @@ public class Shard : MonoBehaviour
     // given my bounds, list all positions valid for me
     public List<Vector2Int> GetAllSubgridLocations()
     {
-        
+        List<Vector2Int> subgridLocs = new List<Vector2Int>();
+        for (int x = this.myPosition.topLeftCornerSubgridPos.x; x < GetTopRightCorner().x; x++)
+        {
+            for (int y = this.myPosition.topLeftCornerSubgridPos.y-1; y >= GetBotLeftCorner().y; y--)
+            {
+                subgridLocs.Add(new Vector2Int(x,y));
+            }
+        }
+
+        return subgridLocs;
     }
     
     public struct AbsoluteGridPositionData
