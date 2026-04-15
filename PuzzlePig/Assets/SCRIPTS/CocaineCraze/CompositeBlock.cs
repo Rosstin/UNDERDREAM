@@ -262,9 +262,24 @@ public class CompositeBlock : MonoBehaviour
 
                         if (adjShard != null && adjShard != shardToConsolidate)
                         {
+                            //  flavors have to be the same and dimens need to line up
                             if (adjShard.GetFlavor() == shardToConsolidate.GetFlavor())
                             {
-                                this.MergeShards(shardToConsolidate, adjShard);
+                                // if we're merging 2 1x1s, it's fine
+                                if (shardToConsolidate.GetMySize() == new Vector2Int(1, 1) &&
+                                    adjShard.GetMySize() == new Vector2Int(1, 1))
+                                {
+                                    this.MergeShards(shardToConsolidate, adjShard);
+                                }
+
+                                // if we're merging a 2,1 and a 1,1, they need to be at the same Y
+                                else if (shardToConsolidate.GetMySize() == new Vector2Int(2, 1) &&
+                                    adjShard.GetMySize() == new Vector2Int(1, 1) &&shardToConsolidate.GetTopLeftCorner().y == adjShard.GetTopLeftCorner().y)
+                                {
+                                    Debug.Log("merging a 21 and 11");
+                                    this.MergeShards(shardToConsolidate, adjShard);
+                                }                                
+                                
 
                             }
                         }
@@ -286,11 +301,7 @@ public class CompositeBlock : MonoBehaviour
     private void MergeShards(Shard shardToConsolidate, Shard adjShard)
     {
         // get rid of the adjacent shard and expand the consolidated one
-
-        if (shardToConsolidate.GetMySize() == new Vector2Int(1, 1) && adjShard.GetMySize() == new Vector2Int(1, 1))
-        {
-            shardToConsolidate.Expand1xNWidthShard(adjShard.GetSuperAndSubgridLocs());
-        }
+        shardToConsolidate.Expand1xNWidthShard(adjShard.GetSuperAndSubgridLocs());
         
         SetSubgridLocsForShard(shardToConsolidate);
     }

@@ -20,6 +20,12 @@ public class Shard : MonoBehaviour
 
     private const float ONE_THIRD = 1f / 3f;
 
+    
+    public Vector2Int GetTopLeftCorner()
+    {
+        return (this.myPosition.topLeftCornerSubgridPos);
+    }
+
     public Vector2Int GetTopRightCorner()
     {
         return (this.myPosition.topLeftCornerSubgridPos + new Vector2Int(this.myShardSize.x-1,0));
@@ -184,9 +190,6 @@ public class Shard : MonoBehaviour
     
     public void Expand1xNWidthShard(ArbitrarySizeShardPositionData shardPositionToExpandTo)
     {
-        
-        
-        
         Vector2Int dir = GetRelativeDirection(this.myPosition.topLeftCornerSubgridPos, shardPositionToExpandTo.topLeftCornerSubgridPos);
         
         this.myShardSize += new Vector2Int(Mathf.Abs(dir.x),Mathf.Abs(dir.y));
