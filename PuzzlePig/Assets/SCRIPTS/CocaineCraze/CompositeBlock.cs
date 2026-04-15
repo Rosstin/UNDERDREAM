@@ -78,11 +78,35 @@ public class CompositeBlock : MonoBehaviour
         return 1f;
     }
     
-    public Vector3 GetPositionForIndex(int x, int y)
+    
+    /*
+     *     private void PositionForMyDetails(Vector2Int size, Vector2Int myTopLeftCorner)
+    {
+        // you're tall -- be between your current position and one down
+        if (size.x == 1 && size.y == 2)
+        {
+            this.transform.localPosition
+        }
+        // if you're long, current position and one to the left
+        else if (size.x == 2 && size.y == 1)
+        {
+            
+        }
+        else if(size.x == 1 && size.y == 1)
+        {
+            
+        }
+        else
+        {
+            Debug.Log("unhandled case xy " + size);
+        }
+
+     */
+    public Vector3 GetPositionForIndex(int x, int y, Vector2Int size)
     {
         Vector3 pos = topLeftRef.transform.position + new Vector3(GetBlockWidth() * (1f/6f), -GetBlockHeight() * (1f/6f), 0);
 
-        pos += new Vector3(x*(GetBlockWidth()/3f), -y*(GetBlockHeight()/3f), 0);
+        pos += new Vector3((x+((size.x-1)/2f))*(GetBlockWidth()/3f), -(y+((size.y-1)/2f))*(GetBlockHeight()/3f), 0);
 
         return pos;
     }
@@ -92,21 +116,6 @@ public class CompositeBlock : MonoBehaviour
         Clear();
 
         GenShardedBlock();
-        //var randSize = gamestate.GetWeightedRandomSize();
-
-        /*
-        if (randSize == new Vector2Int(3, 3))
-        {
-            GenFullSizeBlock();
-        }else if (randSize == new Vector2Int(1, 1))
-        {
-            GenShardedBlock();
-        }
-        else
-        {
-            Debug.LogError("unsup shard size");
-        }
-    */
     }
 
 
@@ -128,7 +137,7 @@ public class CompositeBlock : MonoBehaviour
         TetrisGS.ShardFlavors flavForThisBlock = GenerateRandomFlavor();
 
         Shard s = GameObject.Instantiate(shardPrefab).GetComponent<Shard>();
-        s.Init(gamestate, contentParent, this, flavForThisBlock, GetPositionForIndex(1,1), shardSize, new Vector2Int(-1,-1));
+        s.Init(gamestate, contentParent, this, flavForThisBlock, GetPositionForIndex(1,1,shardSize), shardSize, new Vector2Int(-1,-1));
         
         List<Shard> shardsOfFlav = this.gamestate.blockContainer.flavToListOfShards[flavForThisBlock];
         shardsOfFlav.Add(s);
@@ -153,7 +162,7 @@ public class CompositeBlock : MonoBehaviour
             {
                 TetrisGS.ShardFlavors randomFlavor = GenerateRandomFlavor();
                 Shard shard = GameObject.Instantiate(shardPrefab).GetComponent<Shard>();
-                shard.Init(gamestate, contentParent,this, randomFlavor, GetPositionForIndex(x,y), shardSize, new Vector2Int(x,y));
+                shard.Init(gamestate, contentParent,this, randomFlavor, GetPositionForIndex(x,y,shardSize), shardSize, new Vector2Int(x,y));
                 
                 shards3x3[x][y] = shard;
             }
@@ -268,13 +277,21 @@ public class CompositeBlock : MonoBehaviour
                     
                     foreach(var dir in CocaineCrazeConstants.UP_DOWN_LEFT_RIGHT)
                     {
-                        Shard adjShard = this.gamestate.colorGrid.GetShardInDirection(shardToConsolidate.GetSuperAndSubgridLocs().supergridLoc, shardToConsolidate.GetSuperAndSubgridLocs().subgridLocations[0], dir, allowOutsideBlock: false);
-                        
-                        if (adjShard.GetFlavor() == shardToConsolidate.GetFlavor())
-                        {
-                            this.MergeShards(shardToConsolidate, adjShard);
+                        Shard adjShard = 
+                            this.gamestate.colorGrid.GetShardInDirection(
+                                shardToConsolidate.GetSuperAndSubgridLocs().supergridLoc, 
+                                shardToConsolidate.GetSuperAndSubgridLocs().topLeftCornerSubgridPos,
+                                dir, allowOutsideBlock: false);
 
+                        if (adjShard != null)
+                        {
+                            if (adjShard.GetFlavor() == shardToConsolidate.GetFlavor())
+                            {
+                                this.MergeShards(shardToConsolidate, adjShard);
+
+                            }
                         }
+                        
 
                     }
                 }
@@ -312,8 +329,10 @@ public class CompositeBlock : MonoBehaviour
     public void PutShardAt(Vector2Int subgridLoc, Shard shard)
     {
         shards3x3[subgridLoc.x][subgridLoc.y] = shard;
+        
         var locs=shard.GetSuperAndSubgridLocs();
-        locs.subgridLocations.Add(subgridLoc);
+
+        locs.topLeftCornerSubgridPos = subgridLoc;
         shard.SetSuperAndSubgridLocs(locs);
     }
 }

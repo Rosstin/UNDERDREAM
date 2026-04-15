@@ -12,8 +12,6 @@ public class Shard : MonoBehaviour
     private float scoringOpa = 0.1f;
     private Color normCol;
     
-    private Vector2 TopCornerPosition;
-
     private Vector2 Dimensions;
 
     private TetrisGS myGamestate = null;
@@ -21,8 +19,6 @@ public class Shard : MonoBehaviour
     private CompositeBlock myCompositeBlockParent;
 
     private ArbitrarySizeShardPositionData myPosition = new ArbitrarySizeShardPositionData();
-    
-    private Vector2Int myLocalSubgridLocation; // if this is -1,-1 it means you're a large shard. otherwise, 1,1 is the center, 0,0 is the top right corn, etc
 
     private const float ONE_THIRD = 1f / 3f;
 
@@ -35,17 +31,14 @@ public class Shard : MonoBehaviour
     public struct ArbitrarySizeShardPositionData
     {
         public Vector2Int supergridLoc;
-        public List<Vector2Int> subgridLocations;
+        public Vector2Int topLeftCornerSubgridPos;
 
         public override string ToString()
         {
             string loc= "{" + supergridLoc.x + "," + supergridLoc.y + "}";
-
-            foreach (var p in subgridLocations)
-            {
-                loc += " {" + p.x + "," + p.y + "} ";
-            }
-
+            
+            loc += " ("+topLeftCornerSubgridPos.x + "," + topLeftCornerSubgridPos.y + ")";
+            
             return loc;
         }
     }
@@ -108,7 +101,8 @@ public class Shard : MonoBehaviour
         this.myCompositeBlockParent = cBlockParent;
 
         myPosition.supergridLoc= this.myCompositeBlockParent.GetSupergridLoc();
-        myPosition.subgridLocations = new List<Vector2Int>(){localSubgridLoc};
+
+        myPosition.topLeftCornerSubgridPos = localSubgridLoc;
 
         this.normCol = this.meshRenderer.material.color;
 
@@ -156,51 +150,32 @@ public class Shard : MonoBehaviour
 
     }
     
-    public void Expand1xNWidthShard(ArbitrarySizeShardPositionData directionToExpandIn)
+    public void Expand1xNWidthShard(ArbitrarySizeShardPositionData shardPositionToExpandTo)
     {
         
-        Vector2Int dir = GetRelativeDirection(directionToExpandIn.subgridLocations[0],this.myLocalSubgridLocation);
+        Vector2Int dir = GetRelativeDirection(this.myPosition.topLeftCornerSubgridPos, shardPositionToExpandTo.topLeftCornerSubgridPos);
         
         
+        this.myShardSize += new Vector2Int(Mathf.Abs(dir.x),Mathf.Abs(dir.y));
 
-        if (dir == Vector2Int.up)
+        this.myCompositeBlockParent.DeleteShardAt(shardPositionToExpandTo.topLeftCornerSubgridPos);
+        
+        this.ScaleForMySize(this.myShardSize);
+
+        // if you're expanding up or left, your topleft position changes. otherwise it doesnt
+        if (dir == Vector2Int.up || dir == Vector2Int.left)
         {
-            this.myShardSize += new Vector2Int(0, 1);
-
-
-            this.myCompositeBlockParent.DeleteShardAt(directionToExpandIn.subgridLocations[0]);
-            this.myCompositeBlockParent.PutShardAt(directionToExpandIn.subgridLocations[0], this);
-
-            this.ScaleForMySize(this.myShardSize);
-            //this.PositionForMyDetails(this.myShardSize, this.myPosition.subgridLocations);
-
-
+            this.myPosition.topLeftCornerSubgridPos += dir;
         }
-        else if(dir == Vector2Int.down)
-        {
-            this.myShardSize += new Vector2Int(0, 1);
 
-            this.ScaleForMySize(this.myShardSize);
-        }
-        else if(dir == Vector2Int.left)
-        {
-            this.myShardSize += new Vector2Int(1, 0);
+        var pos = this.myCompositeBlockParent.GetPositionForIndex(this.myPosition.topLeftCornerSubgridPos.x,
+            this.myPosition.topLeftCornerSubgridPos.y, this.myShardSize);
+        
+        this.transform.position = pos;
 
-            this.ScaleForMySize(this.myShardSize);
-        }
-        else if(dir == Vector2Int.right)
-        {
-            this.myShardSize += new Vector2Int(1, 0);
-
-            this.ScaleForMySize(this.myShardSize);
-        }
         
         
         
     }
 
-    private void PositionForMyDetails(Vector2Int vector2Int, List<Vector2Int> myPositionSubgridLocations)
-    {
-        throw new System.NotImplementedException();
-    }
 }

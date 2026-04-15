@@ -255,11 +255,14 @@ public class ColorGrid2 : MonoBehaviour
         s.SetShardState(Shard.ShardState.Scoring);
         this.myBlockContainer.currentlyScoringShards.Add(s.GetSuperAndSubgridLocs(),s);
 
-        foreach (var subgridLocs in s.GetSuperAndSubgridLocs().subgridLocations)
-        {
+        // rtodo - calculate subgrid locations based on size!
+        // rtodo right now only doing topleft
+        
+        //foreach (var subgridLocs in s.GetSuperAndSubgridLocs().subgridLocations)
+        //{
             foreach (var dir in CocaineCrazeConstants.UP_DOWN_LEFT_RIGHT)
             {
-                var adjacentShard = this.GetShardInDirection(s.GetSuperAndSubgridLocs().supergridLoc, subgridLocs, dir, allowOutsideBlock:true);
+                var adjacentShard = this.GetShardInDirection(s.GetSuperAndSubgridLocs().supergridLoc, s.GetSuperAndSubgridLocs().topLeftCornerSubgridPos, dir, allowOutsideBlock:true);
 
                 if (adjacentShard != null)
                 {
@@ -270,7 +273,7 @@ public class ColorGrid2 : MonoBehaviour
                 }
 
             }
-        }
+        //}
     }
 
     public Shard.AbsoluteGridPositionData MoveLocationInOneSubgridDirection(Shard.AbsoluteGridPositionData pos, Vector2Int dir, bool allowOutsideBlock)
