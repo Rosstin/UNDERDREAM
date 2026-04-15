@@ -257,7 +257,7 @@ public class CompositeBlock : MonoBehaviour
                         Shard adjShard = 
                             this.gamestate.colorGrid.GetShardInDirection(
                                 shardToConsolidate.GetSuperAndSubgridLocs().supergridLoc, 
-                                shardToConsolidate.GetSuperAndSubgridLocs().topLeftCornerSubgridPos,
+                                new Vector2Int(x,y),
                                 dir, allowOutsideBlock: false);
 
                         if (adjShard != null && adjShard != shardToConsolidate)
@@ -269,28 +269,25 @@ public class CompositeBlock : MonoBehaviour
                                 if (shardToConsolidate.GetMySize() == new Vector2Int(1, 1) &&
                                     adjShard.GetMySize() == new Vector2Int(1, 1))
                                 {
+                                    //Debug.Log("lets merge two 11s");
                                     this.MergeShards(shardToConsolidate, adjShard);
                                 }
-
                                 // if we're merging a 2,1 and a 1,1, they need to be at the same Y
-                                else if (shardToConsolidate.GetMySize() == new Vector2Int(2, 1) &&
-                                    adjShard.GetMySize() == new Vector2Int(1, 1) &&shardToConsolidate.GetTopLeftCorner().y == adjShard.GetTopLeftCorner().y)
+                                else if (shardToConsolidate.GetMySize() == new Vector2Int(2, 1) && adjShard.GetMySize() == new Vector2Int(1, 1) )
                                 {
-                                    Debug.Log("merging a 21 and 11");
-                                    this.MergeShards(shardToConsolidate, adjShard);
+                                    Debug.Log("shardToConsolidate.GetTopLeftCorner().y: " + shardToConsolidate.GetTopLeftCorner().y + " adjShard.GetTopLeftCorner().y " + adjShard.GetTopLeftCorner().y);
+                                    if (shardToConsolidate.GetTopLeftCorner().y == adjShard.GetTopLeftCorner().y)
+                                    {
+                                        Debug.Log("merging a 21 and 11");
+                                        this.MergeShards(shardToConsolidate, adjShard);
+                                    }
                                 }                                
-                                
-
                             }
                         }
-                        
-
                     }
                 }
             }
         }
-
-        
     }
 
     /// <summary>
@@ -311,7 +308,18 @@ public class CompositeBlock : MonoBehaviour
         var subgridlocs=s.GetAllSubgridLocations();
         foreach (var loc in subgridlocs)
         {
-            shards3x3[loc.x][loc.y] = s;
+            if (loc.x <= -1 || loc.x >= 3 || loc.y <= -1 || loc.y >= 3)
+            {
+                Debug.LogError("trying to set invalid subgrid location " + loc + " for a shard. list of locs:");
+                foreach(var l in subgridlocs)
+                {
+                    Debug.Log("" + l);
+                }
+            }
+            else
+            {
+                shards3x3[loc.x][loc.y] = s;
+            }
         }
         
     }

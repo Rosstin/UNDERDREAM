@@ -45,7 +45,6 @@ public class Shard : MonoBehaviour
     public List<Vector2Int> GetAllSubgridLocations()
     {
         List<Vector2Int> subgridLocs = new List<Vector2Int>();
-
         
         for (int x = this.myPosition.topLeftCornerSubgridPos.x; x <= GetTopRightCorner().x; x++)
         {
@@ -183,6 +182,9 @@ public class Shard : MonoBehaviour
     {
         Vector2Int dir = a-b;
 
+        dir.x = Mathf.Clamp(dir.x, -1, +1);
+        dir.y = Mathf.Clamp(dir.y, -1, +1);
+        
         return dir;
 
 
@@ -194,6 +196,8 @@ public class Shard : MonoBehaviour
         
         this.myShardSize += new Vector2Int(Mathf.Abs(dir.x),Mathf.Abs(dir.y));
 
+        Debug.Log("my new shard size is " + this.myShardSize);
+        
         this.myCompositeBlockParent.DeleteShardAt(shardPositionToExpandTo.topLeftCornerSubgridPos);
         
         this.ScaleForMySize(this.myShardSize);
