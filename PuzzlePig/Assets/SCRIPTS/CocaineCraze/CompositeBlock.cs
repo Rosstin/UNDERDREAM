@@ -298,7 +298,6 @@ public class CompositeBlock : MonoBehaviour
     private void SetSubgridLocsForShard(Shard s)
     {
         var subgridlocs=s.GetAllSubgridLocations();
-
         foreach (var loc in subgridlocs)
         {
             shards3x3[loc.x][loc.y] = s;

@@ -22,28 +22,32 @@ public class Shard : MonoBehaviour
 
     public Vector2Int GetTopRightCorner()
     {
-        return this.myPosition.topLeftCornerSubgridPos += new Vector2Int(this.myShardSize.x-1,0);
+        return (this.myPosition.topLeftCornerSubgridPos + new Vector2Int(this.myShardSize.x-1,0));
     }
 
     public Vector2Int GetBotLeftCorner()
     {
-        return this.myPosition.topLeftCornerSubgridPos += new Vector2Int(0,this.myShardSize.y-1);
+        return (this.myPosition.topLeftCornerSubgridPos + new Vector2Int(0,this.myShardSize.y-1));
     }
 
     public Vector2Int GetBotRightCorner()
     {
-        return this.myPosition.topLeftCornerSubgridPos += this.myShardSize - Vector2Int.one;
+        return (this.myPosition.topLeftCornerSubgridPos + this.myShardSize - Vector2Int.one);
     }
 
     // given my bounds, list all positions valid for me
     public List<Vector2Int> GetAllSubgridLocations()
     {
         List<Vector2Int> subgridLocs = new List<Vector2Int>();
-        for (int x = this.myPosition.topLeftCornerSubgridPos.x; x < GetTopRightCorner().x; x++)
+
+        
+        for (int x = this.myPosition.topLeftCornerSubgridPos.x; x <= GetTopRightCorner().x; x++)
         {
-            for (int y = this.myPosition.topLeftCornerSubgridPos.y-1; y >= GetBotLeftCorner().y; y--)
+            for (int y = this.myPosition.topLeftCornerSubgridPos.y; y <= GetBotLeftCorner().y; y++)
             {
-                subgridLocs.Add(new Vector2Int(x,y));
+                var pos =new Vector2Int(x, y);      
+
+                subgridLocs.Add(pos);
             }
         }
 
