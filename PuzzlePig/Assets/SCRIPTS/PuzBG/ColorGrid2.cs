@@ -254,16 +254,12 @@ public class ColorGrid2 : MonoBehaviour
     {
         s.SetShardState(Shard.ShardState.Scoring);
         this.myBlockContainer.currentlyScoringShards.Add(s.GetSuperAndSubgridLocs(),s);
-        
-        if (s.GetMySize() == new Vector2Int(3,3))
-        {
-            Debug.Log("need handling for x1 size");
-            
-        }else if (s.GetMySize() == new Vector2Int(1,1))
+
+        foreach (var subgridLocs in s.GetSuperAndSubgridLocs().subgridLocations)
         {
             foreach (var dir in CocaineCrazeConstants.UP_DOWN_LEFT_RIGHT)
             {
-                var adjacentShard = this.GetShardInDirection(s, dir, allowOutsideBlock:true);
+                var adjacentShard = this.GetShardInDirection(s.GetSuperAndSubgridLocs().supergridLoc, subgridLocs, dir, allowOutsideBlock:true);
 
                 if (adjacentShard != null)
                 {
@@ -274,10 +270,6 @@ public class ColorGrid2 : MonoBehaviour
                 }
 
             }
-        }
-        else
-        {
-            Debug.LogError("invalid size");
         }
     }
 
@@ -344,48 +336,13 @@ public class ColorGrid2 : MonoBehaviour
         
     }
     
-    public Shard GetShardInDirection(Shard shard, Vector2Int dir, bool allowOutsideBlock)
+    public Shard GetShardInDirection(Vector2Int supergridLoc, Vector2Int subgridLoc, Vector2Int dir, bool allowOutsideBlock)
     {
-        var superSubLocs = shard.GetSuperAndSubgridLocs();
-
-        // rtodo I need to look at my size, look at my extents, then move one like that
-
-        Shard.AbsoluteGridPositionData locToSearch = new Shard.AbsoluteGridPositionData();
-        locToSearch.supergridLoc = shard.GetSuperAndSubgridLocs().supergridLoc;
-        locToSearch.subgridLoc = shard.GetSuperAndSubgridLocs().subgridLocations[0];
+        Shard.AbsoluteGridPositionData gridPosLoc =  new Shard.AbsoluteGridPositionData();
+        gridPosLoc.supergridLoc = supergridLoc;
+        gridPosLoc.subgridLoc = subgridLoc;
         
-        if (dir == Vector2Int.up)
-        {
-            var locs = shard.GetSuperAndSubgridLocs();
-            
-            // find the uppermost loc
-
-            int highestY = locs.subgridLocations[0].y;
-            for (int i = 1; i < locs.subgridLocations.Count; i++)
-            {
-                var lo = locs.subgridLocations[i];
-
-                if (lo.y > highestY)
-                {
-                    highestY = lo.y;
-                } 
-            }
-            
-            locs.subgridLocations
-        }
-        else if (dir == Vector2Int.down)
-        {
-            
-        }else if (dir == Vector2Int.left)
-        {
-            
-        }else if (dir == Vector2Int.right)
-        {
-            
-        }
-        
-        
-        var newPos = MoveLocationInOneSubgridDirection(superSubLocs, dir, allowOutsideBlock);
+        var newPos = MoveLocationInOneSubgridDirection(gridPosLoc, dir, allowOutsideBlock);
         
         Shard s =myBlockContainer.GetShardAtAbsoluteLocation(newPos);
         if (s != null)

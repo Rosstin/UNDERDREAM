@@ -172,7 +172,7 @@ public class Shard : MonoBehaviour
             this.myCompositeBlockParent.PutShardAt(directionToExpandIn.subgridLocations[0], this);
 
             this.ScaleForMySize(this.myShardSize);
-            this.PositionForMyDetails(this.myShardSize, this.myPosition.subgridLocations);
+            //this.PositionForMyDetails(this.myShardSize, this.myPosition.subgridLocations);
 
 
         }

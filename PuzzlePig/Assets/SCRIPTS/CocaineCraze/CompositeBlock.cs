@@ -268,7 +268,7 @@ public class CompositeBlock : MonoBehaviour
                     
                     foreach(var dir in CocaineCrazeConstants.UP_DOWN_LEFT_RIGHT)
                     {
-                        Shard adjShard = this.gamestate.colorGrid.GetShardInDirection(shardToConsolidate, dir, allowOutsideBlock: false);
+                        Shard adjShard = this.gamestate.colorGrid.GetShardInDirection(shardToConsolidate.GetSuperAndSubgridLocs().supergridLoc, shardToConsolidate.GetSuperAndSubgridLocs().subgridLocations[0], dir, allowOutsideBlock: false);
                         
                         if (adjShard.GetFlavor() == shardToConsolidate.GetFlavor())
                         {
@@ -312,6 +312,8 @@ public class CompositeBlock : MonoBehaviour
     public void PutShardAt(Vector2Int subgridLoc, Shard shard)
     {
         shards3x3[subgridLoc.x][subgridLoc.y] = shard;
-        shard.SetSuperAndSubgridLocs(shard.GetSuperAndSubgridLocs().subgridLocations.Add(subgridLoc));
+        var locs=shard.GetSuperAndSubgridLocs();
+        locs.subgridLocations.Add(subgridLoc);
+        shard.SetSuperAndSubgridLocs(locs);
     }
 }
