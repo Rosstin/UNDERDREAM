@@ -12,8 +12,6 @@ public class Shard : MonoBehaviour
     private float scoringOpa = 0.1f;
     private Color normCol;
     
-    private Vector2 Dimensions;
-
     private TetrisGS myGamestate = null;
 
     private CompositeBlock myCompositeBlockParent;
@@ -22,6 +20,27 @@ public class Shard : MonoBehaviour
 
     private const float ONE_THIRD = 1f / 3f;
 
+    public Vector2Int GetTopRightCorner()
+    {
+        return this.myPosition.topLeftCornerSubgridPos += new Vector2Int(this.myShardSize.x-1,0);
+    }
+
+    public Vector2Int GetBotLeftCorner()
+    {
+        return this.myPosition.topLeftCornerSubgridPos += new Vector2Int(0,this.myShardSize.y-1);
+    }
+
+    public Vector2Int GetBotRightCorner()
+    {
+        return this.myPosition.topLeftCornerSubgridPos += this.myShardSize - Vector2Int.one;
+    }
+
+    // given my bounds, list all positions valid for me
+    public List<Vector2Int> GetAllSubgridLocations()
+    {
+        
+    }
+    
     public struct AbsoluteGridPositionData
     {
         public Vector2Int supergridLoc;
@@ -153,8 +172,9 @@ public class Shard : MonoBehaviour
     public void Expand1xNWidthShard(ArbitrarySizeShardPositionData shardPositionToExpandTo)
     {
         
-        Vector2Int dir = GetRelativeDirection(this.myPosition.topLeftCornerSubgridPos, shardPositionToExpandTo.topLeftCornerSubgridPos);
         
+        
+        Vector2Int dir = GetRelativeDirection(this.myPosition.topLeftCornerSubgridPos, shardPositionToExpandTo.topLeftCornerSubgridPos);
         
         this.myShardSize += new Vector2Int(Mathf.Abs(dir.x),Mathf.Abs(dir.y));
 

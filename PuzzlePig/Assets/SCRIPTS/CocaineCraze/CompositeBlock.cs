@@ -241,9 +241,6 @@ public class CompositeBlock : MonoBehaviour
     /// </summary>
     public void Consolidate()
     { 
-        
-        //Debug.Log("consolidate block at " + this.mySupergridLocation);
-
         for (int x = 0; x < shards3x3.Count; x++)
         {
             List<Shard> col = shards3x3[x];
@@ -293,8 +290,10 @@ public class CompositeBlock : MonoBehaviour
         if (shardToConsolidate.GetMySize() == new Vector2Int(1, 1) && adjShard.GetMySize() == new Vector2Int(1, 1))
         {
             shardToConsolidate.Expand1xNWidthShard(adjShard.GetSuperAndSubgridLocs());
-            
 
+            var adjShardTopLeftCorner = adjShard.GetSuperAndSubgridLocs().topLeftCornerSubgridPos.x;
+            
+            shards3x3[adjShard.GetSuperAndSubgridLocs().topLeftCornerSubgridPos.x]
         }
     }
     public void DeleteShardAt(Vector2Int subgridPos)
