@@ -252,6 +252,13 @@ public class ColorGrid2 : MonoBehaviour
     /// <param name="s"></param>
     public void ScoreShard(Shard s)
     {
+
+        if (this.myBlockContainer.currentlyScoringShards.ContainsKey(s.GetSuperAndSubgridLocs()))
+        {
+            // already scoring this guy - abort
+            return;
+        }
+
         s.SetShardState(Shard.ShardState.Scoring);
         this.myBlockContainer.currentlyScoringShards.Add(s.GetSuperAndSubgridLocs(),s);
 
@@ -398,7 +405,6 @@ public class ColorGrid2 : MonoBehaviour
     
     public Shard GetShardInDirection(Vector2Int supergridLoc, Vector2Int subgridLoc, Vector2Int dir, bool allowOutsideBlock)
     {
-        Debug.Log("get shard in direction.. " );
         
         Shard.AbsoluteGridPositionData gridPosLoc =  new Shard.AbsoluteGridPositionData();
         gridPosLoc.supergridLoc = supergridLoc;
@@ -406,7 +412,6 @@ public class ColorGrid2 : MonoBehaviour
         
         var newPos = MoveLocationInOneSubgridDirection(gridPosLoc, dir, allowOutsideBlock);
         
-        Debug.Log("newpos " +  newPos);
         
         Shard s =myBlockContainer.GetShardAtAbsoluteLocation(newPos);
         if (s != null)
