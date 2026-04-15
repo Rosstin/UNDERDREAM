@@ -41,7 +41,7 @@ public class ColorGrid2 : MonoBehaviour
         
         this.GenerateLevelBlocks();
 
-        this.myBlockContainer.ConsolidateLandedBlocks();
+        //this.myBlockContainer.ConsolidateLandedBlocks();
 
         
     }
@@ -258,11 +258,11 @@ public class ColorGrid2 : MonoBehaviour
         // rtodo - calculate subgrid locations based on size!
         // rtodo right now only doing topleft
         
-        //foreach (var subgridLocs in s.GetSuperAndSubgridLocs().subgridLocations)
-        //{
+        foreach (var subgridLoc in s.GetAllSubgridLocations())
+        {
             foreach (var dir in CocaineCrazeConstants.UP_DOWN_LEFT_RIGHT)
             {
-                var adjacentShard = this.GetShardInDirection(s.GetSuperAndSubgridLocs().supergridLoc, s.GetSuperAndSubgridLocs().topLeftCornerSubgridPos, dir, allowOutsideBlock:true);
+                var adjacentShard = this.GetShardInDirection(s.GetSuperAndSubgridLocs().supergridLoc, subgridLoc, dir, allowOutsideBlock:true);
 
                 if (adjacentShard != null)
                 {
@@ -273,7 +273,43 @@ public class ColorGrid2 : MonoBehaviour
                 }
 
             }
-        //}
+        }
+    }
+
+    /// <summary>
+    /// Attempt to push subgrid one in a direction. If OOB (-1 or 3) return -1
+    /// </summary>
+    /// <param name="subgridPos"></param>
+    /// <param name="dir"></param>
+    /// <returns></returns>
+    public Vector2Int MoveSubgridPosInOneSubgridDir(Vector2Int subgridPos, Vector2Int dir)
+    {
+        Vector2Int newLocation = new Vector2Int();
+        
+        Vector2Int invalidLoc = new Vector2Int(-1,-1); 
+        
+        newLocation = subgridPos + dir;
+        if (newLocation.y >= 3)
+        {
+            return invalidLoc;
+        }
+
+        if (newLocation.y <= -1)
+        {
+            return invalidLoc;
+        }
+        
+        if (newLocation.x <= -1)
+        {
+            return invalidLoc;
+        }
+
+        if (newLocation.x >= 3)
+        {
+            return invalidLoc;
+        }
+
+        return newLocation;
     }
 
     public Shard.AbsoluteGridPositionData MoveLocationInOneSubgridDirection(Shard.AbsoluteGridPositionData pos, Vector2Int dir, bool allowOutsideBlock)
@@ -338,14 +374,39 @@ public class ColorGrid2 : MonoBehaviour
         return newLocation;
         
     }
+
+    public Shard GetShardInDirectionLocalOnly(CompositeBlock block, Vector2Int subgridLoc, Vector2Int dir)
+    {
+        
+        var newPos = MoveSubgridPosInOneSubgridDir(subgridLoc, dir);
+
+        if (newPos == new Vector2Int(-1, -1))
+        {
+            return null;
+        }
+        
+        Shard s = block.GetShardForIndex(newPos.x,newPos.y);
+        if (s != null)
+        {
+            return s;
+        }
+        else
+        {
+            return null;
+        }
+    }
     
     public Shard GetShardInDirection(Vector2Int supergridLoc, Vector2Int subgridLoc, Vector2Int dir, bool allowOutsideBlock)
     {
+        Debug.Log("get shard in direction.. " );
+        
         Shard.AbsoluteGridPositionData gridPosLoc =  new Shard.AbsoluteGridPositionData();
         gridPosLoc.supergridLoc = supergridLoc;
         gridPosLoc.subgridLoc = subgridLoc;
         
         var newPos = MoveLocationInOneSubgridDirection(gridPosLoc, dir, allowOutsideBlock);
+        
+        Debug.Log("newpos " +  newPos);
         
         Shard s =myBlockContainer.GetShardAtAbsoluteLocation(newPos);
         if (s != null)

@@ -116,8 +116,6 @@ public class BlockContainer : MonoBehaviour
                 {
                     block.Consolidate();
                     block.Consolidate();
-                    //block.Consolidate();
-                    //block.Consolidate();
                 }
             }
         }
@@ -150,6 +148,8 @@ public class BlockContainer : MonoBehaviour
 
         cb.Randomize();
 
+        cb.Consolidate();
+        cb.Consolidate();
 
         return cb;
     }

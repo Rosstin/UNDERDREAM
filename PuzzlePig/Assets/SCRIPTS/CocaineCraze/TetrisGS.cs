@@ -44,20 +44,20 @@ public class TetrisGS : BaseController
     public AudioSource canCrunch;
     public AudioSource pop;
     
-    [FormerlySerializedAs("SOLID_BLOCK")] [FormerlySerializedAs("X1_WEIGHT")] [Header("Size Weights")] 
-    public int SOLID_BLOCK_WEIGHT = 50;
-    [FormerlySerializedAs("X3_WEIGHT")] public int SHARDED_BLOCK_WEIGHT = 50;
+    [Header("Size Weights")] 
+    public int SOLID_BLOCK_WEIGHT;
+    public int SHARDED_BLOCK_WEIGHT;
 
     [Header("Flavor Weights")] 
-    public int CLASSIC_WEIGHT = 10;
-    public int DIET_WEIGHT = 10;
-    public int CHERRY_WEIGHT = 10;
-    public int NEW_WEIGHT = 10;
-    public int VANILLA_WEIGHT = 10;
-    public int BAJABLAST_WEIGHT = 10;
-    public int LEMONLIME_WEIGHT = 10;
-    public int ORANGE_WEIGHT = 10;
-    public int GRAPE_WEIGHT = 10;
+    public int CLASSIC_WEIGHT;
+    public int DIET_WEIGHT;
+    public int CHERRY_WEIGHT;
+    public int NEW_WEIGHT;
+    public int VANILLA_WEIGHT;
+    public int BAJABLAST_WEIGHT;
+    public int LEMONLIME_WEIGHT;
+    public int ORANGE_WEIGHT;
+    public int GRAPE_WEIGHT;
     
     private WeightedList<ShardFlavors> weightedShardFlavors = null;
     private WeightedList<Vector2Int> weightedShardSizes = null;
@@ -115,6 +115,9 @@ public class TetrisGS : BaseController
         
         colorGrid.Init(this, this.blockContainer, gridDimens, gridTopLeftAnchor);
         CompositeBlock cb = colorGrid.GenerateBlock();
+        
+        cb.SetSuperGridLoc(new Vector2Int(0,0)); // set a location so consolidation works
+        
         cb.Consolidate();
         cb.Consolidate();
         
@@ -209,8 +212,6 @@ public class TetrisGS : BaseController
     
     public Vector3 SnapToGrid(Vector3 pos)
     {
-        // rtodo: snap the position to a grid 1/3 the size 
-
         return this.colorGrid.SnapToGrid(pos);
     }
 

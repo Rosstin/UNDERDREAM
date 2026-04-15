@@ -238,6 +238,7 @@ public class CompositeBlock : MonoBehaviour
 
     /// <summary>
     /// For a given block, take all the components and merge them
+    /// rtodo - needs to be agnostic of absolute pos / supergrid pos
     /// </summary>
     public void Consolidate()
     { 
@@ -247,6 +248,7 @@ public class CompositeBlock : MonoBehaviour
 
             for (int y = 0; y < col.Count; y++)
             {
+
                 if (col[y] != null)
                 {
                     // grab the shard and check neighbors within myself
@@ -254,17 +256,20 @@ public class CompositeBlock : MonoBehaviour
                     
                     foreach(var dir in CocaineCrazeConstants.UP_DOWN_LEFT_RIGHT)
                     {
-                        Shard adjShard = 
-                            this.gamestate.colorGrid.GetShardInDirection(
-                                shardToConsolidate.GetSuperAndSubgridLocs().supergridLoc, 
-                                new Vector2Int(x,y),
-                                dir, allowOutsideBlock: false);
+                        
+                        
+                        Shard adjShard =
+                            this.gamestate.colorGrid.GetShardInDirectionLocalOnly(this, new Vector2Int(x, y), dir);
 
+                        
                         if (adjShard != null && adjShard != shardToConsolidate)
                         {
+
                             //  flavors have to be the same and dimens need to line up
                             if (adjShard.GetFlavor() == shardToConsolidate.GetFlavor())
                             {
+
+                                
                                 // if we're merging 2 1x1s, it's fine
                                 if (shardToConsolidate.GetMySize() == new Vector2Int(1, 1) &&
                                     adjShard.GetMySize() == new Vector2Int(1, 1))
@@ -337,7 +342,6 @@ public class CompositeBlock : MonoBehaviour
                                          shardToConsolidate.GetTopLeftCorner().y == adjShard.GetTopLeftCorner().y
                                         )
                                 {
-                                    Debug.Log("found a 2x3 and 1x3");
                                     shardToConsolidate.Expand2xNWidthShard(adjShard.GetSuperAndSubgridLocs());
                                     SetSubgridLocsForShard(shardToConsolidate);
                                 }

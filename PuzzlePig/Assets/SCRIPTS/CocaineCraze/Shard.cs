@@ -20,7 +20,13 @@ public class Shard : MonoBehaviour
 
     private const float ONE_THIRD = 1f / 3f;
 
-    
+
+    public override string ToString()
+    {
+        string desc = "" + this.GetFlavor() + " with topleftcorn at " + this.myPosition.topLeftCornerSubgridPos; 
+        return desc;
+    }
+
     public Vector2Int GetTopLeftCorner()
     {
         return (this.myPosition.topLeftCornerSubgridPos);
@@ -63,6 +69,17 @@ public class Shard : MonoBehaviour
     {
         public Vector2Int supergridLoc;
         public Vector2Int subgridLoc;
+
+        public override string ToString()
+        {
+            string loc= "{" + supergridLoc.x + "," + supergridLoc.y + "}";
+            
+            loc += " ("+subgridLoc.x + "," + subgridLoc.y + ")";
+            
+            return loc;
+        }
+
+        
     }
     
     public struct ArbitrarySizeShardPositionData
