@@ -8,6 +8,7 @@ public class ColorBlock : MonoBehaviour
     public MeshRenderer MyRend;
     public Material highlightColor;
     public BoxCollider collider;
+    public TextMesh locationText;
     
     private Material myColor;
     
@@ -16,6 +17,12 @@ public class ColorBlock : MonoBehaviour
         Unset,
         Normal,
         Highlight
+    }
+
+    public void SetLocationText(string text, bool enabled)
+    {
+        this.locationText.gameObject.SetActive(enabled);
+        this.locationText.text = text;
     }
     
     public void SetMyColor(Material mat)

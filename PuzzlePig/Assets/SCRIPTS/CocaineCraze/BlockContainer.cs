@@ -245,4 +245,33 @@ public class BlockContainer : MonoBehaviour
     {
         this.currentlyScoringShards = new Dictionary<Shard.ArbitrarySizeShardPositionData, Shard>();
     }
+
+    public void ExpandUnscoredBlocks()
+    {
+        // rtodo destroy scored blocks
+        // rtodo if all shards in a block are destroyed, destroy the block
+
+        // expand unscored shards
+        for (int x = 0; x < blocksByLocation.Count; x++)
+        {
+            List<CompositeBlock> col = blocksByLocation[x];
+            
+            for (int y = 0; y < col.Count; y++)
+            {
+                CompositeBlock block = blocksByLocation[x][y];                
+                
+                if (block != null)
+                {
+                    block.ExpandUnscored();
+                    block.ExpandUnscored();
+                    block.ExpandUnscored();
+                    block.Consolidate();
+                }
+            }
+        }
+        
+        
+        
+        
+    }
 }

@@ -23,7 +23,7 @@ public class Shard : MonoBehaviour
 
     public override string ToString()
     {
-        string desc = "" + this.GetFlavor() + " with topleftcorn at " + this.myPosition.topLeftCornerSubgridPos; 
+        string desc = "" + this.GetFlavor() + " with topleftcorn at " + this.myPosition.topLeftCornerSubgridPos +". Scoring: " + this.isScoring(); 
         return desc;
     }
 
@@ -106,6 +106,10 @@ public class Shard : MonoBehaviour
         Scoring
     }
 
+    public bool isScoring()
+    {
+        return myShardState == ShardState.Scoring;
+    }
     public Vector2Int GetMySize()
     {
         return this.myShardSize;
@@ -113,6 +117,7 @@ public class Shard : MonoBehaviour
     
     public void SetShardState(ShardState s)
     {
+        this.myShardState = s;
         switch (s)
         {
             case ShardState.Scoring:
@@ -206,7 +211,85 @@ public class Shard : MonoBehaviour
 
 
     }
+
+    public void ExpandShard(ArbitrarySizeShardPositionData shardPositionToExpandTo)
+    {
+        Vector2Int dir = GetRelativeDirection(this.myPosition.topLeftCornerSubgridPos, shardPositionToExpandTo.topLeftCornerSubgridPos);
+        
+        this.myShardSize += new Vector2Int(Mathf.Abs(dir.x),Mathf.Abs(dir.y));
+
+        
+        this.myCompositeBlockParent.DeleteShardAt(shardPositionToExpandTo.topLeftCornerSubgridPos);
+
+        Debug.Log("my new shard size is " + this.myShardSize);
+
+        this.ScaleForMySize(this.myShardSize);
+
+        // if you're expanding up or left, your topleft position changes. otherwise it doesnt
+        if (dir == Vector2Int.up || dir == Vector2Int.right)
+        {
+            Debug.Log("move topleft pos");
+            this.myPosition.topLeftCornerSubgridPos -= dir;
+        }
+        
+        var pos = this.myCompositeBlockParent.GetPositionForIndex(this.myPosition.topLeftCornerSubgridPos.x,
+            this.myPosition.topLeftCornerSubgridPos.y, this.myShardSize);
+        
+        this.transform.position = pos;
+    }
     
+    /*public void Expand1xNWidthShardAfterScoring(ArbitrarySizeShardPositionData shardPositionToExpandTo)
+    {
+        Vector2Int dir = GetRelativeDirection(this.myPosition.topLeftCornerSubgridPos, shardPositionToExpandTo.topLeftCornerSubgridPos);
+        
+        this.myShardSize += new Vector2Int(Mathf.Abs(dir.x),Mathf.Abs(dir.y));
+
+        
+        this.myCompositeBlockParent.DeleteShardAt(shardPositionToExpandTo.topLeftCornerSubgridPos);
+
+        Debug.Log("my new shard size is " + this.myShardSize);
+
+        this.ScaleForMySize(this.myShardSize);
+
+        // if you're expanding up or left, your topleft position changes. otherwise it doesnt
+        if (dir == Vector2Int.up || dir == Vector2Int.right)
+        {
+            Debug.Log("move topleft pos");
+            this.myPosition.topLeftCornerSubgridPos -= dir;
+        }
+        
+        var pos = this.myCompositeBlockParent.GetPositionForIndex(this.myPosition.topLeftCornerSubgridPos.x,
+            this.myPosition.topLeftCornerSubgridPos.y, this.myShardSize);
+        
+        this.transform.position = pos;
+    }
+    
+    public void Expand2xNWidthShardAfterScoring(ArbitrarySizeShardPositionData shardPositionToExpandTo)
+    {
+        Vector2Int dir = GetRelativeDirection(this.myPosition.topLeftCornerSubgridPos, shardPositionToExpandTo.topLeftCornerSubgridPos);
+        
+        this.myShardSize += new Vector2Int(Mathf.Abs(dir.x),Mathf.Abs(dir.y));
+
+        Debug.Log("my new shard size is " + this.myShardSize);
+        
+        this.myCompositeBlockParent.DeleteShardAt(shardPositionToExpandTo.topLeftCornerSubgridPos);
+        
+        this.ScaleForMySize(this.myShardSize);
+
+        // if you're expanding left, move it left
+        if (dir == Vector2Int.right || dir == Vector2Int.up)
+        {
+            Debug.Log("move topleft pos");
+            this.myPosition.topLeftCornerSubgridPos -= dir;
+        }
+
+        var pos = this.myCompositeBlockParent.GetPositionForIndex(this.myPosition.topLeftCornerSubgridPos.x,
+            this.myPosition.topLeftCornerSubgridPos.y, this.myShardSize);
+        
+        this.transform.position = pos;
+
+    }
+
     public void Expand1xNWidthShard(ArbitrarySizeShardPositionData shardPositionToExpandTo)
     {
         Vector2Int dir = GetRelativeDirection(this.myPosition.topLeftCornerSubgridPos, shardPositionToExpandTo.topLeftCornerSubgridPos);
@@ -219,10 +302,10 @@ public class Shard : MonoBehaviour
         
         this.ScaleForMySize(this.myShardSize);
 
-        // if you're expanding up or left, your topleft position changes. otherwise it doesnt
-        if (dir == Vector2Int.up || dir == Vector2Int.right)
+        if (dir == Vector2Int.right || dir == Vector2Int.up)
         {
-            this.myPosition.topLeftCornerSubgridPos += dir;
+            Debug.Log("move topleft pos");
+            this.myPosition.topLeftCornerSubgridPos -= dir;
         }
         
         var pos = this.myCompositeBlockParent.GetPositionForIndex(this.myPosition.topLeftCornerSubgridPos.x,
@@ -243,9 +326,9 @@ public class Shard : MonoBehaviour
         
         this.ScaleForMySize(this.myShardSize);
 
-        // if you're expanding left, move it left
-        if (dir == Vector2Int.right)
+        if (dir == Vector2Int.right || dir == Vector2Int.up)
         {
+            Debug.Log("move topleft pos");
             this.myPosition.topLeftCornerSubgridPos -= dir;
         }
 
@@ -254,6 +337,6 @@ public class Shard : MonoBehaviour
         
         this.transform.position = pos;
 
-    }
+    }*/
 
 }

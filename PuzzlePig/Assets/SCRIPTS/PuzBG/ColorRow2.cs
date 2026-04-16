@@ -34,10 +34,7 @@ public class ColorRow2 : MonoBehaviour
 
         for(int i = 0; i < blocksInRow; i++)
         {
-
             ColorBlock c =GameObject.Instantiate(colorBlockPrefab).GetComponent<ColorBlock>();
-
-            
             
             c.SetMyColor(Colors[GetMatIndex(this.startingIndex, i)]);
             c.Unhighlight();
@@ -45,6 +42,7 @@ public class ColorRow2 : MonoBehaviour
             c.transform.SetParent(this.transform);
             c.transform.localPosition = new Vector3(1*i,0,0);
             
+            c.SetLocationText(""+i+", " + startingIndex,true);
             
             ColorBlocks.Add(c);
         }

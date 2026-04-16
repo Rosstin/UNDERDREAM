@@ -432,11 +432,7 @@ public class ColorGrid2 : MonoBehaviour
     {
         this.myBlockContainer.ClearCurrentlyScoringShards();
         // given the block and it's position, destroy adjacencies 
-
-        var scoringBlockCoord=this.WorldToSupergrid(scoringBlock.transform.position);
-
-        //Debug.Log("score block at " +scoringBlockCoord);
-
+        
         LandScoringBlock(scoringBlock, destSuperLoc);
         
         for (int x = 0; x < 3; x++)
@@ -453,8 +449,16 @@ public class ColorGrid2 : MonoBehaviour
         
         yield return new WaitForSeconds(1f);
 
-        this.myBlockContainer.RestoreScoringShardsToNormal(); // rtodo just for now
-        this.gamestate.heldRet.FinishedScoring();
+        this.myBlockContainer.ExpandUnscoredBlocks();
+
+        yield return new WaitForSeconds(1f);
+
+        // we collected all the scoring blocks - 
+        // destroy them and expand the existing blocks
+
+
+        //this.myBlockContainer.RestoreScoringShardsToNormal(); // rtodo just for now
+        //this.gamestate.heldRet.FinishedScoring();
 
     }
 
