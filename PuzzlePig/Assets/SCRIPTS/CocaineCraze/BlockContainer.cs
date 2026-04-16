@@ -62,8 +62,11 @@ public class BlockContainer : MonoBehaviour
     {
         ClearBlocks();
 
-        List<int> heights = new List<int> {  0,1,2,3,4,5 };
-        var shuffledHeights = heights.OrderBy( x => Random.value ).ToList( );
+        List<int> heights = new List<int> {  0,1,0,1,0,1 };
+        var shuffledHeights = heights;
+
+        //List<int> heights = new List<int> {  0,1,2,3,4,5 };
+        //var shuffledHeights = heights.OrderBy( x => Random.value ).ToList( );
 
 
 
@@ -264,8 +267,8 @@ public class BlockContainer : MonoBehaviour
                 {
                     block.ExpandUnscored();
                     block.ExpandUnscored();
-                    block.ExpandUnscored();
-                    block.Consolidate();
+                    //block.ExpandUnscored();
+                    //block.Consolidate();
                 }
             }
         }

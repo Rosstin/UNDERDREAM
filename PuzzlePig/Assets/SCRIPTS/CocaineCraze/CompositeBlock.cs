@@ -305,7 +305,15 @@ public class CompositeBlock : MonoBehaviour
                      x < shardToExpand.GetTopLeftCorner().x + xWidth;
                      x++)
                 {
-                    Vector2Int expansionCoord = new Vector2Int(x, shardToExpand.GetTopLeftCorner().y + dir.y);
+                    Vector2Int relevantCorner = Vector2Int.zero;
+                    if (dir == Vector2Int.down)
+                    {
+                        relevantCorner = shardToExpand.GetBotLeftCorner();
+                    }else if (dir == Vector2Int.up)
+                    {
+                        relevantCorner = shardToExpand.GetTopLeftCorner();
+                    }
+                    Vector2Int expansionCoord = new Vector2Int(x, relevantCorner.y - dir.y);
 
                     if (IsSubgridOob(expansionCoord))
                     {
@@ -331,6 +339,9 @@ public class CompositeBlock : MonoBehaviour
                 if (blocked == false)
                 {
                     // expand in that dir
+                    
+                    Debug.Log("expanding shard of size " + shardToExpand.GetMySize() + " in direction " + dir );
+                    
                     ExpandShardInDir(shardToExpand, dir);
                 }
             }
@@ -338,6 +349,8 @@ public class CompositeBlock : MonoBehaviour
             {
                 int yHeight = shardToExpand.GetMySize().y;
 
+                
+                
                 // check in your direction
                 bool blocked = false;
 
@@ -345,7 +358,16 @@ public class CompositeBlock : MonoBehaviour
                      y < shardToExpand.GetTopLeftCorner().y + yHeight;
                      y++)
                 {
-                    Vector2Int expansionCoord = new Vector2Int(shardToExpand.GetTopLeftCorner().x + dir.x, y);
+                    Vector2Int relevantCorner = Vector2Int.zero;
+                    if (dir == Vector2Int.left)
+                    {
+                        relevantCorner = shardToExpand.GetTopLeftCorner();
+                    }else if (dir == Vector2Int.right)
+                    {
+                        relevantCorner = shardToExpand.GetTopRightCorner();
+                    }
+
+                    Vector2Int expansionCoord = new Vector2Int(relevantCorner.x - dir.x, y);
 
                     if (IsSubgridOob(expansionCoord))
                     {
@@ -372,6 +394,8 @@ public class CompositeBlock : MonoBehaviour
                 if (blocked == false)
                 {
                     // expand in that dir
+                    Debug.Log("expanding shard of size " + shardToExpand.GetMySize() + " in direction " + dir );
+
                     ExpandShardInDir(shardToExpand, dir);
                 }
 
