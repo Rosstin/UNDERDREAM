@@ -261,6 +261,9 @@ public class CompositeBlock : MonoBehaviour
                         ExpandShard(shardToExpand);
     
                         SetSubgridLocsForShard(shardToExpand);
+                        
+                        // rtodo - next issue - some scored shards are not being destroyed
+                        
                         /*
                         foreach(var dir in CocaineCrazeConstants.UP_DOWN_LEFT_RIGHT)
                         {
