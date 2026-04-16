@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using Unity.VisualScripting;
 using UnityEditor.VersionControl;
 using UnityEngine;
@@ -260,6 +261,9 @@ public class CompositeBlock : MonoBehaviour
                     
                     if(!shardToExpand.isScoring())
                     {
+                        ExpandShard(shardToExpand);
+
+                        /*
                         foreach(var dir in CocaineCrazeConstants.UP_DOWN_LEFT_RIGHT)
                         {
                             
@@ -271,10 +275,12 @@ public class CompositeBlock : MonoBehaviour
                             {
                                 Debug.Log("found adjacent scoring block " + adjShard);
                                 
-                                MergeTwoShards(shardToExpand,adjShard);
-                                
+                                //MergeTwoShards(shardToExpand,adjShard);
+
+
                             }
                         }
+                        */
 
                     }
                     
@@ -283,104 +289,201 @@ public class CompositeBlock : MonoBehaviour
         }
     }
 
+    private void ExpandShard(Shard shardToExpand)
+    {
+        // choose a direction - if all the new spaces I want to expand into are unfilled, expand
+        foreach (var dir in CocaineCrazeConstants.UP_DOWN_LEFT_RIGHT)
+        {
+            if (dir == Vector2Int.up || dir == Vector2Int.down)
+            {
+                int xWidth = shardToExpand.GetMySize().x;
+                
+                // check in your direction
+                bool blocked = false;
+
+                for (int x = shardToExpand.GetTopLeftCorner().x;
+                     x < shardToExpand.GetTopLeftCorner().x + xWidth;
+                     x++)
+                {
+                    Vector2Int expansionCoord = new Vector2Int(x, shardToExpand.GetTopLeftCorner().y + dir.y);
+
+                    if (IsSubgridOob(expansionCoord))
+                    {
+                        blocked = true;
+                    }
+                    else
+                    {
+                        var shardAt = shards3x3[expansionCoord.x][expansionCoord.y];
+                        if (shardAt != null)
+                        {
+                            if (shardAt.isScoring())
+                            {
+                            
+                            }
+                            else
+                            {
+                                blocked = true;
+                            }
+                        }
+                    }
+                }
+
+                if (blocked == false)
+                {
+                    // expand in that dir
+                    ExpandShardInDir(shardToExpand, dir);
+                }
+            }
+            else if (dir == Vector2Int.left || dir == Vector2Int.right)
+            {
+                int yHeight = shardToExpand.GetMySize().y;
+
+                // check in your direction
+                bool blocked = false;
+
+                for (int y = shardToExpand.GetTopLeftCorner().y;
+                     y < shardToExpand.GetTopLeftCorner().y + yHeight;
+                     y++)
+                {
+                    Vector2Int expansionCoord = new Vector2Int(shardToExpand.GetTopLeftCorner().x + dir.x, y);
+
+                    if (IsSubgridOob(expansionCoord))
+                    {
+                        blocked = true;
+                    }
+                    else
+                    {
+                        var shardAt = shards3x3[expansionCoord.x][expansionCoord.y];
+                        if (shardAt != null)
+                        {
+                            if (shardAt.isScoring())
+                            {
+
+                            }
+                            else
+                            {
+                                blocked = true;
+                            }
+                        }
+                    }
+
+                }
+                
+                if (blocked == false)
+                {
+                    // expand in that dir
+                    ExpandShardInDir(shardToExpand, dir);
+                }
+
+            }
+
+        }
+
+    }
+
+    private void ExpandShardInDir(Shard shardToExpand, Vector2Int dir)
+    {
+        shardToExpand.ExpandShardInDir(dir);
+    }
+
     private void MergeTwoShards(Shard shardToConsolidate, Shard adjShard)
     {
                             
-                            // if we're merging 2 1x1s, it's fine
-                            if (shardToConsolidate.GetMySize() == new Vector2Int(1, 1) &&
-                                adjShard.GetMySize() == new Vector2Int(1, 1))
-                            {
-                                shardToConsolidate.ExpandShard(adjShard.GetSuperAndSubgridLocs());
-                                SetSubgridLocsForShard(shardToConsolidate);
-                            }
-                            // if we're merging a 2,1 and a 1,1, they need to be at the same Y
-                            else if (shardToConsolidate.GetMySize() == new Vector2Int(2, 1) && adjShard.GetMySize() == new Vector2Int(1, 1) && 
-                                     shardToConsolidate.GetTopLeftCorner().y == adjShard.GetTopLeftCorner().y )
-                            {
-                                shardToConsolidate.ExpandShard(adjShard.GetSuperAndSubgridLocs());
-                                SetSubgridLocsForShard(shardToConsolidate);
-                            }else if (shardToConsolidate.GetMySize() == new Vector2Int(1, 2) && adjShard.GetMySize() == new Vector2Int(1, 1) && 
-                                      shardToConsolidate.GetTopLeftCorner().x == adjShard.GetTopLeftCorner().x )
-                            {
-                                shardToConsolidate.ExpandShard(adjShard.GetSuperAndSubgridLocs());
-                                SetSubgridLocsForShard(shardToConsolidate);
-                            }
-                            else if (shardToConsolidate.GetMySize() == new Vector2Int(1, 1) && adjShard.GetMySize() == new Vector2Int(1, 2) && 
-                                     shardToConsolidate.GetTopLeftCorner().y == adjShard.GetTopLeftCorner().y )
-                            {
-                                shardToConsolidate.ExpandShard(adjShard.GetSuperAndSubgridLocs());
-                                SetSubgridLocsForShard(shardToConsolidate);
-                            }else if (shardToConsolidate.GetMySize() == new Vector2Int(1, 1) && adjShard.GetMySize() == new Vector2Int(1, 2) && 
-                                      shardToConsolidate.GetTopLeftCorner().x == adjShard.GetTopLeftCorner().x )
-                            {
-                                shardToConsolidate.ExpandShard(adjShard.GetSuperAndSubgridLocs());
-                                SetSubgridLocsForShard(shardToConsolidate);
-                            }
+        // if we're merging 2 1x1s, it's fine
+        if (shardToConsolidate.GetMySize() == new Vector2Int(1, 1) &&
+            adjShard.GetMySize() == new Vector2Int(1, 1))
+        {
+            shardToConsolidate.ExpandShard(adjShard.GetSuperAndSubgridLocs());
+            SetSubgridLocsForShard(shardToConsolidate);
+        }
+        // if we're merging a 2,1 and a 1,1, they need to be at the same Y
+        else if (shardToConsolidate.GetMySize() == new Vector2Int(2, 1) && adjShard.GetMySize() == new Vector2Int(1, 1) && 
+                 shardToConsolidate.GetTopLeftCorner().y == adjShard.GetTopLeftCorner().y )
+        {
+            shardToConsolidate.ExpandShard(adjShard.GetSuperAndSubgridLocs());
+            SetSubgridLocsForShard(shardToConsolidate);
+        }else if (shardToConsolidate.GetMySize() == new Vector2Int(1, 2) && adjShard.GetMySize() == new Vector2Int(1, 1) && 
+                  shardToConsolidate.GetTopLeftCorner().x == adjShard.GetTopLeftCorner().x )
+        {
+            shardToConsolidate.ExpandShard(adjShard.GetSuperAndSubgridLocs());
+            SetSubgridLocsForShard(shardToConsolidate);
+        }
+        else if (shardToConsolidate.GetMySize() == new Vector2Int(1, 1) && adjShard.GetMySize() == new Vector2Int(1, 2) && 
+                 shardToConsolidate.GetTopLeftCorner().y == adjShard.GetTopLeftCorner().y )
+        {
+            shardToConsolidate.ExpandShard(adjShard.GetSuperAndSubgridLocs());
+            SetSubgridLocsForShard(shardToConsolidate);
+        }else if (shardToConsolidate.GetMySize() == new Vector2Int(1, 1) && adjShard.GetMySize() == new Vector2Int(1, 2) && 
+                  shardToConsolidate.GetTopLeftCorner().x == adjShard.GetTopLeftCorner().x )
+        {
+            shardToConsolidate.ExpandShard(adjShard.GetSuperAndSubgridLocs());
+            SetSubgridLocsForShard(shardToConsolidate);
+        }
 
-                            else if (shardToConsolidate.GetMySize() == new Vector2Int(1, 2) &&
-                                     adjShard.GetMySize() == new Vector2Int(1, 2) &&
-                                     shardToConsolidate.GetTopLeftCorner().y == adjShard.GetTopLeftCorner().y
-                                    )
-                            {
-                                shardToConsolidate.ExpandShard(adjShard.GetSuperAndSubgridLocs());
-                                SetSubgridLocsForShard(shardToConsolidate);
-                            }
-                            else if (shardToConsolidate.GetMySize() == new Vector2Int(2, 1) &&
-                                     adjShard.GetMySize() == new Vector2Int(2, 1) &&
-                                     shardToConsolidate.GetTopLeftCorner().x == adjShard.GetTopLeftCorner().x
-                                    )
-                            {
-                                shardToConsolidate.ExpandShard(adjShard.GetSuperAndSubgridLocs());
-                                SetSubgridLocsForShard(shardToConsolidate);
-                            }
-                            else if (shardToConsolidate.GetMySize() == new Vector2Int(2, 2) &&
-                                     adjShard.GetMySize() == new Vector2Int(1, 2) &&
-                                     shardToConsolidate.GetTopLeftCorner().y == adjShard.GetTopLeftCorner().y
-                                    )
-                            {
-                                shardToConsolidate.ExpandShard(adjShard.GetSuperAndSubgridLocs());
-                                SetSubgridLocsForShard(shardToConsolidate);
-                            }
-                            else if (shardToConsolidate.GetMySize() == new Vector2Int(2, 2) &&
-                                     adjShard.GetMySize() == new Vector2Int(2, 1) &&
-                                     shardToConsolidate.GetTopLeftCorner().x == adjShard.GetTopLeftCorner().x
-                                    )
-                            {
-                                shardToConsolidate.ExpandShard(adjShard.GetSuperAndSubgridLocs());
-                                SetSubgridLocsForShard(shardToConsolidate);
-                            }
-                            else if (shardToConsolidate.GetMySize() == new Vector2Int(1, 3) &&
-                                     adjShard.GetMySize() == new Vector2Int(1, 3) &&
-                                     shardToConsolidate.GetTopLeftCorner().y == adjShard.GetTopLeftCorner().y
-                                    )
-                            {
-                                shardToConsolidate.ExpandShard(adjShard.GetSuperAndSubgridLocs());
-                                SetSubgridLocsForShard(shardToConsolidate);
-                            }
-                            else if (shardToConsolidate.GetMySize() == new Vector2Int(3, 1) &&
-                                     adjShard.GetMySize() == new Vector2Int(3, 1) &&
-                                     shardToConsolidate.GetTopLeftCorner().x == adjShard.GetTopLeftCorner().x
-                                    )
-                            {
-                                shardToConsolidate.ExpandShard(adjShard.GetSuperAndSubgridLocs());
-                                SetSubgridLocsForShard(shardToConsolidate);
-                            }
-                            else if (shardToConsolidate.GetMySize() == new Vector2Int(2, 3) &&
-                                     adjShard.GetMySize() == new Vector2Int(1, 3) &&
-                                     shardToConsolidate.GetTopLeftCorner().y == adjShard.GetTopLeftCorner().y
-                                    )
-                            {
-                                shardToConsolidate.ExpandShard(adjShard.GetSuperAndSubgridLocs());
-                                SetSubgridLocsForShard(shardToConsolidate);
-                            }
-                            else if (shardToConsolidate.GetMySize() == new Vector2Int(3, 2) &&
-                                     adjShard.GetMySize() == new Vector2Int(3, 1) &&
-                                     shardToConsolidate.GetTopLeftCorner().x == adjShard.GetTopLeftCorner().x
-                                    )
-                            {
-                                shardToConsolidate.ExpandShard(adjShard.GetSuperAndSubgridLocs());
-                                SetSubgridLocsForShard(shardToConsolidate);
-                            }
+        else if (shardToConsolidate.GetMySize() == new Vector2Int(1, 2) &&
+                 adjShard.GetMySize() == new Vector2Int(1, 2) &&
+                 shardToConsolidate.GetTopLeftCorner().y == adjShard.GetTopLeftCorner().y
+                )
+        {
+            shardToConsolidate.ExpandShard(adjShard.GetSuperAndSubgridLocs());
+            SetSubgridLocsForShard(shardToConsolidate);
+        }
+        else if (shardToConsolidate.GetMySize() == new Vector2Int(2, 1) &&
+                 adjShard.GetMySize() == new Vector2Int(2, 1) &&
+                 shardToConsolidate.GetTopLeftCorner().x == adjShard.GetTopLeftCorner().x
+                )
+        {
+            shardToConsolidate.ExpandShard(adjShard.GetSuperAndSubgridLocs());
+            SetSubgridLocsForShard(shardToConsolidate);
+        }
+        else if (shardToConsolidate.GetMySize() == new Vector2Int(2, 2) &&
+                 adjShard.GetMySize() == new Vector2Int(1, 2) &&
+                 shardToConsolidate.GetTopLeftCorner().y == adjShard.GetTopLeftCorner().y
+                )
+        {
+            shardToConsolidate.ExpandShard(adjShard.GetSuperAndSubgridLocs());
+            SetSubgridLocsForShard(shardToConsolidate);
+        }
+        else if (shardToConsolidate.GetMySize() == new Vector2Int(2, 2) &&
+                 adjShard.GetMySize() == new Vector2Int(2, 1) &&
+                 shardToConsolidate.GetTopLeftCorner().x == adjShard.GetTopLeftCorner().x
+                )
+        {
+            shardToConsolidate.ExpandShard(adjShard.GetSuperAndSubgridLocs());
+            SetSubgridLocsForShard(shardToConsolidate);
+        }
+        else if (shardToConsolidate.GetMySize() == new Vector2Int(1, 3) &&
+                 adjShard.GetMySize() == new Vector2Int(1, 3) &&
+                 shardToConsolidate.GetTopLeftCorner().y == adjShard.GetTopLeftCorner().y
+                )
+        {
+            shardToConsolidate.ExpandShard(adjShard.GetSuperAndSubgridLocs());
+            SetSubgridLocsForShard(shardToConsolidate);
+        }
+        else if (shardToConsolidate.GetMySize() == new Vector2Int(3, 1) &&
+                 adjShard.GetMySize() == new Vector2Int(3, 1) &&
+                 shardToConsolidate.GetTopLeftCorner().x == adjShard.GetTopLeftCorner().x
+                )
+        {
+            shardToConsolidate.ExpandShard(adjShard.GetSuperAndSubgridLocs());
+            SetSubgridLocsForShard(shardToConsolidate);
+        }
+        else if (shardToConsolidate.GetMySize() == new Vector2Int(2, 3) &&
+                 adjShard.GetMySize() == new Vector2Int(1, 3) &&
+                 shardToConsolidate.GetTopLeftCorner().y == adjShard.GetTopLeftCorner().y
+                )
+        {
+            shardToConsolidate.ExpandShard(adjShard.GetSuperAndSubgridLocs());
+            SetSubgridLocsForShard(shardToConsolidate);
+        }
+        else if (shardToConsolidate.GetMySize() == new Vector2Int(3, 2) &&
+                 adjShard.GetMySize() == new Vector2Int(3, 1) &&
+                 shardToConsolidate.GetTopLeftCorner().x == adjShard.GetTopLeftCorner().x
+                )
+        {
+            shardToConsolidate.ExpandShard(adjShard.GetSuperAndSubgridLocs());
+            SetSubgridLocsForShard(shardToConsolidate);
+        }
 
     }
     
@@ -425,13 +528,39 @@ public class CompositeBlock : MonoBehaviour
         }
     }
 
+    public bool IsSubgridOob(int xOrY)
+    {
+        if (xOrY <= -1 || xOrY >= 3)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public bool IsSubgridOob(Vector2Int xy)
+    {
+        if (IsSubgridOob(xy.x))
+        {
+            return true;
+        }
+
+        if (IsSubgridOob(xy.y))
+        {
+            return true;
+        }
+
+        return false;
+    }
 
     private void SetSubgridLocsForShard(Shard s)
     {
         var subgridlocs=s.GetAllSubgridLocations();
         foreach (var loc in subgridlocs)
         {
-            if (loc.x <= -1 || loc.x >= 3 || loc.y <= -1 || loc.y >= 3)
+            if(IsSubgridOob(loc))
             {
                 Debug.LogError("trying to set invalid subgrid location " + loc + " for a shard. list of locs:" );
                 foreach(var l in subgridlocs)

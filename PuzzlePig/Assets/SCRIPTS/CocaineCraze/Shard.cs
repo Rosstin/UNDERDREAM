@@ -212,14 +212,11 @@ public class Shard : MonoBehaviour
 
     }
 
-    public void ExpandShard(ArbitrarySizeShardPositionData shardPositionToExpandTo)
+    public void ExpandShardInDir(Vector2Int dir)
     {
-        Vector2Int dir = GetRelativeDirection(this.myPosition.topLeftCornerSubgridPos, shardPositionToExpandTo.topLeftCornerSubgridPos);
-        
         this.myShardSize += new Vector2Int(Mathf.Abs(dir.x),Mathf.Abs(dir.y));
 
         
-        this.myCompositeBlockParent.DeleteShardAt(shardPositionToExpandTo.topLeftCornerSubgridPos);
 
         Debug.Log("my new shard size is " + this.myShardSize);
 
@@ -236,6 +233,14 @@ public class Shard : MonoBehaviour
             this.myPosition.topLeftCornerSubgridPos.y, this.myShardSize);
         
         this.transform.position = pos;
+
+    }
+
+    public void ExpandShard(ArbitrarySizeShardPositionData shardPositionToExpandTo)
+    {
+        Vector2Int dir = GetRelativeDirection(this.myPosition.topLeftCornerSubgridPos, shardPositionToExpandTo.topLeftCornerSubgridPos);
+        this.myCompositeBlockParent.DeleteShardAt(shardPositionToExpandTo.topLeftCornerSubgridPos);
+        ExpandShardInDir(dir);
     }
     
     /*public void Expand1xNWidthShardAfterScoring(ArbitrarySizeShardPositionData shardPositionToExpandTo)
