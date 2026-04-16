@@ -301,7 +301,7 @@ public class CompositeBlock : MonoBehaviour
                 
                 // check in your direction
                 bool blocked = false;
-
+                
                 for (int x = shardToExpand.GetTopLeftCorner().x;
                      x < shardToExpand.GetTopLeftCorner().x + xWidth;
                      x++)
@@ -316,8 +316,11 @@ public class CompositeBlock : MonoBehaviour
                     }
                     Vector2Int expansionCoord = new Vector2Int(x, relevantCorner.y - dir.y);
 
+                    Debug.Log("expand updown from " + shardToExpand.GetTopLeftCorner() + " to expansion coord " + expansionCoord + " by moving in direction " + dir);
+                    
                     if (IsSubgridOob(expansionCoord))
                     {
+                        Debug.Log("blocked UD by oob");
                         blocked = true;
                     }
                     else
@@ -331,6 +334,7 @@ public class CompositeBlock : MonoBehaviour
                             }
                             else
                             {
+                                Debug.Log("blocked UD by another shard");
                                 blocked = true;
                             }
                         }
@@ -341,9 +345,9 @@ public class CompositeBlock : MonoBehaviour
                 {
                     // expand in that dir
                     
-                    Debug.Log("expanding shard of size " + shardToExpand.GetMySize() + " in direction " + dir );
+                    Debug.Log("expanding shard UD " + shardToExpand + " of size " + shardToExpand.GetMySize() + " in direction " + dir );
                     
-                    ExpandShardInDir(shardToExpand, dir);
+                    ExpandShardInDirFill(shardToExpand, dir);
                 }
             }
             else if (dir == Vector2Int.left || dir == Vector2Int.right)
@@ -368,10 +372,13 @@ public class CompositeBlock : MonoBehaviour
                         relevantCorner = shardToExpand.GetTopRightCorner();
                     }
 
-                    Vector2Int expansionCoord = new Vector2Int(relevantCorner.x - dir.x, y);
+                    Vector2Int expansionCoord = new Vector2Int(  relevantCorner.x + dir.x, y);
 
+                    Debug.Log("expand shard LR " + shardToExpand +" rl from " + shardToExpand.GetTopLeftCorner() + " to expansion coord " + expansionCoord + " by moving in direction " + dir);
+                    
                     if (IsSubgridOob(expansionCoord))
                     {
+                        Debug.Log("blocked LR by oob");
                         blocked = true;
                     }
                     else
@@ -385,6 +392,7 @@ public class CompositeBlock : MonoBehaviour
                             }
                             else
                             {
+                                Debug.Log("blocked LR by another shard");
                                 blocked = true;
                             }
                         }
@@ -395,15 +403,14 @@ public class CompositeBlock : MonoBehaviour
                 if (blocked == false)
                 {
                     // expand in that dir
-                    Debug.Log("expanding shard of size " + shardToExpand.GetMySize() + " in direction " + dir );
+                    Debug.Log("expanding shard lr of size " + shardToExpand.GetMySize() + " in direction " + dir );
 
                     foreach (var s in scoringShardsToDestroy)
                     {
-                        
                         DestroyShard(s);
                     }
                     
-                    ExpandShardInDir(shardToExpand, dir);
+                    ExpandShardInDirFill(shardToExpand, dir);
                 }
 
             }
@@ -412,9 +419,9 @@ public class CompositeBlock : MonoBehaviour
 
     }
 
-    private void ExpandShardInDir(Shard shardToExpand, Vector2Int dir)
+    private void ExpandShardInDirFill(Shard shardToExpand, Vector2Int dir)
     {
-        shardToExpand.ExpandShardInDir(dir);
+        shardToExpand.ExpandShardInDirFill(dir);
     }
 
     private void MergeTwoShards(Shard shardToConsolidate, Shard adjShard)

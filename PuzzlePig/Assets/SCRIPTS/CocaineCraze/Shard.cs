@@ -23,7 +23,12 @@ public class Shard : MonoBehaviour
 
     public override string ToString()
     {
-        string desc = "" + this.GetFlavor() + " with topleftcorn at " + this.myPosition.topLeftCornerSubgridPos +". Scoring: " + this.isScoring(); 
+        string desc = "" + this.GetFlavor() 
+                         + " and size " + this.GetMySize()
+                         +". Coords TL " + this.myPosition.topLeftCornerSubgridPos 
+                         + " TR " + this.GetTopRightCorner()
+                         + " BL " + this.GetBotLeftCorner()
+                         + " BR " + this.GetBotRightCorner(); // +". Scoring: " + this.isScoring(); 
         return desc;
     }
 
@@ -212,11 +217,66 @@ public class Shard : MonoBehaviour
 
     }
 
-    public void ExpandShardInDir(Vector2Int dir)
+
+
+    public static Vector2Int moveCoordInDir(Vector2Int c, Vector2Int d)
     {
-        this.myShardSize += new Vector2Int(Mathf.Abs(dir.x),Mathf.Abs(dir.y));
+        return c - d;
+    }
+    
+    
+    public void ExpandShardInDirFill(Vector2Int dir)
+    {
+        var potentialNewShardSize = this.myShardSize+new Vector2Int(Mathf.Abs(dir.x),Mathf.Abs(dir.y));
+
+        if (potentialNewShardSize.x >= 4 || potentialNewShardSize.y >= 4)
+        {
+            Debug.LogError("attempting to make a shard that's too big! size: " + potentialNewShardSize);
+            return;
+        }
 
         
+        this.myShardSize = potentialNewShardSize;
+
+        Debug.Log("my new shard size is " + this.myShardSize);
+
+        this.ScaleForMySize(this.myShardSize);
+
+        // if you're expanding up or left, your topleft position changes. otherwise it doesnt
+        if (dir == Vector2Int.left)
+        {
+            Debug.Log("move topleft origin left");
+
+            this.myPosition.topLeftCornerSubgridPos += Vector2Int.left;
+        }
+
+        if (dir == Vector2Int.up)
+        {
+            Debug.Log("move topleft origin up");
+
+            this.myPosition.topLeftCornerSubgridPos -= Vector2Int.up;
+        }
+        
+        var pos = this.myCompositeBlockParent.GetPositionForIndex(this.myPosition.topLeftCornerSubgridPos.x,
+            this.myPosition.topLeftCornerSubgridPos.y, this.myShardSize);
+        
+        this.transform.position = pos;
+
+    }
+
+    public void ExpandShardInDir(Vector2Int dir)
+    {
+        var potentialNewShardSize = this.myShardSize+new Vector2Int(Mathf.Abs(dir.x),Mathf.Abs(dir.y));
+
+
+        if (potentialNewShardSize.x >= 4 || potentialNewShardSize.y >= 4)
+        {
+            Debug.LogError("attempting to make a shard that's too big! size: " + potentialNewShardSize);
+            return;
+        }
+
+        
+        this.myShardSize = potentialNewShardSize;
 
         Debug.Log("my new shard size is " + this.myShardSize);
 
@@ -226,7 +286,8 @@ public class Shard : MonoBehaviour
         if (dir == Vector2Int.up || dir == Vector2Int.right)
         {
             Debug.Log("move topleft pos");
-            this.myPosition.topLeftCornerSubgridPos -= dir;
+            
+            this.myPosition.topLeftCornerSubgridPos = moveCoordInDir(this.myPosition.topLeftCornerSubgridPos,dir);
         }
         
         var pos = this.myCompositeBlockParent.GetPositionForIndex(this.myPosition.topLeftCornerSubgridPos.x,

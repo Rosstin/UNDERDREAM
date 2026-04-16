@@ -62,6 +62,8 @@ public class BlockContainer : MonoBehaviour
     {
         ClearBlocks();
 
+        //UnityEngine.Random.seed = 0;
+        
         List<int> heights = new List<int> {  0,1,0,1,0,1 };
         var shuffledHeights = heights;
 
