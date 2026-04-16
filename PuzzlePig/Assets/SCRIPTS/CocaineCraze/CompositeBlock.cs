@@ -23,12 +23,9 @@ public class CompositeBlock : MonoBehaviour
     
     private List<List<Shard>> shards3x3 = null;
     
-    //private Vector2Int sizeOfMyShards;
     
     private TetrisGS gamestate = null;
-    private List<CompositeBlock> blocks = new List<CompositeBlock>();
 
-    System.Random random = new System.Random();
 
     public void SetJitter(Vector3 jitter)
     {
@@ -262,7 +259,8 @@ public class CompositeBlock : MonoBehaviour
                     if(!shardToExpand.isScoring())
                     {
                         ExpandShard(shardToExpand);
-
+    
+                        SetSubgridLocsForShard(shardToExpand);
                         /*
                         foreach(var dir in CocaineCrazeConstants.UP_DOWN_LEFT_RIGHT)
                         {
@@ -306,6 +304,7 @@ public class CompositeBlock : MonoBehaviour
                      x < shardToExpand.GetTopLeftCorner().x + xWidth;
                      x++)
                 {
+                    //rtodo updown problems
                     Vector2Int relevantCorner = Vector2Int.zero;
                     if (dir == Vector2Int.down)
                     {
