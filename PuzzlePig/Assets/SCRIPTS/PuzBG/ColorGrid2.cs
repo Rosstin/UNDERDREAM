@@ -458,7 +458,7 @@ public class ColorGrid2 : MonoBehaviour
 
 
         //this.myBlockContainer.RestoreScoringShardsToNormal(); // rtodo just for now
-        //this.gamestate.heldRet.FinishedScoring();
+        this.gamestate.heldRet.FinishedScoring();
 
     }
 

@@ -266,7 +266,7 @@ public class BlockContainer : MonoBehaviour
                 if (block != null)
                 {
                     block.ExpandUnscored();
-                    block.ExpandUnscored();
+                    //block.ExpandUnscored();
                     //block.ExpandUnscored();
                     //block.Consolidate();
                 }

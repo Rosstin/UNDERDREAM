@@ -291,6 +291,7 @@ public class CompositeBlock : MonoBehaviour
 
     private void ExpandShard(Shard shardToExpand)
     {
+        List<Shard> scoringShardsToDestroy = new List<Shard>();
         // choose a direction - if all the new spaces I want to expand into are unfilled, expand
         foreach (var dir in CocaineCrazeConstants.UP_DOWN_LEFT_RIGHT)
         {
@@ -326,7 +327,7 @@ public class CompositeBlock : MonoBehaviour
                         {
                             if (shardAt.isScoring())
                             {
-                            
+                                scoringShardsToDestroy.Add(shardAt);
                             }
                             else
                             {
@@ -380,7 +381,7 @@ public class CompositeBlock : MonoBehaviour
                         {
                             if (shardAt.isScoring())
                             {
-
+                                scoringShardsToDestroy.Add(shardAt);
                             }
                             else
                             {
@@ -396,6 +397,12 @@ public class CompositeBlock : MonoBehaviour
                     // expand in that dir
                     Debug.Log("expanding shard of size " + shardToExpand.GetMySize() + " in direction " + dir );
 
+                    foreach (var s in scoringShardsToDestroy)
+                    {
+                        
+                        DestroyShard(s);
+                    }
+                    
                     ExpandShardInDir(shardToExpand, dir);
                 }
 
@@ -605,6 +612,11 @@ public class CompositeBlock : MonoBehaviour
         var shard = shards3x3[subgridPos.x][subgridPos.y];
         GameObject.Destroy(shard.gameObject);
         shards3x3[subgridPos.x][subgridPos.y] = null;
+    }
+
+    public void DestroyShard(Shard s)
+    {
+        GameObject.Destroy(s.gameObject);
     }
 
 }
