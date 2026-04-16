@@ -261,9 +261,6 @@ public class ColorGrid2 : MonoBehaviour
 
         s.SetShardState(Shard.ShardState.Scoring);
         this.myBlockContainer.currentlyScoringShards.Add(s.GetSuperAndSubgridLocs(),s);
-
-        // rtodo - calculate subgrid locations based on size!
-        // rtodo right now only doing topleft
         
         foreach (var subgridLoc in s.GetAllSubgridLocations())
         {
