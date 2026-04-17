@@ -37,6 +37,12 @@ public class TetrisRet : MonoBehaviour
         this.gamestate = gs;
         this.myBlock = block;
     }
+
+    public void SetNewBlock(CompositeBlock newBlock)
+    {
+        Destroy(this.myBlock.gameObject);
+        this.myBlock = newBlock;
+    }
     
     public void SetBlockPosition(Vector3 pos, Vector3 jitter)
     {
@@ -203,6 +209,12 @@ public class TetrisRet : MonoBehaviour
 
     public void FinishedScoring()
     {
+        CompositeBlock cb = this.gamestate.colorGrid.GenerateBlock();
+        cb.SetSuperGridLoc(new Vector2Int(0,0)); // set a location so consolidation works
+        cb.Consolidate();
+        cb.Consolidate();
+
+        this.SetNewBlock(cb);
         this.SetState(TetrisRetState.Ready);
     }
 }

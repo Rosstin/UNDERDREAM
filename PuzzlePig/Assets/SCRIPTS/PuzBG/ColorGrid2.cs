@@ -447,11 +447,13 @@ public class ColorGrid2 : MonoBehaviour
 
 
         
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.2f);
 
         this.myBlockContainer.ExpandUnscoredBlocks();
 
-        yield return new WaitForSeconds(1f);
+        this.myBlockContainer.ClearFullyScoredBlocks();
+
+        yield return new WaitForSeconds(0.2f);
 
         // we collected all the scoring blocks - 
         // destroy them and expand the existing blocks

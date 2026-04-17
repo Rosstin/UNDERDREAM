@@ -62,13 +62,10 @@ public class BlockContainer : MonoBehaviour
     {
         ClearBlocks();
 
-        //UnityEngine.Random.seed = 0;
         
-        List<int> heights = new List<int> {  0,1,0,1,0,1 };
-        var shuffledHeights = heights;
 
-        //List<int> heights = new List<int> {  0,1,2,3,4,5 };
-        //var shuffledHeights = heights.OrderBy( x => Random.value ).ToList( );
+        List<int> heights = new List<int> {  0,1,2,3,4,5 };
+        var shuffledHeights = heights.OrderBy( x => Random.value ).ToList( );
 
 
 
@@ -268,9 +265,9 @@ public class BlockContainer : MonoBehaviour
                 if (block != null)
                 {
                     block.ExpandUnscored();
+                    block.ExpandUnscored();
                     //block.ExpandUnscored();
-                    //block.ExpandUnscored();
-                    //block.Consolidate();
+                    block.Consolidate();
                 }
             }
         }
@@ -278,5 +275,35 @@ public class BlockContainer : MonoBehaviour
         
         
         
+    }
+
+    public void ClearFullyScoredBlocks()
+    {
+        for (int x = 0; x < blocksByLocation.Count; x++)
+        {
+            List<CompositeBlock> col = blocksByLocation[x];
+            
+            for (int y = 0; y < col.Count; y++)
+            {
+                CompositeBlock block = blocksByLocation[x][y];                
+                
+                
+                if ( block != null && block.IsFullyScored())
+                {
+                    DestroyBlock(block);
+                }
+            }
+        }
+    }
+
+    public void DestroyBlock(CompositeBlock compositeBlock)
+    {
+        //rtodo remove from flav list too
+
+
+
+        blocksByLocation[compositeBlock.GetSupergridLoc().x][compositeBlock.GetSupergridLoc().y] = null;
+        
+        GameObject.Destroy(compositeBlock.gameObject);
     }
 }

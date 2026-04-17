@@ -259,29 +259,8 @@ public class CompositeBlock : MonoBehaviour
                     if(!shardToExpand.isScoring())
                     {
                         ExpandShard(shardToExpand);
-    
                         SetSubgridLocsForShard(shardToExpand);
                         
-                        // rtodo - next issue - some scored shards are not being destroyed
-                        
-                        /*
-                        foreach(var dir in CocaineCrazeConstants.UP_DOWN_LEFT_RIGHT)
-                        {
-                            
-                            
-                            Shard adjShard =
-                                this.gamestate.colorGrid.GetShardInDirectionLocalOnly(this, new Vector2Int(x, y), dir);
-                            
-                            if (adjShard != null && adjShard != shardToExpand && adjShard.isScoring())
-                            {
-                                Debug.Log("found adjacent scoring block " + adjShard);
-                                
-                                //MergeTwoShards(shardToExpand,adjShard);
-
-
-                            }
-                        }
-                        */
 
                     }
                     
@@ -628,4 +607,28 @@ public class CompositeBlock : MonoBehaviour
         GameObject.Destroy(s.gameObject);
     }
 
+    public bool IsFullyScored()
+    {
+        bool hasUnscored = false;
+        for (int x = 0; x < shards3x3.Count; x++)
+        {
+            List<Shard> col = shards3x3[x];
+
+            for (int y = 0; y < col.Count; y++)
+            {
+
+                if (col[y] != null)
+                {
+                    // grab the shard and check neighbors within myself
+                    Shard shardInQuestion = col[y];
+                    if (shardInQuestion!=null && !shardInQuestion.isScoring())
+                    {
+                        hasUnscored = true;
+                    }
+                }
+            }
+        }
+
+        return !hasUnscored;
+    }
 }

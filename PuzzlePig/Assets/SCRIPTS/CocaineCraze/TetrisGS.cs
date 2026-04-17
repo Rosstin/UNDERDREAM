@@ -114,10 +114,9 @@ public class TetrisGS : BaseController
         
         
         colorGrid.Init(this, this.blockContainer, gridDimens, gridTopLeftAnchor);
+
         CompositeBlock cb = colorGrid.GenerateBlock();
-        
         cb.SetSuperGridLoc(new Vector2Int(0,0)); // set a location so consolidation works
-        
         cb.Consolidate();
         cb.Consolidate();
         
