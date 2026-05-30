@@ -209,7 +209,7 @@ public class CompositeBlock : MonoBehaviour
         {
             foreach (var sh in lis)
             {
-                flavToListOfShards = this.AddShardToList(sh,flavToListOfShards);
+                flavToListOfShards = this.AddShardToFlavList(sh,flavToListOfShards);
             }
         }
 
@@ -217,7 +217,7 @@ public class CompositeBlock : MonoBehaviour
         return flavToListOfShards;
     }
 
-    public Dictionary<TetrisGS.ShardFlavors, List<Shard>> AddShardToList(Shard s, Dictionary<TetrisGS.ShardFlavors, List<Shard>> flavToListOfShards)
+    public Dictionary<TetrisGS.ShardFlavors, List<Shard>> AddShardToFlavList(Shard s, Dictionary<TetrisGS.ShardFlavors, List<Shard>> flavToListOfShards)
     {
         var flav = s.GetFlavor();
 
@@ -229,6 +229,20 @@ public class CompositeBlock : MonoBehaviour
 
         return flavToListOfShards;
     }
+    
+    public Dictionary<TetrisGS.ShardFlavors, List<Shard>> RemoveShardFromFlavList(Shard s, Dictionary<TetrisGS.ShardFlavors, List<Shard>> flavToListOfShards)
+    {
+        var flav = s.GetFlavor();
+
+        var list = flavToListOfShards[flav];
+        
+        list.Remove(s);
+
+        flavToListOfShards[flav] = list;
+
+        return flavToListOfShards;
+    }
+    
 
     public Vector2Int GetSupergridLoc()
     {
@@ -598,12 +612,16 @@ public class CompositeBlock : MonoBehaviour
     public void DeleteShardAt(Vector2Int subgridPos)
     {
         var shard = shards3x3[subgridPos.x][subgridPos.y];
+
+        //RemoveShardFromFlavList(shard, flavToListOfShards:this.gamestate.blockContainer.flavToListOfShards);
+        
         GameObject.Destroy(shard.gameObject);
         shards3x3[subgridPos.x][subgridPos.y] = null;
     }
 
     public void DestroyShard(Shard s)
     {
+        //RemoveShardFromFlavList(s, flavToListOfShards:this.gamestate.blockContainer.flavToListOfShards);
         GameObject.Destroy(s.gameObject);
     }
 

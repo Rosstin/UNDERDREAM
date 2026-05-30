@@ -247,7 +247,7 @@ public class ColorGrid2 : MonoBehaviour
     }
 
     /// <summary>
-    /// recursive function to score shards
+    /// recursive function to score shards - adds them to a collection of shards that are scoring
     /// </summary>
     /// <param name="s"></param>
     public void ScoreShard(Shard s)
@@ -430,9 +430,10 @@ public class ColorGrid2 : MonoBehaviour
     
     public IEnumerator ScoreBlock(CompositeBlock scoringBlock, Vector2Int destSuperLoc)
     {
-        this.myBlockContainer.ClearCurrentlyScoringShards();
+        this.myBlockContainer.ClearCurrentlyScoringShardsDictionary();
         // given the block and it's position, destroy adjacencies 
         
+        // put the block where it belongs
         LandScoringBlock(scoringBlock, destSuperLoc);
         
         for (int x = 0; x < 3; x++)
@@ -445,8 +446,8 @@ public class ColorGrid2 : MonoBehaviour
             }
         }
 
+        // now the dictionary contains shards that should be scored
 
-        
         yield return new WaitForSeconds(0.2f);
 
         this.myBlockContainer.ExpandUnscoredBlocks();
@@ -454,7 +455,11 @@ public class ColorGrid2 : MonoBehaviour
         this.myBlockContainer.ClearFullyScoredBlocks();
 
         yield return new WaitForSeconds(0.2f);
+        
+        // rtodo now we need to drop blocks that are empty
 
+        this.myBlockContainer.DropColumnsByEmptiness();
+        
         // we collected all the scoring blocks - 
         // destroy them and expand the existing blocks
 

@@ -243,7 +243,7 @@ public class BlockContainer : MonoBehaviour
     }
 
 
-    public void ClearCurrentlyScoringShards()
+    public void ClearCurrentlyScoringShardsDictionary()
     {
         this.currentlyScoringShards = new Dictionary<Shard.ArbitrarySizeShardPositionData, Shard>();
     }
@@ -290,6 +290,7 @@ public class BlockContainer : MonoBehaviour
                 
                 if ( block != null && block.IsFullyScored())
                 {
+                    Debug.Log("destroying a fully scored block");
                     DestroyBlock(block);
                 }
             }
@@ -299,11 +300,66 @@ public class BlockContainer : MonoBehaviour
     public void DestroyBlock(CompositeBlock compositeBlock)
     {
         //rtodo remove from flav list too
-
-
-
+        
+        
+        
+        
         blocksByLocation[compositeBlock.GetSupergridLoc().x][compositeBlock.GetSupergridLoc().y] = null;
         
+        
         GameObject.Destroy(compositeBlock.gameObject);
+    }
+
+    private void DropColumn(int colX, int emptyY)
+    {
+        // start at bot and go up
+        for (int y = emptyY-1; y >= 0; y--)
+        {
+            CompositeBlock block = blocksByLocation[colX][y];                
+                
+            if (block == null)
+            {
+            }
+            else
+            {
+                
+
+                
+                blocksByLocation[colX][y+1] = blocksByLocation[colX][y];
+
+                blocksByLocation[colX][y+1].SetSuperGridLoc(new Vector2Int(colX,y+1));
+
+                // feed an appropriate coord for the block
+                blocksByLocation[colX][y+1].transform.localPosition = this.colorGrid.SupergridToWorld(colX, y+1);
+            }
+        }    
+    }
+
+    public void DropColumnsByEmptiness()
+    {
+        for (int x = 0; x < blocksByLocation.Count; x++)
+        {
+            List<CompositeBlock> col = blocksByLocation[x];
+            
+            // start at bot and go up
+            for (int y = col.Count-1; y >= 0; y--)
+            {
+                CompositeBlock block = blocksByLocation[x][y];                
+                
+                if (block != null)
+                {
+                }
+                else
+                {
+                    // we found an empty block that needs to be dropped
+                    
+                    Debug.Log("found empty block at " + x + ", " + y);
+                    
+                    DropColumn(x, emptyY:y);
+                }
+            }
+        }
+        
+        
     }
 }

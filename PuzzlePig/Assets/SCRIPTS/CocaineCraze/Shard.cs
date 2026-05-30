@@ -300,6 +300,7 @@ public class Shard : MonoBehaviour
     public void ExpandShard(ArbitrarySizeShardPositionData shardPositionToExpandTo)
     {
         Vector2Int dir = GetRelativeDirection(this.myPosition.topLeftCornerSubgridPos, shardPositionToExpandTo.topLeftCornerSubgridPos);
+        
         this.myCompositeBlockParent.DeleteShardAt(shardPositionToExpandTo.topLeftCornerSubgridPos);
         ExpandShardInDir(dir);
     }

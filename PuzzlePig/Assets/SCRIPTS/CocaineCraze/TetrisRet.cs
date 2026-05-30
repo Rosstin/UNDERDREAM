@@ -178,7 +178,7 @@ public class TetrisRet : MonoBehaviour
                 
                 
                 
-                if (firedElapsed >+ FALL_PERIOD_S)
+                if (firedElapsed > FALL_PERIOD_S)
                 {
                     gamestate.PlayTinkSfx();
 
