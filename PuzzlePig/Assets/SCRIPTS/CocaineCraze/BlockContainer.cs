@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -63,7 +64,10 @@ public class BlockContainer : MonoBehaviour
         ClearBlocks();
 
 
-        List<int> heights = new List<int> {  0,1,2,3,4,5 };
+        //List<int> heights = new List<int> {  0,1,2,3,4,5 };
+
+        List<int> heights = new List<int> {  0,1,0,1,0,1 };
+
         var shuffledHeights = heights.OrderBy( x => Random.value ).ToList( );
 
 
@@ -142,14 +146,19 @@ public class BlockContainer : MonoBehaviour
         }
     }
 
-    public CompositeBlock GenerateBlock()
+    public CompositeBlock GenerateBlock(bool isRetBlock=false)
     {
+        if (isRetBlock)
+        {
+            
+        }
+        
         CompositeBlock cb = GameObject.Instantiate(this.gamestate.compPrefab).GetComponent<CompositeBlock>();
         cb.Init(this.gamestate, this.gamestate.blockContainer, new Vector2Int(-1,-1));
 
         cb.Randomize();
-
-        cb.Consolidate();
+        
+        cb.Consolidate(isRetBlock);
         cb.Consolidate();
 
         return cb;

@@ -132,6 +132,7 @@ public class CompositeBlock : MonoBehaviour
 
     public void GenShardedBlock()
     {        
+        Debug.LogWarning("gen sharded block");
         var shardSize = new Vector2Int(1,1);
 
         for (int x = 0; x < 3; x++)
@@ -440,12 +441,6 @@ public class CompositeBlock : MonoBehaviour
         {
             shardToConsolidate.ExpandShard(adjShard.GetSuperAndSubgridLocs());
             SetSubgridLocsForShard(shardToConsolidate);
-        }
-        else if (shardToConsolidate.GetMySize() == new Vector2Int(1, 1) && adjShard.GetMySize() == new Vector2Int(1, 2) && 
-                 shardToConsolidate.GetTopLeftCorner().y == adjShard.GetTopLeftCorner().y )
-        {
-            shardToConsolidate.ExpandShard(adjShard.GetSuperAndSubgridLocs());
-            SetSubgridLocsForShard(shardToConsolidate);
         }else if (shardToConsolidate.GetMySize() == new Vector2Int(1, 1) && adjShard.GetMySize() == new Vector2Int(1, 2) && 
                   shardToConsolidate.GetTopLeftCorner().x == adjShard.GetTopLeftCorner().x )
         {
@@ -524,8 +519,12 @@ public class CompositeBlock : MonoBehaviour
     /// For a given block, take all the components and merge them
     /// rtodo - needs to be agnostic of absolute pos / supergrid pos
     /// </summary>
-    public void Consolidate()
-    { 
+    public void Consolidate(bool ifIsRet=false)
+    {
+        if (ifIsRet)
+        {
+            Debug.LogWarning("CONSOLIDATE");
+        }
         for (int x = 0; x < shards3x3.Count; x++)
         {
             List<Shard> col = shards3x3[x];
