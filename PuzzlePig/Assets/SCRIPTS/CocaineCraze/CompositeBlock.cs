@@ -519,12 +519,8 @@ public class CompositeBlock : MonoBehaviour
     /// For a given block, take all the components and merge them
     /// rtodo - needs to be agnostic of absolute pos / supergrid pos
     /// </summary>
-    public void Consolidate(bool ifIsRet=false)
+    public void Consolidate()
     {
-        if (ifIsRet)
-        {
-            Debug.LogWarning("CONSOLIDATE");
-        }
         for (int x = 0; x < shards3x3.Count; x++)
         {
             List<Shard> col = shards3x3[x];

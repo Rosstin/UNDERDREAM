@@ -107,7 +107,7 @@ public class TetrisGS : BaseController
         return null;
     }
 
-    private const int RANDOM_SEED = 9; // for testing consistency - used for both unityengine random and ms system random
+    private const int RANDOM_SEED = 12; // for testing consistency - used for both unityengine random and ms system random
 
     public void Start()
     {

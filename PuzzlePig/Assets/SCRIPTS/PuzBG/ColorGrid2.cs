@@ -242,7 +242,7 @@ public class ColorGrid2 : MonoBehaviour
 
     public CompositeBlock GenerateBlock()
     {
-        return myBlockContainer.GenerateBlock(true);
+        return myBlockContainer.GenerateBlock();
 
     }
 

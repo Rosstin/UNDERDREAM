@@ -146,19 +146,14 @@ public class BlockContainer : MonoBehaviour
         }
     }
 
-    public CompositeBlock GenerateBlock(bool isRetBlock=false)
+    public CompositeBlock GenerateBlock()
     {
-        if (isRetBlock)
-        {
-            
-        }
-        
         CompositeBlock cb = GameObject.Instantiate(this.gamestate.compPrefab).GetComponent<CompositeBlock>();
         cb.Init(this.gamestate, this.gamestate.blockContainer, new Vector2Int(-1,-1));
 
         cb.Randomize();
         
-        cb.Consolidate(isRetBlock);
+        cb.Consolidate();
         cb.Consolidate();
 
         return cb;
