@@ -62,7 +62,6 @@ public class BlockContainer : MonoBehaviour
     {
         ClearBlocks();
 
-        
 
         List<int> heights = new List<int> {  0,1,2,3,4,5 };
         var shuffledHeights = heights.OrderBy( x => Random.value ).ToList( );

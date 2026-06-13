@@ -107,9 +107,13 @@ public class TetrisGS : BaseController
         return null;
     }
 
+    private const int RANDOM_SEED = 42; // for testing consistency - used for both unityengine random and ms system random
+
     public void Start()
     {
 
+        UnityEngine.Random.seed = RANDOM_SEED;
+        
         GenWeights();
         
         
@@ -125,7 +129,9 @@ public class TetrisGS : BaseController
 
     private void GenWeights()
     {
-        weightedShardFlavors = new();
+        System.Random rand = new System.Random(RANDOM_SEED);
+        
+        weightedShardFlavors = new(rand);
         weightedShardFlavors.Add(ShardFlavors.Classic,CLASSIC_WEIGHT);
         weightedShardFlavors.Add(ShardFlavors.Diet,DIET_WEIGHT);
         weightedShardFlavors.Add(ShardFlavors.Cherry,CHERRY_WEIGHT);
@@ -136,7 +142,7 @@ public class TetrisGS : BaseController
         weightedShardFlavors.Add(ShardFlavors.Orange,ORANGE_WEIGHT);
         weightedShardFlavors.Add(ShardFlavors.Grape,GRAPE_WEIGHT);
 
-        weightedShardSizes = new();
+        weightedShardSizes = new(rand);
         weightedShardSizes.Add(new Vector2Int(3,3), SOLID_BLOCK_WEIGHT);
         weightedShardSizes.Add(new Vector2Int(1,1), SHARDED_BLOCK_WEIGHT);
 
