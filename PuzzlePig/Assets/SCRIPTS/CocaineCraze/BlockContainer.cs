@@ -269,7 +269,7 @@ public class BlockContainer : MonoBehaviour
                 {
                     block.ExpandUnscored();
                     block.ExpandUnscored();
-                    //block.ExpandUnscored();
+
                     block.Consolidate();
                 }
             }

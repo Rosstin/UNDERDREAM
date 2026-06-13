@@ -259,6 +259,8 @@ public class CompositeBlock : MonoBehaviour
     {
         Debug.Log("expand unscored " + this);
      
+        //rtodo - red block not exploding
+        
         for (int x = 0; x < shards3x3.Count; x++)
         {
             List<Shard> col = shards3x3[x];
@@ -326,6 +328,7 @@ public class CompositeBlock : MonoBehaviour
                         {
                             if (shardAt.isScoring())
                             {
+                                Debug.LogWarning("found a scoring shard at " + expansionCoord );
                                 scoringShardsToDestroy.Add(shardAt);
                             }
                             else
@@ -340,8 +343,12 @@ public class CompositeBlock : MonoBehaviour
                 if (blocked == false)
                 {
                     // expand in that dir
-                    
-                    Debug.Log("expanding shard UD " + shardToExpand + " of size " + shardToExpand.GetMySize() + " in direction " + dir );
+                    Debug.Log("expanding shard ud of size " + shardToExpand.GetMySize() + " in direction " + dir );
+
+                    foreach (var s in scoringShardsToDestroy)
+                    {
+                        DestroyShard(s);
+                    }
                     
                     ExpandShardInDirFill(shardToExpand, dir);
                 }
